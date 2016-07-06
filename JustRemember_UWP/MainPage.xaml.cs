@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,7 +26,36 @@ namespace JustRemember_UWP
     {
         public MainPage()
         {
-            this.InitializeComponent();
-        }
-    }
+			QuitDialog = new MessageDialog("Are you sure", "Quit");
+			QuitDialog.Commands.Add(new UICommand("Yes") { Invoked = delegate { Application.Current.Exit(); } });
+			QuitDialog.Commands.Add(new UICommand("No") { Id = 1 });
+			QuitDialog.CancelCommandIndex = 1;
+			if (!Utilities.initialize)
+			{
+				Utilities.systemAccent = (Color)Resources["SystemAccentColor"];
+				Utilities.savedPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+				Utilities.currentSettings = Settings.Load(Utilities.savedPath);
+				Utilities.initialize = true;
+			}
+			this.InitializeComponent();
+			this.Frame.Navigated += Frame_Navigated;
+		}
+
+		private void Frame_Navigated(object sender, NavigationEventArgs e)
+		{
+			Settings.Save(Windows.Storage.ApplicationData.Current.LocalFolder.Path, Utilities.currentSettings);
+		}
+
+		MessageDialog QuitDialog;
+
+		private async void quit_btn_Click(object sender, RoutedEventArgs e)
+		{
+			await QuitDialog.ShowAsync();			
+		}
+
+		private void setting_btn_Click(object sender, RoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(Setting));
+		}
+	}
 }

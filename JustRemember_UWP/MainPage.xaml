@@ -8,6 +8,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button x:Name="start_btn" Content="Start" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="50" Width="100"/>
+        <Button x:Name="setting_btn" Content="&#xE713;" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalAlignment="Bottom" Height="50" Width="50" FontFamily="Segoe MDL2 Assets" FontSize="24" Click="setting_btn_Click"/>
+        <Button x:Name="quit_btn" Content="&#xE711;" HorizontalAlignment="Right" Margin="0,0,5,5" VerticalAlignment="Bottom" Height="50" Width="50" FontFamily="Segoe MDL2 Assets" FontSize="24" Click="quit_btn_Click"/>
 
     </Grid>
 </Page>
