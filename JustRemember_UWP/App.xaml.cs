@@ -7,6 +7,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -27,9 +29,18 @@ namespace JustRemember_UWP
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
-        {
+        {			
             this.InitializeComponent();
-            this.Suspending += OnSuspending;
+			ApplicationView.PreferredLaunchViewSize = new Size(320, 240);
+			if (!Utilities.initialize)
+			{
+				//Utilities.systemAccent = (Color)Resources["SystemAccentColor"];
+				Utilities.savedPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "settings.xml");
+				Utilities.currentSettings = Settings.Load(Utilities.savedPath);
+				Utilities.initialize = true;
+			}
+			Current.RequestedTheme = Utilities.currentSettings.theme;
+			this.Suspending += OnSuspending;
         }
 
         /// <summary>

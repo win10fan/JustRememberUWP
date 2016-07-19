@@ -1,13 +1,14 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Windows.UI.Xaml;
 
 namespace JustRemember_UWP
 {
 	public class Settings
 	{
 		public string language;
-		public themeBackground theme;
+		public ApplicationTheme theme;
 		public bool isLimitTime;
 		public bool showWrongContent;
 		public challageMode defaultMode;
@@ -21,7 +22,7 @@ namespace JustRemember_UWP
 		public Settings() //Default setting
 		{
 			language = "en-US";
-			theme = themeBackground.Dark;
+			theme = ApplicationTheme.Dark;
 			isLimitTime = false;
 			showWrongContent = false;
 			defaultMode = challageMode.Easy;

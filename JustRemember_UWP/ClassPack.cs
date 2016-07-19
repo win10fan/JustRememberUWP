@@ -7,6 +7,9 @@ using Windows.UI;
 using Windows.Storage;
 using System;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Controls;
+using System.Diagnostics;
 
 namespace JustRemember_UWP
 {
@@ -100,16 +103,56 @@ namespace JustRemember_UWP
 		}
 
 		public static Color systemAccent;
-		public static Settings currentSettings;
+		public static Settings currentSettings
+		{
+			get
+			{
+				if (_cs == null)
+				{
+					savedPath = ApplicationData.Current.LocalFolder.Path + "\\settings.xml";
+					Debug.WriteLine(ApplicationData.Current.LocalFolder.Path);
+					Debug.WriteLine(savedPath);
+					_cs = Settings.Load(Path.Combine(ApplicationData.Current.LocalFolder.Path, "\\settings.xml"));
+				}
+				return _cs;
+			}
+			set
+			{
+				if (_cs == null)
+				{
+					savedPath = ApplicationData.Current.LocalFolder.Path + "\\settings.xml";
+					Debug.WriteLine(ApplicationData.Current.LocalFolder.Path);
+					Debug.WriteLine(savedPath);
+					_cs = Settings.Load(Path.Combine(ApplicationData.Current.LocalFolder.Path, "\\settings.xml"));
+				}
+				_cs = value;
+			}
+		}
+		internal static Settings _cs;
 		public static string savedPath;
 		public static bool initialize;
+		public static List<Note> notes;
+		public static List<SessionInfo> sessions;
+		public static Note selected;
+		public static bool isSmallLoaderMode;//Check if page is run in Match page... "OtherPage" frame
 	}
 	
 	public class statInfo
 	{
 		public string dateandTime;
 		public int totalWords;
-		public int totalWrong;
+		public int totalWrong
+		{
+			get
+			{
+				int value = 0;
+				foreach (int i in wrongPerchoice)
+				{
+					value += i;
+				}
+				return value;
+			}
+		}
 		public int totalChoice;
 		public List<int> wrongPerchoice = new List<int>();
 		public bool useTimeLimit;
@@ -140,7 +183,73 @@ namespace JustRemember_UWP
 			return Text;
 		}
 	}
-	
+
+	public class SelectorItem
+	{
+		public selectorType Type { get; set; }
+		public string Name
+		{
+			get
+			{
+				if (content_ses != null)
+				{
+					return content_ses.LastTitle;
+				}
+				else
+				{
+					return content_note.Title;
+				}
+			}
+		}
+		public Note content_note;
+		public SessionInfo content_ses;
+
+		public override string ToString()
+		{
+			return Name;
+		}
+
+		public SelectorItem()
+		{
+			Type = selectorType.note;
+			content_note = new Note();
+		}
+
+		public SelectorItem(Note content)
+		{
+			Type = selectorType.note;
+			content_note = content;
+		}
+
+		public SelectorItem(SessionInfo content)
+		{
+			Type = selectorType.session;
+			content_ses = content;
+		}
+
+		public static implicit operator SelectorItem(Note input)
+		{
+			return new SelectorItem(input);
+		}
+
+		public static implicit operator SelectorItem(SessionInfo input)
+		{
+			return new SelectorItem(input);
+		}
+
+		public static SelectorItem GetItems()
+		{
+			return new SelectorItem();
+		}
+	}
+
+	public enum selectorType
+	{
+		file,
+		note,
+		session
+	}
+
 	public struct Note
 	{
 		public string Title;
@@ -150,6 +259,11 @@ namespace JustRemember_UWP
 		{
 			Title = title;
 			Content = content;
+		}
+
+		public static implicit operator Note(SelectorItem item)
+		{
+			return item.content_note;
 		}
 
 		public static async void Save(Note saved)
@@ -169,27 +283,68 @@ namespace JustRemember_UWP
 			}
 		}
 
-		public static async Task<Note> Load(string filename)
+		public static Note Load(string filename)
 		{
 			Note info = new Note();
 			info.Title = filename;
-			StorageFolder folder = KnownFolders.DocumentsLibrary;
-			StorageFile file = await folder.GetFileAsync(filename);
-			if (File.Exists(file.Path))
+			string path = Path.Combine(ApplicationData.Current.RoamingFolder.Path, filename);
+			if (!File.Exists(path))
 			{
-				info.Content = await FileIO.ReadTextAsync(file);
 				return info;
 			}
-			else
+			using (StreamReader reader = File.OpenText(path))
 			{
-				return new Note();
+				info.Content = reader.ReadToEnd();
+				return info;
 			}
 		}
+
+		public static async Task GetNotesList()
+		{
+			if (!Directory.Exists(ApplicationData.Current.RoamingFolder.Path + "\\Note\\"))
+			{
+				StorageFolder fol = ApplicationData.Current.RoamingFolder;
+				await fol.CreateFolderAsync("Note");
+			}
+			var files = Directory.GetFiles(ApplicationData.Current.RoamingFolder.Path + "\\Note\\");
+			if (files.Length == 0)
+			{
+				return;
+			}
+			List<Note> notes = new List<Note>();
+			foreach (var f in files)
+			{
+				FileInfo info = new FileInfo(f);
+				if (info.Extension == ".txt")
+				{
+					Note newone = Load(info.Name);
+					notes.Add(newone);
+				}
+			}
+			Utilities.notes = notes;
+		}
+
+		//public static async Task<List<Note>> GetDocList()
+		//{
+		//	//Same as get note.. But get in Document path
+		//	var files = Directory.GetFiles(KnownFolders.DocumentsLibrary.Path);
+		//	List<Note> notes = new List<Note>();
+		//	foreach (var f in files)
+		//	{
+
+		//	}
+		//}
 	}
 
 	public class SessionInfo
 	{
-		public string LastTitle;
+		public string LastTitle
+		{
+			get
+			{
+				return current.noteTitle;
+			}
+		}
 		public statInfo current;
 		public int currentAt;
 		public int lastCorrect;
@@ -206,7 +361,6 @@ namespace JustRemember_UWP
 			lastCorrect = 1;
 			lastTextList = new List<textlist>();
 			choiceList = new List<string>();
-			LastTitle = "";
 			progressFillAmount = 0;
 			lastChoices = new List<string>();
 			lastTimeDisplay = "";
@@ -240,12 +394,14 @@ namespace JustRemember_UWP
 		//	//}
 		//}
 
-		public static void Save(List<SessionInfo> now, string path)
+		public static implicit operator SessionInfo(SelectorItem input)
 		{
-			if (File.Exists(path))
-			{
-				File.Delete(path);
-			}
+			return input.content_ses;
+		} 
+
+		public static void Save(List<SessionInfo> now)
+		{
+			string path = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "\\Session.xml");
 			XmlSerializer xser = new XmlSerializer(typeof(List<SessionInfo>));
 			//string content = JsonUtility.ToJson(now);
 			using (StreamWriter write = new StreamWriter(File.Create(path)))
@@ -255,18 +411,20 @@ namespace JustRemember_UWP
 			}
 		}
 
-		public static List<SessionInfo> Load(string path)
+		public static void Load()
 		{
+			string path = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "\\Session.xml");
 			if (!File.Exists(path))
 			{
-				return new List<SessionInfo>();
+				return; //new List<SessionInfo>();
 			}
 			XmlSerializer xs = new XmlSerializer(typeof(List<SessionInfo>));
 			//List<SessionInfo> allses = new List<SessionInfo>();
 			//SessionInfo sif = new SessionInfo();
 			using (var fs = File.Open(path, FileMode.Open))
 			{
-				return (List<SessionInfo>)xs.Deserialize(fs);
+				Utilities.sessions = (List<SessionInfo>)xs.Deserialize(fs);
+				//return (List<SessionInfo>)xs.Deserialize(fs);
 				//StreamReader read = new StreamReader(fs);
 				//sif = JsonUtility.FromJson<SessionInfo>(read.ReadToEnd());
 				//allses.Add(sif);
@@ -279,13 +437,7 @@ namespace JustRemember_UWP
 		Accent,
 		Legacy
 	}
-
-	public enum themeBackground
-	{
-		Light,
-		Dark
-	}
-
+	
 	public enum cmd
 	{
 		space,

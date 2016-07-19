@@ -30,22 +30,9 @@ namespace JustRemember_UWP
 			QuitDialog.Commands.Add(new UICommand("Yes") { Invoked = delegate { Application.Current.Exit(); } });
 			QuitDialog.Commands.Add(new UICommand("No") { Id = 1 });
 			QuitDialog.CancelCommandIndex = 1;
-			if (!Utilities.initialize)
-			{
-				Utilities.systemAccent = (Color)Resources["SystemAccentColor"];
-				Utilities.savedPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-				Utilities.currentSettings = Settings.Load(Utilities.savedPath);
-				Utilities.initialize = true;
-			}
 			this.InitializeComponent();
-			this.Frame.Navigated += Frame_Navigated;
 		}
-
-		private void Frame_Navigated(object sender, NavigationEventArgs e)
-		{
-			Settings.Save(Windows.Storage.ApplicationData.Current.LocalFolder.Path, Utilities.currentSettings);
-		}
-
+		
 		MessageDialog QuitDialog;
 
 		private async void quit_btn_Click(object sender, RoutedEventArgs e)
@@ -56,6 +43,11 @@ namespace JustRemember_UWP
 		private void setting_btn_Click(object sender, RoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(Setting));
+		}
+
+		private void start_btn_Click(object sender, RoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(Selector));
 		}
 	}
 }
