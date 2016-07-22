@@ -43,15 +43,18 @@ namespace JustRemember_UWP
 			result = result.Trim();
 
 			result = result.Replace(" ", "█ ");
-			result = Regex.Replace(result, "\n", "▼ ");
+			//Temporary
+			result = Regex.Replace(result, Environment.NewLine, "█ ");
+			//Origin
+			//result = Regex.Replace(result, Environment.NewLine, "▼ ");
 			result = Regex.Replace(result, "\t", "→ ");
 			return result;
 		}
 
 		public static string ToStringAsTime(this float total)
 		{
-			System.TimeSpan ttlspan = System.TimeSpan.FromSeconds(total);
-			return string.Format("{0}:{1}", ttlspan.Minutes, ttlspan.Seconds);
+			TimeSpan ttlspan = TimeSpan.FromSeconds(total);
+			return $"{ttlspan.Minutes}:{ttlspan.Seconds}";
 		}
 
 		public static string ObscureText(this string text)
@@ -67,10 +70,10 @@ namespace JustRemember_UWP
 			{
 				res += "?";
 			}
-			if (addColorTag)
-			{
-				return string.Format("<color=#{1}>{0}</color>", res, systemAccent.ToString());
-			}
+			//if (addColorTag)
+			//{
+			//	return string.Format("<color=#{1}>{0}</color>", res, systemAccent.ToString());
+			//}
 			return res;
 		}
 
@@ -135,6 +138,7 @@ namespace JustRemember_UWP
 		public static List<SessionInfo> sessions;
 		public static Note selected;
 		public static bool isSmallLoaderMode;//Check if page is run in Match page... "OtherPage" frame
+		public static statInfo newStat;
 	}
 	
 	public class statInfo
@@ -299,6 +303,26 @@ namespace JustRemember_UWP
 			}
 		}
 
+		public static async Task<Note> LoadAsync(string filename)
+		{
+			Note result = new Note();
+			if (filename.Contains(".txt"))
+			{
+				result.Title = filename.Replace(".txt", "");
+			}
+			var path = await ApplicationData.Current.RoamingFolder.GetFolderAsync("Note");
+			var file = await path.GetFileAsync(filename);
+			if (file == null)
+			{
+				return result;
+			}
+			else
+			{
+				result.Content = await FileIO.ReadTextAsync(file);
+				return result;
+			}
+		}
+
 		public static async Task GetNotesList()
 		{
 			if (!Directory.Exists(ApplicationData.Current.RoamingFolder.Path + "\\Note\\"))
@@ -317,7 +341,7 @@ namespace JustRemember_UWP
 				FileInfo info = new FileInfo(f);
 				if (info.Extension == ".txt")
 				{
-					Note newone = Load(info.Name);
+					Note newone = await LoadAsync(info.Name);
 					notes.Add(newone);
 				}
 			}

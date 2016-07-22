@@ -59,7 +59,7 @@ namespace JustRemember_UWP
 				}
 				else
 				{
-					editorTitle.Text = string.Format("{0} - Note Editor", value);
+					editorTitle.Text = $"{value} - Note Editor";
 				}
 				_file = value;
 			}

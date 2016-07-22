@@ -5,11 +5,13 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -33,7 +35,7 @@ namespace JustRemember_UWP
 			timerNow.Start();
 			//Over dialog
 			overMSG = new MessageDialog("Try again?", "Time up.");
-			overMSG.Commands.Add(new UICommand("OK"){ Invoked = delegate { RestartMatch(); } });
+			overMSG.Commands.Add(new UICommand("OK"){ Invoked = delegate { ResetRound(); } });
 			//Load progress lose dialog
 			lostPG = new MessageDialog("If you continue.\nCurrent progress will get replaced.\nContinue?", "Warning!");
 			lostPG.Commands.Add(new UICommand("Continue") { Invoked = delegate { Utilities.isSmallLoaderMode = false; /*TODO:Reload new file*/} });
@@ -41,15 +43,17 @@ namespace JustRemember_UWP
 			lostPG.CancelCommandIndex = 0;
 			//Load file
 			//TODO:Add load file function. So it can work with otherpage
+			LoadFile(Utilities.selected.Title, Utilities.selected.Content);
+			randomEngine = new Random();
 		}
-		void RestartMatch() { }
 		MessageDialog overMSG;
 		MessageDialog lostPG;
+		Random randomEngine;
 		#region Match component
-		public statInfo newStat;//Now
 		public int currentProgress;
-		public List<textlist> textList = new List<textlist>();
 		public string currentFilename;
+		public List<textlist> textList = new List<textlist>();
+		public List<string> choiceList = new List<string>();
 		#endregion
 		#region UI Controller
 		bool _pse;
@@ -62,22 +66,135 @@ namespace JustRemember_UWP
 			set
 			{
 				_pse = value;
+				if (value)
+				{
+					pauseButton.Content = "Paused...";
+				}
+				else
+				{
+					pauseButton.Content = currentFilename;
+				}
 			}
 		}
 		#endregion
+		
+		public void LoadFile(string content)
+		{
+			LoadFile("", content);
+		}
+
+		public void LoadFile(string filename, string content)
+		{
+			//Update title
+			currentFilename = filename;
+			//Load file normal
+			textList.Clear();
+			string replacedText = content.ReplaceForMatch();
+			List<string> txtList = new List<string>();
+			txtList.Clear();
+			txtList.AddRange(replacedText.Split(' '));
+			txtList.RemoveAll(item => item == " " || item == "\n" || item == "\t");
+			foreach (var i in txtList)
+			{
+				if (i.EndsWith("█"))
+				{
+					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.space));
+				}
+				else if (i.EndsWith("▼"))
+				{
+					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.newline));
+				}
+				else if (i.EndsWith("→"))
+				{
+					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.tab));
+				}
+				else
+				{
+					textList.Add(new textlist(i));
+				}
+			}
+			var plainTxt = new List<string>();
+			foreach (textlist t in textList)
+			{
+				plainTxt.Add(t.ToString());
+			}
+			//textList.ForEach(item => plainTxt.Add(item.ToString()));
+			HashSet<string> hash = new HashSet<string>(plainTxt);
+			choiceList.Clear();
+			choiceList.AddRange(hash);
+			//
+			ResetRound();
+		}
+
+		public void ResetRound()
+		{
+			Utilities.newStat = new statInfo();
+			Utilities.newStat.dateandTime = DateTime.Now.ToString(@"dd MM yyyy - hh:mm:ss");
+			Utilities.newStat.currentMode = Utilities.currentSettings.defaultMode;
+			progressCounter.Value = 0;
+			progressCounter.Maximum = textList.Count;
+			currentProgress = -1;
+			//Update choice
+			//TODO: Add choice update
+			//SpawnChoice(-1, langManager.GetTextValue("ToonWK.main.ready"));
+			currentChoiceMode = mode.begin;
+			CheckTotalChoice();
+			dpTxtcontrol.Items.Clear();
+			selectedList?.Clear();
+			selectedList = new List<string>();
+			timeCounterText.Text = "--:--\r\n--:--";
+			wrongCounter.Text = "0";
+			for (int i = 0; i < textList.Count; i++)
+			{
+				Utilities.newStat.wrongPerchoice.Add(0);
+			}
+			Utilities.newStat.totalLimitTime = Utilities.currentSettings.limitTime;
+			Utilities.newStat.totalWords = textList.Count;
+			Utilities.newStat.totalChoice = Utilities.currentSettings.totalChoice;
+			Utilities.newStat.useTimeLimit = Utilities.currentSettings.isLimitTime;
+			//Make it support seed system
+			randomEngine = new Random();
+		}
+
+		enum mode { begin, normal, end}
+		mode currentChoiceMode;
+
+		public void CheckTotalChoice()
+		{
+			//Condition
+			//First choice
+			if (currentChoiceMode != mode.normal)
+			{
+				ch0.Visibility = ch1.Visibility = ch2.Visibility = ch3.Visibility = ch4.Visibility = Visibility.Collapsed;
+				chImportant.Visibility = Visibility.Visible;
+			}
+			else if (currentChoiceMode == mode.normal)
+			{
+				//Other
+				ch0.Visibility = Utilities.currentSettings.totalChoice >= 1 ? Visibility.Visible : Visibility.Collapsed;
+				ch1.Visibility = Utilities.currentSettings.totalChoice >= 2 ? Visibility.Visible : Visibility.Collapsed;
+				ch2.Visibility = Utilities.currentSettings.totalChoice >= 3 ? Visibility.Visible : Visibility.Collapsed;
+				ch3.Visibility = Utilities.currentSettings.totalChoice >= 4 ? Visibility.Visible : Visibility.Collapsed;
+				ch4.Visibility = Utilities.currentSettings.totalChoice >= 5 ? Visibility.Visible : Visibility.Collapsed;
+				chImportant.Visibility = Visibility.Collapsed;
+			}
+		}
+
 		private async void TimerNow_Tick(object sender, object e)
 		{
 			if (pauseMenu.IsPaneOpen)
 			{
 				//Paused
+				pauseButton.Content = "Paused...";
 				return;
 			}
 			if (currentProgress <= 0 || currentProgress >= textList.Count - 1)
 			{
 				//Paused
+				pauseButton.Content = currentFilename;
 				return;
 			}
-			if (newStat == null)
+			if (Utilities.newStat == null)
 			{
 				//Game not ready yet!
 				return;
@@ -85,18 +202,21 @@ namespace JustRemember_UWP
 			//Update time
 			if (Utilities.currentSettings.isLimitTime)
 			{
-				newStat.totalTime += 0.1f;
-				timeCounterText.Text = newStat.totalTime.ToStringAsTime() + System.Environment.NewLine + newStat.totalLimitTime.ToStringAsTime();
+				Utilities.newStat.totalTime += 0.1f;
+				timeCounterText.Text = Utilities.newStat.totalTime.ToStringAsTime() + System.Environment.NewLine + Utilities.newStat.totalLimitTime.ToStringAsTime();
 			}
 			else
 			{
-				timeCounterText.Text = "--:--" + System.Environment.NewLine + "--:--";
+				timeCounterText.Text = "--:--" + Environment.NewLine + "--:--";
 			}
-			wrongCounter.Text = newStat.totalWrong.ToString();
-			if (newStat.totalTime >= newStat.totalLimitTime)
+			wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
+			if (Utilities.newStat.totalTime >= Utilities.newStat.totalLimitTime)
 			{
 				//OVER
+				timerNow.Stop();
 				await overMSG.ShowAsync();
+				timerNow.Start();
+				//TODO:Add end page
 			}
 		}
 
@@ -146,7 +266,7 @@ namespace JustRemember_UWP
 			////TODO:Load session page
 		}
 
-		private async void settingPage_Click(object sender, RoutedEventArgs e)
+		private void settingPage_Click(object sender, RoutedEventArgs e)
 		{
 			if (Utilities.isSmallLoaderMode)
 			{
@@ -174,17 +294,318 @@ namespace JustRemember_UWP
 		{
 			Application.Current.Exit();
 		}
+
+		public int currentValidChoice;
+
+		int GetRealChoice(List<string> ncl)
+		{
+			int real = 0;
+			foreach (string s in ncl)
+			{
+				if (s == textList[currentProgress].Text)
+				{
+					return ncl.IndexOf(s);
+				}
+			}
+			return real;
+		}
+
+		void SpawnChoice(int num, string customText)
+		{
+			//Update choice text
+			switch (num)
+			{
+				case 0:
+					ch0.Content = customText;
+					break;
+				case 1:
+					ch1.Content = customText;
+					break;
+				case 2:
+					ch2.Content = customText;
+					break;
+				case 3:
+					ch3.Content = customText;
+					break;
+				case 4:
+					ch4.Content = customText;
+					break;
+				default:
+					break;
+			}
+		}
+
+		void SpawnNewChoices()
+		{
+			currentValidChoice = randomEngine.Next(0, Utilities.currentSettings.totalChoice - 1);
+			List<string> newchoiceL = new List<string>(choiceList);
+			newchoiceL.RemoveAt(GetRealChoice(newchoiceL));
+			for (int i = 0; i < Utilities.currentSettings.totalChoice; i++)
+			{
+				if (i == currentValidChoice)
+				{
+					SpawnChoice(i, textList[currentProgress].Text);
+				}
+				else
+				{
+					int rndch = randomEngine.Next(0, newchoiceL.Count);
+					SpawnChoice(i, newchoiceL[rndch]);
+					newchoiceL.RemoveAt(rndch);
+				}
+			}
+		}
+
+		public void ChooseChoice(int choice)
+		{
+			if (choice < 0)
+			{
+				//Command choice
+				if (choice == -1)
+				{
+					currentProgress += 1;
+					SpawnNewChoices();
+					currentChoiceMode = mode.normal;
+					CheckTotalChoice();
+				}
+				else if (choice == -5)
+				{
+					//TODO:Function to Goto end page
+					Utilities.currentSettings.stat.Add(Utilities.newStat);
+					Frame.Navigate(typeof(End));
+					//endPage.SetActive(true);
+					//end_primaryButton.Select();
+					//Update ending page
+					//List<Vector2> graphList = new List<Vector2>();
+					//for (int i = 0; i < Utilities.newStat.wrongPerchoice.Count; i++)
+					//{
+					//	float xsize = (250 / Utilities.newStat.totalWords) * i;
+					//	float ysize = (120 / Utilities.newStat.totalChoice) * Utilities.newStat.wrongPerchoice[i];
+					//	graphList.Add(new Vector2(xsize, ysize));
+					//}
+					//endGraphWPC.Points = graphList;
+					//endGraphWPC.SetAllDirty();
+					//string timeTotal = "N/A";
+					//string timeUsed = "N/A";
+					//if (current.isLimitTime)
+					//{
+					//	timeUsed = Utilities.newStat.totalTime.ToStringAsTime();
+					//	timeTotal = Utilities.newStat.totalLimitTime.ToStringAsTime();
+					//}
+					//endStatDisplay.text = string.Format(langManager.GetTextValue("ToonWK.end.detail"), Utilities.newStat.totalWords, Utilities.newStat.totalWrong, timeUsed, timeTotal);
+				}
+			}
+			//Check choice number range
+			else if (choice > -1)
+			{
+				//Normal
+				//
+				//Check if right or wrong
+				if (choice == currentValidChoice)
+				{
+					//It right
+					//Update text display
+					AddMainText(textList[currentProgress].Text, textList[currentProgress].Command);
+					//Consider to move next
+					if (currentProgress + 1 > textList.Count - 1)
+					{
+						//It can't go anymore
+						//Spawn Ending choice;
+						currentChoiceMode = mode.end;
+						CheckTotalChoice();
+					}
+					else
+					{
+						//It still can go. Move next
+						currentProgress += 1;
+						SpawnNewChoices();
+						currentChoiceMode = mode.normal;
+						CheckTotalChoice();
+					}
+				}
+				else
+				{
+					if (Utilities.newStat.currentMode == challageMode.Easy)
+					{
+						//Move to next
+						Utilities.newStat.wrongPerchoice[currentProgress] += 1;
+						wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
+						Utilities.newStat.totalTime += 1;
+						//UpdateDisplay
+						AddMainText(textList[currentProgress].Text, textList[currentProgress].Command, true);
+						//Move next
+						if (currentProgress + 1 > textList.Count - 1)
+						{
+							//It can't go anymore
+							//Spawn Ending choice;
+							CheckTotalChoice();
+							ch0.Visibility = ch1.Visibility = ch2.Visibility = ch3.Visibility = ch4.Visibility = Visibility.Collapsed;
+							chImportant.Visibility = Visibility.Visible;
+						}
+						else
+						{
+							//It still can go. Move next
+							currentProgress += 1;
+							SpawnNewChoices();
+						}
+					}
+					else if (Utilities.newStat.currentMode == challageMode.Normal)
+					{
+						//Hide wrong choice
+						switch (choice)
+						{
+							case 0:
+								ch0.Visibility = Visibility.Collapsed;
+								break;
+							case 1:
+								ch1.Visibility = Visibility.Collapsed;
+								break;
+							case 2:
+								ch2.Visibility = Visibility.Collapsed;
+								break;
+							case 3:
+								ch3.Visibility = Visibility.Collapsed;
+								break;
+							case 4:
+								ch4.Visibility = Visibility.Collapsed;
+								break;
+						}
+						//It wrong
+						Utilities.newStat.wrongPerchoice[currentProgress] += 1;
+						wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
+						Utilities.newStat.totalTime += 1;
+					}
+					else if (Utilities.newStat.currentMode == challageMode.Hard)
+					{
+						ResetRound();
+					}
+				}
+				progressCounter.Value = currentProgress;
+			}
+		}
+		//TODO:Add prenote system???!?!?!!!?
+
+		public List<string> selectedList { get; set; }		
+		public Paragraph lastmodifyParagraph;
+		void AddMainText(string text, cmd command, bool isItWrongChoice)
+		{
+			if (isItWrongChoice)
+			{
+				dpTxtcontrol.Items.Add(text);
+			}
+			else
+			{
+				if (Utilities.currentSettings.showWrongContent)
+				{
+					dpTxtcontrol.Items.Add($"*{text}*");
+				}
+				else
+				{
+					dpTxtcontrol.Items.Add(text.ObscureText());
+				}
+			}
+			//TODO:Add a way to add textblock into ItemsControl or something
+			//Add text to richtext
+			//if (command == cmd.tab)
+			//{
+			//	lastmodifyParagraph = new Paragraph();
+			//	if (isItWrongChoice)
+			//	{
+			//		lastmodifyParagraph.Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]);
+			//	}
+			//	else
+			//	{
+			//		lastmodifyParagraph.Margin = new Thickness(10, 0, 0, 0);
+			//	}
+			//	mainDisplayText.Blocks.Add(lastmodifyParagraph);
+			//}
+			//Run context = new Run();
+			//if (isItWrongChoice)
+			//{
+			//	if (Utilities.currentSettings.showWrongContent)
+			//	{
+			//		context.Text = text;
+			//	}
+			//	else
+			//	{
+			//		context.Text = text.ObscureText();
+			//	}
+			//}
+			//else
+			//{
+			//	context.Text = text;
+			//}
+			//context.Text += " ";
+			//lastmodifyParagraph.Inlines.Add(context);
+			//mainDisplayText.Blocks.RemoveAt(mainDisplayText.Blocks.Count - 1);
+			//mainDisplayText.Blocks.Add(lastmodifyParagraph);
+			////Check if user want to show wrong content or not
+			////Format text to accent color at wrong choice
+			//if (command == cmd.newline)
+			//{
+			//	lastmodifyParagraph.Inlines.Add(new LineBreak());
+			//}
+			//Scroll text to bottom
+			//TODO:Add setting... Automatic scroll text to bottom
+			displayTextScroll.ScrollToVerticalOffset(displayTextScroll.ExtentHeight);
+		}
+
+		void AddMainText(string text,cmd command)
+		{
+			AddMainText(text, command, false);
+		}
+
+		void AddMainText(string text)
+		{
+			AddMainText(text, cmd.space,false);
+		}		
+		
+		private void ch0_Click(object sender, RoutedEventArgs e)
+		{
+			ChooseChoice(0);
+		}
+
+		private void ch1_Click(object sender, RoutedEventArgs e)
+		{
+			ChooseChoice(1);
+		}
+
+		private void ch2_Click(object sender, RoutedEventArgs e)
+		{
+			ChooseChoice(2);
+		}
+
+		private void ch3_Click(object sender, RoutedEventArgs e)
+		{
+			ChooseChoice(3);
+		}
+
+		private void ch4_Click(object sender, RoutedEventArgs e)
+		{
+			ChooseChoice(4);
+		}
+
+		private void chImportant_Click(object sender, RoutedEventArgs e)
+		{
+			if (currentProgress <= 0)
+			{
+				ChooseChoice(-1);
+			}
+			else
+			{
+				ChooseChoice(-5);
+			}
+		}
 	}
 
 	public class Main
-	{		
+	{
 		/*#region Match system
+		
 		public static void LoadFile(string content)
 		{
 			LoadFile("", content);
 		}
-
-		public static List<string> choiceList = new List<string>();
+		
 		public void LoadFile(string filename, string content)
 		{
 			currentFilename = filename;
