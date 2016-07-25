@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,7 +30,7 @@ namespace JustRemember_UWP
 			overMSG.Commands.Add(new UICommand("OK"){ Invoked = delegate { ResetRound(); } });
 			//Load progress lose dialog
 			lostPG = new MessageDialog("If you continue.\nCurrent progress will get replaced.\nContinue?", "Warning!");
-			lostPG.Commands.Add(new UICommand("Continue") { Invoked = delegate { Utilities.isSmallLoaderMode = false; /*TODO:Reload new file*/} });
+			lostPG.Commands.Add(new UICommand("Continue") { Invoked = delegate { Utilities.isSmallLoaderMode = false; Frame.Navigate(typeof(MainPage)); } });
 			lostPG.Commands.Add(new UICommand("Cancel") { Id = 0 });
 			lostPG.CancelCommandIndex = 0;
 			//Load file
@@ -46,11 +38,31 @@ namespace JustRemember_UWP
 			LoadFile(Utilities.selected.Title, Utilities.selected.Content);
 			randomEngine = new Random();
 		}
+		
 		MessageDialog overMSG;
 		MessageDialog lostPG;
 		Random randomEngine;
 		#region Match component
-		public int currentProgress;
+		public int currentProgress
+		{
+			get
+			{
+				return now;
+			}
+			set
+			{
+				if (value == now)
+				{
+					return;
+				}
+				if (now < value)
+				{
+					itBeenWrong = false;
+					now = value;
+				}
+			}
+		}
+		int now;
 		public string currentFilename;
 		public List<textlist> textList = new List<textlist>();
 		public List<string> choiceList = new List<string>();
@@ -83,42 +95,152 @@ namespace JustRemember_UWP
 			LoadFile("", content);
 		}
 
+		/// <DEBUG>
+		bool isItWhiteSpace(char c)
+		{
+			return char.IsWhiteSpace(c);
+		}
+
+		textlist working = new textlist();
+		List<textlist> workingResult = new List<textlist>();
+		bool morethen1 = false;
+		textMode workingType;
+		bool oneTime = false;
+		bool splitNow = false;
+		public List<textlist> replace4Match(string content)
+		{
+			if (!oneTime)
+			{
+				if (isItWhiteSpace(content[0]))
+				{
+					workingType = textMode.WhiteSpace;
+				}
+				else
+				{
+					workingType = textMode.Char;
+				}
+				working = new textlist();
+				working.Text = "";
+				working.Commands = "";
+				workingResult = new List<textlist>();
+				morethen1 = false;
+				workingType = textMode.Char;
+				oneTime = true;
+			}
+			//Final
+			if (content.Length == 0)
+			{
+				if (morethen1) { return workingResult; }
+				else if (!morethen1) { return new List<textlist>(); }
+			}
+			//Woring loop
+			if (workingType == textMode.Char)
+			{
+				//Char mode: Start with char. End with command;
+				//If request split detect...
+				if (splitNow)
+				{
+					working.Mode = workingType;
+					workingResult.Add(working);
+					working.Commands = "";
+					working.Text = "";
+					splitNow = false;
+				}
+				//If currently char. Keep adding.
+				if (!isItWhiteSpace(content[0]))
+				{
+					working.Text += content[0];
+					replace4Match(content.Remove(0, 1));
+				}
+				else if (isItWhiteSpace(content[0]))
+				{
+					//If now is white space...
+					//Check what next
+					//working.Commands.Add(content[0]);
+					if (content.Length > 1)
+					{
+						if (!isItWhiteSpace(content[1]))
+						{
+							//If next is char.. Request to split now.
+							if (content[0] == ' ')
+							{
+								working.Commands += char.MinValue;
+							}
+							else
+							{
+								working.Commands += content[0];
+							}
+							splitNow = true;
+						}
+					}
+					replace4Match(content.Remove(0, 1));
+				}
+			}
+			else
+			{
+				//End with char
+				//Check if it white space
+				//whitespace mode: Start with command. End with char;
+				//If request split detect...
+				if (splitNow)
+				{
+					working.Mode = workingType;
+					workingResult.Add(working);
+					working.Commands = "";
+					working.Text = "";
+					splitNow = false;
+				}
+				//If currently whitespace. Keep adding.
+				if (isItWhiteSpace(content[0]))
+				{
+					working.Commands += content[0];
+					replace4Match(content.Remove(0, 1));
+				}
+				else if (!isItWhiteSpace(content[0]))
+				{
+					//If now is char...
+					//Check what next
+					//working.Commands.Add(content[0]);
+					if (content.Length > 1)
+					{
+						if (isItWhiteSpace(content[1]))
+						{
+							//If next is whitespace.. Request to split now.
+							if (content[0] == ' ')
+							{
+								working.Commands += char.MinValue;
+							}
+							else
+							{
+								working.Commands += content[0];
+							}
+							splitNow = true;
+						}
+					}
+					replace4Match(content.Remove(0, 1));
+				}
+			}
+			//Reset
+			oneTime = false;
+			return workingResult;
+		}
+		
 		public void LoadFile(string filename, string content)
 		{
 			//Update title
 			currentFilename = filename;
 			//Load file normal
-			textList.Clear();
-			string replacedText = content.ReplaceForMatch();
-			List<string> txtList = new List<string>();
-			txtList.Clear();
-			txtList.AddRange(replacedText.Split(' '));
-			txtList.RemoveAll(item => item == " " || item == "\n" || item == "\t");
-			foreach (var i in txtList)
+			textList = replace4Match(content);
+			//Add lastone
+			if (workingType == textMode.Char)
 			{
-				if (i.EndsWith("█"))
-				{
-					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.space));
-				}
-				else if (i.EndsWith("▼"))
-				{
-					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.newline));
-				}
-				else if (i.EndsWith("→"))
-				{
-					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.tab));
-				}
-				else
-				{
-					textList.Add(new textlist(i));
-				}
+				workingResult.Add(working);
 			}
 			var plainTxt = new List<string>();
 			foreach (textlist t in textList)
 			{
 				plainTxt.Add(t.ToString());
 			}
-			//textList.ForEach(item => plainTxt.Add(item.ToString()));
 			HashSet<string> hash = new HashSet<string>(plainTxt);
 			choiceList.Clear();
 			choiceList.AddRange(hash);
@@ -133,15 +255,13 @@ namespace JustRemember_UWP
 			Utilities.newStat.currentMode = Utilities.currentSettings.defaultMode;
 			progressCounter.Value = 0;
 			progressCounter.Maximum = textList.Count;
-			currentProgress = -1;
+			currentProgress = -2;
 			//Update choice
 			//TODO: Add choice update
 			//SpawnChoice(-1, langManager.GetTextValue("ToonWK.main.ready"));
 			currentChoiceMode = mode.begin;
 			CheckTotalChoice();
-			dpTxtcontrol.Items.Clear();
-			selectedList?.Clear();
-			selectedList = new List<string>();
+			dpTxt.Inlines.Clear();
 			timeCounterText.Text = "--:--\r\n--:--";
 			wrongCounter.Text = "0";
 			for (int i = 0; i < textList.Count; i++)
@@ -362,7 +482,7 @@ namespace JustRemember_UWP
 				//Command choice
 				if (choice == -1)
 				{
-					currentProgress += 1;
+					currentProgress = 0;
 					SpawnNewChoices();
 					currentChoiceMode = mode.normal;
 					CheckTotalChoice();
@@ -404,7 +524,7 @@ namespace JustRemember_UWP
 				{
 					//It right
 					//Update text display
-					AddMainText(textList[currentProgress].Text, textList[currentProgress].Command);
+					AddMainText(textList[currentProgress]);
 					//Consider to move next
 					if (currentProgress + 1 > textList.Count - 1)
 					{
@@ -424,6 +544,7 @@ namespace JustRemember_UWP
 				}
 				else
 				{
+					//wrong choice
 					if (Utilities.newStat.currentMode == challageMode.Easy)
 					{
 						//Move to next
@@ -431,7 +552,7 @@ namespace JustRemember_UWP
 						wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
 						Utilities.newStat.totalTime += 1;
 						//UpdateDisplay
-						AddMainText(textList[currentProgress].Text, textList[currentProgress].Command, true);
+						AddMainText(textList[currentProgress], true);
 						//Move next
 						if (currentProgress + 1 > textList.Count - 1)
 						{
@@ -481,84 +602,135 @@ namespace JustRemember_UWP
 				}
 				progressCounter.Value = currentProgress;
 			}
+			displayTextScroll.ScrollToVerticalOffset(displayTextScroll.ExtentHeight);
 		}
 		//TODO:Add prenote system???!?!?!!!?
-
-		public List<string> selectedList { get; set; }		
+		
 		public Paragraph lastmodifyParagraph;
-		void AddMainText(string text, cmd command, bool isItWrongChoice)
+		public bool itBeenWrong;
+		void AddMainText(textlist item, bool isItWrongChoice)
 		{
-			if (isItWrongChoice)
+			if (item.Mode == textMode.Char)
 			{
-				dpTxtcontrol.Items.Add(text);
-			}
-			else
-			{
-				if (Utilities.currentSettings.showWrongContent)
+				//Start with char. End with commands
+				if (Utilities.newStat.wrongPerchoice[currentProgress] > 0)
 				{
-					dpTxtcontrol.Items.Add($"*{text}*");
+					//If this choice been wrong
+					if (Utilities.currentSettings.showWrongContent)
+					{
+						dpTxt.Inlines.Add(new Run() { Text = item.Text, Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
+					}
+					else
+					{
+						dpTxt.Inlines.Add(new Run() { Text = item.Text.ObscureText(), Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
+					}
 				}
 				else
 				{
-					dpTxtcontrol.Items.Add(text.ObscureText());
+					//If it not
+					dpTxt.Inlines.Add(new Run() { Text = item.Text });
+				}
+				//Add commands
+				bool a = item.Commands.Contains('\r');
+				bool b = item.Commands.Contains('\n');
+
+				//Line break determinite
+				int mode = 0;
+				if (a && b) { mode = 0; } 
+				else if (a && !b) { /*Linux??*/ mode = 1; }
+				else if (!a && b) { /*Mac?*/ mode = 2; }				
+				foreach (char c in item.Commands.ToCharArray())
+				{
+					if (c == ' ' || c == '\0')
+					{
+						dpTxt.Inlines.Add(new Run() { Text = " " });
+					}
+					if (c == '\t')
+					{
+						dpTxt.Inlines.Add(new Run() { Text = "    " });
+					}
+					//Break line
+					switch (mode)
+					{
+						case 0:
+							if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
+							continue;
+						case 1:
+							if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
+							continue;
+						case 2:
+							if (c == '\n') { dpTxt.Inlines.Add(new LineBreak()); }
+							continue;
+					}
 				}
 			}
-			//TODO:Add a way to add textblock into ItemsControl or something
-			//Add text to richtext
-			//if (command == cmd.tab)
-			//{
-			//	lastmodifyParagraph = new Paragraph();
-			//	if (isItWrongChoice)
-			//	{
-			//		lastmodifyParagraph.Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]);
-			//	}
-			//	else
-			//	{
-			//		lastmodifyParagraph.Margin = new Thickness(10, 0, 0, 0);
-			//	}
-			//	mainDisplayText.Blocks.Add(lastmodifyParagraph);
-			//}
-			//Run context = new Run();
-			//if (isItWrongChoice)
-			//{
-			//	if (Utilities.currentSettings.showWrongContent)
-			//	{
-			//		context.Text = text;
-			//	}
-			//	else
-			//	{
-			//		context.Text = text.ObscureText();
-			//	}
-			//}
-			//else
-			//{
-			//	context.Text = text;
-			//}
-			//context.Text += " ";
-			//lastmodifyParagraph.Inlines.Add(context);
-			//mainDisplayText.Blocks.RemoveAt(mainDisplayText.Blocks.Count - 1);
-			//mainDisplayText.Blocks.Add(lastmodifyParagraph);
-			////Check if user want to show wrong content or not
-			////Format text to accent color at wrong choice
-			//if (command == cmd.newline)
-			//{
-			//	lastmodifyParagraph.Inlines.Add(new LineBreak());
-			//}
+			else
+			{
+				//Start with commands. End with char
+				//Add commands
+				//Add commands
+				bool a = item.Commands.Contains('\r');
+				bool b = item.Commands.Contains('\n');
+
+				//Line break determinite
+				int mode = 0;
+				if (a && b) { mode = 0; }
+				else if (a && !b) { /*Linux??*/ mode = 1; }
+				else if (!a && b) { /*Mac?*/ mode = 2; }
+				foreach (char c in item.Commands.ToCharArray())
+				{
+					if (c == ' ' || c == '\0')
+					{
+						dpTxt.Inlines.Add(new Run() { Text = " " });
+					}
+					if (c == '\t')
+					{
+						dpTxt.Inlines.Add(new Run() { Text = "    " });
+					}
+					//Break line
+					switch (mode)
+					{
+						case 0:
+							if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
+							continue;
+						case 1:
+							if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
+							continue;
+						case 2:
+							if (c == '\n') { dpTxt.Inlines.Add(new LineBreak()); }
+							continue;
+					}
+				}
+
+				//Add text
+				if (Utilities.newStat.wrongPerchoice[currentProgress] > 0)
+				{
+					//If this choice been wrong
+					if (Utilities.currentSettings.showWrongContent)
+					{
+						dpTxt.Inlines.Add(new Run() { Text = item.Text, Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
+					}
+					else
+					{
+						dpTxt.Inlines.Add(new Run() { Text = item.Text.ObscureText(), Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
+					}
+				}
+				else
+				{
+					//If it not
+					dpTxt.Inlines.Add(new Run() { Text = item.Text });
+				}
+			}
+			
 			//Scroll text to bottom
 			//TODO:Add setting... Automatic scroll text to bottom
-			displayTextScroll.ScrollToVerticalOffset(displayTextScroll.ExtentHeight);
 		}
 
-		void AddMainText(string text,cmd command)
+		void AddMainText(textlist item)
 		{
-			AddMainText(text, command, false);
+			AddMainText(item, false);
 		}
-
-		void AddMainText(string text)
-		{
-			AddMainText(text, cmd.space,false);
-		}		
-		
+				
 		private void ch0_Click(object sender, RoutedEventArgs e)
 		{
 			ChooseChoice(0);
@@ -595,469 +767,5 @@ namespace JustRemember_UWP
 				ChooseChoice(-5);
 			}
 		}
-	}
-
-	public class Main
-	{
-		/*#region Match system
-		
-		public static void LoadFile(string content)
-		{
-			LoadFile("", content);
-		}
-		
-		public void LoadFile(string filename, string content)
-		{
-			currentFilename = filename;
-			//Load file normal
-			Debug.Log("Load file!");
-			textList.Clear();
-			string replacedText = content.ReplaceForMatch();
-			List<string> txtList = new List<string>();
-			txtList.Clear();
-			txtList.AddRange(replacedText.Split(' '));
-			txtList.RemoveAll(item => item == " " || item == "\n" || item == "\t");
-			foreach (var i in txtList)
-			{
-				if (i.EndsWith("█"))
-				{
-					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.space));
-				}
-				else if (i.EndsWith("▼"))
-				{
-					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.newline));
-				}
-				else if (i.EndsWith("→"))
-				{
-					textList.Add(new textlist(i.Substring(0, i.Length - 1), cmd.tab));
-				}
-				else
-				{
-					textList.Add(new textlist(i));
-				}
-			}
-			var plainTxt = new List<string>();
-			foreach (textlist t in textList)
-			{
-				plainTxt.Add(t.ToString());
-			}
-			//textList.ForEach(item => plainTxt.Add(item.ToString()));
-			HashSet<string> hash = new HashSet<string>(plainTxt);
-			choiceList.Clear();
-			choiceList.AddRange(hash);
-			//
-			showPrenote = false;
-			SetPage(page.main);
-			mainPageTitleText.text = filename;
-			//
-			ResetRound();
-		}
-
-		public Text mainPageTitleText;
-
-		public statInfo newStat = new statInfo();
-		public Image mainPageProgressbar;
-		public RectTransform mainPageChoiceParent;
-		public Text mainDisplayText;
-		public Text mainTimerDisplay;
-		public Text mainTotalWrongNow;
-		public void ResetRound()
-		{
-			newStat = new statInfo();
-			newStat.dateandTime = System.DateTime.Now.ToString(@"dd MM yyyy - hh:mm:ss");
-			newStat.currentMode = current.defaultMode;
-			mainPageProgressbar.fillAmount = 0;
-			currentProgress = -1;
-			KillChild(mainPageChoiceParent);
-			SpawnChoice(-1, langManager.GetTextValue("ToonWK.main.ready"));
-			mainDisplayText.text = "";
-			mainTimerDisplay.text = "--:--\r\n--:--";
-			for (int i = 0; i < textList.Count; i++)
-			{
-				newStat.wrongPerchoice.Add(0);
-			}
-			mainTotalWrongNow.text = newStat.totalWrong.ToString();
-			newStat.totalLimitTime = current.limitTime;
-			newStat.totalWords = textList.Count;
-			newStat.totalChoice = current.totalChoice;
-			newStat.useTimeLimit = current.isLimitTime;
-			Pause_SaveSessionButton.interactable = true;
-		}
-
-		public GameObject choicePrototype;
-		public int currentValidChoice;
-		void SpawnChoice(int num, string customText)
-		{
-			GameObject go = Instantiate(choicePrototype);
-			go.transform.SetParent(mainPageChoiceParent);
-			go.transform.localScale = Vector3.one;
-			go.name = "CHSpecific" + num;
-			Button btn = go.GetComponent<Button>();
-			Text txt = go.transform.FindChild("ChoiceText").GetComponent<Text>();
-			txt.text = customText;
-			if (Console.log.useHint || currentProgress == 0)
-			{
-				if (num == currentValidChoice && currentProgress >= 0)
-				{
-					txt.text = string.Format(">> {0}", txt.text);
-				}
-			}
-			btn.onClick.AddListener(delegate { ChooseChoice(num); });
-		}
-
-		void SpawnNewChoices()
-		{
-			KillChild(mainPageChoiceParent);
-			currentValidChoice = Random.Range(0, current.totalChoice);
-			List<string> newchoiceL = new List<string>(choiceList);
-			newchoiceL.RemoveAt(GetRealChoice(newchoiceL));
-			for (int i = 0; i < current.totalChoice; i++)
-			{
-				if (i == currentValidChoice)
-				{
-					SpawnChoice(i, textList[currentProgress].Text);
-				}
-				else
-				{
-					int rndch = Random.Range(0, newchoiceL.Count);
-					SpawnChoice(i, newchoiceL[rndch]);
-					newchoiceL.RemoveAt(rndch);
-				}
-			}
-			settingPage.RefreshTheme();
-		}
-
-		int GetRealChoice(List<string> ncl)
-		{
-			int real = 0;
-			foreach (string s in ncl)
-			{
-				if (s == textList[currentProgress].Text)
-				{
-					return ncl.IndexOf(s);
-				}
-			}
-			return real;
-		}
-		public UnityEngine.UI.Extensions.UILineRenderer endGraphWPC;
-		public Text endStatDisplay;
-		public void ChooseChoice(int choice)
-		{
-			if (choice < 0)
-			{
-				//Command choice
-				if (choice == -1)
-				{
-					currentProgress += 1;
-					SpawnNewChoices();
-				}
-				else if (choice == -5)
-				{
-					//Remove all choice
-					KillChild(mainPageChoiceParent);
-					//Goto end page
-					endPage.SetActive(true);
-					end_primaryButton.Select();
-					//Update ending page
-					List<Vector2> graphList = new List<Vector2>();
-					for (int i = 0; i < newStat.wrongPerchoice.Count; i++)
-					{
-						float xsize = (250 / newStat.totalWords) * i;
-						float ysize = (120 / newStat.totalChoice) * newStat.wrongPerchoice[i];
-						graphList.Add(new Vector2(xsize, ysize));
-					}
-					endGraphWPC.Points = graphList;
-					endGraphWPC.SetAllDirty();
-					string timeTotal = "N/A";
-					string timeUsed = "N/A";
-					if (current.isLimitTime)
-					{
-						timeUsed = newStat.totalTime.ToStringAsTime();
-						timeTotal = newStat.totalLimitTime.ToStringAsTime();
-					}
-					endStatDisplay.text = string.Format(langManager.GetTextValue("ToonWK.end.detail"), newStat.totalWords, newStat.totalWrong, timeUsed, timeTotal);
-					EndRound();
-				}
-			}
-			//Check choice number range
-			else if (choice > -1)
-			{
-				if (Console.log.neverWrong)
-				{
-					choice = currentValidChoice;
-				}
-				//Normal
-				//
-				//Check if right or wrong
-				if (choice == currentValidChoice)
-				{
-					//It right
-					//Update text display
-					mainDisplayText.text += textList[currentProgress].Text + textList[currentProgress].Command.Translate();
-					//Consider to move next
-					if (currentProgress + 1 > textList.Count - 1)
-					{
-						//It can't go anymore
-						//Spawn Ending choice;
-						KillChild(mainPageChoiceParent);
-						SpawnChoice(-5, langManager.GetTextValue("ToonWK.main.end"));
-					}
-					else
-					{
-						//It still can go. Move next
-						currentProgress += 1;
-						SpawnNewChoices();
-					}
-				}
-				else
-				{
-					if (newStat.currentMode == challageMode.Easy)
-					{
-						//Move to next
-						newStat.totalWrong += 1;
-						newStat.wrongPerchoice[currentProgress] += 1;
-						mainTotalWrongNow.text = newStat.totalWrong.ToString();
-						mainWrongAnim.Play();
-						newStat.totalTime += 1;
-						//UpdateDisplay
-						if (!current.showWrongContent)
-						{
-							string qcCount = "";
-							for (int i = 0; i < textList[currentProgress].Text.Length; i++)
-							{
-								qcCount += "?";
-							}
-							mainDisplayText.text += string.Format("<color=red>{0}</color>", qcCount);
-						}
-						else
-						{
-							mainDisplayText.text += string.Format("<color=red>{0}</color>", textList[currentProgress].Text);
-						}
-						mainDisplayText.text += textList[currentProgress].Command.Translate();
-						//Move next
-						if (currentProgress + 1 > textList.Count - 1)
-						{
-							//It can't go anymore
-							//Spawn Ending choice;
-							KillChild(mainPageChoiceParent);
-							SpawnChoice(-5, langManager.GetTextValue("ToonWK.main.end"));
-						}
-						else
-						{
-							//It still can go. Move next
-							currentProgress += 1;
-							SpawnNewChoices();
-						}
-					}
-					else if (newStat.currentMode == challageMode.Normal)
-					{
-						//Kill itself.
-						Destroy(GameObject.Find("CHSpecific" + choice));
-						//It wrong
-						newStat.totalWrong += 1;
-						newStat.wrongPerchoice[currentProgress] += 1;
-						mainTotalWrongNow.text = newStat.totalWrong.ToString();
-						mainWrongAnim.Play();
-						newStat.totalTime += 1;
-					}
-					else if (newStat.currentMode == challageMode.Hard)
-					{
-						ResetRound();
-					}
-				}
-				float f = System.Convert.ToSingle(currentProgress) / System.Convert.ToSingle(textList.Count - 1);
-				mainPageProgressbar.fillAmount = f;
-			}
-		}
-		public Animation mainWrongAnim;
-
-		public void ConfirmResetMatch()
-		{
-			if (currentProgress < 0)
-			{
-				ResetRound();
-			}
-			else
-			{
-				MsgBox.Show.Dialog("Reset match", "Are you sure?", delegate { ResetRound(); Pause = false; }, delegate { Pause = false; });
-			}
-		}
-
-		public void EndRound()
-		{
-			if (!Console.log.wasCheating)
-			{
-				current.stat.Add(newStat);
-			}
-			ResetRound();
-		}
-
-		
-		#endregion
-		
-		#region Session
-		public void LoadFile(SessionInfo info)
-		{
-			textList = info.lastTextList;
-			choiceList = info.choiceList;
-			SetPage(page.main);
-			mainPageTitleText.text = info.LastTitle;
-			//Restore info
-			//ResetRound 
-			newStat = info.current;
-			mainPageProgressbar.fillAmount = info.progressFillAmount;
-			currentProgress = info.currentAt;
-			KillChild(mainPageChoiceParent);
-			for (int i = 0; i < info.lastChoices.Count; i++)
-			{
-				SpawnChoice(i, info.lastChoices[i]);
-			}
-			currentValidChoice = info.lastCorrect;
-			for (int i = 0; i < currentProgress; i++)
-			{
-				if (newStat.wrongPerchoice[i] > 0)
-				{
-					if (current.showWrongContent)
-					{
-						mainDisplayText.text += "<color=red>" + textList[i] + "</color>" + textList[i].Command.Translate();
-					}
-					else
-					{
-						mainDisplayText.text += "<color=red>" + textList[i].Text.ObscureText() + "</color>" + textList[i].Command.Translate();
-					}
-				}
-				else if (newStat.wrongPerchoice[i] == 0)
-				{
-					mainDisplayText.text += textList[i] + textList[i].Command.Translate();
-				}
-			}
-			if (newStat.useTimeLimit) { mainTimerDisplay.text = string.Format("{0}\r\n{1}", newStat.totalTime.ToStringAsTime(), newStat.totalLimitTime.ToStringAsTime()); }
-			else { mainTimerDisplay.text = "--:--\r\n--:--"; }
-			mainTotalWrongNow.text = newStat.totalWrong.ToString();
-		}
-		public Button Pause_SaveSessionButton;
-		public void SaveSession()
-		{
-			if (currentProgress < 0 || currentProgress > textList.Count - 1)
-			{
-				return;
-			}
-			Pause_SaveSessionButton.interactable = false;
-			Sessions.Add(new SessionInfo(n));
-			SessionInfo.Save(Sessions, Application.persistentDataPath + "/sessions.txt");
-		}
-		public RectTransform sessionParent;
-		public GameObject noSessionPrototype;
-		public GameObject sessionPrototype;
-		bool _sdm;
-		public bool sessionDeleteMode
-		{
-			get
-			{
-				return _sdm;
-			}
-			set
-			{
-				LoadSessionList();
-				_sdm = value;
-			}
-		} //false=Open | true=Delete
-
-		public void LoadSessionList()
-		{
-			LoadSessionList(sessionDeleteMode);
-		}
-
-		public void LoadSessionList(bool mode)
-		{
-			Sessions.Clear();
-			Sessions = SessionInfo.Load(Application.persistentDataPath + "/sessions.txt");
-			KillChild(sessionParent);
-			foreach (SessionInfo sif in Sessions)
-			{
-				SpawnSessionList(sif, mode);
-			}
-			if (Sessions.Count < 1)
-			{
-				GameObject go = Instantiate(noSessionPrototype);
-				go.transform.SetParent(sessionParent);
-				go.transform.localScale = Vector3.one;
-				sessionParent.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 90);
-				settingPage.RefreshTheme();
-			}
-			else if (Sessions.Count > 0)
-			{
-				sessionParent.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, sessionParent.childCount * 85);
-				settingPage.RefreshTheme();
-			}
-		}
-
-		public void SpawnSessionList(SessionInfo info, bool mode)
-		{
-			GameObject go = Instantiate(sessionPrototype);
-			go.transform.SetParent(sessionParent);
-			go.transform.localScale = Vector3.one;
-			Image lastProgress = go.transform.FindChild("LastProgress").GetComponent<Image>();
-			Image totalWrong = lastProgress.transform.FindChild("WrongChoice").GetComponent<Image>();
-			Text txt = go.transform.FindChild("text").GetComponent<Text>();
-			Button loadses = go.GetComponent<Button>();
-			lastProgress.fillAmount = info.progressFillAmount;
-			int wrongCount = info.current.totalWrong;
-			totalWrong.fillAmount = wrongCount / info.current.totalWords;
-			txt.text = string.Format("<size=38>{0}</size>\n{1}", info.LastTitle, info.current.dateandTime);
-			if (info.current.currentMode == challageMode.Easy)
-			{
-				lastProgress.color = new Color(0, 0.6f, 0);
-			}
-			else if (info.current.currentMode == challageMode.Normal)
-			{
-				lastProgress.color = new Color(0, 0, 0.6f);
-			}
-			else if (info.current.currentMode == challageMode.Hard)
-			{
-				lastProgress.color = new Color(0.4f, 0, 0);
-			}
-			if (!mode)
-			{
-				loadses.onClick.AddListener(delegate { LoadFile(info); Sessions.RemoveAt(Sessions.IndexOf(info)); Pause_SaveSessionButton.interactable = true; });
-			}
-			else
-			{
-				loadses.onClick.AddListener(delegate { Sessions.RemoveAt(Sessions.IndexOf(info)); LoadSessionList(); });
-			}
-		}
-		#endregion
-
-		#region Other
-		public void RebuildTextDisplay()
-		{
-			if (newStat == null || currentPage != page.main || currentPage != page.set)
-			{
-				return;
-			}
-			mainDisplayText.text = "";
-			for (int i = 0; i < currentProgress; i++)
-			{
-				if (newStat.wrongPerchoice[i] >= 1)
-				{
-					//Wrong
-					if (!current.showWrongContent)
-					{
-						mainDisplayText.text += textList[i].Text.ObscureText(true);
-					}
-					else
-					{
-						mainDisplayText.text += string.Format("<color=#{1}>{0}</color>", textList[i].Text, ColorUtility.ToHtmlStringRGB(AppTheme.current.Accent));
-					}
-				}
-				else
-				{
-					//Not wrong
-					mainDisplayText.text += textList[i].Text;
-				}
-				mainDisplayText.text += textList[i].Command.Translate();
-			}
-		}
-		#endregion*/
 	}
 }

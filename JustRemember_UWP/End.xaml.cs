@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,32 +25,27 @@ namespace JustRemember_UWP
 	{
 		public End()
 		{
-			endingDesc = new List<string>();
-			endingDesc.Add(totalWord);
-			endingDesc.Add(totalWrong);
-			endingDesc.Add("");
-			endingDesc.Add(userTime);
-			endingDesc.Add(userLimitTime);
 			InitializeComponent();
+			endList.Items.Add(totalWord);
+			endList.Items.Add(totalWrong);
+			endList.Items.Add("");
+			endList.Items.Add(userTime);
+			endList.Items.Add(userLimitTime);
+			wrongperChoice = new List<KeyValuePair<string, int>>();
+			var lst = Utilities.currentSettings.stat.lastItem();
+			foreach (int i in lst.wrongPerchoice)
+			{
+				wrongperChoice.Add(new KeyValuePair<string, int>("wrongPerChoice", lst.wrongPerchoice[i]));
+			}
+			LineSeries ls1 = new LineSeries();
+			ls1.Title = "Wrong Per Choice";
+			ls1.DependentValuePath = "Value";
+			ls1.IndependentValuePath = "Key";
+			ls1.ItemsSource = wrongperChoice;
+			lineChart.Series.Add(ls1);
 		}
 
-		public List<string> endingDesc { get; set; }
-
-		public List<int> chartInfo
-		{
-			get
-			{
-				if (Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1] != null)
-				{
-					return Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].wrongPerchoice;
-				}
-				return new int[]{ 10,9,8,7,6,5,4,3,2,1,0 }.ToList();
-			}
-			set
-			{
-				Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].wrongPerchoice = value;
-			}
-		}
+		public List<KeyValuePair<string, int>> wrongperChoice = new List<KeyValuePair<string, int>>();
 
 		public string totalWord
 		{

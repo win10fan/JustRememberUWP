@@ -20,7 +20,7 @@
                 <Slider x:Name="slider" Margin="15,2,5,2" Width="200" HorizontalAlignment="Left" Minimum="12" Maximum="72" ValueChanged="slider_ValueChanged" Loaded="slider_Loaded" Padding="15,0,0,0"/>
                 <!--Sessions-->
                 <TextBlock x:Name="title7" Text="Total choice"  FontSize="20" Margin="10" Foreground="{ThemeResource PivotForegroundThemeBrush}" Padding="5,0,0,0"/>
-                <Slider x:Name="slider1" Margin="15,2,5,2" Width="200" HorizontalAlignment="Left" Maximum="5" Minimum="2" ValueChanged="slider1_ValueChanged" Loaded="slider1_Loaded" Foreground="{ThemeResource SystemAccentColor}" Padding="15,0,0,0"/>
+                <Slider x:Name="slider1" Margin="15,2,5,2" Width="200" HorizontalAlignment="Left" Maximum="5" Minimum="3" ValueChanged="slider1_ValueChanged" Loaded="slider1_Loaded" Foreground="{ThemeResource SystemAccentColor}" Padding="15,0,0,0"/>
                 <TextBlock x:Name="title3" Text="Use time limit"  FontSize="20" Foreground="{ThemeResource PivotForegroundThemeBrush}" Margin="10" Padding="5,0,0,0"/>
                 <ToggleSwitch x:Name="toggleSwitch" Margin="10,0,0,0"  HorizontalAlignment="Left" VerticalAlignment="Top" Toggled="toggleSwitch_Toggled" Loaded="toggleSwitch_Loaded" Padding="15,0,0,0"/>
                 <TextBlock x:Name="title4" Text="Total limit"  FontSize="20" Foreground="{ThemeResource PivotForegroundThemeBrush}" Margin="10" Padding="5,0,0,0"/>

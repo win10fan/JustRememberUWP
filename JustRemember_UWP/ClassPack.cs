@@ -10,14 +10,20 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using System.Diagnostics;
+using Windows.UI.Xaml.Data;
 
 namespace JustRemember_UWP
 {
 	public static class Utilities
 	{
+		public static T lastItem<T>(this List<T> me)
+		{
+			return me[me.Count - 1];
+		}
+
 		public static T ParseEnum<T>(string value)
 		{
-			return (T)System.Enum.Parse(typeof(T), value, true);
+			return (T)Enum.Parse(typeof(T), value, true);
 		}
 
 		public static IEnumerable<string> GetBreadcrumbPath(this string path)
@@ -36,21 +42,18 @@ namespace JustRemember_UWP
 			}
 			yield return path;
 		}
-
+		
 		public static string ReplaceForMatch(this string content)
 		{
 			string result = content;
 			result = result.Trim();
 
 			result = result.Replace(" ", "█ ");
-			//Temporary
-			result = Regex.Replace(result, Environment.NewLine, "█ ");
-			//Origin
-			//result = Regex.Replace(result, Environment.NewLine, "▼ ");
+			result = Regex.Replace(result, Environment.NewLine, "▼ ");
 			result = Regex.Replace(result, "\t", "→ ");
 			return result;
 		}
-
+		
 		public static string ToStringAsTime(this float total)
 		{
 			TimeSpan ttlspan = TimeSpan.FromSeconds(total);
@@ -166,20 +169,41 @@ namespace JustRemember_UWP
 		public string noteTitle;
 	}
 	
+	public enum textMode { Char, WhiteSpace }
+
 	public struct textlist
 	{
+		public static readonly textlist Empty = new textlist("", "\0", textMode.Char);
 		public string Text;
-		public cmd Command;
+		public string Commands;
+		public textMode Mode;
 		public textlist(string text)
 		{
 			Text = text;
-			Command = cmd.space;
+			Commands = "\0";
+			Mode = textMode.Char;
 		}
 
-		public textlist(string text, cmd command)
+		public textlist(string text, char command)
 		{
 			Text = text;
-			Command = command;
+			Commands = "";
+			Commands += command;
+			Mode = textMode.Char;
+		}
+
+		public textlist(string text, string commands)
+		{
+			Text = text;
+			Commands = commands;
+			Mode = textMode.Char;
+		}
+
+		public textlist(string text, string commands,textMode mode)
+		{
+			Text = text;
+			Commands = commands;
+			Mode = mode;
 		}
 
 		public override string ToString()

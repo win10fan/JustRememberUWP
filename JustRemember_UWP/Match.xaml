@@ -103,15 +103,7 @@
                 </Grid.RowDefinitions>
                 <!--Text content-->
                 <ScrollViewer x:Name="displayTextScroll"  Grid.Column="0" Grid.Row="0">
-                    <ItemsControl x:Name="dpTxtcontrol" ItemsSource="{Binding selectedList}" VerticalAlignment="Bottom">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
-                                <StackPanel>
-                                    <TextBlock Padding="4" Text="{Binding}"/>
-                                </StackPanel>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
-                    </ItemsControl>
+                    <TextBlock x:Name="dpTxt" Text="" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>
                 </ScrollViewer>
 
                 <ItemsControl x:Name="choicesListHolder"  Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
