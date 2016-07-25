@@ -33,6 +33,11 @@ namespace JustRemember_UWP
 			lostPG.Commands.Add(new UICommand("Continue") { Invoked = delegate { Utilities.isSmallLoaderMode = false; Frame.Navigate(typeof(MainPage)); } });
 			lostPG.Commands.Add(new UICommand("Cancel") { Id = 0 });
 			lostPG.CancelCommandIndex = 0;
+			//Load other file dialog
+			loadotherDiag = new MessageDialog("You about to lose current progress.\nPress \"OK\" to continue", "Warning!");
+			loadotherDiag.Commands.Add(new UICommand("OK") { Invoked = delegate { Frame.Navigate(typeof(Selector)); } });
+			loadotherDiag.Commands.Add(new UICommand("Cancel") { Id = 0 });
+			loadotherDiag.CancelCommandIndex = 0;
 			//Load file
 			//TODO:Add load file function. So it can work with otherpage
 			LoadFile(Utilities.selected.Title, Utilities.selected.Content);
@@ -41,6 +46,7 @@ namespace JustRemember_UWP
 		
 		MessageDialog overMSG;
 		MessageDialog lostPG;
+		MessageDialog loadotherDiag;
 		Random randomEngine;
 		#region Match component
 		public int currentProgress
@@ -330,6 +336,9 @@ namespace JustRemember_UWP
 				timeCounterText.Text = "--:--" + Environment.NewLine + "--:--";
 			}
 			wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
+			//Update font display size
+			dpTxt.FontSize = Utilities.currentSettings.displayTextSize;
+
 			if (Utilities.newStat.totalTime >= Utilities.newStat.totalLimitTime)
 			{
 				//OVER
@@ -364,15 +373,16 @@ namespace JustRemember_UWP
 			Utilities.isSmallLoaderMode = otherPage.Visibility == Visibility.Visible;
 		}
 
-		private void loadOther_Click(object sender, RoutedEventArgs e)
+		private async void loadOther_Click(object sender, RoutedEventArgs e)
 		{
-			if (Utilities.isSmallLoaderMode)
+			if (currentProgress > -1)
 			{
-				return;
+				await loadotherDiag.ShowAsync();
 			}
-			ActivateOtherpage();
-			//
-			otherPage.Navigate(typeof(Selector));
+			else
+			{
+				Frame.Navigate(typeof(Selector));
+			}
 		}
 
 		private void loadSession_Click(object sender, RoutedEventArgs e)
@@ -489,29 +499,8 @@ namespace JustRemember_UWP
 				}
 				else if (choice == -5)
 				{
-					//TODO:Function to Goto end page
 					Utilities.currentSettings.stat.Add(Utilities.newStat);
 					Frame.Navigate(typeof(End));
-					//endPage.SetActive(true);
-					//end_primaryButton.Select();
-					//Update ending page
-					//List<Vector2> graphList = new List<Vector2>();
-					//for (int i = 0; i < Utilities.newStat.wrongPerchoice.Count; i++)
-					//{
-					//	float xsize = (250 / Utilities.newStat.totalWords) * i;
-					//	float ysize = (120 / Utilities.newStat.totalChoice) * Utilities.newStat.wrongPerchoice[i];
-					//	graphList.Add(new Vector2(xsize, ysize));
-					//}
-					//endGraphWPC.Points = graphList;
-					//endGraphWPC.SetAllDirty();
-					//string timeTotal = "N/A";
-					//string timeUsed = "N/A";
-					//if (current.isLimitTime)
-					//{
-					//	timeUsed = Utilities.newStat.totalTime.ToStringAsTime();
-					//	timeTotal = Utilities.newStat.totalLimitTime.ToStringAsTime();
-					//}
-					//endStatDisplay.text = string.Format(langManager.GetTextValue("ToonWK.end.detail"), Utilities.newStat.totalWords, Utilities.newStat.totalWrong, timeUsed, timeTotal);
 				}
 			}
 			//Check choice number range
@@ -667,7 +656,6 @@ namespace JustRemember_UWP
 			else
 			{
 				//Start with commands. End with char
-				//Add commands
 				//Add commands
 				bool a = item.Commands.Contains('\r');
 				bool b = item.Commands.Contains('\n');

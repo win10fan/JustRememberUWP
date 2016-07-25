@@ -65,7 +65,9 @@
                     </ItemsControl.Template>
                 </ItemsControl>
             </ListView>
-            <Charting:Chart Grid.Row="1" Grid.Column="0" x:Name="lineChart" Margin="5"/>
+            <Charting:Chart Grid.Row="1" Grid.Column="0" x:Name="lineChart" Margin="5" Loaded="lineChart_Loaded">
+                <Charting:LineSeries Title="" Margin="0" IndependentValuePath="Key" DependentValuePath="Value" IsSelectionEnabled="True"/>
+            </Charting:Chart>
         </Grid>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
 ﻿<Page
+    x:Name="selectorPage"
     x:Class="JustRemember_UWP.Selector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
