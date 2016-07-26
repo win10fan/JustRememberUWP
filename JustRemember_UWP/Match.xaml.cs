@@ -8,19 +8,14 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace JustRemember_UWP
 {
-	/// <summary>
-	/// An empty page that can be used on its own or navigated to within a Frame.
-	/// </summary>
 	public sealed partial class Match : Page
 	{
 		public DispatcherTimer timerNow;
 		public Match()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 			timerNow = new DispatcherTimer();
 			timerNow.Interval = TimeSpan.FromMilliseconds(100);
 			timerNow.Tick += TimerNow_Tick;
@@ -38,12 +33,17 @@ namespace JustRemember_UWP
 			loadotherDiag.Commands.Add(new UICommand("OK") { Invoked = delegate { Frame.Navigate(typeof(Selector)); } });
 			loadotherDiag.Commands.Add(new UICommand("Cancel") { Id = 0 });
 			loadotherDiag.CancelCommandIndex = 0;
+			//
+			resetM = new MessageDialog("You about to lose current progress.\nPress \"OK\" to continue", "Warning!");
+			resetM.Commands.Add(new UICommand("OK") { Invoked = delegate { ResetRound(); } });
+			resetM.Commands.Add(new UICommand("Cancel") { Id = 0 });
+			resetM.CancelCommandIndex = 0;
 			//Load file
-			//TODO:Add load file function. So it can work with otherpage
 			LoadFile(Utilities.selected.Title, Utilities.selected.Content);
 			randomEngine = new Random();
 		}
-		
+
+		MessageDialog resetM;
 		MessageDialog overMSG;
 		MessageDialog lostPG;
 		MessageDialog loadotherDiag;
@@ -63,7 +63,6 @@ namespace JustRemember_UWP
 				}
 				if (now < value)
 				{
-					itBeenWrong = false;
 					now = value;
 				}
 			}
@@ -86,11 +85,11 @@ namespace JustRemember_UWP
 				_pse = value;
 				if (value)
 				{
-					pauseButton.Content = "Paused...";
+					pauseInfo.Text = "Paused...";
 				}
 				else
 				{
-					pauseButton.Content = currentFilename;
+					pauseInfo.Text = currentFilename;
 				}
 			}
 		}
@@ -100,13 +99,7 @@ namespace JustRemember_UWP
 		{
 			LoadFile("", content);
 		}
-
-		/// <DEBUG>
-		bool isItWhiteSpace(char c)
-		{
-			return char.IsWhiteSpace(c);
-		}
-
+		
 		textlist working = new textlist();
 		List<textlist> workingResult = new List<textlist>();
 		bool morethen1 = false;
@@ -117,7 +110,7 @@ namespace JustRemember_UWP
 		{
 			if (!oneTime)
 			{
-				if (isItWhiteSpace(content[0]))
+				if (char.IsWhiteSpace(content[0]))
 				{
 					workingType = textMode.WhiteSpace;
 				}
@@ -153,19 +146,19 @@ namespace JustRemember_UWP
 					splitNow = false;
 				}
 				//If currently char. Keep adding.
-				if (!isItWhiteSpace(content[0]))
+				if (!char.IsWhiteSpace(content[0]))
 				{
 					working.Text += content[0];
 					replace4Match(content.Remove(0, 1));
 				}
-				else if (isItWhiteSpace(content[0]))
+				else if (char.IsWhiteSpace(content[0]))
 				{
 					//If now is white space...
 					//Check what next
 					//working.Commands.Add(content[0]);
 					if (content.Length > 1)
 					{
-						if (!isItWhiteSpace(content[1]))
+						if (!char.IsWhiteSpace(content[1]))
 						{
 							//If next is char.. Request to split now.
 							if (content[0] == ' ')
@@ -197,19 +190,19 @@ namespace JustRemember_UWP
 					splitNow = false;
 				}
 				//If currently whitespace. Keep adding.
-				if (isItWhiteSpace(content[0]))
+				if (char.IsWhiteSpace(content[0]))
 				{
 					working.Commands += content[0];
 					replace4Match(content.Remove(0, 1));
 				}
-				else if (!isItWhiteSpace(content[0]))
+				else if (!char.IsWhiteSpace(content[0]))
 				{
 					//If now is char...
 					//Check what next
 					//working.Commands.Add(content[0]);
 					if (content.Length > 1)
 					{
-						if (isItWhiteSpace(content[1]))
+						if (char.IsWhiteSpace(content[1]))
 						{
 							//If next is whitespace.. Request to split now.
 							if (content[0] == ' ')
@@ -262,9 +255,6 @@ namespace JustRemember_UWP
 			progressCounter.Value = 0;
 			progressCounter.Maximum = textList.Count;
 			currentProgress = -2;
-			//Update choice
-			//TODO: Add choice update
-			//SpawnChoice(-1, langManager.GetTextValue("ToonWK.main.ready"));
 			currentChoiceMode = mode.begin;
 			CheckTotalChoice();
 			dpTxt.Inlines.Clear();
@@ -278,7 +268,7 @@ namespace JustRemember_UWP
 			Utilities.newStat.totalWords = textList.Count;
 			Utilities.newStat.totalChoice = Utilities.currentSettings.totalChoice;
 			Utilities.newStat.useTimeLimit = Utilities.currentSettings.isLimitTime;
-			//Make it support seed system
+			//TODO:Make it support seed system
 			randomEngine = new Random();
 		}
 
@@ -311,13 +301,13 @@ namespace JustRemember_UWP
 			if (pauseMenu.IsPaneOpen)
 			{
 				//Paused
-				pauseButton.Content = "Paused...";
+				pauseInfo.Text = "Paused...";
 				return;
 			}
 			if (currentProgress <= 0 || currentProgress >= textList.Count - 1)
 			{
 				//Paused
-				pauseButton.Content = currentFilename;
+				pauseInfo.Text = currentFilename;
 				return;
 			}
 			if (Utilities.newStat == null)
@@ -338,14 +328,15 @@ namespace JustRemember_UWP
 			wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
 			//Update font display size
 			dpTxt.FontSize = Utilities.currentSettings.displayTextSize;
-
-			if (Utilities.newStat.totalTime >= Utilities.newStat.totalLimitTime)
+			if (Utilities.newStat.useTimeLimit)
 			{
-				//OVER
-				timerNow.Stop();
-				await overMSG.ShowAsync();
-				timerNow.Start();
-				//TODO:Add end page
+				if (Utilities.newStat.totalTime >= Utilities.newStat.totalLimitTime)
+				{
+					//OVER
+					timerNow.Stop();
+					await overMSG.ShowAsync();
+					timerNow.Start();
+				}
 			}
 		}
 
@@ -541,7 +532,7 @@ namespace JustRemember_UWP
 						wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
 						Utilities.newStat.totalTime += 1;
 						//UpdateDisplay
-						AddMainText(textList[currentProgress], true);
+						AddMainText(textList[currentProgress]);
 						//Move next
 						if (currentProgress + 1 > textList.Count - 1)
 						{
@@ -595,130 +586,86 @@ namespace JustRemember_UWP
 		}
 		//TODO:Add prenote system???!?!?!!!?
 		
-		public Paragraph lastmodifyParagraph;
-		public bool itBeenWrong;
-		void AddMainText(textlist item, bool isItWrongChoice)
+		void AddMainText(textlist item)
 		{
+			//New line check
+			bool a = item.Commands.Contains('\r');
+			bool b = item.Commands.Contains('\n');
 			if (item.Mode == textMode.Char)
 			{
 				//Start with char. End with commands
-				if (Utilities.newStat.wrongPerchoice[currentProgress] > 0)
-				{
-					//If this choice been wrong
-					if (Utilities.currentSettings.showWrongContent)
-					{
-						dpTxt.Inlines.Add(new Run() { Text = item.Text, Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
-					}
-					else
-					{
-						dpTxt.Inlines.Add(new Run() { Text = item.Text.ObscureText(), Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
-					}
-				}
-				else
-				{
-					//If it not
-					dpTxt.Inlines.Add(new Run() { Text = item.Text });
-				}
+				_AddText(item);
 				//Add commands
-				bool a = item.Commands.Contains('\r');
-				bool b = item.Commands.Contains('\n');
-
-				//Line break determinite
-				int mode = 0;
-				if (a && b) { mode = 0; } 
-				else if (a && !b) { /*Linux??*/ mode = 1; }
-				else if (!a && b) { /*Mac?*/ mode = 2; }				
-				foreach (char c in item.Commands.ToCharArray())
-				{
-					if (c == ' ' || c == '\0')
-					{
-						dpTxt.Inlines.Add(new Run() { Text = " " });
-					}
-					if (c == '\t')
-					{
-						dpTxt.Inlines.Add(new Run() { Text = "    " });
-					}
-					//Break line
-					switch (mode)
-					{
-						case 0:
-							if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
-							continue;
-						case 1:
-							if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
-							continue;
-						case 2:
-							if (c == '\n') { dpTxt.Inlines.Add(new LineBreak()); }
-							continue;
-					}
-				}
+				_AddCommands(item, a, b);				
 			}
 			else
 			{
 				//Start with commands. End with char
 				//Add commands
-				bool a = item.Commands.Contains('\r');
-				bool b = item.Commands.Contains('\n');
-
-				//Line break determinite
-				int mode = 0;
-				if (a && b) { mode = 0; }
-				else if (a && !b) { /*Linux??*/ mode = 1; }
-				else if (!a && b) { /*Mac?*/ mode = 2; }
-				foreach (char c in item.Commands.ToCharArray())
-				{
-					if (c == ' ' || c == '\0')
-					{
-						dpTxt.Inlines.Add(new Run() { Text = " " });
-					}
-					if (c == '\t')
-					{
-						dpTxt.Inlines.Add(new Run() { Text = "    " });
-					}
-					//Break line
-					switch (mode)
-					{
-						case 0:
-							if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
-							continue;
-						case 1:
-							if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
-							continue;
-						case 2:
-							if (c == '\n') { dpTxt.Inlines.Add(new LineBreak()); }
-							continue;
-					}
-				}
+				_AddCommands(item, a, b);
 
 				//Add text
-				if (Utilities.newStat.wrongPerchoice[currentProgress] > 0)
-				{
-					//If this choice been wrong
-					if (Utilities.currentSettings.showWrongContent)
-					{
-						dpTxt.Inlines.Add(new Run() { Text = item.Text, Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
-					}
-					else
-					{
-						dpTxt.Inlines.Add(new Run() { Text = item.Text.ObscureText(), Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
-					}
-				}
-				else
-				{
-					//If it not
-					dpTxt.Inlines.Add(new Run() { Text = item.Text });
-				}
+				_AddText(item);
 			}
 			
 			//Scroll text to bottom
 			//TODO:Add setting... Automatic scroll text to bottom
 		}
 
-		void AddMainText(textlist item)
+		void _AddText(textlist item)
 		{
-			AddMainText(item, false);
+			if (Utilities.newStat.wrongPerchoice[currentProgress] > 0)
+			{
+				//If this choice been wrong
+				if (Utilities.currentSettings.showWrongContent)
+				{
+					dpTxt.Inlines.Add(new Run() { Text = item.Text, Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
+				}
+				else
+				{
+					dpTxt.Inlines.Add(new Run() { Text = item.Text.ObscureText(), Foreground = new SolidColorBrush((Color)Resources["SystemAccentColor"]) });
+				}
+			}
+			else
+			{
+				//If it not
+				dpTxt.Inlines.Add(new Run() { Text = item.Text });
+			}
 		}
-				
+
+		void _AddCommands(textlist item,bool a, bool b)
+		{
+			//Line break determinite
+			int mode = 0;
+			if (a && b) { mode = 0; }
+			else if (a && !b) { /*Linux??*/ mode = 1; }
+			else if (!a && b) { /*Mac?*/ mode = 2; }
+			foreach (char c in item.Commands.ToCharArray())
+			{
+				if (c == ' ' || c == '\0')
+				{
+					dpTxt.Inlines.Add(new Run() { Text = " " });
+				}
+				if (c == '\t')
+				{
+					dpTxt.Inlines.Add(new Run() { Text = "    " });
+				}
+				//Break line
+				switch (mode)
+				{
+					case 0:
+						if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
+						continue;
+					case 1:
+						if (c == '\r') { dpTxt.Inlines.Add(new LineBreak()); }
+						continue;
+					case 2:
+						if (c == '\n') { dpTxt.Inlines.Add(new LineBreak()); }
+						continue;
+				}
+			}
+		}
+		
 		private void ch0_Click(object sender, RoutedEventArgs e)
 		{
 			ChooseChoice(0);
@@ -754,6 +701,11 @@ namespace JustRemember_UWP
 			{
 				ChooseChoice(-5);
 			}
+		}
+
+		private async void restartMatch_Click(object sender, RoutedEventArgs e)
+		{
+			await resetM.ShowAsync();
 		}
 	}
 }

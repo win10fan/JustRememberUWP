@@ -1,28 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace JustRemember_UWP
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
-    sealed partial class App : Application
+	sealed partial class App : Application
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -30,7 +18,7 @@ namespace JustRemember_UWP
         /// </summary>
         public App()
         {			
-            this.InitializeComponent();
+            InitializeComponent();
 			ApplicationView.PreferredLaunchViewSize = new Size(320, 240);
 			if (!Utilities.initialize)
 			{
@@ -40,7 +28,7 @@ namespace JustRemember_UWP
 				Utilities.initialize = true;
 			}
 			Current.RequestedTheme = Utilities.currentSettings.theme;
-			this.Suspending += OnSuspending;
+			Suspending += OnSuspending;
         }
 
         /// <summary>
@@ -53,7 +41,7 @@ namespace JustRemember_UWP
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = false;
+                DebugSettings.EnableFrameRateCounter = false;
             }
 #endif
             Frame rootFrame = Window.Current.Content as Frame;

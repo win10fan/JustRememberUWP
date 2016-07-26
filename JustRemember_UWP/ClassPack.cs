@@ -7,10 +7,7 @@ using Windows.UI;
 using Windows.Storage;
 using System;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Controls;
 using System.Diagnostics;
-using Windows.UI.Xaml.Data;
 
 namespace JustRemember_UWP
 {
@@ -42,59 +39,23 @@ namespace JustRemember_UWP
 			}
 			yield return path;
 		}
-		
-		public static string ReplaceForMatch(this string content)
-		{
-			string result = content;
-			result = result.Trim();
 
-			result = result.Replace(" ", "█ ");
-			result = Regex.Replace(result, Environment.NewLine, "▼ ");
-			result = Regex.Replace(result, "\t", "→ ");
-			return result;
-		}
-		
 		public static string ToStringAsTime(this float total)
 		{
 			TimeSpan ttlspan = TimeSpan.FromSeconds(total);
 			return $"{ttlspan.Minutes}:{ttlspan.Seconds}";
 		}
-
+		
 		public static string ObscureText(this string text)
 		{
-			return ObscureText(text, false);
-		}
-
-		public static string ObscureText(this string text, bool addColorTag)
-		{
-			//TODO:Make it support richtext
 			string res = "";
 			for (int i = 0; i < text.Length; i++)
 			{
 				res += "?";
 			}
-			//if (addColorTag)
-			//{
-			//	return string.Format("<color=#{1}>{0}</color>", res, systemAccent.ToString());
-			//}
 			return res;
 		}
-
-		public static string Translate(this cmd command)
-		{
-			switch (command)
-			{
-				case cmd.space:
-					return " ";
-				case cmd.tab:
-					return "\t";
-				case cmd.newline:
-					return "\n";
-				default:
-					return " ";
-			}
-		}
-
+		
 		public static float Clamp(float value,float min,float max)
 		{
 			if (value <= min)
@@ -107,8 +68,7 @@ namespace JustRemember_UWP
 			}
 			return value;
 		}
-
-		public static Color systemAccent;
+		
 		public static Settings currentSettings
 		{
 			get
@@ -479,20 +439,7 @@ namespace JustRemember_UWP
 			}
 		}
 	}
-
-	public enum themeMode
-	{
-		Accent,
-		Legacy
-	}
 	
-	public enum cmd
-	{
-		space,
-		tab,
-		newline
-	}
-
 	public enum Operator
 	{
 		New,
@@ -501,55 +448,11 @@ namespace JustRemember_UWP
 		SaveNew,
 		Quit
 	}
-
-	public enum ThemeItem
-	{
-		Button,
-		ButtonLabel,
-		Titlebar,
-		TitlebarLabel,
-		Background,
-		Foreground,
-		Accent,
-		Undef
-	}
-
+	
 	public enum challageMode
 	{
 		Easy,
 		Normal,
 		Hard
-	}
-
-	public enum Rotation
-	{
-		Portrait,
-		LandscapeLeft,
-		LandscapeRight,
-		AutoRotation
-	}
-
-	public enum Action
-	{
-		Quit,
-		ResetStat,
-		ResetMatch,
-		BackToMain,
-		BackToPervious,
-		Delete
-	}
-
-	public enum PageName
-	{
-		main = 0,
-		pause = 1,
-		file = 2,
-		set = 3,
-		end = 4,
-		over = 5,
-		confirm = 6,
-		edit = 7,
-		home = 8,
-		session = 9
 	}
 }

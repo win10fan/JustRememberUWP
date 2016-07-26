@@ -96,7 +96,7 @@ namespace JustRemember_UWP
 			Frame.Navigate(typeof(Match));
 		}
 
-		private async void lineChart_Loaded(object sender, RoutedEventArgs e)
+		private void lineChart_Loaded(object sender, RoutedEventArgs e)
 		{
 			wrongperChoice = new List<KeyValuePair<string, int>>();
 			var lst = Utilities.currentSettings.stat.lastItem();

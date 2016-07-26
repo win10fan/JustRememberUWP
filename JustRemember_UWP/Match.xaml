@@ -51,7 +51,10 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Button x:Name="pauseButton" Tag="&#xE700;" Content="[Filename]" FontSize="20" Style="{StaticResource NavigationButtonStyle}" VerticalAlignment="Top" Click="Button_Click"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="50" Width="200" HorizontalAlignment="Left">
+            <Button x:Name="pauseButton" Click="Button_Click" Content="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}"/>
+            <TextBlock x:Name="pauseInfo" Text="Paused..." VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+        </StackPanel>
         <Grid HorizontalAlignment="Right" Height="50" Margin="0" VerticalAlignment="Top" Width="120">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
@@ -61,37 +64,34 @@
             <TextBlock x:Name="timeCounterText" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Center"/>
             <ProgressBar x:Name="progressCounter" Grid.Column="1" VerticalAlignment="Top" Height="12" Value="50"/>
         </Grid>
-        <SplitView x:Name="pauseMenu" Margin="0,50,0,0" CompactPaneLength="50">
+        <SplitView x:Name="pauseMenu" IsPaneOpen="True" Margin="0,50,0,0" CompactPaneLength="50">
             <SplitView.Pane>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" x:Name="NavigationMenu" Orientation="Vertical">
-                        <Button x:Name="loadOther" Content="Note" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource NavigationButtonStyle}" Tag="&#xE7C3;" Click="loadOther_Click"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="loadOther" Click="loadOther_Click" Content="&#xE7C3;" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                        <TextBlock Text="Note" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" x:Name="NavigationMenu2" Orientation="Vertical">
-                        <Button x:Name="loadSession" Content="Session" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource NavigationButtonStyle}" Tag="&#xE823;" Click="loadSession_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="loadSession" Content="&#xE823;" Click="loadSession_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                        <TextBlock Text="Session" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="2" x:Name="NavigationMenu3" Orientation="Vertical">
-                        <Button x:Name="restartMatch" Content="Restart" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource NavigationButtonStyle}" Tag="&#xE72C;"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="restartMatch" Content="&#xE72C;" Click="restartMatch_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                        <TextBlock Text="Restart match" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="3" x:Name="NavigationMenu4" Orientation="Vertical">
-                        <Button x:Name="settingPage" Content="Settings" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource NavigationButtonStyle}" Tag="&#xE115;" Click="settingPage_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="settingPage" Content="&#xE115;" Click="settingPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                        <TextBlock Text="Settings" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="4" x:Name="NavigationMenu5" Orientation="Vertical">
-                        <Button x:Name="mainmenuPage" Content="Main menu" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource NavigationButtonStyle}" Tag="&#xE80F;" Click="mainmenuPage_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="mainmenuPage" Content="&#xE80F;" Click="mainmenuPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                        <TextBlock Text="Main menu" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="5" x:Name="NavigationMenu6" Orientation="Vertical">
-                        <Button x:Name="exitApp" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource NavigationButtonStyle}" Tag="&#xE894;" Click="exitApp_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="exitApp" Content="&#xE894;" Click="exitApp_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                        <TextBlock Text="Exit" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     </StackPanel>
-                </Grid>
+                </StackPanel>
             </SplitView.Pane>
             <Grid x:Name="actualContent">
                 <Grid.ColumnDefinitions>
