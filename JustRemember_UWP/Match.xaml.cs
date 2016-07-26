@@ -38,6 +38,11 @@ namespace JustRemember_UWP
 			resetM.Commands.Add(new UICommand("OK") { Invoked = delegate { ResetRound(); } });
 			resetM.Commands.Add(new UICommand("Cancel") { Id = 0 });
 			resetM.CancelCommandIndex = 0;
+			//ExitD
+			exitD = new MessageDialog("Did you really want to exit?\nYou will lose current progress");
+			exitD.Commands.Add(new UICommand("OK") { Invoked = delegate { Application.Current.Exit(); } });
+			exitD.Commands.Add(new UICommand("Cancel") { Id = 0 });
+			exitD.CancelCommandIndex = 0;
 			//Load file
 			LoadFile(Utilities.selected.Title, Utilities.selected.Content);
 			randomEngine = new Random();
@@ -47,6 +52,7 @@ namespace JustRemember_UWP
 		MessageDialog overMSG;
 		MessageDialog lostPG;
 		MessageDialog loadotherDiag;
+		MessageDialog exitD;
 		Random randomEngine;
 		#region Match component
 		public int currentProgress
@@ -298,18 +304,6 @@ namespace JustRemember_UWP
 
 		private async void TimerNow_Tick(object sender, object e)
 		{
-			if (pauseMenu.IsPaneOpen)
-			{
-				//Paused
-				pauseInfo.Text = "Paused...";
-				return;
-			}
-			if (currentProgress <= 0 || currentProgress >= textList.Count - 1)
-			{
-				//Paused
-				pauseInfo.Text = currentFilename;
-				return;
-			}
 			if (Utilities.newStat == null)
 			{
 				//Game not ready yet!
@@ -346,7 +340,7 @@ namespace JustRemember_UWP
 			Pause = pauseMenu.IsPaneOpen;
 			if (pauseMenu.IsPaneOpen)
 			{
-				pauseButton.Content = Pause ? "Paused" : currentFilename;
+				pauseInfo.Text = Pause ? "Paused..." : currentFilename;
 			}
 		}
 
@@ -411,9 +405,9 @@ namespace JustRemember_UWP
 			}
 		}
 
-		private void exitApp_Click(object sender, RoutedEventArgs e)
+		private async void exitApp_Click(object sender, RoutedEventArgs e)
 		{
-			Application.Current.Exit();
+			await exitD.ShowAsync();
 		}
 
 		public int currentValidChoice;

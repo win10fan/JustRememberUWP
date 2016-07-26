@@ -21,6 +21,7 @@
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="1"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="*"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="auto"/>
+                        <Setter Target="matchInfo.HorizontalAlignment" Value="Right"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Horizontal">
@@ -34,6 +35,7 @@
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="0"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="auto"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="*"/>
+                        <Setter Target="matchInfo.HorizontalAlignment" Value="Center"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PC">
@@ -47,15 +49,16 @@
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="0"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="auto"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="*"/>
+                        <Setter Target="matchInfo.HorizontalAlignment" Value="Center"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="50" Width="200" HorizontalAlignment="Left">
-            <Button x:Name="pauseButton" Click="Button_Click" Content="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}"/>
+            <Button x:Name="pauseButton_" Click="Button_Click" Content="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}"/>
             <TextBlock x:Name="pauseInfo" Text="Paused..." VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
         </StackPanel>
-        <Grid HorizontalAlignment="Right" Height="50" Margin="0" VerticalAlignment="Top" Width="120">
+        <Grid x:Name="matchInfo" HorizontalAlignment="Right" Height="50" Margin="0" VerticalAlignment="Top" Width="120">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*"/>
