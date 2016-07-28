@@ -32,5 +32,10 @@ namespace JustRemember_UWP
 		{
 			Frame.Navigate(typeof(Selector));
 		}
+
+		private void prenote_btn_Click(object sender, RoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(Prenote));
+		}
 	}
 }
