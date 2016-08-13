@@ -59,6 +59,7 @@ namespace JustRemember_UWP
 		{
 			get
 			{
+                if (currentChoiceMode == mode.begin) { now = 0; return 0; }
 				return now;
 			}
 			set
@@ -253,31 +254,37 @@ namespace JustRemember_UWP
 			ResetRound();
 		}
 
-		public void ResetRound()
-		{
-			Utilities.newStat = new statInfo();
+        public void ResetRound()
+        {
+            Utilities.newStat = new statInfo();
             Utilities.newStat.noteTitle = currentFilename;
-			Utilities.newStat.dateandTime = DateTime.Now.ToString(@"dd MM yyyy - hh:mm:ss");
-			Utilities.newStat.currentMode = Utilities.currentSettings.defaultMode;
-			progressCounter.Value = 0;
-			progressCounter.Maximum = textList.Count;
-			currentProgress = -2;
-			currentChoiceMode = mode.begin;
-			CheckTotalChoice();
-			dpTxt.Inlines.Clear();
-			timeCounterText.Text = "--:--\r\n--:--";
-			wrongCounter.Text = "0";
-			for (int i = 0; i < textList.Count; i++)
-			{
-				Utilities.newStat.wrongPerchoice.Add(0);
-			}
-			Utilities.newStat.totalLimitTime = Utilities.currentSettings.limitTime;
-			Utilities.newStat.totalWords = textList.Count;
-			Utilities.newStat.totalChoice = Utilities.currentSettings.totalChoice;
-			Utilities.newStat.useTimeLimit = Utilities.currentSettings.isLimitTime;
+            Utilities.newStat.dateandTime = DateTime.Now.ToString(@"dd MM yyyy - hh:mm:ss");
+            Utilities.newStat.currentMode = Utilities.currentSettings.defaultMode;
+            progressCounter.Value = 0;
+            progressCounter.Maximum = textList.Count;
+            currentProgress = -2;
+            currentChoiceMode = mode.begin;
+            CheckTotalChoice();
+            dpTxt.Inlines.Clear();
+            timeCounterText.Text = "--:--\r\n--:--";
+            wrongCounter.Text = "0";
+            for (int i = 0; i < textList.Count; i++)
+            {
+                Utilities.newStat.wrongPerchoice.Add(0);
+            }
+            Utilities.newStat.totalLimitTime = Utilities.currentSettings.limitTime;
+            Utilities.newStat.totalWords = textList.Count;
+            Utilities.newStat.totalChoice = Utilities.currentSettings.totalChoice;
+            Utilities.newStat.useTimeLimit = Utilities.currentSettings.isLimitTime;
             prev = DateTime.UtcNow;
-			//TODO:Make it support seed system
-			randomEngine = new Random();
+            if (Utilities.currentSettings.defaultSeed >= 0)
+            {
+                randomEngine = new Random(Utilities.currentSettings.defaultSeed);
+            }
+            else
+            {
+                randomEngine = new Random();
+            }
 		}
 
 		enum mode { begin, normal, end}
@@ -321,6 +328,7 @@ namespace JustRemember_UWP
 			else
 			{
 				timeCounterText.Text = "--:--" + Environment.NewLine + "--:--";
+                prev = DateTime.UtcNow;
 			}
 			wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
 			//Update font display size
@@ -489,17 +497,20 @@ namespace JustRemember_UWP
 		{
 			if (choice < 0)
 			{
-				//Command choice
-				if (choice == -1)
-				{
-					currentProgress = 0;
-					SpawnNewChoices();
-					currentChoiceMode = mode.normal;
-					CheckTotalChoice();
-				}
-				else if (choice == -5)
-				{
-					Utilities.currentSettings.stat.Add(Utilities.newStat);
+                //Command choice
+                if (choice == -1)
+                {
+                    currentProgress = 0;
+                    SpawnNewChoices();
+                    currentChoiceMode = mode.normal;
+                    CheckTotalChoice();
+                }
+                else if (choice == -5 && currentChoiceMode == mode.end)
+                {
+                    if (Utilities.currentSettings.defaultSeed == -1)
+                    {
+                        Utilities.currentSettings.stat.Add(Utilities.newStat);
+                    }
 					Frame.Navigate(typeof(End));
 				}
 			}
@@ -708,6 +719,23 @@ namespace JustRemember_UWP
 
 		private void chImportant_Click(object sender, RoutedEventArgs e)
 		{
+            if (currentProgress == textList.Count - 1)
+            {
+                currentChoiceMode = mode.end;
+                ChooseChoice(-5);
+            }
+            if (currentProgress > 0)
+            {
+                if (currentChoiceMode == mode.begin)
+                {
+                    currentProgress = -1;
+                    ChooseChoice(-1);
+                }
+                else if (currentChoiceMode == mode.end)
+                {
+                    ChooseChoice(-5);
+                }
+            }
 			if (currentProgress <= 0)
 			{
 				ChooseChoice(-1);
@@ -740,6 +768,10 @@ namespace JustRemember_UWP
 
         private void contentSlider_GotFocus(object sender, RoutedEventArgs e)
         {
+            if (pauseMenu.DisplayMode == SplitViewDisplayMode.CompactInline || pauseMenu.DisplayMode == SplitViewDisplayMode.Inline)
+            {
+                return;
+            }
             pauseMenu.PaneBackground.Opacity = 0.5;
             menuBG.Opacity = 0.5;
         }

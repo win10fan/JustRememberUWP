@@ -45,15 +45,7 @@ namespace JustRemember_UWP
 			TimeSpan ttlspan = TimeSpan.FromSeconds(total);
 			return $"{ttlspan.Minutes}:{ttlspan.Seconds}";
 		}
-
-        public static double TrimDouble(double value, int size)
-        {
-            if (!value.ToString().Contains(".")) { return value; }
-            string c = value.ToString();
-            c = c.Substring(0, c.IndexOf('.') + size);
-            return Convert.ToDouble(c);
-        }
-		
+        
 		public static string ObscureText(this string text)
 		{
 			string res = "";
@@ -164,7 +156,7 @@ namespace JustRemember_UWP
         {
             get
             {
-                return $"{totalWrong} wrong choice out of {totalWords}. Average wrong {Utilities.TrimDouble(wrongPerchoice.Average(), 3)}";
+                return $"{totalWrong} wrong choice out of {totalWords}. Average wrong {wrongPerchoice.Average().ToString("0.00")}";
             }
         }
         public string titleInfo

@@ -27,8 +27,15 @@
                         <ComboBoxItem Content="English"/>
                         <ComboBoxItem Content="ไทย"/>
                     </ComboBox>
-                    <TextBlock Text="Choice selected display" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <TextBlock Text="Selected choice result display" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                     <Slider Margin="5" HorizontalAlignment="Left" Width="150" x:Name="cdpSize" Loaded="cdpSize_Loaded" ValueChanged="cdpSize_ValueChanged"/>
+                    <TextBlock Text="Default seed" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleSwitch x:Name="defSeed" Loaded="defSeed_Loaded" Toggled="defSeed_Toggled"/>
+                        <TextBox x:Name="defSeedInput" Width="120" MaxLength="9" InputScope="Number" PlaceholderText="12345" HorizontalAlignment="Left" VerticalAlignment="Center" Loaded="defSeedInput_Loaded"/>
+                        <Button x:Name="defSeedAccept" Content="&#xE10B;" FontFamily="Segoe MDL2 Assets" FontSize="20" Click="defSeedAccept_Click" Loaded="defSeedAccept_Loaded"/>
+                    </StackPanel>
+                    <TextBlock FontSize="12" x:Name="defSeedNotify" Text="As all choice stay same. It equally cheat. All stat will not save." TextWrapping="WrapWholeWords" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="defSeedNotify_Loaded"/>
                 </StackPanel>
             </PivotItem>
             <PivotItem x:Name="sessionPage" Header="Session">

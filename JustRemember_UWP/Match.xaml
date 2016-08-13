@@ -81,6 +81,7 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
@@ -108,8 +109,8 @@
                     <TextBlock Grid.Row="5" Grid.Column="1" Text="Exit" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     <Button Click="exitApp_Click" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
-                    <Button x:Name="contentSizeControl" Grid.Row="6" Grid.Column="0" Content="&#xE8D3;" Click="Button_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                    <Slider x:Name="contentSlider" Grid.Row="6" Margin="10,0" Grid.Column="1" Header="Content size" Loaded="contentSlider_Loaded" ValueChanged="contentSlider_ValueChanged" GotFocus="contentSlider_GotFocus"/>
+                    <Button x:Name="contentSizeControl" Grid.Row="7" Grid.Column="0" Content="&#xE8D3;" Click="Button_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                    <Slider x:Name="contentSlider" Grid.Row="7" Margin="10,0" Grid.Column="1" Header="Content size" Loaded="contentSlider_Loaded" ValueChanged="contentSlider_ValueChanged" GotFocus="contentSlider_GotFocus"/>
                 </Grid>
             </SplitView.Pane>
             <Grid x:Name="actualContent">

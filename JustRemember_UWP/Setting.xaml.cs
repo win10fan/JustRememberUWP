@@ -248,5 +248,56 @@ namespace JustRemember_UWP
             currentConfig.showWrongContent = showWrong.IsOn;
             Settings.Save(currentConfig);
         }
+
+        private void defSeed_Loaded(object sender, RoutedEventArgs e)
+        {
+            defSeed.IsOn = currentConfig.defaultSeed != -1;
+        }
+
+        private void defSeed_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (defSeed.IsOn == false)
+            {
+                currentConfig.defaultSeed = -1;
+                defSeedNotify.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                if (currentConfig.defaultSeed < 0) { currentConfig.defaultSeed = 0; }
+                defSeedNotify.Visibility = Visibility.Visible;
+            }
+            if (defSeedInput != null)
+            {
+                defSeedInput.Visibility = currentConfig.defaultSeed == -1 ? Visibility.Collapsed : Visibility.Visible;
+                defSeedInput.Text = currentConfig.defaultSeed.ToString();
+                defSeedAccept.Visibility = currentConfig.defaultSeed == -1 ? Visibility.Collapsed : Visibility.Visible;
+            }
+            Settings.Save(currentConfig);
+        }
+
+        private void defSeedInput_Loaded(object sender, RoutedEventArgs e)
+        {
+            defSeedInput.Visibility = currentConfig.defaultSeed == -1 ? Visibility.Collapsed : Visibility.Visible;
+            if (defSeedInput.Visibility == Visibility.Visible)
+            {
+                defSeedInput.Text = currentConfig.defaultSeed.ToString();
+            }
+        }
+
+        private void defSeedAccept_Click(object sender, RoutedEventArgs e)
+        {
+            currentConfig.defaultSeed = int.Parse(defSeedInput.Text);
+            Settings.Save(currentConfig);
+        }
+
+        private void defSeedAccept_Loaded(object sender, RoutedEventArgs e)
+        {
+            defSeedAccept.Visibility = currentConfig.defaultSeed == -1 ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void defSeedNotify_Loaded(object sender, RoutedEventArgs e)
+        {
+            defSeedNotify.Visibility = currentConfig.defaultSeed == -1 ? Visibility.Collapsed : Visibility.Visible;
+        }
     }
 }

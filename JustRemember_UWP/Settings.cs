@@ -16,6 +16,7 @@ namespace JustRemember_UWP
         public int totalChoice { get; set; }
         public int displayTextSize { get; set; }
         public List<statInfo> stat { get; set; }
+        public int defaultSeed { get; set; }
 
         //public List<Note> notes;
         //public List<SessionInfo> sessions;
@@ -30,12 +31,14 @@ namespace JustRemember_UWP
 			totalChoice = 3;
 			displayTextSize = 14;
 			stat = new List<statInfo>();
+            defaultSeed = -1;
 			//notes = new List<Note>();
 			//sessions = new List<SessionInfo>();
 		}
 
         public static void Save(Settings content)
         {
+            Utilities.currentSettings = content;
             if (Utilities.initialize)
             {
                 if (File.Exists(Utilities.savedPath))
