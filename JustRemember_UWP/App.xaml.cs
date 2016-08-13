@@ -19,7 +19,14 @@ namespace JustRemember_UWP
         public App()
         {			
             InitializeComponent();
-			ApplicationView.PreferredLaunchViewSize = new Size(320, 240);
+#if DEBUG
+            Directory.Delete(Windows.Storage.ApplicationData.Current.LocalFolder.Path + "\\Prenote",true);
+#endif
+            ApplicationView.PreferredLaunchViewSize = new Size(320, 240);
+            if (!PrenoteLoader.isDeployed)
+            {
+                PrenoteLoader.DeployPrenote();
+            }
 			if (!Utilities.initialize)
 			{
 				//Utilities.systemAccent = (Color)Resources["SystemAccentColor"];

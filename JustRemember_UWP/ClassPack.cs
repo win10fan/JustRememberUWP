@@ -45,6 +45,13 @@ namespace JustRemember_UWP
 			TimeSpan ttlspan = TimeSpan.FromSeconds(total);
 			return $"{ttlspan.Minutes}:{ttlspan.Seconds}";
 		}
+
+        public static double TrimDouble(double value, int size)
+        {
+            string c = value.ToString();
+            c = c.Substring(0, c.IndexOf('.') + size);
+            return Convert.ToDouble(c);
+        }
 		
 		public static string ObscureText(this string text)
 		{
@@ -103,30 +110,69 @@ namespace JustRemember_UWP
 		public static bool isSmallLoaderMode;//Check if page is run in Match page... "OtherPage" frame
 		public static statInfo newStat;
 	}
-	
-	public class statInfo
-	{
-		public string dateandTime;
-		public int totalWords;
-		public int totalWrong
-		{
-			get
-			{
-				int value = 0;
-				foreach (int i in wrongPerchoice)
-				{
-					value += i;
-				}
-				return value;
-			}
-		}
-		public int totalChoice;
-		public List<int> wrongPerchoice = new List<int>();
-		public bool useTimeLimit;
-		public float totalTime;
-		public float totalLimitTime;
-		public challageMode currentMode;
-		public string noteTitle;
+
+    public class statInfo
+    {
+        public string dateandTime;
+        public int totalWords;
+        public int totalWrong
+        {
+            get
+            {
+                int value = 0;
+                foreach (int i in wrongPerchoice)
+                {
+                    value += i;
+                }
+                return value;
+            }
+        }
+        public int totalChoice;
+        public List<int> wrongPerchoice = new List<int>();
+        public bool useTimeLimit;
+        public float totalTime;
+        public float totalLimitTime;
+        public challageMode currentMode;
+        public string noteTitle;
+
+        //Read-only values
+        public string timeProgress
+        {
+            get
+            {
+                if (useTimeLimit)
+                {
+                    return $"{Utilities.ToStringAsTime(totalTime)}/{Utilities.ToStringAsTime(totalLimitTime)}";
+                }
+                return "N/A";
+            }
+        }
+        public int timeInPercent
+        {
+            get
+            {
+                if (useTimeLimit)
+                {
+                    float cache = (totalTime / totalLimitTime) * 100;
+                    return Convert.ToInt32(cache);
+                }
+                return 0;
+            }
+        }
+        public string choiceInfo
+        {
+            get
+            {
+                return $"{totalWrong} wrong choice out of {totalWords}. Average wrong {Utilities.TrimDouble(wrongPerchoice.Average(), 3)}";
+            }
+        }
+        public string titleInfo
+        {
+            get
+            {
+                return $"{noteTitle} - {dateandTime}";
+            }
+        }
 	}
 	
 	public enum textMode { Char, WhiteSpace }
@@ -455,4 +501,43 @@ namespace JustRemember_UWP
 		Normal,
 		Hard
 	}
+
+    public static class PrenoteLoader
+    {
+        public static bool isDeployed
+        {
+            get
+            {
+                if (Directory.Exists(ApplicationData.Current.LocalFolder.Path + "\\Prenote"))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public static void DeployPrenote()
+        {
+            string prenotepath = Windows.ApplicationModel.Package.Current.InstalledLocation.Path + "\\Prenote";
+            var files = Directory.GetFiles(prenotepath);
+            string deployPath = ApplicationData.Current.LocalFolder.Path + "\\Prenote";
+            for (int i = 0;i < files.Length - 1;i++)
+            {
+                string[] path = Path.GetFileName(files[i]).Split('-');
+                if (path.Length == 3)
+                {
+                    string cachep = $"{deployPath}\\{path[0]}\\{path[1]}";
+                    if (!Directory.Exists(cachep))
+                    {
+                        Directory.CreateDirectory(cachep);
+                    }
+                    cachep += "\\" + path[2];
+                    File.Copy(files[i], cachep);
+                }
+                //else //Deeper prenote
+                //{                    
+                //}
+            }
+        }
+    }
 }

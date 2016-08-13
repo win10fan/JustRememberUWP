@@ -24,106 +24,19 @@ namespace JustRemember_UWP
 			restartToApply.Commands.Add(new UICommand("OK. Let's restart") { Invoked = delegate { Application.Current.Exit(); } });
 			restartToApply.Commands.Add(new UICommand("OK, I'll restart later") { Id = 0 });
 			restartToApply.CancelCommandIndex = 0;
+            currentConfig = Settings.Load();
 			InitializeComponent();
 		}
 		public MessageDialog resetStat;
 		public MessageDialog resetApp;
 		public MessageDialog restartToApply;
+        public Settings currentConfig;
 
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(MainPage));
 		}
-
-		private void slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-		{
-			Utilities.currentSettings.displayTextSize = (int)slider.Value;
-			Settings.Save();
-		}
-
-		private void slider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-		{
-			Utilities.currentSettings.totalChoice = (int)slider1.Value;
-			Settings.Save();
-		}
-
-		private void toggleSwitch_Toggled(object sender, RoutedEventArgs e)
-		{
-			Utilities.currentSettings.isLimitTime = toggleSwitch.IsOn;
-			Settings.Save();
-			slider2.IsEnabled = Utilities.currentSettings.isLimitTime;
-			slider3.IsEnabled = Utilities.currentSettings.isLimitTime;
-		}
-
-		private void slider_Loaded(object sender, RoutedEventArgs e)
-		{
-			slider.Value = Utilities.currentSettings.displayTextSize;
-		}
-
-		private void slider1_Loaded(object sender, RoutedEventArgs e)
-		{
-			slider1.Value = Utilities.currentSettings.totalChoice;
-		}
-
-		private void toggleSwitch_Loaded(object sender, RoutedEventArgs e)
-		{
-			toggleSwitch.IsOn = Utilities.currentSettings.isLimitTime;
-		}
-
-		private void slider2_Loaded(object sender, RoutedEventArgs e)
-		{
-			slider2.IsEnabled = Utilities.currentSettings.isLimitTime;
-			slider2.Value = TimeSpan.FromSeconds(Utilities.currentSettings.limitTime).Minutes;
-		}
-
-		private void slider3_Loaded(object sender, RoutedEventArgs e)
-		{
-			slider3.IsEnabled = Utilities.currentSettings.isLimitTime;
-			slider3.Value = TimeSpan.FromSeconds(Utilities.currentSettings.limitTime).Seconds;
-		}
-
-		private void toggleSwitch2_Loaded(object sender, RoutedEventArgs e)
-		{
-			toggleSwitch2.IsEnabled = Utilities.currentSettings.defaultMode == challageMode.Easy;
-			toggleSwitch2.IsOn = Utilities.currentSettings.showWrongContent;
-		}
-
-		private void slider2_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-		{
-			Utilities.currentSettings.limitTime = Convert.ToSingle((slider2.Value * 60) + slider3.Value);
-			Settings.Save();
-			slider3.Minimum = slider2.Value == 0 ? 30 : 0;
-			slider3.Maximum = slider2.Value == 30 ? 0 : 60;
-		}
-
-		private void slider3_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-		{
-			Utilities.currentSettings.limitTime = Convert.ToSingle((slider2.Value * 60) + slider3.Value);
-			Settings.Save();
-		}
-
-		private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			Utilities.currentSettings.defaultMode = (challageMode)comboBox1.SelectedIndex;
-			Settings.Save();
-			if (toggleSwitch2 != null)
-			{
-				toggleSwitch2.IsEnabled = Utilities.currentSettings.defaultMode == challageMode.Easy;
-			}
-		}
-
-		private void comboBox1_Loaded(object sender, RoutedEventArgs e)
-		{
-			comboBox1.SelectedIndex = (int)Utilities.currentSettings.defaultMode;
-			Settings.Save();
-		}
-		
-		private void toggleSwitch2_Toggled(object sender, RoutedEventArgs e)
-		{
-			Utilities.currentSettings.showWrongContent = toggleSwitch2.IsOn;
-			Settings.Save();
-		}
-
+        
 		private async void button1_Click(object sender, RoutedEventArgs e)
 		{
 			await resetStat.ShowAsync();
@@ -133,62 +46,7 @@ namespace JustRemember_UWP
 		{
 			await resetApp.ShowAsync();
 		}
-
-		private void generalPage_Loaded(object sender, RoutedEventArgs e)
-		{
-			settingTitle.Text = "Settings";
-		}
-
-		private void sessionPage_Loaded(object sender, RoutedEventArgs e)
-		{
-			settingTitle.Text = "Session";
-		}
-
-		private void themePage_Loaded(object sender, RoutedEventArgs e)
-		{
-			settingTitle.Text = "Theme";
-		}
-
-		private void statPage_Loaded(object sender, RoutedEventArgs e)
-		{
-			settingTitle.Text = "Stat";
-		}
-
-		private void aboutPage_Loaded(object sender, RoutedEventArgs e)
-		{
-			settingTitle.Text = "About";
-		}
-
-		private async void darkTheme_Click(object sender, RoutedEventArgs e)
-		{
-			if (darkTheme.IsChecked == true && Utilities.currentSettings.theme != ApplicationTheme.Dark)
-			{
-				Utilities.currentSettings.theme = ApplicationTheme.Dark;
-				Settings.Save();
-				await restartToApply.ShowAsync();
-			}
-		}
-
-		private void darkTheme_Loaded(object sender, RoutedEventArgs e)
-		{
-			darkTheme.IsChecked = Utilities.currentSettings.theme == ApplicationTheme.Dark;
-		}
-
-		private async void lightTheme_Click(object sender, RoutedEventArgs e)
-		{
-			if (lightTheme.IsChecked == true && Utilities.currentSettings.theme != ApplicationTheme.Light)
-			{
-				Utilities.currentSettings.theme = ApplicationTheme.Light;
-				Settings.Save();
-				await restartToApply.ShowAsync();
-			}
-		}
-
-		private void lightTheme_Loaded(object sender, RoutedEventArgs e)
-		{
-			lightTheme.IsChecked = Utilities.currentSettings.theme == ApplicationTheme.Light;
-		}
-
+        
 		private void titleBar_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (Utilities.isSmallLoaderMode)
@@ -202,5 +60,193 @@ namespace JustRemember_UWP
 				settingsContent.Margin = new Thickness(0, 50, 0, 0);
 			}
 		}
-	}
+
+        private void darkTheme_Checked(object sender, RoutedEventArgs e)
+        {
+            currentConfig.theme = ApplicationTheme.Dark;
+            Settings.Save(currentConfig);
+            if (themeNotify != null)
+            {
+                themeNotify.Visibility = Application.Current.RequestedTheme == currentConfig.theme ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+        
+        private void darkTheme_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (currentConfig.theme == ApplicationTheme.Dark)
+            {
+                darkTheme.IsChecked = true;
+            }
+            else
+            {
+                darkTheme.IsChecked = false;
+            }
+        }
+
+        private void lightTheme_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (currentConfig.theme == ApplicationTheme.Light)
+            {
+                lightTheme.IsChecked = true;
+            }
+            else
+            {
+                lightTheme.IsChecked = false;
+            }
+        }
+
+        private void lightTheme_Checked(object sender, RoutedEventArgs e)
+        {
+            currentConfig.theme = ApplicationTheme.Light;
+            Settings.Save(currentConfig);
+            if (themeNotify != null)
+            {
+                themeNotify.Visibility = Application.Current.RequestedTheme == currentConfig.theme ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+
+        private void cdpSize_Loaded(object sender, RoutedEventArgs e)
+        {
+            cdpSize.Value = currentConfig.displayTextSize;
+            cdpSize.Minimum = 12;
+            cdpSize.Maximum = 72;
+        }
+
+        private void cdpSize_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            currentConfig.displayTextSize = Convert.ToInt32(cdpSize.Value);
+            Settings.Save(currentConfig);
+        }
+
+        private void themeNotify_Loaded(object sender, RoutedEventArgs e)
+        {
+            themeNotify.Visibility = Application.Current.RequestedTheme == currentConfig.theme ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void totalChoicie_Loaded(object sender, RoutedEventArgs e)
+        {
+            totalChoicie.Minimum = 3;
+            totalChoicie.Maximum = 5;
+            totalChoicie.Value = currentConfig.totalChoice;
+        }
+
+        private void totalChoicie_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            currentConfig.totalChoice = Convert.ToInt32(totalChoicie.Value);
+            Settings.Save(currentConfig);
+        }
+
+        private void useTimelimit_Loaded(object sender, RoutedEventArgs e)
+        {
+            useTimelimit.IsOn = currentConfig.isLimitTime;
+        }
+
+        private void useTimelimit_Toggled(object sender, RoutedEventArgs e)
+        {
+            currentConfig.isLimitTime = useTimelimit.IsOn;
+            Settings.Save(currentConfig);
+            if (minuteSet != null) { minuteSet.IsEnabled = currentConfig.isLimitTime; }
+            if (secondSet != null) { secondSet.IsEnabled = currentConfig.isLimitTime; }
+        }
+
+        private void minuteSet_Loaded(object sender, RoutedEventArgs e)
+        {
+            minuteSet.Minimum = 0;
+            minuteSet.Maximum = 30;
+            minuteSet.Value = TimeSpan.FromSeconds(currentConfig.limitTime).Minutes;
+            minuteSet.IsEnabled = currentConfig.isLimitTime;
+        }
+
+        private void minuteSet_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            currentConfig.limitTime = Convert.ToSingle((minuteSet.Value * 60) + secondSet.Value);
+            Settings.Save(currentConfig);
+            if (minuteSet.Value == 0)
+            {
+                secondSet.Minimum = 30;
+                secondSet.Maximum = 60;
+            }
+            else if (minuteSet.Value >= 1 && minuteSet.Value <= 29)
+            {
+                secondSet.Minimum = 0;
+                secondSet.Maximum = 60;
+            }
+            else if (minuteSet.Value == 30)
+            {
+                secondSet.Minimum = 0;
+                secondSet.Maximum = 0;
+            }
+        }
+
+        private void secondSet_Loaded(object sender, RoutedEventArgs e)
+        {
+            secondSet.Value = TimeSpan.FromSeconds(currentConfig.limitTime).Seconds;
+            minuteSet.ValueChanged += minuteSet_ValueChanged;
+            secondSet.ValueChanged += secondSet_ValueChanged;
+            secondSet.IsEnabled = currentConfig.isLimitTime;
+        }
+
+        private void secondSet_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            currentConfig.limitTime = Convert.ToSingle((minuteSet.Value * 60) + secondSet.Value);
+            Settings.Save(currentConfig);
+        }
+
+        private void difEasy_Loaded(object sender, RoutedEventArgs e)
+        {
+            difEasy.IsChecked = currentConfig.defaultMode == challageMode.Easy;
+        }
+
+        private void difEasy_Checked(object sender, RoutedEventArgs e)
+        {
+            currentConfig.defaultMode = challageMode.Easy;
+            Settings.Save(currentConfig);
+            if (showWrong != null)
+            {
+                showWrong.IsEnabled = currentConfig.defaultMode == challageMode.Easy;
+            }
+        }
+
+        private void difNorm_Loaded(object sender, RoutedEventArgs e)
+        {
+            difNorm.IsChecked = currentConfig.defaultMode == challageMode.Normal;
+        }
+
+        private void difNorm_Checked(object sender, RoutedEventArgs e)
+        {
+            currentConfig.defaultMode = challageMode.Normal;
+            Settings.Save(currentConfig);
+            if (showWrong != null)
+            {
+                showWrong.IsEnabled = currentConfig.defaultMode == challageMode.Easy;
+            }
+        }
+
+        private void difHard_Loaded(object sender, RoutedEventArgs e)
+        {
+            difHard.IsChecked = currentConfig.defaultMode == challageMode.Hard;
+        }
+
+        private void difHard_Checked(object sender, RoutedEventArgs e)
+        {
+            currentConfig.defaultMode = challageMode.Hard;
+            Settings.Save(currentConfig);
+            if (showWrong != null)
+            {
+                showWrong.IsEnabled = currentConfig.defaultMode == challageMode.Easy;
+            }
+        }
+
+        private void showWrong_Loaded(object sender, RoutedEventArgs e)
+        {
+            showWrong.IsOn = currentConfig.showWrongContent;
+            showWrong.IsEnabled = currentConfig.defaultMode == challageMode.Easy;
+        }
+
+        private void showWrong_Toggled(object sender, RoutedEventArgs e)
+        {
+            currentConfig.showWrongContent = showWrong.IsOn;
+            Settings.Save(currentConfig);
+        }
+    }
 }

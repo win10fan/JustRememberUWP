@@ -229,7 +229,7 @@ namespace JustRemember_UWP
 			oneTime = false;
 			return workingResult;
 		}
-		
+
 		public void LoadFile(string filename, string content)
 		{
 			//Update title
@@ -256,6 +256,7 @@ namespace JustRemember_UWP
 		public void ResetRound()
 		{
 			Utilities.newStat = new statInfo();
+            Utilities.newStat.noteTitle = currentFilename;
 			Utilities.newStat.dateandTime = DateTime.Now.ToString(@"dd MM yyyy - hh:mm:ss");
 			Utilities.newStat.currentMode = Utilities.currentSettings.defaultMode;
 			progressCounter.Value = 0;
@@ -576,7 +577,8 @@ namespace JustRemember_UWP
 				}
 				progressCounter.Value = currentProgress;
 			}
-			displayTextScroll.ScrollToVerticalOffset(displayTextScroll.ExtentHeight);
+            //displayTextScroll.(displayTextScroll.ExtentHeight);
+            displayTextScroll.ChangeView(displayTextScroll.HorizontalOffset, displayTextScroll.ExtentHeight, displayTextScroll.ZoomFactor);
 		}
 		//TODO:Add prenote system???!?!?!!!?
 		

@@ -7,19 +7,19 @@ namespace JustRemember_UWP
 {
 	public class Settings
 	{
-		public string language;
-		public ApplicationTheme theme;
-		public bool isLimitTime;
-		public bool showWrongContent;
-		public challageMode defaultMode;
-		public float limitTime;
-		public int totalChoice;
-		public int displayTextSize;
-		public List<statInfo> stat;
+		public string language { get; set; }
+		public ApplicationTheme theme { get; set; }
+		public bool isLimitTime { get; set; }
+		public bool showWrongContent { get; set; }
+        public challageMode defaultMode { get; set; }
+        public float limitTime { get; set; }
+        public int totalChoice { get; set; }
+        public int displayTextSize { get; set; }
+        public List<statInfo> stat { get; set; }
 
-		//public List<Note> notes;
-		//public List<SessionInfo> sessions;
-		public Settings() //Default setting
+        //public List<Note> notes;
+        //public List<SessionInfo> sessions;
+        public Settings() //Default setting
 		{
 			language = "en-US";
 			theme = ApplicationTheme.Dark;
@@ -33,10 +33,26 @@ namespace JustRemember_UWP
 			//notes = new List<Note>();
 			//sessions = new List<SessionInfo>();
 		}
-		
-		public static void Save(string path, Settings content)
+
+        public static void Save(Settings content)
+        {
+            if (Utilities.initialize)
+            {
+                if (File.Exists(Utilities.savedPath))
+                {
+                    File.Delete(Utilities.savedPath);
+                }
+                using (StreamWriter write = new StreamWriter(File.Create(Utilities.savedPath)))
+                {
+                    XmlSerializer xs = new XmlSerializer(typeof(Settings));
+                    xs.Serialize(write, content);
+                }
+            }
+        }
+
+        public static void Save(string path, Settings content)
 		{
-			if (File.Exists(path))
+            if (File.Exists(path))
 			{
 				File.Delete(path);
 			}
@@ -54,6 +70,16 @@ namespace JustRemember_UWP
 				Save(Utilities.savedPath, Utilities.currentSettings);
 			}
 		}
+
+        public static Settings Load()
+        {
+            if (!Utilities.initialize) { return null; }
+            if (File.Exists(Utilities.savedPath))
+            {
+                return Load(Utilities.savedPath);
+            }
+            return new Settings();
+        }
 
 		public static Settings Load(string path)
 		{

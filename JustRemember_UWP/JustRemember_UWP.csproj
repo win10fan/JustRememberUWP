@@ -11,7 +11,7 @@
     <AssemblyName>JustRemember_UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -20,6 +20,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <AppxBundle>Never</AppxBundle>
+    <PackageCertificateThumbprint>21F035EDB786096111FE91B6822C9FECE2F5C5B7</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -92,6 +93,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="JustRemember_UWP_TemporaryKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -163,58 +165,58 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Prenote\EN\Character\A - Z.txt" />
-    <Content Include="Prenote\TH\ฌาปนกิจ\กุสะลา.txt" />
-    <Content Include="Prenote\TH\ฌาปนกิจ\บังสกุลตาย %28ธรรมยุต%29.txt" />
-    <Content Include="Prenote\TH\ฌาปนกิจ\บังสกุลตาย %28มหานิกาย%29.txt" />
-    <Content Include="Prenote\TH\ฌาปนกิจ\บังสกุลเป็น.txt" />
-    <Content Include="Prenote\TH\ฌาปนกิจ\ปัญจักขันธา.txt" />
-    <Content Include="Prenote\TH\ฌาปนกิจ\เหตุปัจจะโย.txt" />
-    <Content Include="Prenote\TH\ตัวอักษร\ก - ฮ.txt" />
-    <Content Include="Prenote\TH\ตัวอักษร\สระ.txt" />
-    <Content Include="Prenote\TH\ทำบุญร้อยวัน\1ปัพพโตปมคาถา.txt" />
-    <Content Include="Prenote\TH\ทำบุญร้อยวัน\2อริยธนคาถา.txt" />
-    <Content Include="Prenote\TH\ทำบุญร้อยวัน\3ธัมมนิยามสุตตัง.txt" />
-    <Content Include="Prenote\TH\ทำบุญร้อยวัน\4ติลักขณาทิคาถา.txt" />
-    <Content Include="Prenote\TH\ทำบุญร้อยวัน\5ภัทเทกรัตตคาถา.txt" />
-    <Content Include="Prenote\TH\บทสวดอื่นๆ\ธัมมจักรกัปปวัตนสุตตัง.txt" />
-    <Content Include="Prenote\TH\บทสวดอื่นๆ\มหาสมัยสูตร.txt" />
-    <Content Include="Prenote\TH\สวดศพกลางคืน\1พระสังคิณี.txt" />
-    <Content Include="Prenote\TH\สวดศพกลางคืน\2พระวิภังค์.txt" />
-    <Content Include="Prenote\TH\สวดศพกลางคืน\3พระธาตุกถา.txt" />
-    <Content Include="Prenote\TH\สวดศพกลางคืน\4พระปุคคลบัญญัติ.txt" />
-    <Content Include="Prenote\TH\สวดศพกลางคืน\5พระกถาวัตถุ.txt" />
-    <Content Include="Prenote\TH\สวดศพกลางคืน\6พระยมก.txt" />
-    <Content Include="Prenote\TH\สวดศพกลางคืน\7พระมหาปัฏฐาน.txt" />
-    <Content Include="Prenote\TH\อนุโมธนาพิธี\กาเล.txt" />
-    <Content Include="Prenote\TH\อนุโมธนาพิธี\ภะวะตุสัพ.txt" />
-    <Content Include="Prenote\TH\อนุโมธนาพิธี\มงคงจักรวาลน้อย %28ย่อ%29.txt" />
-    <Content Include="Prenote\TH\อนุโมธนาพิธี\มงคงจักรวาลน้อย.txt" />
-    <Content Include="Prenote\TH\อนุโมธนาพิธี\ยะถา.txt" />
-    <Content Include="Prenote\TH\อนุโมธนาพิธี\สัพพี.txt" />
-    <Content Include="Prenote\TH\อนุโมธนาพิธี\อะทาสิเม.txt" />
-    <Content Include="Prenote\TH\อนุโมธนาพิธี\อายุโท.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\10วิรูปักเข.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\11อุเทนจักขุมา.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\12วิปัสสิสสะ.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\13โพชฌังโค.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\14ยันทุน.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\15มหาการุนิโก.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\16โสอัตถะ.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\17สักกัตวา.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\18นัตถิเม.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\19ยังกิญจิระตะนัง.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\1ชุมนุมเทวดา.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\20สิริธิติ.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\21ทุกขัปปัตตา.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\2ชุมนุมเทวดาหลวง.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\3โยจักขุมา.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\4สัมพุทเธ.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\5นะโมแปดบท.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\6อะเสวะนา.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\7ยังกิญจิวิตตัง.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\8กะระณี.txt" />
-    <Content Include="Prenote\TH\เจริญพุทธมนต์\9อัตถิโลเก.txt" />
+    <Content Include="Prenote\EN-Character-A to Z.txt" />
+    <Content Include="Prenote\TH-ฌาปนกิจ-1กุสะลา.txt" />
+    <Content Include="Prenote\TH-ฌาปนกิจ-2ปัญจักขันธา.txt" />
+    <Content Include="Prenote\TH-ฌาปนกิจ-3เหตุปัจจะโย.txt" />
+    <Content Include="Prenote\TH-ฌาปนกิจ-บังสกุลตาย %28ธรรมยุต%29.txt" />
+    <Content Include="Prenote\TH-ฌาปนกิจ-บังสกุลตาย %28มหานิกาย%29.txt" />
+    <Content Include="Prenote\TH-ฌาปนกิจ-บังสกุลเป็น.txt" />
+    <Content Include="Prenote\TH-ตัวอักษร-ก ถึง ฮ.txt" />
+    <Content Include="Prenote\TH-ตัวอักษร-สระ.txt" />
+    <Content Include="Prenote\TH-ทำบุญร้อยวัน-1ปัพพโตปมคาถา.txt" />
+    <Content Include="Prenote\TH-ทำบุญร้อยวัน-2อริยธนคาถา.txt" />
+    <Content Include="Prenote\TH-ทำบุญร้อยวัน-3ธัมมนิยามสุตตัง.txt" />
+    <Content Include="Prenote\TH-ทำบุญร้อยวัน-4ติลักขณาทิคาถา.txt" />
+    <Content Include="Prenote\TH-ทำบุญร้อยวัน-5ภัทเทกรัตตคาถา.txt" />
+    <Content Include="Prenote\TH-บทสวดอื่นๆ-ธัมมจักรกัปปวัตนสุตตัง.txt" />
+    <Content Include="Prenote\TH-บทสวดอื่นๆ-มหาสมัยสูตร.txt" />
+    <Content Include="Prenote\TH-สวดศพกลางคืน-1พระสังคิณี.txt" />
+    <Content Include="Prenote\TH-สวดศพกลางคืน-2พระวิภังค์.txt" />
+    <Content Include="Prenote\TH-สวดศพกลางคืน-3พระธาตุกถา.txt" />
+    <Content Include="Prenote\TH-สวดศพกลางคืน-4พระปุคคลบัญญัติ.txt" />
+    <Content Include="Prenote\TH-สวดศพกลางคืน-5พระกถาวัตถุ.txt" />
+    <Content Include="Prenote\TH-สวดศพกลางคืน-6พระยมก.txt" />
+    <Content Include="Prenote\TH-สวดศพกลางคืน-7พระมหาปัฏฐาน.txt" />
+    <Content Include="Prenote\TH-อนุโมธนาพิธี-กาเล.txt" />
+    <Content Include="Prenote\TH-อนุโมธนาพิธี-ภะวะตุสัพ.txt" />
+    <Content Include="Prenote\TH-อนุโมธนาพิธี-มงคงจักรวาลน้อย %28ย่อ%29.txt" />
+    <Content Include="Prenote\TH-อนุโมธนาพิธี-มงคงจักรวาลน้อย.txt" />
+    <Content Include="Prenote\TH-อนุโมธนาพิธี-ยะถา.txt" />
+    <Content Include="Prenote\TH-อนุโมธนาพิธี-สัพพี.txt" />
+    <Content Include="Prenote\TH-อนุโมธนาพิธี-อะทาสิเม.txt" />
+    <Content Include="Prenote\TH-อนุโมธนาพิธี-อายุโท.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-10วิรูปักเข.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-11อุเทนจักขุมา.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-12วิปัสสิสสะ.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-13โพชฌังโค.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-14ยันทุน.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-15มหาการุนิโก.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-16โสอัตถะ.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-17สักกัตวา.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-18นัตถิเม.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-19ยังกิญจิระตะนัง.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-1ชุมนุมเทวดา.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-20สิริธิติ.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-21ทุกขัปปัตตา.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-2ชุมนุมเทวดาหลวง.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-3โยจักขุมา.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-4สัมพุทเธ.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-5นะโมแปดบท.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-6อะเสวะนา.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-7ยังกิญจิวิตตัง.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-8กะระณี.txt" />
+    <Content Include="Prenote\TH-เจริญพุทธมนต์-9อัตถิโลเก.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

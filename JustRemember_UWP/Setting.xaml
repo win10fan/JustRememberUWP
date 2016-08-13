@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:JustRemember_UWP"
+    xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -13,66 +14,82 @@
             <TextBlock x:Name="settingTitle" Canvas.Left="50" Text="Settings" RenderTransformOrigin="0,0.5" VerticalAlignment="Center"  FontSize="24" Height="50" Padding="5,8,0,0"/>
         </Canvas>
         <Pivot x:Name="settingsContent" Margin="0,50,0,0" Background="{ThemeResource AppBarBackgroundThemeBrush}" Foreground="{ThemeResource PivotForegroundThemeBrush}">
-            <PivotItem x:Name="generalPage" Header="General" Loaded="generalPage_Loaded" Foreground="White">
+            <PivotItem x:Name="generalPage" Header="General" Foreground="White">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Theme" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <RadioButton x:Name="darkTheme" Content="Dark" VerticalAlignment="Center" FontSize="16" Checked="darkTheme_Checked" Loaded="darkTheme_Loaded" Foreground="{ThemeResource ButtonForeground}"/>
+                        <RadioButton Margin="5,0,0,0" x:Name="lightTheme" Content="Light" VerticalAlignment="Center" FontSize="16" Loaded="lightTheme_Loaded" Checked="lightTheme_Checked" Foreground="{ThemeResource ButtonForeground}"/>
+                    </StackPanel>
+                    <TextBlock FontSize="12" x:Name="themeNotify" Text="Theme changed! Restart to apply" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="themeNotify_Loaded"/>
+                    <TextBlock Margin="0,10" Text="Language" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <ComboBox x:Name="langList" Margin="5" Width="150">
+                        <ComboBoxItem Content="English"/>
+                        <ComboBoxItem Content="ไทย"/>
+                    </ComboBox>
+                    <TextBlock Text="Choice selected display" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <Slider Margin="5" HorizontalAlignment="Left" Width="150" x:Name="cdpSize" Loaded="cdpSize_Loaded" ValueChanged="cdpSize_ValueChanged"/>
+                </StackPanel>
+            </PivotItem>
+            <PivotItem x:Name="sessionPage" Header="Session">
                 <ScrollViewer>
-                    <ItemsControl Margin="10">
-                        <TextBlock x:Name="title0" Text="Language" VerticalAlignment="Top"  FontSize="18" Height="40" Foreground="{ThemeResource PivotForegroundThemeBrush}"/>
-                        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" SelectedIndex="0" Margin="10,0,0,10">
-                            <ComboBoxItem Content="English"/>
-                            <ComboBoxItem Content="ไทย"/>
-                        </ComboBox>
-                        <TextBlock x:Name="title1" Text="Content size" VerticalAlignment="Top"  FontSize="18" Height="40" Foreground="{ThemeResource PivotForegroundThemeBrush}"/>
-                        <Slider x:Name="slider" Margin="10,0,0,0" Width="180" HorizontalAlignment="Left" Minimum="12" Maximum="72" ValueChanged="slider_ValueChanged" Loaded="slider_Loaded"/>
+                    <ItemsControl>
+                        <TextBlock Margin="0,10,0,0" Text="Total choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <Slider x:Name="totalChoicie" Margin="5"  HorizontalAlignment="Left" Width="150" Loaded="totalChoicie_Loaded" ValueChanged="totalChoicie_ValueChanged"/>
+                        <TextBlock Margin="0,10" Text="Use time limit" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <ToggleSwitch x:Name="useTimelimit" Margin="5" Loaded="useTimelimit_Loaded" Toggled="useTimelimit_Toggled"/>
+                        <TextBlock Margin="0,10" Text="Total time limit" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45"/>
+                                <RowDefinition Height="45"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Minute" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource ButtonForeground}"/>
+                            <Slider Margin="0,0,20,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" x:Name="minuteSet" Minimum="0" Maximum="60" HorizontalAlignment="Left" Width="150" Loaded="minuteSet_Loaded"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="Second" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource ButtonForeground}"/>
+                            <Slider Margin="0,0,20,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" x:Name="secondSet" Minimum="0" Maximum="60" HorizontalAlignment="Left" Width="150" Loaded="secondSet_Loaded"/>
+                        </Grid>
+                        <TextBlock Margin="0,10" Text="When choose wrong choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <RadioButton Loaded="difEasy_Loaded" Checked="difEasy_Checked" x:Name="difEasy" Content="Skip to next choice"/>
+                            <RadioButton Loaded="difNorm_Loaded" Checked="difNorm_Checked" x:Name="difNorm" Content="Stay at same choice"/>
+                            <RadioButton Loaded="difHard_Loaded" Checked="difHard_Checked" x:Name="difHard" Content="Reset match"/>
+                        </StackPanel>
+                        <TextBlock Margin="0,10" Text="Show text instead of ??? on wrong choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <ToggleSwitch x:Name="showWrong" Margin="5" Loaded="showWrong_Loaded" Toggled="showWrong_Toggled"/>
                     </ItemsControl>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem x:Name="sessionPage" Header="Session" Loaded="sessionPage_Loaded">
-                <ScrollViewer>
-                    <ItemsControl Margin="10">
-                        <TextBlock x:Name="title2" Text="Total choice" VerticalAlignment="Top"  FontSize="18" Height="40" Foreground="{ThemeResource PivotForegroundThemeBrush}"/>
-                        <Slider x:Name="slider1" Margin="10,0,0,0" Width="180" HorizontalAlignment="Left" Maximum="5" Minimum="3" ValueChanged="slider1_ValueChanged" Loaded="slider1_Loaded" Foreground="{ThemeResource SystemAccentColor}"/>
-                        <TextBlock x:Name="title3" Text="Use time limit" VerticalAlignment="Top"  FontSize="18" Height="40" Foreground="{ThemeResource PivotForegroundThemeBrush}"/>
-                        <ToggleSwitch x:Name="toggleSwitch" Margin="10,0,0,0"  HorizontalAlignment="Left" VerticalAlignment="Top" Toggled="toggleSwitch_Toggled" Loaded="toggleSwitch_Loaded"/>
-                        <TextBlock x:Name="title4" Text="Total limit" VerticalAlignment="Top"  FontSize="18" Height="40" Foreground="{ThemeResource PivotForegroundThemeBrush}"/>
-                        <Slider x:Name="slider2" Width="180" Header="Minute" Maximum="30" Loaded="slider2_Loaded" ValueChanged="slider2_ValueChanged" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                        <Slider x:Name="slider3" Width="180" Header="Second" Maximum="60" Loaded="slider3_Loaded" ValueChanged="slider3_ValueChanged" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                        <TextBlock x:Name="title5" Text="Difficult" VerticalAlignment="Top"  FontSize="18" Height="40" Foreground="{ThemeResource PivotForegroundThemeBrush}"/>
-                        <ComboBox x:Name="comboBox1" Width="154" Margin="10,0,0,0" SelectedIndex="0" PlaceholderText="Easy" Loaded="comboBox1_Loaded" SelectionChanged="comboBox1_SelectionChanged">
-                            <ComboBoxItem Content="Easy"/>
-                            <ComboBoxItem Content="Normal"/>
-                            <ComboBoxItem Content="Hard"/>
-                        </ComboBox>
-                        <TextBlock x:Name="title6" Text="Show the actual content instead of ???" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="18" Height="40" Foreground="{ThemeResource PivotForegroundThemeBrush}"/>
-                        <ToggleSwitch x:Name="toggleSwitch2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Loaded="toggleSwitch2_Loaded" Toggled="toggleSwitch2_Toggled"/>
-                    </ItemsControl>
-                </ScrollViewer>
-            </PivotItem>
-            <PivotItem x:Name="themePage" Header="Theme" Loaded="themePage_Loaded">
-                <ScrollViewer>
-                    <ItemsControl Margin="10">
-                        <TextBlock x:Name="title7" Canvas.Left="10" Text="Theme" VerticalAlignment="Top"  FontSize="18" Height="30"/>
-                        <!--<ComboBox x:Name="comboBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" SelectedIndex="0" Margin="10,0,0,0" SelectionChanged="comboBox2_SelectionChanged" Loaded="comboBox2_Loaded">
-                            <ComboBoxItem Content="Dark"/>
-                            <ComboBoxItem Content="Light"/>
-                        </ComboBox>-->
-                        <RadioButton x:Name="darkTheme" Content="Dark" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" Click="darkTheme_Click" Loaded="darkTheme_Loaded" GroupName="Theme"/>
-                        <RadioButton x:Name="lightTheme" Content="Light" HorizontalAlignment="Left" VerticalAlignment="Top" Click="lightTheme_Click" Loaded="lightTheme_Loaded" GroupName="Theme" IsChecked="True"/>
-                    </ItemsControl>
-                </ScrollViewer>
-            </PivotItem>
-            <PivotItem x:Name="statPage" Header="Stat" Loaded="statPage_Loaded">
-                <ListView x:Name="statList">
-                    <TextBlock x:Name="nostat" TextWrapping="Wrap" Text="No stat found :(" HorizontalAlignment="Center"/>
+            <PivotItem x:Name="statPage" Header="Stat">
+                <ListView ItemsSource="{x:Bind currentConfig.stat}" x:Name="statList">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:statInfo">
+                            <StackPanel Margin="8" Orientation="Horizontal">
+                                <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                                    <TextBlock Text="{x:Bind titleInfo}" FontSize="20"/>
+                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                        <TextBlock FontSize="16" Text="{x:Bind timeProgress}"/>
+                                        <ProgressBar Value="{x:Bind timeInPercent}" Margin="10,0,0,0" Height="20" Width="120"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{x:Bind choiceInfo}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </PivotItem>
-            <PivotItem x:Name="aboutPage" Header="About" Loaded="aboutPage_Loaded">
+            <PivotItem x:Name="aboutPage" Header="About">
                 <ScrollViewer>
                     <ItemsControl>
                         <TextBlock x:Name="textBlock1" TextWrapping="Wrap" FontSize="20" Margin="5,5,0,0" Padding="5,5,0,0" Text="Just Remember: Universal App"/>
                         <TextBlock x:Name="textBlock2" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Running on Windows 10"/>
                         <TextBlock x:Name="textBlock3" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Made by: @ToonWK"/>
                         <TextBlock x:Name="textBlock4" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="App version: 1.4"/>
-                        <TextBlock x:Name="textBlock5" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Powered by Visual Studio 14.0.25123.00"/>
+                        <TextBlock x:Name="textBlock5" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Powered by Visual Studio 14.0.25425.01"/>
                         <Button x:Name="button1" Content="Reset Stat" Click="button1_Click" Margin="20,10,0,10"/>
                         <Button x:Name="button2" Content="Reset app setting" Click="button2_Click" Margin="20,0,0,0"/>
                     </ItemsControl>

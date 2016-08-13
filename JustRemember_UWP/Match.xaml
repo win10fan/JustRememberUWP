@@ -83,10 +83,6 @@
                         <TextBlock Text="Restart match" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="settingPage" Content="&#xE115;" Click="settingPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                        <TextBlock Text="Settings" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
                         <Button x:Name="mainmenuPage" Content="&#xE80F;" Click="mainmenuPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
                         <TextBlock Text="Main menu" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                     </StackPanel>

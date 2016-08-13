@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp" xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10">
-  <Identity Name="RememberIt" Publisher="CN=Toon" Version="1.3.3.0" />
+<Package xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="RememberIt" Publisher="CN=Toon" Version="1.3.5.0" />
   <mp:PhoneIdentity PhoneProductId="f7d25787-6213-455d-accd-d5d0fa61021e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>JustRemember</DisplayName>
@@ -23,7 +23,7 @@
             <uap:ShowOn Tile="square310x310Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#FFFFFF" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="transparent" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="portrait" />
           <uap:Rotation Preference="landscape" />

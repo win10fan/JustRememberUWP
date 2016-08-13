@@ -18,10 +18,16 @@ namespace JustRemember_UWP
 		}
 		
 		public PrenoteList Prenotes;
-		//TODO:Make page can go back with back button.
+        //TODO:Make page can go back with back button.
+        int level = 0;
 		
 		private async void Button_Click(object sender, RoutedEventArgs e)
 		{
+            if (level == 0)
+            {
+                Frame.GoBack();
+                return;
+            }
 			await Prenotes.NavigateUpAsync();
 		}
 		
@@ -32,6 +38,8 @@ namespace JustRemember_UWP
 		public PrenoteInfo selectedPrenote;
 		private async void openFolder_Click(object sender, RoutedEventArgs e)
 		{
+            level += 1;
+            if (selectionList.SelectedIndex < 0) { return; }
 			if (selectedPrenote != null)
 			{
 				await Prenotes.NavigateAsync(selectedPrenote.Name);
@@ -39,8 +47,9 @@ namespace JustRemember_UWP
 		}
 
 		private void openFile_Click(object sender, RoutedEventArgs e)
-		{
-			Note selected = new Note();
+        {
+            if (selectionList.SelectedIndex < 0) { return; }
+            Note selected = new Note();
 			selected.Title = selectedPrenote.Name;
 			selected.Content = selectedPrenote.Content;
 			Utilities.selected = selected;
@@ -49,7 +58,7 @@ namespace JustRemember_UWP
 
 		private void AppBarButton_Click(object sender, RoutedEventArgs e)
 		{
-			Frame.Navigate(typeof(MainPage));
+            Frame.GoBack();
 		}
 
 		private void selectionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -65,8 +74,8 @@ namespace JustRemember_UWP
 
 	public class PrenoteList
 	{
-		public StorageFolder currentFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-		public static readonly StorageFolder baseFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+		public StorageFolder currentFolder = ApplicationData.Current.LocalFolder;
+		public static readonly StorageFolder baseFolder = ApplicationData.Current.LocalFolder;
 		private ObservableCollection<PrenoteInfo> prenotes = new ObservableCollection<PrenoteInfo>();
 		public ObservableCollection<PrenoteInfo> Prenotes
 		{
