@@ -48,6 +48,7 @@ namespace JustRemember_UWP
 
         public static double TrimDouble(double value, int size)
         {
+            if (!value.ToString().Contains(".")) { return value; }
             string c = value.ToString();
             c = c.Substring(0, c.IndexOf('.') + size);
             return Convert.ToDouble(c);

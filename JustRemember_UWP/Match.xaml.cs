@@ -275,6 +275,7 @@ namespace JustRemember_UWP
 			Utilities.newStat.totalWords = textList.Count;
 			Utilities.newStat.totalChoice = Utilities.currentSettings.totalChoice;
 			Utilities.newStat.useTimeLimit = Utilities.currentSettings.isLimitTime;
+            prev = DateTime.UtcNow;
 			//TODO:Make it support seed system
 			randomEngine = new Random();
 		}
@@ -302,7 +303,7 @@ namespace JustRemember_UWP
 				chImportant.Visibility = Visibility.Collapsed;
 			}
 		}
-
+        DateTime prev;
 		private async void TimerNow_Tick(object sender, object e)
 		{
 			if (Utilities.newStat == null)
@@ -311,10 +312,11 @@ namespace JustRemember_UWP
 				return;
 			}
 			//Update time
-			if (Utilities.currentSettings.isLimitTime)
+			if (Utilities.currentSettings.isLimitTime && !pauseMenu.IsPaneOpen && otherPage.Visibility == Visibility.Collapsed)
 			{
-				Utilities.newStat.totalTime += 0.1f;
+                Utilities.newStat.totalTime += Convert.ToSingle((DateTime.UtcNow - prev).TotalSeconds);
 				timeCounterText.Text = Utilities.newStat.totalTime.ToStringAsTime() + System.Environment.NewLine + Utilities.newStat.totalLimitTime.ToStringAsTime();
+                prev = DateTime.UtcNow;
 			}
 			else
 			{
@@ -337,13 +339,20 @@ namespace JustRemember_UWP
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
+            if (otherPage.Visibility == Visibility.Visible)
+            {
+                return;
+            }
 			pauseMenu.IsPaneOpen = !pauseMenu.IsPaneOpen;
 			Pause = pauseMenu.IsPaneOpen;
 			if (pauseMenu.IsPaneOpen)
 			{
 				pauseInfo.Text = Pause ? "Paused..." : currentFilename;
 			}
-		}
+            contentSlider.Value = Utilities.currentSettings.displayTextSize;
+            pauseMenu.PaneBackground.Opacity = 1;
+            menuBG.Opacity = 1;
+        }
 
 		private void HideSecondPage_Click(object sender, RoutedEventArgs e)
 		{
@@ -361,6 +370,7 @@ namespace JustRemember_UWP
 
 		private async void loadOther_Click(object sender, RoutedEventArgs e)
 		{
+            if (otherPage.Visibility == Visibility.Visible) { return; }
 			if (currentProgress > -1)
 			{
 				await loadotherDiag.ShowAsync();
@@ -372,8 +382,9 @@ namespace JustRemember_UWP
 		}
 
 		private void loadSession_Click(object sender, RoutedEventArgs e)
-		{
-			if (Utilities.isSmallLoaderMode)
+        {
+            if (otherPage.Visibility == Visibility.Visible) { return; }
+            if (Utilities.isSmallLoaderMode)
 			{
 				return;
 			}
@@ -383,8 +394,9 @@ namespace JustRemember_UWP
 		}
 
 		private void settingPage_Click(object sender, RoutedEventArgs e)
-		{
-			if (Utilities.isSmallLoaderMode)
+        {
+            if (otherPage.Visibility == Visibility.Visible) { return; }
+            if (Utilities.isSmallLoaderMode)
 			{
 				return;
 			}
@@ -394,8 +406,9 @@ namespace JustRemember_UWP
 		}
 
 		private async void mainmenuPage_Click(object sender, RoutedEventArgs e)
-		{
-			if (currentProgress < 1 || currentProgress > textList.Count - 1)
+        {
+            if (otherPage.Visibility == Visibility.Visible) { return; }
+            if (currentProgress < 1 || currentProgress > textList.Count - 1)
 			{
 				Frame.Navigate(typeof(MainPage));
 				Utilities.isSmallLoaderMode = false;
@@ -407,8 +420,9 @@ namespace JustRemember_UWP
 		}
 
 		private async void exitApp_Click(object sender, RoutedEventArgs e)
-		{
-			await exitD.ShowAsync();
+        {
+            if (otherPage.Visibility == Visibility.Visible) { return; }
+            await exitD.ShowAsync();
 		}
 
 		public int currentValidChoice;
@@ -664,27 +678,32 @@ namespace JustRemember_UWP
 		
 		private void ch0_Click(object sender, RoutedEventArgs e)
 		{
+            if (pauseMenu.IsPaneOpen) { return; }
 			ChooseChoice(0);
 		}
 
 		private void ch1_Click(object sender, RoutedEventArgs e)
-		{
-			ChooseChoice(1);
+        {
+            if (pauseMenu.IsPaneOpen) { return; }
+            ChooseChoice(1);
 		}
 
 		private void ch2_Click(object sender, RoutedEventArgs e)
-		{
-			ChooseChoice(2);
+        {
+            if (pauseMenu.IsPaneOpen) { return; }
+            ChooseChoice(2);
 		}
 
 		private void ch3_Click(object sender, RoutedEventArgs e)
-		{
-			ChooseChoice(3);
+        {
+            if (pauseMenu.IsPaneOpen) { return; }
+            ChooseChoice(3);
 		}
 
 		private void ch4_Click(object sender, RoutedEventArgs e)
-		{
-			ChooseChoice(4);
+        {
+            if (pauseMenu.IsPaneOpen) { return; }
+            ChooseChoice(4);
 		}
 
 		private void chImportant_Click(object sender, RoutedEventArgs e)
@@ -700,8 +719,29 @@ namespace JustRemember_UWP
 		}
 
 		private async void restartMatch_Click(object sender, RoutedEventArgs e)
-		{
-			await resetM.ShowAsync();
+        {
+            if (otherPage.Visibility == Visibility.Visible) { return; }
+            await resetM.ShowAsync();
 		}
-	}
+
+        private void contentSlider_Loaded(object sender, RoutedEventArgs e)
+        {
+            contentSlider.Value = Utilities.currentSettings.displayTextSize;
+            contentSlider.Minimum = 12;
+            contentSlider.Maximum = 72;
+        }
+
+        private void contentSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            dpTxt.FontSize = Convert.ToInt32(contentSlider.Value);
+            Utilities.currentSettings.displayTextSize = Convert.ToInt32(contentSlider.Value);
+            Settings.Save();
+        }
+
+        private void contentSlider_GotFocus(object sender, RoutedEventArgs e)
+        {
+            pauseMenu.PaneBackground.Opacity = 0.5;
+            menuBG.Opacity = 0.5;
+        }
+    }
 }
