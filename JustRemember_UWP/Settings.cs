@@ -17,6 +17,7 @@ namespace JustRemember_UWP
         public int displayTextSize { get; set; }
         public List<statInfo> stat { get; set; }
         public int defaultSeed { get; set; }
+        public bool autoScrollContent { get; set; }
 
         //public List<Note> notes;
         //public List<SessionInfo> sessions;
@@ -32,6 +33,7 @@ namespace JustRemember_UWP
 			displayTextSize = 14;
 			stat = new List<statInfo>();
             defaultSeed = -1;
+            autoScrollContent = true;
 			//notes = new List<Note>();
 			//sessions = new List<SessionInfo>();
 		}

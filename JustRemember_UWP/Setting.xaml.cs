@@ -299,5 +299,17 @@ namespace JustRemember_UWP
         {
             defSeedNotify.Visibility = currentConfig.defaultSeed == -1 ? Visibility.Collapsed : Visibility.Visible;
         }
+
+        private void autoScrollContent_Loaded(object sender, RoutedEventArgs e)
+        {
+            autoScrollContent.IsOn = currentConfig.autoScrollContent;
+            autoScrollContent.Toggled += AutoScrollContent_Toggled;
+        }
+
+        private void AutoScrollContent_Toggled(object sender, RoutedEventArgs e)
+        {
+            currentConfig.autoScrollContent = autoScrollContent.IsOn;
+            Settings.Save(currentConfig);
+        }
     }
 }

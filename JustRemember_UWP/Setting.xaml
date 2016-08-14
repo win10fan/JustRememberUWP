@@ -36,6 +36,8 @@
                         <Button x:Name="defSeedAccept" Content="&#xE10B;" FontFamily="Segoe MDL2 Assets" FontSize="20" Click="defSeedAccept_Click" Loaded="defSeedAccept_Loaded"/>
                     </StackPanel>
                     <TextBlock FontSize="12" x:Name="defSeedNotify" Text="As all choice stay same. It equally cheat. All stat will not save." TextWrapping="WrapWholeWords" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="defSeedNotify_Loaded"/>
+                    <TextBlock Text="Display text auto scroll" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <ToggleSwitch x:Name="autoScrollContent" Loaded="autoScrollContent_Loaded"/>
                 </StackPanel>
             </PivotItem>
             <PivotItem x:Name="sessionPage" Header="Session">

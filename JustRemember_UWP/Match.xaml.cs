@@ -602,10 +602,11 @@ namespace JustRemember_UWP
 				}
 				progressCounter.Value = currentProgress;
 			}
-            //displayTextScroll.(displayTextScroll.ExtentHeight);
-            displayTextScroll.ChangeView(displayTextScroll.HorizontalOffset, displayTextScroll.ExtentHeight, displayTextScroll.ZoomFactor);
+            if (Utilities.currentSettings.autoScrollContent)
+            {
+                displayTextScroll.ChangeView(displayTextScroll.HorizontalOffset, displayTextScroll.ExtentHeight, displayTextScroll.ZoomFactor);
+            }
 		}
-		//TODO:Add prenote system???!?!?!!!?
 		
 		void AddMainText(textlist item)
 		{
@@ -628,9 +629,6 @@ namespace JustRemember_UWP
 				//Add text
 				_AddText(item);
 			}
-			
-			//Scroll text to bottom
-			//TODO:Add setting... Automatic scroll text to bottom
 		}
 
 		void _AddText(textlist item)

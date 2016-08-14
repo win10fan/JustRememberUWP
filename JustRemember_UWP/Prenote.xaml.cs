@@ -18,7 +18,6 @@ namespace JustRemember_UWP
 		}
 		
 		public PrenoteList Prenotes;
-        //TODO:Make page can go back with back button.
         int level = 0;
 		
 		private async void Button_Click(object sender, RoutedEventArgs e)
