@@ -128,6 +128,7 @@ namespace JustRemember_UWP
             totalChoicie.Minimum = 3;
             totalChoicie.Maximum = 5;
             totalChoicie.Value = currentConfig.totalChoice;
+            totalChoicie.ValueChanged += totalChoicie_ValueChanged;
         }
 
         private void totalChoicie_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
