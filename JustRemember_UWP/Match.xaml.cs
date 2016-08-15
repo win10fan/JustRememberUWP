@@ -507,11 +507,26 @@ namespace JustRemember_UWP
                 }
                 else if (choice == -5 && currentChoiceMode == mode.end)
                 {
-                    if (Utilities.currentSettings.defaultSeed == -1)
+                    switch (Utilities.currentSettings.AfterFinalChoice)
                     {
-                        Utilities.currentSettings.stat.Add(Utilities.newStat);
+                        case Settings.afterEnd.gotoEnd:
+                            Frame.Navigate(typeof(End));
+                            break;
+                        case Settings.afterEnd.restartMatch:
+                            if (Utilities.currentSettings.TodoWithStat == Settings.ifNotGotoEnd.saveAllStat)
+                            {
+                                Utilities.currentSettings.stat.Add(Utilities.newStat);
+                            }
+                            ResetRound();
+                            break;
+                        case Settings.afterEnd.gotoMain:
+                            if (Utilities.currentSettings.TodoWithStat == Settings.ifNotGotoEnd.saveAllStat)
+                            {
+                                Utilities.currentSettings.stat.Add(Utilities.newStat);
+                            }
+                            Frame.Navigate(typeof(MainPage));
+                            break;
                     }
-					Frame.Navigate(typeof(End));
 				}
 			}
 			//Check choice number range

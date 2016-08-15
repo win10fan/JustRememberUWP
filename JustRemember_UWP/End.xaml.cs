@@ -90,12 +90,7 @@ namespace JustRemember_UWP
 				return "Limit: N/A";
 			}
 		}
-
-		private void button_Click(object sender, RoutedEventArgs e)
-		{
-			Frame.Navigate(typeof(Match));
-		}
-
+        
 		private void lineChart_Loaded(object sender, RoutedEventArgs e)
 		{
 			wrongperChoice = new List<KeyValuePair<string, int>>();
@@ -106,5 +101,20 @@ namespace JustRemember_UWP
 			}
 			(lineChart.Series[0] as LineSeries).ItemsSource = wrongperChoice;
 		}
-	}
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (Utilities.currentSettings.defaultSeed != -1)
+            {
+                Utilities.currentSettings.stat.Add(Utilities.newStat);
+            }
+            Frame.GoBack();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Utilities.newStat = new statInfo();
+            Frame.GoBack();
+        }
+    }
 }

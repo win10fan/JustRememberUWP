@@ -38,6 +38,17 @@
                     <TextBlock FontSize="12" x:Name="defSeedNotify" Text="As all choice stay same. It equally cheat. All stat will not save." TextWrapping="WrapWholeWords" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="defSeedNotify_Loaded"/>
                     <TextBlock Text="Display text auto scroll" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                     <ToggleSwitch x:Name="autoScrollContent" Loaded="autoScrollContent_Loaded"/>
+                    <TextBlock Text="After final choice" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <StackPanel>
+                        <RadioButton Loaded="GotoEnd_Loaded" x:Name="GotoEnd" Content="Go to end page"/>
+                        <RadioButton Loaded="resetMatch_Loaded" x:Name="resetMatch" Content="Restart match"/>
+                        <RadioButton Loaded="GotoMain_Loaded" x:Name="GotoMain" Content="Go to main page"/>
+                    </StackPanel>
+                    <TextBlock Loaded="statdecide1_Loaded" x:Name="statdecide1" Text="What to do with stat" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <StackPanel>
+                        <RadioButton Loaded="saveAll_Loaded" x:Name="saveAll" Content="Save all"/>
+                        <RadioButton Loaded="discardAll_Loaded" x:Name="discardAll" Content="Discard all"/>
+                    </StackPanel>
                 </StackPanel>
             </PivotItem>
             <PivotItem x:Name="sessionPage" Header="Session">

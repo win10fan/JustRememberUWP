@@ -18,6 +18,19 @@ namespace JustRemember_UWP
         public List<statInfo> stat { get; set; }
         public int defaultSeed { get; set; }
         public bool autoScrollContent { get; set; }
+        public enum afterEnd
+        {
+            gotoEnd,
+            restartMatch,
+            gotoMain
+        }
+        public enum ifNotGotoEnd
+        {
+            discardAllStat,
+            saveAllStat
+        }
+        public afterEnd AfterFinalChoice { get; set; }
+        public ifNotGotoEnd TodoWithStat { get; set; }
 
         //public List<Note> notes;
         //public List<SessionInfo> sessions;
@@ -34,6 +47,8 @@ namespace JustRemember_UWP
 			stat = new List<statInfo>();
             defaultSeed = -1;
             autoScrollContent = true;
+            AfterFinalChoice = afterEnd.gotoEnd;
+            TodoWithStat = ifNotGotoEnd.saveAllStat;
 			//notes = new List<Note>();
 			//sessions = new List<SessionInfo>();
 		}
