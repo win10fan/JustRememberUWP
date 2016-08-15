@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.Globalization;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -312,5 +313,20 @@ namespace JustRemember_UWP
             currentConfig.autoScrollContent = autoScrollContent.IsOn;
             Settings.Save(currentConfig);
         }
+
+        private void langList_Loaded(object sender, RoutedEventArgs e)
+        {
+            langList.SelectedIndex = currentConfig.language;
+            langList.SelectionChanged += LangList_SelectionChanged;
+        }
+
+        private void LangList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            currentConfig.language = langList.SelectedIndex;
+            Settings.Save(currentConfig);
+            ApplicationLanguages.PrimaryLanguageOverride = Utilities.lang[currentConfig.language];
+            Frame.CacheSize = 0;
+        }
+        
     }
 }

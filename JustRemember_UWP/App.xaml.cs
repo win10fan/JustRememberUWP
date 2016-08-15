@@ -3,6 +3,7 @@ using System.IO;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
+using Windows.Globalization;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,7 +36,8 @@ namespace JustRemember_UWP
 				Utilities.initialize = true;
 			}
 			Current.RequestedTheme = Utilities.currentSettings.theme;
-			Suspending += OnSuspending;
+            ApplicationLanguages.PrimaryLanguageOverride = Utilities.lang[Utilities.currentSettings.language];
+            Suspending += OnSuspending;
         }
         
         /// <summary>

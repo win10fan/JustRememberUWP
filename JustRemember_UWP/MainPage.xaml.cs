@@ -37,5 +37,5 @@ namespace JustRemember_UWP
 		{
 			Frame.Navigate(typeof(Prenote));
 		}
-	}
+    }
 }

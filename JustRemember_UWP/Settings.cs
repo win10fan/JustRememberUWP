@@ -7,7 +7,7 @@ namespace JustRemember_UWP
 {
 	public class Settings
 	{
-		public string language { get; set; }
+		public int language { get; set; }
 		public ApplicationTheme theme { get; set; }
 		public bool isLimitTime { get; set; }
 		public bool showWrongContent { get; set; }
@@ -23,7 +23,7 @@ namespace JustRemember_UWP
         //public List<SessionInfo> sessions;
         public Settings() //Default setting
 		{
-			language = "en-US";
+			language = 0;
 			theme = ApplicationTheme.Dark;
 			isLimitTime = false;
 			showWrongContent = false;

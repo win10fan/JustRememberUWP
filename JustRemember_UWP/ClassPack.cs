@@ -102,7 +102,8 @@ namespace JustRemember_UWP
 		public static Note selected;
 		public static bool isSmallLoaderMode;//Check if page is run in Match page... "OtherPage" frame
 		public static statInfo newStat;
-	}
+        public static readonly string[] lang = new string[] { "en", "th" };
+    }
 
     public class statInfo
     {

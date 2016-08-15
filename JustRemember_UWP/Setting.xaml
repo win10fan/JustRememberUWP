@@ -22,8 +22,8 @@
                         <RadioButton Margin="5,0,0,0" x:Name="lightTheme" Content="Light" VerticalAlignment="Center" FontSize="16" Loaded="lightTheme_Loaded" Checked="lightTheme_Checked" Foreground="{ThemeResource ButtonForeground}"/>
                     </StackPanel>
                     <TextBlock FontSize="12" x:Name="themeNotify" Text="Theme changed! Restart to apply" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="themeNotify_Loaded"/>
-                    <TextBlock Margin="0,10" Text="Language" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
-                    <ComboBox x:Name="langList" Margin="5" Width="150">
+                    <TextBlock Visibility="Collapsed" Margin="0,10" Text="Language" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                    <ComboBox Visibility="Collapsed" x:Name="langList" Margin="5" Width="150" Loaded="langList_Loaded">
                         <ComboBoxItem Content="English"/>
                         <ComboBoxItem Content="ไทย"/>
                     </ComboBox>
