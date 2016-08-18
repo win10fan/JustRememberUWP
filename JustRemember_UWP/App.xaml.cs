@@ -21,7 +21,10 @@ namespace JustRemember_UWP
         {			
             InitializeComponent();
 #if DEBUG
-            Directory.Delete(Windows.Storage.ApplicationData.Current.LocalFolder.Path + "\\Prenote",true);
+            if (Directory.Exists(Windows.Storage.ApplicationData.Current.LocalFolder.Path + "\\Prenote"))
+            {
+                Directory.Delete(Windows.Storage.ApplicationData.Current.LocalFolder.Path + "\\Prenote", true);
+            }
 #endif
             ApplicationView.PreferredLaunchViewSize = new Size(320, 240);
             if (!PrenoteLoader.isDeployed)

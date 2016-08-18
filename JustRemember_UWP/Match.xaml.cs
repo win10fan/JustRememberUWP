@@ -46,6 +46,11 @@ namespace JustRemember_UWP
 			//Load file
 			LoadFile(Utilities.selected.Title, Utilities.selected.Content);
 			randomEngine = new Random();
+            //Load stats
+            statList = new StatList();
+            statList.Stats = StatList.Load();
+            //
+            pauseMenu.IsPaneOpen = true;
 		}
 
 		MessageDialog resetM;
@@ -258,7 +263,7 @@ namespace JustRemember_UWP
         {
             Utilities.newStat = new statInfo();
             Utilities.newStat.noteTitle = currentFilename;
-            Utilities.newStat.dateandTime = DateTime.Now.ToString(@"dd MM yyyy - hh:mm:ss");
+            Utilities.newStat.dateandTime = DateTime.UtcNow.ToString(@"dd MM yyyy - hh:mm:ss");
             Utilities.newStat.currentMode = Utilities.currentSettings.defaultMode;
             progressCounter.Value = 0;
             progressCounter.Maximum = textList.Count;
@@ -492,6 +497,7 @@ namespace JustRemember_UWP
 				}
 			}
 		}
+        public StatList statList;
 
 		public void ChooseChoice(int choice)
 		{
@@ -515,14 +521,16 @@ namespace JustRemember_UWP
                         case afterEnd.restartMatch:
                             if (Utilities.currentSettings.TodoWithStat == ifNotGotoEnd.saveAllStat)
                             {
-                                Utilities.currentSettings.stat.Add(Utilities.newStat);
+                                statList.Stats.Add(Utilities.newStat);
+                                StatList.SaveAll(statList.Stats);
                             }
                             ResetRound();
                             break;
                         case afterEnd.gotoMain:
                             if (Utilities.currentSettings.TodoWithStat == ifNotGotoEnd.saveAllStat)
                             {
-                                Utilities.currentSettings.stat.Add(Utilities.newStat);
+                                statList.Stats.Add(Utilities.newStat);
+                                StatList.SaveAll(statList.Stats);
                             }
                             Frame.Navigate(typeof(MainPage));
                             break;

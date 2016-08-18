@@ -11,8 +11,10 @@ namespace JustRemember_UWP
 	{
 		public Setting()
 		{
+            stats = new StatList();
+            stats.Stats = StatList.Load();
 			resetStat = new MessageDialog("This will clear all stat\r\nAre you sure?", "Reset stat");
-			resetStat.Commands.Add(new UICommand("Yes") { Invoked = delegate { Utilities.currentSettings.stat.Clear(); Settings.Save(); } });
+			resetStat.Commands.Add(new UICommand("Yes") { Invoked = delegate { stats.Stats.Clear(); Settings.Save(); } });
 			resetStat.Commands.Add(new UICommand("No") { Id = 1 });
 			resetStat.CancelCommandIndex = 1;
 			//
@@ -28,6 +30,7 @@ namespace JustRemember_UWP
             currentConfig = Settings.Load();
 			InitializeComponent();
 		}
+        public StatList stats;
 		public MessageDialog resetStat;
 		public MessageDialog resetApp;
 		public MessageDialog restartToApply;

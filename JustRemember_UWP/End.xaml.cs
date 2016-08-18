@@ -1,31 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace JustRemember_UWP
 {
-	/// <summary>
-	/// An empty page that can be used on its own or navigated to within a Frame.
-	/// </summary>
-	public sealed partial class End : Page
+    public sealed partial class End : Page
 	{
 		public End()
 		{
+            stats = new StatList();
+            stats.Stats = StatList.Load();
 			InitializeComponent();
 			endList.Items.Add(totalWord);
 			endList.Items.Add(totalWrong);
@@ -34,15 +19,17 @@ namespace JustRemember_UWP
 			endList.Items.Add(userLimitTime);
 		}
 
+        public StatList stats;
+
 		public List<KeyValuePair<string, int>> wrongperChoice = new List<KeyValuePair<string, int>>();
 
 		public string totalWord
 		{
 			get
 			{
-				if (Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1] != null)
+				if (Utilities.newStat != null)
 				{
-					return $"Total word: {Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].totalWords}";
+					return $"Total word: {Utilities.newStat.totalWords}";
 				}
 				return "Total word: N/A";
 			}
@@ -52,10 +39,10 @@ namespace JustRemember_UWP
 		{
 			get
 			{
-				if (Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1] != null)
-				{
-					var first = Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].totalWrong >= 2 ? "s" : "";
-					return $"Total wrong{first}: {Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].totalWrong}";
+				if (Utilities.newStat != null)
+                {
+					var first = Utilities.newStat.totalWrong >= 2 ? "s" : "";
+					return $"Total wrong{first}: {Utilities.newStat.totalWrong}";
 				}
 				return "Total wrong: N/A";
 			}
@@ -65,11 +52,11 @@ namespace JustRemember_UWP
 		{
 			get
 			{
-				if (Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1] != null)
-				{
-					if (Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].useTimeLimit)
+				if (Utilities.newStat != null)
+                {
+					if (Utilities.newStat.useTimeLimit)
 					{
-						return $"Time: {Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].totalTime.ToStringAsTime()}";
+						return $"Time: {Utilities.newStat.totalTime.ToStringAsTime()}";
 					}
 				}
 				return "Time: N/A";
@@ -80,11 +67,11 @@ namespace JustRemember_UWP
 		{
 			get
 			{
-				if (Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1] != null)
-				{
-					if (Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].useTimeLimit)
+				if (Utilities.newStat != null)
+                {
+					if (Utilities.newStat.useTimeLimit)
 					{
-						return $"Limit: {Utilities.currentSettings.stat[Utilities.currentSettings.stat.Count - 1].totalLimitTime.ToStringAsTime()}";
+						return $"Limit: {Utilities.newStat.totalLimitTime.ToStringAsTime()}";
 					}
 				}
 				return "Limit: N/A";
@@ -94,7 +81,7 @@ namespace JustRemember_UWP
 		private void lineChart_Loaded(object sender, RoutedEventArgs e)
 		{
 			wrongperChoice = new List<KeyValuePair<string, int>>();
-			var lst = Utilities.currentSettings.stat.lastItem();
+			var lst = stats.Stats.lastItem();
 			for (int i = 0;i < lst.wrongPerchoice.Count - 1;i++)
 			{
 				wrongperChoice.Add(new KeyValuePair<string, int>(i.ToString(), lst.wrongPerchoice[i]));
@@ -106,7 +93,8 @@ namespace JustRemember_UWP
         {
             if (Utilities.currentSettings.defaultSeed != -1)
             {
-                Utilities.currentSettings.stat.Add(Utilities.newStat);
+                stats.Stats.Add(Utilities.newStat);
+                StatList.SaveAll(stats.Stats);
             }
             Frame.GoBack();
         }

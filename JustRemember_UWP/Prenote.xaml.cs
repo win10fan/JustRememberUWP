@@ -149,7 +149,7 @@ namespace JustRemember_UWP
 			{
 				StorageFile file = await StorageFile.GetFileFromPathAsync(fullpath);
 				info.Fullpath = file.Path;
-				info.Name = file.Name;
+                info.Name = Path.GetFileNameWithoutExtension(file.Path);
 				info.isFile = true;
 				info.Icon = "";
 				info.Content = await FileIO.ReadTextAsync(file);
@@ -171,8 +171,8 @@ namespace JustRemember_UWP
 		{
 			PrenoteInfo info = new PrenoteInfo();
 			info.Fullpath = file.Path;
-			info.Name = file.Name;
-			info.isFile = true;
+            info.Name = Path.GetFileNameWithoutExtension(file.Path);
+            info.isFile = true;
 			info.Icon = "";
 			info.Content = await FileIO.ReadTextAsync(file);
 			return info;

@@ -85,7 +85,7 @@
                 </ScrollViewer>
             </PivotItem>
             <PivotItem x:Name="statPage" Header="Stat">
-                <ListView ItemsSource="{x:Bind currentConfig.stat}" x:Name="statList">
+                <ListView ItemsSource="{x:Bind stats.Stats}" x:Name="statList">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local:statInfo">
                             <StackPanel Margin="8" Orientation="Horizontal">

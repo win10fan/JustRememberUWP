@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using Windows.UI.Xaml;
+using System;
 
 namespace JustRemember_UWP
 {
@@ -15,14 +14,11 @@ namespace JustRemember_UWP
         public float limitTime { get; set; }
         public int totalChoice { get; set; }
         public int displayTextSize { get; set; }
-        public List<statInfo> stat { get; set; }
         public int defaultSeed { get; set; }
         public bool autoScrollContent { get; set; }
         public afterEnd AfterFinalChoice { get; set; }
         public ifNotGotoEnd TodoWithStat { get; set; }
-
-        //public List<Note> notes;
-        //public List<SessionInfo> sessions;
+        //TODO:Add session system
         public Settings() //Default setting
 		{
 			language = 0;
@@ -33,7 +29,6 @@ namespace JustRemember_UWP
 			limitTime = 30;
 			totalChoice = 3;
 			displayTextSize = 14;
-			stat = new List<statInfo>();
             defaultSeed = -1;
             autoScrollContent = true;
             AfterFinalChoice = afterEnd.gotoEnd;
@@ -51,12 +46,55 @@ namespace JustRemember_UWP
                 {
                     File.Delete(Utilities.savedPath);
                 }
-                using (StreamWriter write = new StreamWriter(File.Create(Utilities.savedPath)))
-                {
-                    XmlSerializer xs = new XmlSerializer(typeof(Settings));
-                    xs.Serialize(write, content);
-                }
+                File.WriteAllText(Utilities.savedPath, Serialize(content));
+                //using (StreamWriter write = new StreamWriter(File.Create(Utilities.savedPath)))
+                //{
+                //    XmlSerializer xs = new XmlSerializer(typeof(Settings));
+                //    xs.Serialize(write, content);
+                //}
             }
+        }
+
+        public static string Serialize(Settings content)
+        {
+            string value = "";
+            value += $"{nameof(language)}={content.language}{Environment.NewLine}";
+            value += $"{nameof(theme)}={content.theme.ToString()}{Environment.NewLine}";
+            value += $"{nameof(isLimitTime)}={StringSerializeHelper.BoolToString(content.isLimitTime)}{Environment.NewLine}";
+            value += $"{nameof(showWrongContent)}={StringSerializeHelper.BoolToString(content.showWrongContent)}{Environment.NewLine}";
+            value += $"{nameof(defaultMode)}={content.defaultMode}{Environment.NewLine}";
+            value += $"{nameof(limitTime)}={content.limitTime}{Environment.NewLine}";
+            value += $"{nameof(totalChoice)}={content.totalChoice}{Environment.NewLine}";
+            value += $"{nameof(displayTextSize)}={content.displayTextSize}{Environment.NewLine}";
+            value += $"{nameof(defaultSeed)}={content.defaultSeed}{Environment.NewLine}";
+            value += $"{nameof(autoScrollContent)}={StringSerializeHelper.BoolToString(content.autoScrollContent)}{Environment.NewLine}";
+            value += $"{nameof(AfterFinalChoice)}={content.AfterFinalChoice.ToString()}{Environment.NewLine}";
+            value += $"{nameof(TodoWithStat)}={content.TodoWithStat.ToString()}";
+            return value;
+        }
+
+        public static Settings DeSerialize(string content)
+        {
+            Settings value = new Settings();
+            string line;
+
+            StringReader file = new StringReader(content);
+            while ((line = file.ReadLine()) != null)
+            {
+                if (line.StartsWith(nameof(language))) { value.language = StringSerializeHelper.GetInt(line, nameof(language)); }
+                else if (line.StartsWith(nameof(theme))) { value.theme = StringSerializeHelper.GetEnum<ApplicationTheme>(line, nameof(theme)); }
+                else if (line.StartsWith(nameof(isLimitTime))) { value.isLimitTime = StringSerializeHelper.GetBool(line, nameof(isLimitTime)); }
+                else if (line.StartsWith(nameof(showWrongContent))) { value.showWrongContent = StringSerializeHelper.GetBool(line, nameof(showWrongContent)); }
+                else if (line.StartsWith(nameof(defaultMode))) { value.defaultMode = StringSerializeHelper.GetEnum<challageMode>(line, nameof(defaultMode)); }
+                else if (line.StartsWith(nameof(limitTime))) { value.limitTime = StringSerializeHelper.GetFloat(line, nameof(limitTime)); }
+                else if (line.StartsWith(nameof(totalChoice))) { value.totalChoice = StringSerializeHelper.GetInt(line, nameof(totalChoice)); }
+                else if (line.StartsWith(nameof(displayTextSize))) { value.displayTextSize = StringSerializeHelper.GetInt(line, nameof(displayTextSize)); }
+                else if (line.StartsWith(nameof(defaultSeed))) { value.defaultSeed = StringSerializeHelper.GetInt(line, nameof(defaultSeed)); }
+                else if (line.StartsWith(nameof(autoScrollContent))) { value.autoScrollContent = StringSerializeHelper.GetBool(line, nameof(autoScrollContent)); }
+                else if (line.StartsWith(nameof(AfterFinalChoice))) { value.AfterFinalChoice = StringSerializeHelper.GetEnum<afterEnd>(line, nameof(AfterFinalChoice)); }
+                else if (line.StartsWith(nameof(TodoWithStat))) { value.TodoWithStat = StringSerializeHelper.GetEnum<ifNotGotoEnd>(line, nameof(TodoWithStat)); }
+            }
+            return value;
         }
 
         public static void Save(string path, Settings content)
@@ -65,11 +103,7 @@ namespace JustRemember_UWP
 			{
 				File.Delete(path);
 			}
-			using (StreamWriter write = new StreamWriter(File.Create(path)))
-			{
-				XmlSerializer xs = new XmlSerializer(typeof(Settings));
-				xs.Serialize(write, content);
-			}
+            File.WriteAllText(path, Serialize(content));
 		}
 
 		public static void Save()
@@ -94,12 +128,13 @@ namespace JustRemember_UWP
 		{
 			if (File.Exists(path))
 			{
-				using (var fs = File.Open(path, FileMode.Open))
-				{
-					StreamReader read = new StreamReader(fs);
-					XmlSerializer xs = new XmlSerializer(typeof(Settings));
-					return (Settings)xs.Deserialize(fs);
-				}
+                return DeSerialize(File.ReadAllText(path));
+				//using (var fs = File.Open(path, FileMode.Open))
+				//{
+				//	StreamReader read = new StreamReader(fs);
+				//	XmlSerializer xs = new XmlSerializer(typeof(Settings));
+				//	return (Settings)xs.Deserialize(fs);
+				//}
 			}
 			else
 			{

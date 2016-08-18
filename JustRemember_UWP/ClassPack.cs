@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.IO;
-using System.Xml.Serialization;
-using Windows.UI;
 using Windows.Storage;
 using System;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Globalization;
+using System.Runtime.Serialization.Json;
 
 namespace JustRemember_UWP
 {
@@ -105,22 +104,62 @@ namespace JustRemember_UWP
         public static readonly string[] lang = new string[] { "en", "th" };
     }
 
+    public class StatList
+    {
+        public List<statInfo> Stats;
+        
+        public StatList()
+        {
+            Stats = new List<statInfo>();
+        }
+        
+        public static List<statInfo> Load()
+        {
+            List<statInfo> value = new List<statInfo>();
+            string path = ApplicationData.Current.LocalFolder.Path + "\\Stat";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+                return new List<statInfo>();
+            }
+            string[] files = Directory.GetFiles(path);
+            if (files.Length > 0)
+            {
+                foreach (string s in files)
+                {
+                    value.Add(statInfo.DeSerialize(File.ReadAllText(s)));
+                    //FileStream fs = new FileStream(s, FileMode.Open);
+                    //using (StreamReader reader = new StreamReader(fs))
+                    //{
+                    //    string content = reader.ReadToEnd();
+                    //}
+                }
+            }
+            return value;
+        }
+
+        public static void SaveAll(List<statInfo> info)
+        {
+            string path = ApplicationData.Current.LocalFolder.Path;
+            foreach (var item in info)
+            {
+                var date = DateTime.ParseExact(item.dateandTime, "dd MM yyyy - hh:mm:ss", CultureInfo.InvariantCulture);
+                File.ReadAllText($"{path}\\{date.ToString("dd-MM-yyyy-hh-mm-ss")}.stat");
+            }
+        }
+
+        public static void Save(statInfo info)
+        {
+            string path = ApplicationData.Current.LocalFolder.Path;
+            var date = DateTime.ParseExact(info.dateandTime, "dd MM yyyy - hh:mm:ss", CultureInfo.InvariantCulture);
+            File.ReadAllText($"{path}\\{date.ToString("dd-MM-yyyy-hh-mm-ss")}.stat");
+        }
+    }
+
     public class statInfo
     {
         public string dateandTime;
         public int totalWords;
-        public int totalWrong
-        {
-            get
-            {
-                int value = 0;
-                foreach (int i in wrongPerchoice)
-                {
-                    value += i;
-                }
-                return value;
-            }
-        }
         public int totalChoice;
         public List<int> wrongPerchoice = new List<int>();
         public bool useTimeLimit;
@@ -128,6 +167,69 @@ namespace JustRemember_UWP
         public float totalLimitTime;
         public challageMode currentMode;
         public string noteTitle;
+
+        public static string Serialize(statInfo info)
+        {
+            string content = "";
+            content += $"{nameof(dateandTime)}={info.dateandTime}{Environment.NewLine}";
+            content += $"{nameof(totalWords)}={info.totalWords}{Environment.NewLine}";
+            content += $"{nameof(totalChoice)}={info.totalChoice}{Environment.NewLine}";
+            content += $"{nameof(wrongPerchoice)}={StringSerializeHelper.ListOfIntToString(info.wrongPerchoice)}{Environment.NewLine}";
+            content += $"{nameof(useTimeLimit)}={StringSerializeHelper.BoolToString(info.useTimeLimit)}{Environment.NewLine}";
+            content += $"{nameof(totalTime)}={info.totalTime}{Environment.NewLine}";
+            content += $"{nameof(totalLimitTime)}={info.totalLimitTime}{Environment.NewLine}";
+            content += $"{nameof(currentMode)}={info.currentMode.ToString()}{Environment.NewLine}";
+            content += $"{nameof(noteTitle)}={info.noteTitle}";
+            return content;
+        }
+
+        public static statInfo DeSerialize(string info)
+        {
+            statInfo value = new statInfo();
+            string line;
+
+            StringReader file = new StringReader(info);
+            while ((line = file.ReadLine()) != null)
+            {
+                if (line.StartsWith(nameof(dateandTime)))
+                {
+                    value.dateandTime = StringSerializeHelper.GetString(line, nameof(dateandTime));
+                }
+                else if (line.StartsWith(nameof(totalWords)))
+                {
+                    value.totalWords = StringSerializeHelper.GetInt(line, nameof(dateandTime));
+                }
+                else if (line.StartsWith(nameof(totalChoice)))
+                {
+                    value.totalChoice = StringSerializeHelper.GetInt(line, nameof(totalChoice));
+                }
+                else if (line.StartsWith(nameof(wrongPerchoice)))
+                {
+                    value.wrongPerchoice = StringSerializeHelper.GetListOfInt(line, nameof(wrongPerchoice));
+                }
+                else if (line.StartsWith(nameof(useTimeLimit)))
+                {
+                    value.useTimeLimit = StringSerializeHelper.GetBool(line, nameof(useTimeLimit));
+                }
+                else if (line.StartsWith(nameof(totalTime)))
+                {
+                    value.totalTime = StringSerializeHelper.GetFloat(line, nameof(totalTime));
+                }
+                else if (line.StartsWith(nameof(totalLimitTime)))
+                {
+                    value.totalLimitTime = StringSerializeHelper.GetFloat(line, nameof(totalLimitTime));
+                }
+                else if (line.StartsWith(nameof(currentMode)))
+                {
+                    value.currentMode = StringSerializeHelper.GetEnum<challageMode>(line, nameof(dateandTime));
+                }
+                else if (line.StartsWith(nameof(noteTitle)))
+                {
+                    value.noteTitle = StringSerializeHelper.GetString(line, nameof(noteTitle));
+                }
+            }
+            return value;
+        }
 
         //Read-only values
         public string timeProgress
@@ -167,7 +269,86 @@ namespace JustRemember_UWP
                 return $"{noteTitle} - {dateandTime}";
             }
         }
-	}
+        public int totalWrong
+        {
+            get
+            {
+                int value = 0;
+                foreach (int i in wrongPerchoice)
+                {
+                    value += i;
+                }
+                return value;
+            }
+        }
+    }
+
+    public static class StringSerializeHelper
+    {
+        public static string GetString(string line,string command)
+        {
+            //Pattern {item}={value}
+            return line.Substring(command.Length + 1);
+        }
+
+        public static int GetInt(string line,string command)
+        {
+            return int.Parse(line.Substring(command.Length + 1));
+        }
+
+        public static string BoolToString(bool value)
+        {
+            return value ? "1" : "0";
+        }
+
+        public static bool GetBool(string line,string command)
+        {
+            string value = line.Substring(command.Length + 1);
+            if (value == "0") { return false; }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static float GetFloat(string line,string command)
+        {
+            string value = line.Substring(command.Length + 1);
+            return float.Parse(value);
+        }
+
+        public static T GetEnum<T>(string line,string command)
+        {
+            string value = line.Substring(command.Length + 1);
+            return (T)Enum.Parse(typeof(T), value, true);
+        }
+
+        public static string ListOfIntToString(List<int> info)
+        {
+            string value = "";
+            foreach (int i in info)
+            {
+                value += $"{i}|";
+            }
+            if (value.EndsWith("|"))
+            {
+                value = value.Remove(value.Length - 1, 1);
+            }
+            return value;
+        }
+        
+        public static List<int> GetListOfInt(string line,string command)
+        {
+            string value = line.Substring(command.Length + 1);
+            string[] values = value.Split('|');
+            List<int> returned = new List<int>();
+            foreach (string s in values)
+            {
+                returned.Add(int.Parse(s));
+            }
+            return returned;
+        }
+    }
 
     public enum afterEnd
     {
@@ -412,7 +593,6 @@ namespace JustRemember_UWP
 		public List<string> choiceList = new List<string>();
 		public float progressFillAmount;
 		public List<string> lastChoices = new List<string>();
-		public string lastTimeDisplay;
 
 		public SessionInfo()
 		{
@@ -423,9 +603,8 @@ namespace JustRemember_UWP
 			choiceList = new List<string>();
 			progressFillAmount = 0;
 			lastChoices = new List<string>();
-			lastTimeDisplay = "";
 		}
-
+        
 		//public SessionInfo(MainMerge now)
 		//{
 		//	current = now.newStat;
@@ -462,36 +641,34 @@ namespace JustRemember_UWP
 		public static void Save(List<SessionInfo> now)
 		{
 			string path = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "\\Session.xml");
-			XmlSerializer xser = new XmlSerializer(typeof(List<SessionInfo>));
-			//string content = JsonUtility.ToJson(now);
-			using (StreamWriter write = new StreamWriter(File.Create(path)))
-			{
-				//write.Write(xser.ser);
-				xser.Serialize(write, now);
-			}
+            DataContractJsonSerializer jsoninfo = new DataContractJsonSerializer(typeof(List<SessionInfo>));
+            //string content = JsonUtility.ToJson(now);
+            using (Stream write = new FileStream(path, FileMode.CreateNew))
+            {
+                jsoninfo.WriteObject(write, now);
+                //write.Write(xser.ser);
+            }
 		}
 
-		public static void Load()
-		{
-			string path = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "\\Session.xml");
-			if (!File.Exists(path))
-			{
-				return; //new List<SessionInfo>();
-			}
-			XmlSerializer xs = new XmlSerializer(typeof(List<SessionInfo>));
-			//List<SessionInfo> allses = new List<SessionInfo>();
-			//SessionInfo sif = new SessionInfo();
-			using (var fs = File.Open(path, FileMode.Open))
-			{
-				Utilities.sessions = (List<SessionInfo>)xs.Deserialize(fs);
-				//return (List<SessionInfo>)xs.Deserialize(fs);
-				//StreamReader read = new StreamReader(fs);
-				//sif = JsonUtility.FromJson<SessionInfo>(read.ReadToEnd());
-				//allses.Add(sif);
-			}
-		}
+        public static List<SessionInfo> Load()
+        {
+            string path = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "\\Session.xml");
+            if (!File.Exists(path))
+            {
+                return new List<SessionInfo>();
+            }
+            List<SessionInfo> allses = new List<SessionInfo>();
+            //SessionInfo sif = new SessionInfo();
+            DataContractJsonSerializer info = new DataContractJsonSerializer(typeof(List<SessionInfo>));
+            using (Stream stream = new FileStream(path, FileMode.Open))
+            {
+                allses = (List<SessionInfo>)info.ReadObject(stream);
+            }
+            Utilities.sessions = allses;
+            return allses;
+        }
 	}
-	
+    
 	public enum Operator
 	{
 		New,
