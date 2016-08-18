@@ -330,99 +330,99 @@ namespace JustRemember_UWP
 
         private void GotoEnd_Loaded(object sender, RoutedEventArgs e)
         {
-            GotoEnd.IsChecked = currentConfig.AfterFinalChoice == Settings.afterEnd.gotoEnd;
+            GotoEnd.IsChecked = currentConfig.AfterFinalChoice == afterEnd.gotoEnd;
             GotoEnd.Checked += GotoEnd_Checked;
         }
 
         private void GotoEnd_Checked(object sender, RoutedEventArgs e)
         {
-            currentConfig.AfterFinalChoice = Settings.afterEnd.gotoEnd;
+            currentConfig.AfterFinalChoice = afterEnd.gotoEnd;
             Settings.Save(currentConfig);
             if (statdecide1 != null)
             {
-                statdecide1.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                saveAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                discardAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                statdecide1.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                saveAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                discardAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
         private void resetMatch_Loaded(object sender, RoutedEventArgs e)
         {
-            resetMatch.IsChecked = currentConfig.AfterFinalChoice == Settings.afterEnd.restartMatch;
+            resetMatch.IsChecked = currentConfig.AfterFinalChoice == afterEnd.restartMatch;
             resetMatch.Checked += ResetMatch_Checked;
         }
 
         private void ResetMatch_Checked(object sender, RoutedEventArgs e)
         {
-            currentConfig.AfterFinalChoice = Settings.afterEnd.restartMatch;
+            currentConfig.AfterFinalChoice = afterEnd.restartMatch;
             Settings.Save(currentConfig);
             if (statdecide1 != null)
             {
-                statdecide1.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                saveAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                discardAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                statdecide1.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                saveAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                discardAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
         private void GotoMain_Loaded(object sender, RoutedEventArgs e)
         {
-            GotoMain.IsChecked = currentConfig.AfterFinalChoice == Settings.afterEnd.gotoMain;
+            GotoMain.IsChecked = currentConfig.AfterFinalChoice == afterEnd.gotoMain;
             GotoMain.Checked += GotoMain_Checked;
         }
 
         private void GotoMain_Checked(object sender, RoutedEventArgs e)
         {
-            currentConfig.AfterFinalChoice = Settings.afterEnd.gotoMain;
+            currentConfig.AfterFinalChoice = afterEnd.gotoMain;
             Settings.Save(currentConfig);
             if (statdecide1 != null)
             {
-                statdecide1.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                saveAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                discardAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                statdecide1.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                saveAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                discardAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
         private void saveAll_Loaded(object sender, RoutedEventArgs e)
         {
-            saveAll.Visibility = currentConfig.AfterFinalChoice == Settings.afterEnd.gotoEnd ? Visibility.Collapsed : Visibility.Visible;
-            saveAll.IsChecked = currentConfig.TodoWithStat == Settings.ifNotGotoEnd.saveAllStat;
+            saveAll.Visibility = currentConfig.AfterFinalChoice == afterEnd.gotoEnd ? Visibility.Collapsed : Visibility.Visible;
+            saveAll.IsChecked = currentConfig.TodoWithStat == ifNotGotoEnd.saveAllStat;
             saveAll.Checked += SaveAll_Checked;
         }
 
         private void SaveAll_Checked(object sender, RoutedEventArgs e)
         {
-            currentConfig.TodoWithStat = Settings.ifNotGotoEnd.saveAllStat;
+            currentConfig.TodoWithStat = ifNotGotoEnd.saveAllStat;
             Settings.Save(currentConfig);
             if (statdecide1 != null)
             {
-                statdecide1.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                saveAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                discardAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                statdecide1.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                saveAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                discardAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
         private void discardAll_Loaded(object sender, RoutedEventArgs e)
         {
-            discardAll.Visibility = currentConfig.AfterFinalChoice == Settings.afterEnd.gotoEnd ? Visibility.Collapsed : Visibility.Visible;
-            discardAll.IsChecked = currentConfig.TodoWithStat == Settings.ifNotGotoEnd.discardAllStat;
+            discardAll.Visibility = currentConfig.AfterFinalChoice == afterEnd.gotoEnd ? Visibility.Collapsed : Visibility.Visible;
+            discardAll.IsChecked = currentConfig.TodoWithStat == ifNotGotoEnd.discardAllStat;
             discardAll.Checked += DiscardAll_Checked;
         }
 
         private void DiscardAll_Checked(object sender, RoutedEventArgs e)
         {
-            currentConfig.TodoWithStat = Settings.ifNotGotoEnd.discardAllStat;
+            currentConfig.TodoWithStat = ifNotGotoEnd.discardAllStat;
             Settings.Save(currentConfig);
             if (statdecide1 != null)
             {
-                statdecide1.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                saveAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
-                discardAll.Visibility = currentConfig.AfterFinalChoice != Settings.afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                statdecide1.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                saveAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
+                discardAll.Visibility = currentConfig.AfterFinalChoice != afterEnd.gotoEnd ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
         private void statdecide1_Loaded(object sender, RoutedEventArgs e)
         {
-            statdecide1.Visibility = currentConfig.AfterFinalChoice == Settings.afterEnd.gotoEnd ? Visibility.Collapsed : Visibility.Visible;
+            statdecide1.Visibility = currentConfig.AfterFinalChoice == afterEnd.gotoEnd ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

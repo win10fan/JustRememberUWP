@@ -18,17 +18,6 @@ namespace JustRemember_UWP
         public List<statInfo> stat { get; set; }
         public int defaultSeed { get; set; }
         public bool autoScrollContent { get; set; }
-        public enum afterEnd
-        {
-            gotoEnd,
-            restartMatch,
-            gotoMain
-        }
-        public enum ifNotGotoEnd
-        {
-            discardAllStat,
-            saveAllStat
-        }
         public afterEnd AfterFinalChoice { get; set; }
         public ifNotGotoEnd TodoWithStat { get; set; }
 

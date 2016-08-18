@@ -168,8 +168,20 @@ namespace JustRemember_UWP
             }
         }
 	}
-	
-	public enum textMode { Char, WhiteSpace }
+
+    public enum afterEnd
+    {
+        gotoEnd,
+        restartMatch,
+        gotoMain
+    }
+    public enum ifNotGotoEnd
+    {
+        discardAllStat,
+        saveAllStat
+    }
+
+    public enum textMode { Char, WhiteSpace }
 
 	public struct textlist
 	{

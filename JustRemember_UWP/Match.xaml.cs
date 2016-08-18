@@ -509,18 +509,18 @@ namespace JustRemember_UWP
                 {
                     switch (Utilities.currentSettings.AfterFinalChoice)
                     {
-                        case Settings.afterEnd.gotoEnd:
+                        case afterEnd.gotoEnd:
                             Frame.Navigate(typeof(End));
                             break;
-                        case Settings.afterEnd.restartMatch:
-                            if (Utilities.currentSettings.TodoWithStat == Settings.ifNotGotoEnd.saveAllStat)
+                        case afterEnd.restartMatch:
+                            if (Utilities.currentSettings.TodoWithStat == ifNotGotoEnd.saveAllStat)
                             {
                                 Utilities.currentSettings.stat.Add(Utilities.newStat);
                             }
                             ResetRound();
                             break;
-                        case Settings.afterEnd.gotoMain:
-                            if (Utilities.currentSettings.TodoWithStat == Settings.ifNotGotoEnd.saveAllStat)
+                        case afterEnd.gotoMain:
+                            if (Utilities.currentSettings.TodoWithStat == ifNotGotoEnd.saveAllStat)
                             {
                                 Utilities.currentSettings.stat.Add(Utilities.newStat);
                             }

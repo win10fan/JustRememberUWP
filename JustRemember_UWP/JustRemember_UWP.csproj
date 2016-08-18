@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JustRemember_UWP</RootNamespace>
     <AssemblyName>JustRemember_UWP</AssemblyName>
-    <DefaultLanguage>en</DefaultLanguage>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
@@ -95,8 +95,8 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="JustRemember_UWP_TemporaryKey.pfx" />
     <None Include="project.json" />
-    <PRIResource Include="Strings\th.resw" />
-    <PRIResource Include="Strings\en.resw" />
+    <PRIResource Include="Strings\th-TH.resw" />
+    <PRIResource Include="Strings\en-US.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
