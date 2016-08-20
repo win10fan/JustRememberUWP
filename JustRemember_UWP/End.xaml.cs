@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
@@ -29,7 +30,8 @@ namespace JustRemember_UWP
 			{
 				if (Utilities.newStat != null)
 				{
-					return $"Total word: {Utilities.newStat.totalWords}";
+                    var first = Utilities.newStat.totalWords >= 2 ? "s" : "";
+					return $"Total word{first}: {Utilities.newStat.totalWords}";
 				}
 				return "Total word: N/A";
 			}
@@ -80,29 +82,31 @@ namespace JustRemember_UWP
         
 		private void lineChart_Loaded(object sender, RoutedEventArgs e)
 		{
+            if (Utilities.newStat.totalWords > 30) { lineChart.Visibility = Visibility.Collapsed; return; }
 			wrongperChoice = new List<KeyValuePair<string, int>>();
-			var lst = stats.Stats.lastItem();
-			for (int i = 0;i < lst.wrongPerchoice.Count - 1;i++)
-			{
-				wrongperChoice.Add(new KeyValuePair<string, int>(i.ToString(), lst.wrongPerchoice[i]));
-			}
-			(lineChart.Series[0] as LineSeries).ItemsSource = wrongperChoice;
+            var lst = Utilities.newStat;
+            for (int i = 0; i < lst.wrongPerchoice.Count - 1; i++)
+            {
+                wrongperChoice.Add(new KeyValuePair<string, int>(i.ToString(), lst.wrongPerchoice[i]));
+            }
+            (lineChart.Series[0] as LineSeries).ItemsSource = wrongperChoice;
 		}
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (Utilities.currentSettings.defaultSeed != -1)
+            if (Utilities.currentSettings.defaultSeed == -1)
             {
                 stats.Stats.Add(Utilities.newStat);
                 StatList.SaveAll(stats.Stats);
+                Utilities.newStat = new statInfo();
             }
-            Frame.GoBack();
+            Frame.Navigate(typeof(Match));
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Utilities.newStat = new statInfo();
-            Frame.GoBack();
+            Frame.Navigate(typeof(Match));
         }
     }
 }

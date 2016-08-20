@@ -45,7 +45,6 @@ namespace JustRemember_UWP
 			exitD.CancelCommandIndex = 0;
 			//Load file
 			LoadFile(Utilities.selected.Title, Utilities.selected.Content);
-			randomEngine = new Random();
             //Load stats
             statList = new StatList();
             statList.Stats = StatList.Load();
@@ -59,6 +58,7 @@ namespace JustRemember_UWP
 		MessageDialog loadotherDiag;
 		MessageDialog exitD;
 		Random randomEngine;
+        Random randomEngine4ChoiceTxt;
 		#region Match component
 		public int currentProgress
 		{
@@ -285,13 +285,15 @@ namespace JustRemember_UWP
             if (Utilities.currentSettings.defaultSeed >= 0)
             {
                 randomEngine = new Random(Utilities.currentSettings.defaultSeed);
+                randomEngine4ChoiceTxt = new Random(Utilities.currentSettings.defaultSeed);                
             }
             else
             {
                 randomEngine = new Random();
+                randomEngine4ChoiceTxt = new Random();
             }
 		}
-
+        
 		enum mode { begin, normal, end}
 		mode currentChoiceMode;
 
@@ -491,7 +493,7 @@ namespace JustRemember_UWP
 				}
 				else
 				{
-					int rndch = randomEngine.Next(0, newchoiceL.Count);
+					int rndch = randomEngine4ChoiceTxt.Next(0, newchoiceL.Count);
 					SpawnChoice(i, newchoiceL[rndch]);
 					newchoiceL.RemoveAt(rndch);
 				}
@@ -739,7 +741,8 @@ namespace JustRemember_UWP
 		}
 
 		private void chImportant_Click(object sender, RoutedEventArgs e)
-		{
+        {
+            if (pauseMenu.IsPaneOpen) { return; }
             if (currentProgress == textList.Count - 1)
             {
                 currentChoiceMode = mode.end;

@@ -12,11 +12,6 @@ namespace JustRemember_UWP
 {
 	public static class Utilities
 	{
-		public static T lastItem<T>(this List<T> me)
-		{
-			return me[me.Count - 1];
-		}
-
 		public static T ParseEnum<T>(string value)
 		{
 			return (T)Enum.Parse(typeof(T), value, true);
@@ -128,11 +123,6 @@ namespace JustRemember_UWP
                 foreach (string s in files)
                 {
                     value.Add(statInfo.DeSerialize(File.ReadAllText(s)));
-                    //FileStream fs = new FileStream(s, FileMode.Open);
-                    //using (StreamReader reader = new StreamReader(fs))
-                    //{
-                    //    string content = reader.ReadToEnd();
-                    //}
                 }
             }
             return value;
@@ -140,19 +130,20 @@ namespace JustRemember_UWP
 
         public static void SaveAll(List<statInfo> info)
         {
-            string path = ApplicationData.Current.LocalFolder.Path;
+            string path = ApplicationData.Current.LocalFolder.Path + "\\Stat";
             foreach (var item in info)
             {
                 var date = DateTime.ParseExact(item.dateandTime, "dd MM yyyy - hh:mm:ss", CultureInfo.InvariantCulture);
-                File.ReadAllText($"{path}\\{date.ToString("dd-MM-yyyy-hh-mm-ss")}.stat");
+                File.WriteAllText($"{path}\\{date.ToString("dd-MM-yyyy-hh-mm-ss")}.stat", statInfo.Serialize(item));
+                Debug.WriteLine($"Path = {path}\\{date.ToString("dd-MM-yyyy-hh-mm-ss")}.stat");
             }
         }
 
         public static void Save(statInfo info)
         {
-            string path = ApplicationData.Current.LocalFolder.Path;
+            string path = ApplicationData.Current.LocalFolder.Path + "\\Stat";
             var date = DateTime.ParseExact(info.dateandTime, "dd MM yyyy - hh:mm:ss", CultureInfo.InvariantCulture);
-            File.ReadAllText($"{path}\\{date.ToString("dd-MM-yyyy-hh-mm-ss")}.stat");
+            File.WriteAllText($"{path}\\{date.ToString("dd-MM-yyyy-hh-mm-ss")}.stat", statInfo.Serialize(info));
         }
     }
 
@@ -197,7 +188,7 @@ namespace JustRemember_UWP
                 }
                 else if (line.StartsWith(nameof(totalWords)))
                 {
-                    value.totalWords = StringSerializeHelper.GetInt(line, nameof(dateandTime));
+                    value.totalWords = StringSerializeHelper.GetInt(line, nameof(totalWords));
                 }
                 else if (line.StartsWith(nameof(totalChoice)))
                 {
@@ -221,7 +212,7 @@ namespace JustRemember_UWP
                 }
                 else if (line.StartsWith(nameof(currentMode)))
                 {
-                    value.currentMode = StringSerializeHelper.GetEnum<challageMode>(line, nameof(dateandTime));
+                    value.currentMode = StringSerializeHelper.GetEnum<challageMode>(line, nameof(currentMode));
                 }
                 else if (line.StartsWith(nameof(noteTitle)))
                 {
