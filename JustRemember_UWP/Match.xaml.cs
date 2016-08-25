@@ -84,29 +84,7 @@ namespace JustRemember_UWP
 		public List<textlist> textList = new List<textlist>();
 		public List<string> choiceList = new List<string>();
 		#endregion
-		#region UI Controller
-		bool _pse;
-		public bool Pause
-		{
-			get
-			{
-				return _pse;
-			}
-			set
-			{
-				_pse = value;
-				if (value)
-				{
-					pauseInfo.Text = "Paused...";
-				}
-				else
-				{
-					pauseInfo.Text = currentFilename;
-				}
-			}
-		}
-		#endregion
-		
+
 		public void LoadFile(string content)
 		{
 			LoadFile("", content);
@@ -359,10 +337,9 @@ namespace JustRemember_UWP
                 return;
             }
 			pauseMenu.IsPaneOpen = !pauseMenu.IsPaneOpen;
-			Pause = pauseMenu.IsPaneOpen;
 			if (pauseMenu.IsPaneOpen)
 			{
-				pauseInfo.Text = Pause ? "Paused..." : currentFilename;
+				pauseInfo.Text = pauseMenu.IsPaneOpen ? "Paused..." : currentFilename;
 			}
             contentSlider.Value = Utilities.currentSettings.displayTextSize;
             pauseMenu.PaneBackground.Opacity = 1;

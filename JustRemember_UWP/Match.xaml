@@ -69,7 +69,7 @@
         </Grid>
         <SplitView x:Name="pauseMenu" IsPaneOpen="True" Margin="0,50,0,0" CompactPaneLength="50" PaneBackground="#FF171717">
             <SplitView.Pane>
-                <Grid x:Name="menuBG">
+                <Grid x:Name="menuBG" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="*"/>
