@@ -28,6 +28,7 @@ namespace JustRemember_UWP
                 return;
             }
 			await Prenotes.NavigateUpAsync();
+            level -= 1;
 		}
 		
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -69,9 +70,33 @@ namespace JustRemember_UWP
 				openFile.Visibility = selectedPrenote.isFile ? Visibility.Visible : Visibility.Collapsed;
 			}
 		}
-	}
 
-	public class PrenoteList
+        private async void selectionList_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            if (selectionList.SelectedIndex >= 0)
+            {
+                if (selectedPrenote.isFile)
+                {
+                    Note selected = new Note();
+                    selected.Title = selectedPrenote.Name;
+                    selected.Content = selectedPrenote.Content;
+                    Utilities.selected = selected;
+                    Frame.Navigate(typeof(Match));
+                }
+                else
+                {
+                    level += 1;
+                    if (selectionList.SelectedIndex < 0) { return; }
+                    if (selectedPrenote != null)
+                    {
+                        await Prenotes.NavigateAsync(selectedPrenote.Name);
+                    }
+                }
+            }
+        }
+    }
+
+    public class PrenoteList
 	{
 		public StorageFolder currentFolder = ApplicationData.Current.LocalFolder;
 		public static readonly StorageFolder baseFolder = ApplicationData.Current.LocalFolder;

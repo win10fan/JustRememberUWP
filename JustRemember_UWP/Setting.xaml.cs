@@ -427,5 +427,30 @@ namespace JustRemember_UWP
         {
             statdecide1.Visibility = currentConfig.AfterFinalChoice == afterEnd.gotoEnd ? Visibility.Collapsed : Visibility.Visible;
         }
+
+        private void hintAtFirst_Loaded(object sender, RoutedEventArgs e)
+        {
+            hintAtFirst.IsOn = currentConfig.hintAtFirstchoice;
+            hintAtFirst.Toggled += HintAtFirst_Toggled;
+        }
+
+        private void HintAtFirst_Toggled(object sender, RoutedEventArgs e)
+        {
+            currentConfig.hintAtFirstchoice = hintAtFirst.IsOn;
+            Settings.Save(currentConfig);
+        }
+
+        private void noStatNotif_Loaded(object sender, RoutedEventArgs e)
+        {
+            noStatNotif.FontSize = 18;
+            if (stats.Stats.Count >= 1)
+            {
+                noStatNotif.Text = $"Total stat: {stats.Stats.Count}";
+            }
+            else
+            {
+                noStatNotif.Text = "No stat found :(";
+            }
+        }
     }
 }

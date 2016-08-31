@@ -9,30 +9,38 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Canvas x:Name="titleBar" Height="50" VerticalAlignment="Top" Background="{ThemeResource AppBarBackgroundThemeBrush}" Loaded="titleBar_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Button x:Name="button" Content="&#xE0A6;" Height="50" Width="50" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" Background="{ThemeResource ButtonBackgroundThemeBrush}" Foreground="{ThemeResource ButtonForegroundThemeBrush}" FontSize="20" Click="button_Click"/>
-            <TextBlock x:Name="settingTitle" Canvas.Left="50" Text="Choose to begin" RenderTransformOrigin="0,0.5" VerticalAlignment="Center"  FontSize="24" Height="50" Padding="5,8,0,0"/>
-        </Canvas>
-        <ListView x:Name="listView" Canvas.ZIndex="1" Margin="0,50,0,0" SelectionChanged="listView_SelectionChanged">
-            <ItemsControl>
-                <ItemsControl.Template>
-                    <ControlTemplate>
-                        <Grid VerticalAlignment="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <SymbolIcon Symbol="Page2"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="10,0,0,0">
-                                <TextBlock x:Name="selName" TextWrapping="Wrap" Text="{Binding Name}" FontSize="30" Margin="0"/>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-            </ItemsControl>
-        </ListView>
+            <TextBlock x:Name="settingTitle" Margin="5,0,0,0" Text="Choose to begin" RenderTransformOrigin="0,0.5" VerticalAlignment="Center"  FontSize="24" Height="50" Padding="5,8,0,0"/>
+        </StackPanel>
+        <TextBlock Grid.Row="1" x:Name="itemCount" FontSize="18"/>
+        <StackPanel Grid.Row="2">
+            <ListView DoubleTapped="listView_DoubleTapped" x:Name="listView" Margin="0,0,0,0" SelectionChanged="listView_SelectionChanged">
+                <ItemsControl>
+                    <ItemsControl.Template>
+                        <ControlTemplate>
+                            <Grid VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <SymbolIcon Symbol="Page2"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="10,0,0,0">
+                                    <TextBlock x:Name="selName" TextWrapping="Wrap" Text="{Binding Name}" FontSize="30" Margin="0"/>
+                                </StackPanel>
+                            </Grid>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+                </ItemsControl>
+            </ListView>
+        </StackPanel>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
@@ -41,7 +49,7 @@
             </CommandBar.Content>
             <AppBarButton x:Name="openEditor" Icon="Edit" Label="Editor" Width="60" Click="AppBarButton_Click_1"/>
             <AppBarButton Icon="Refresh" Width="60" Label="Refresh" Click="AppBarButton_Click"/>
-            <AppBarToggleButton x:Name="appBarToggleButton" Width="60" Icon="Delete" Label="Delete"/>
+            <AppBarToggleButton x:Name="deleteMode" Width="60" Icon="Delete" Label="Delete"/>
             <AppBarButton x:Name="openFile"  Width="60"  HorizontalAlignment="Left" Icon="Forward" Label="Open" VerticalAlignment="Top" Click="openFile_Click" Visibility="Collapsed"/>
         </CommandBar>
     </Page.BottomAppBar>

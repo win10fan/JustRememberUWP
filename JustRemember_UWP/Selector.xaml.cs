@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,7 +21,6 @@ namespace JustRemember_UWP
 		public void RefreshList()
 		{
 			List<SelectorItem> items = new List<SelectorItem>();
-			listView.Items.Clear();
 			var selectors = new List<SelectorItem>();
 			if (Utilities.notes != null)
 			{
@@ -31,6 +31,7 @@ namespace JustRemember_UWP
 				}
 			}
 			listView.ItemsSource = selectors;
+            itemCount.Text = selectors.Count == 0 ? $"No user note.{Environment.NewLine}But you can add from editor" : $"Total user note: {selectors.Count}";
 		}
 
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -66,20 +67,26 @@ namespace JustRemember_UWP
 			}
 		}
 
-		private void titleBar_Loaded(object sender, RoutedEventArgs e)
-		{
-			if (Utilities.isSmallLoaderMode)
-			{
-				titleBar.Visibility = Visibility.Collapsed;
-				listView.Margin = new Thickness(0);
-				openEditor.Visibility = Visibility.Collapsed;
-			}
-			else
-			{
-				titleBar.Visibility = Visibility.Visible;
-				listView.Margin = new Thickness(0, 50, 0, 0);
-				openEditor.Visibility = Visibility.Visible;
-			}
-		}
-	}
+        private async void listView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            if (listView.SelectedIndex >= 0)
+            {
+                if (deleteMode.IsChecked == true)
+                {
+                    var selec = Utilities.notes[listView.SelectedIndex];
+                    var folder = await Windows.Storage.ApplicationData.Current.RoamingFolder.GetFolderAsync("Note");
+                    var file = await folder.GetFileAsync(selec.Title + ".txt");
+                    await file.DeleteAsync();
+                    await Note.GetNotesList();
+                    RefreshList();
+                    return;
+                }
+                Utilities.selected = Utilities.notes[listView.SelectedIndex];
+                if (!Utilities.isSmallLoaderMode)
+                {
+                    Frame.Navigate(typeof(Match));
+                }
+            }
+        }
+    }
 }

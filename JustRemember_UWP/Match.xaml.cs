@@ -350,6 +350,7 @@ namespace JustRemember_UWP
 		{
 			otherPage.Visibility = Visibility.Collapsed;
 			HideSecondPage.Visibility = Visibility.Collapsed;
+            disableBG.Visibility = Visibility.Collapsed;
 			Utilities.isSmallLoaderMode = false;
 		}
 
@@ -357,6 +358,7 @@ namespace JustRemember_UWP
 		{
 			otherPage.Visibility = Visibility.Visible;
 			HideSecondPage.Visibility = Visibility.Visible;
+            disableBG.Visibility = Visibility.Visible;
 			Utilities.isSmallLoaderMode = otherPage.Visibility == Visibility.Visible;
 		}
 
@@ -466,7 +468,12 @@ namespace JustRemember_UWP
 			{
 				if (i == currentValidChoice)
 				{
-					SpawnChoice(i, textList[currentProgress].Text);
+                    if (currentProgress == 0 && Utilities.currentSettings.hintAtFirstchoice)
+                    {
+                        SpawnChoice(i, $">> {textList[currentProgress].Text} <<");
+                        continue;
+                    }
+                    SpawnChoice(i, textList[currentProgress].Text);
 				}
 				else
 				{

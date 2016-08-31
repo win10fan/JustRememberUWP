@@ -39,6 +39,8 @@
                         <TextBlock FontSize="12" x:Name="defSeedNotify" Text="As all choice stay same. It equally cheat. All stat will not save." TextWrapping="WrapWholeWords" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="defSeedNotify_Loaded"/>
                         <TextBlock Text="Display text auto scroll" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <ToggleSwitch x:Name="autoScrollContent" Loaded="autoScrollContent_Loaded"/>
+                        <TextBlock Margin="0,10" Text="Hint at first choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <ToggleSwitch x:Name="hintAtFirst" Margin="5" Loaded="hintAtFirst_Loaded"/>
                         <TextBlock Text="After final choice" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <StackPanel>
                             <RadioButton Loaded="GotoEnd_Loaded" x:Name="GotoEnd" Content="Go to end page"/>
@@ -87,22 +89,25 @@
                 </ScrollViewer>
             </PivotItem>
             <PivotItem x:Name="statPage" Header="Stat">
-                <ListView ItemsSource="{x:Bind stats.Stats}" x:Name="statList">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="local:statInfo">
-                            <StackPanel Margin="8" Orientation="Horizontal">
-                                <StackPanel Orientation="Vertical" Margin="5,0,0,0">
-                                    <TextBlock Text="{x:Bind titleInfo}" FontSize="20"/>
-                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                                        <TextBlock FontSize="16" Text="{x:Bind timeProgress}"/>
-                                        <ProgressBar Value="{x:Bind timeInPercent}" Margin="10,0,0,0" Height="20" Width="120"/>
+                <StackPanel>
+                    <TextBlock x:Name="noStatNotif" Loaded="noStatNotif_Loaded"/>
+                    <ListView ItemsSource="{x:Bind stats.Stats}" x:Name="statList">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:statInfo">
+                                <StackPanel Margin="8" Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                                        <TextBlock Text="{x:Bind titleInfo}" FontSize="20"/>
+                                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                            <TextBlock FontSize="16" Text="{x:Bind timeProgress}"/>
+                                            <ProgressBar Value="{x:Bind timeInPercent}" Margin="10,0,0,0" Height="20" Width="120"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{x:Bind choiceInfo}" Margin="0,10,0,0"/>
                                     </StackPanel>
-                                    <TextBlock Text="{x:Bind choiceInfo}" Margin="0,10,0,0"/>
                                 </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
             </PivotItem>
             <PivotItem x:Name="aboutPage" Header="About">
                 <ScrollViewer>

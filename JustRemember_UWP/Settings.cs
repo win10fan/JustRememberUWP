@@ -18,6 +18,7 @@ namespace JustRemember_UWP
         public bool autoScrollContent { get; set; }
         public afterEnd AfterFinalChoice { get; set; }
         public ifNotGotoEnd TodoWithStat { get; set; }
+        public bool hintAtFirstchoice { get; set; }
         //TODO:Add session system
         public Settings() //Default setting
 		{
@@ -33,6 +34,7 @@ namespace JustRemember_UWP
             autoScrollContent = true;
             AfterFinalChoice = afterEnd.gotoEnd;
             TodoWithStat = ifNotGotoEnd.saveAllStat;
+            hintAtFirstchoice = false;
 			//notes = new List<Note>();
 			//sessions = new List<SessionInfo>();
 		}
@@ -69,7 +71,8 @@ namespace JustRemember_UWP
             value += $"{nameof(defaultSeed)}={content.defaultSeed}{Environment.NewLine}";
             value += $"{nameof(autoScrollContent)}={StringSerializeHelper.BoolToString(content.autoScrollContent)}{Environment.NewLine}";
             value += $"{nameof(AfterFinalChoice)}={content.AfterFinalChoice.ToString()}{Environment.NewLine}";
-            value += $"{nameof(TodoWithStat)}={content.TodoWithStat.ToString()}";
+            value += $"{nameof(TodoWithStat)}={content.TodoWithStat.ToString()}{Environment.NewLine}";
+            value += $"{nameof(hintAtFirstchoice)}={StringSerializeHelper.BoolToString(content.hintAtFirstchoice)}";
             return value;
         }
 
@@ -93,6 +96,7 @@ namespace JustRemember_UWP
                 else if (line.StartsWith(nameof(autoScrollContent))) { value.autoScrollContent = StringSerializeHelper.GetBool(line, nameof(autoScrollContent)); }
                 else if (line.StartsWith(nameof(AfterFinalChoice))) { value.AfterFinalChoice = StringSerializeHelper.GetEnum<afterEnd>(line, nameof(AfterFinalChoice)); }
                 else if (line.StartsWith(nameof(TodoWithStat))) { value.TodoWithStat = StringSerializeHelper.GetEnum<ifNotGotoEnd>(line, nameof(TodoWithStat)); }
+                else if (line.StartsWith(nameof(hintAtFirstchoice))) { value.hintAtFirstchoice = StringSerializeHelper.GetBool(line, nameof(hintAtFirstchoice)); }
             }
             return value;
         }

@@ -19,7 +19,7 @@
             <Button x:Name="upBtn" Content="Up" Click="Button_Click"/>
             <TextBlock x:Name="curPath" Margin="5" VerticalAlignment="Center"/>
         </StackPanel>
-        <ListView SelectionChanged="selectionList_SelectionChanged" Margin="5,50,5,5" x:Name="selectionList" ItemsSource="{x:Bind Prenotes.Prenotes}">
+        <ListView SelectionChanged="selectionList_SelectionChanged" DoubleTapped="selectionList_DoubleTapped" Margin="5,50,5,5" x:Name="selectionList" ItemsSource="{x:Bind Prenotes.Prenotes}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:PrenoteInfo">
                     <StackPanel Orientation="Horizontal" Margin="5">

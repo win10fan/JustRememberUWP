@@ -541,6 +541,7 @@ namespace JustRemember_UWP
 			var files = Directory.GetFiles(ApplicationData.Current.RoamingFolder.Path + "\\Note\\");
 			if (files.Length == 0)
 			{
+                Utilities.notes?.Clear();
 				return;
 			}
 			List<Note> notes = new List<Note>();
