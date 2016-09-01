@@ -19,6 +19,8 @@
                         <Setter Target="pauseMenu.DisplayMode" Value="Overlay"/>
                         <Setter Target="choicesListHolder.(Grid.Column)" Value="0"/>
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="1"/>
+                        <Setter Target="choicesListHolderB.(Grid.Column)" Value="0"/>
+                        <Setter Target="choicesListHolderB.(Grid.Row)" Value="1"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="*"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="auto"/>
                         <Setter Target="matchInfo.HorizontalAlignment" Value="Right"/>
@@ -33,6 +35,8 @@
                         <Setter Target="pauseMenu.DisplayMode" Value="Overlay"/>
                         <Setter Target="choicesListHolder.(Grid.Column)" Value="1"/>
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="0"/>
+                        <Setter Target="choicesListHolderB.(Grid.Column)" Value="1"/>
+                        <Setter Target="choicesListHolderB.(Grid.Row)" Value="0"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="auto"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="*"/>
                         <Setter Target="matchInfo.HorizontalAlignment" Value="Center"/>
@@ -47,6 +51,8 @@
                         <Setter Target="pauseMenu.DisplayMode" Value="CompactInline"/>
                         <Setter Target="choicesListHolder.(Grid.Column)" Value="1"/>
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="0"/>
+                        <Setter Target="choicesListHolderB.(Grid.Column)" Value="1"/>
+                        <Setter Target="choicesListHolderB.(Grid.Row)" Value="0"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="auto"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="*"/>
                         <Setter Target="matchInfo.HorizontalAlignment" Value="Center"/>
@@ -67,7 +73,7 @@
             <TextBlock x:Name="timeCounterText" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Center"/>
             <ProgressBar x:Name="progressCounter" Grid.Column="1" VerticalAlignment="Top" Height="12" Value="50"/>
         </Grid>
-        <SplitView x:Name="pauseMenu" IsPaneOpen="True" Margin="0,50,0,0" CompactPaneLength="50" PaneBackground="#FF171717">
+        <SplitView x:Name="pauseMenu" IsPaneOpen="True" Margin="0,50,0,0" CompactPaneLength="50" PaneBackground="#FF171717" PaneClosed="pauseMenu_PaneClosed" KeyDown="pauseMenu_KeyDown">
             <SplitView.Pane>
                 <Grid x:Name="menuBG" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <Grid.RowDefinitions>
@@ -149,6 +155,21 @@
                     <Button Click="ch4_Click" Margin="4" x:Name="ch4" Content="choice 4" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
                     <Button Click="chImportant_Click" Margin="4" x:Name="chImportant" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
                 </ItemsControl>
+                <Grid x:Name="choicesListHolderB" Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" x:Name="choiceInfob"/>
+                    <StackPanel Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal" Height="40" HorizontalAlignment="Center">
+                        <Button Click="ch0_Click" Margin="4" x:Name="ch0b" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                        <Button Click="ch1_Click" Margin="4" x:Name="ch1b" Content="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                        <Button Click="ch2_Click" Margin="4" x:Name="ch2b" Content="3" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                        <Button Click="ch3_Click" Margin="4" x:Name="ch3b" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                        <Button Click="ch4_Click" Margin="4" x:Name="ch4b" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                        <Button Click="chImportant_Click" Margin="4" x:Name="chImportantb" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </SplitView>
         <!--Other page-->

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Text.RegularExpressions;
 using Windows.Globalization;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,42 +16,16 @@ namespace JustRemember_UWP
 		{
             stats = new StatList();
             stats.Stats = StatList.Load();
-			resetStat = new MessageDialog("This will clear all stat\r\nAre you sure?", "Reset stat");
-			resetStat.Commands.Add(new UICommand("Yes") { Invoked = delegate { stats.Stats.Clear(); Settings.Save(); } });
-			resetStat.Commands.Add(new UICommand("No") { Id = 1 });
-			resetStat.CancelCommandIndex = 1;
-			//
-			resetApp = new MessageDialog("This will reset app settings to default.\nAnd quit application. Are you sure?", "Reset app");
-			resetApp.Commands.Add(new UICommand("Yes") { Invoked = delegate { Utilities.currentSettings = new Settings(); Settings.Save(); Application.Current.Exit(); } });
-			resetApp.Commands.Add(new UICommand("No") { Id = 1 });
-			resetApp.CancelCommandIndex = 1;
-			//
-			restartToApply = new MessageDialog("Please restart app to apply change..");
-			restartToApply.Commands.Add(new UICommand("OK. Let's restart") { Invoked = delegate { Application.Current.Exit(); } });
-			restartToApply.Commands.Add(new UICommand("OK, I'll restart later") { Id = 0 });
-			restartToApply.CancelCommandIndex = 0;
             currentConfig = Settings.Load();
+            DialogPrep();
 			InitializeComponent();
 		}
         public StatList stats;
-		public MessageDialog resetStat;
-		public MessageDialog resetApp;
-		public MessageDialog restartToApply;
         public Settings currentConfig;
 
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(MainPage));
-		}
-        
-		private async void button1_Click(object sender, RoutedEventArgs e)
-		{
-			await resetStat.ShowAsync();
-		}
-
-		private async void button2_Click(object sender, RoutedEventArgs e)
-		{
-			await resetApp.ShowAsync();
 		}
         
 		private void titleBar_Loaded(object sender, RoutedEventArgs e)
@@ -451,6 +428,140 @@ namespace JustRemember_UWP
             {
                 noStatNotif.Text = "No stat found :(";
             }
+        }
+
+        private void choiceStyleA_Loaded(object sender, RoutedEventArgs e)
+        {
+            choiceStyleA.IsChecked = currentConfig.choiceStyle == selectMode.styleA;
+            choiceStyleA.Checked += ChoiceStyleA_Checked;
+        }
+
+        private void ChoiceStyleA_Checked(object sender, RoutedEventArgs e)
+        {
+            currentConfig.choiceStyle = selectMode.styleA;
+            Settings.Save(currentConfig);
+        }
+
+        private void choiceStyleB_Loaded(object sender, RoutedEventArgs e)
+        {
+            choiceStyleB.IsChecked = currentConfig.choiceStyle == selectMode.styleB;
+            choiceStyleB.Checked += ChoiceStyleB_Checked;
+        }
+
+        private void ChoiceStyleB_Checked(object sender, RoutedEventArgs e)
+        {
+            currentConfig.choiceStyle = selectMode.styleB;
+            Settings.Save(currentConfig);
+        }
+
+        private async void resetSetting_Click(object sender, RoutedEventArgs e)
+        {
+            await settingReset.ShowAsync();
+        }
+
+        public MessageDialog statReset;
+        public MessageDialog sessionReset;
+        public MessageDialog usernoteReset;
+        public MessageDialog settingReset;
+        public MessageDialog allReset;
+
+        public void DialogPrep()
+        {
+            settingReset = new MessageDialog("All settings will revert to default.", "Are you sure?");
+            settingReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.setting); } });
+            settingReset.Commands.Add(new UICommand("No") { Id = 1 });
+            settingReset.CancelCommandIndex = 1;
+            //
+            statReset = new MessageDialog("All stat will clear to nothing.", "Are you sure?");
+            statReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.stat); } });
+            statReset.Commands.Add(new UICommand("No") { Id = 1 });
+            statReset.CancelCommandIndex = 1;
+            //
+            sessionReset = new MessageDialog("All unfinished session will get remove.", "Are you sure?");
+            sessionReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.session); } });
+            sessionReset.Commands.Add(new UICommand("No") { Id = 1 });
+            sessionReset.CancelCommandIndex = 1;
+            //
+            usernoteReset = new MessageDialog("All your note will gone without going back.", "Are you sure?");
+            usernoteReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.note); } });
+            usernoteReset.Commands.Add(new UICommand("No") { Id = 1 });
+            usernoteReset.CancelCommandIndex = 1;
+            //
+            allReset = new MessageDialog("Everyting will reset to default like reinstall." + Environment.NewLine + "If you want to reset. Application will exit", "Are you sure?");
+            allReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.all); } });
+            allReset.Commands.Add(new UICommand("No") { Id = 1 });
+            allReset.CancelCommandIndex = 1;
+        }
+        public enum resetStyle { setting, stat, session, note, all }
+        public void ResetApp(resetStyle type)
+        {
+            switch (type)
+            {
+                case resetStyle.setting:
+                    Settings.Save(new Settings());
+                    Frame.Navigate(typeof(MainPage));
+                    return;
+                case resetStyle.stat:
+                    DirectoryInfo di = new DirectoryInfo(ApplicationData.Current.LocalFolder.Path + "\\Stat");
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    return;
+                case resetStyle.session:
+                    //Remove all sessions
+                    return;
+                case resetStyle.note:
+                    DirectoryInfo dl = new DirectoryInfo(ApplicationData.Current.RoamingFolder.Path + "\\Note");
+                    foreach (FileInfo file in dl.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    return;
+                case resetStyle.all:
+                    DirectoryInfo alldelb = new DirectoryInfo(ApplicationData.Current.LocalFolder.Path);
+
+                    foreach (FileInfo file in alldelb.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    foreach (DirectoryInfo dir in alldelb.GetDirectories())
+                    {
+                        dir.Delete(true);
+                    }
+
+                    DirectoryInfo alldela = new DirectoryInfo(ApplicationData.Current.RoamingFolder.Path);
+                    foreach (FileInfo file in alldela.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    foreach (DirectoryInfo dir in alldela.GetDirectories())
+                    {
+                        dir.Delete(true);
+                    }
+                    Application.Current.Exit();
+                    return;
+            }
+        }
+
+        private async void resetstat_Click(object sender, RoutedEventArgs e)
+        {
+            await statReset.ShowAsync();
+        }
+
+        private async void resetsession_Click(object sender, RoutedEventArgs e)
+        {
+            await sessionReset.ShowAsync();
+        }
+
+        private async void resetusernote_Click(object sender, RoutedEventArgs e)
+        {
+            await usernoteReset.ShowAsync();
+        }
+
+        private async void resetall_Click(object sender, RoutedEventArgs e)
+        {
+            await allReset.ShowAsync();
         }
     }
 }

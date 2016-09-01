@@ -50,6 +50,9 @@ namespace JustRemember_UWP
             statList.Stats = StatList.Load();
             //
             pauseMenu.IsPaneOpen = true;
+            //
+            choicesListHolder.Visibility = Utilities.currentSettings.choiceStyle == selectMode.styleA ? Visibility.Visible : Visibility.Collapsed;
+            choicesListHolderB.Visibility = Utilities.currentSettings.choiceStyle == selectMode.styleB ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		MessageDialog resetM;
@@ -281,18 +284,38 @@ namespace JustRemember_UWP
 			//First choice
 			if (currentChoiceMode != mode.normal)
 			{
-				ch0.Visibility = ch1.Visibility = ch2.Visibility = ch3.Visibility = ch4.Visibility = Visibility.Collapsed;
-				chImportant.Visibility = Visibility.Visible;
+                if (Utilities.currentSettings.choiceStyle == selectMode.styleA)
+                {
+                    ch0.Visibility = ch1.Visibility = ch2.Visibility = ch3.Visibility = ch4.Visibility = Visibility.Collapsed;
+                    chImportant.Visibility = Visibility.Visible;
+                }
+				else
+                {
+                    ch0b.Visibility = ch1b.Visibility = ch2b.Visibility = ch3b.Visibility = ch4b.Visibility = Visibility.Collapsed;
+                    chImportantb.Visibility = Visibility.Visible;
+                }
 			}
 			else if (currentChoiceMode == mode.normal)
 			{
-				//Other
-				ch0.Visibility = Utilities.currentSettings.totalChoice >= 1 ? Visibility.Visible : Visibility.Collapsed;
-				ch1.Visibility = Utilities.currentSettings.totalChoice >= 2 ? Visibility.Visible : Visibility.Collapsed;
-				ch2.Visibility = Utilities.currentSettings.totalChoice >= 3 ? Visibility.Visible : Visibility.Collapsed;
-				ch3.Visibility = Utilities.currentSettings.totalChoice >= 4 ? Visibility.Visible : Visibility.Collapsed;
-				ch4.Visibility = Utilities.currentSettings.totalChoice >= 5 ? Visibility.Visible : Visibility.Collapsed;
-				chImportant.Visibility = Visibility.Collapsed;
+                //Other
+                if (Utilities.currentSettings.choiceStyle == selectMode.styleA)
+                {
+                    ch0.Visibility = Utilities.currentSettings.totalChoice >= 1 ? Visibility.Visible : Visibility.Collapsed;
+                    ch1.Visibility = Utilities.currentSettings.totalChoice >= 2 ? Visibility.Visible : Visibility.Collapsed;
+                    ch2.Visibility = Utilities.currentSettings.totalChoice >= 3 ? Visibility.Visible : Visibility.Collapsed;
+                    ch3.Visibility = Utilities.currentSettings.totalChoice >= 4 ? Visibility.Visible : Visibility.Collapsed;
+                    ch4.Visibility = Utilities.currentSettings.totalChoice >= 5 ? Visibility.Visible : Visibility.Collapsed;
+                    chImportant.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    ch0b.Visibility = Utilities.currentSettings.totalChoice >= 1 ? Visibility.Visible : Visibility.Collapsed;
+                    ch1b.Visibility = Utilities.currentSettings.totalChoice >= 2 ? Visibility.Visible : Visibility.Collapsed;
+                    ch2b.Visibility = Utilities.currentSettings.totalChoice >= 3 ? Visibility.Visible : Visibility.Collapsed;
+                    ch3b.Visibility = Utilities.currentSettings.totalChoice >= 4 ? Visibility.Visible : Visibility.Collapsed;
+                    ch4b.Visibility = Utilities.currentSettings.totalChoice >= 5 ? Visibility.Visible : Visibility.Collapsed;
+                    chImportantb.Visibility = Visibility.Collapsed;
+                }
 			}
 		}
         DateTime prev;
@@ -464,24 +487,50 @@ namespace JustRemember_UWP
 			currentValidChoice = randomEngine.Next(0, Utilities.currentSettings.totalChoice - 1);
 			List<string> newchoiceL = new List<string>(choiceList);
 			newchoiceL.RemoveAt(GetRealChoice(newchoiceL));
-			for (int i = 0; i < Utilities.currentSettings.totalChoice; i++)
-			{
-				if (i == currentValidChoice)
-				{
-                    if (currentProgress == 0 && Utilities.currentSettings.hintAtFirstchoice)
+            if (Utilities.currentSettings.choiceStyle == selectMode.styleA)
+            {
+                for (int i = 0; i < Utilities.currentSettings.totalChoice; i++)
+                {
+                    if (i == currentValidChoice)
                     {
-                        SpawnChoice(i, $">> {textList[currentProgress].Text} <<");
-                        continue;
+                        if (currentProgress == 0 && Utilities.currentSettings.hintAtFirstchoice)
+                        {
+                            SpawnChoice(i, $">> {textList[currentProgress].Text} <<");
+                            continue;
+                        }
+                        SpawnChoice(i, textList[currentProgress].Text);
                     }
-                    SpawnChoice(i, textList[currentProgress].Text);
-				}
-				else
-				{
-					int rndch = randomEngine4ChoiceTxt.Next(0, newchoiceL.Count);
-					SpawnChoice(i, newchoiceL[rndch]);
-					newchoiceL.RemoveAt(rndch);
-				}
-			}
+                    else
+                    {
+                        int rndch = randomEngine4ChoiceTxt.Next(0, newchoiceL.Count);
+                        SpawnChoice(i, newchoiceL[rndch]);
+                        newchoiceL.RemoveAt(rndch);
+                    }
+                }
+            }
+            else
+            {
+                choiceInfob.Text = "";
+                for (int i = 0; i < Utilities.currentSettings.totalChoice; i++)
+                {
+                    
+                    if (i == currentValidChoice)
+                    {
+                        if (currentProgress == 0 && Utilities.currentSettings.hintAtFirstchoice)
+                        {
+                            choiceInfob.Text += $">> {i + 1}.{textList[currentProgress].Text} <<{Environment.NewLine}";
+                            continue;
+                        }
+                        choiceInfob.Text += $"{i + 1}.{textList[currentProgress].Text}{Environment.NewLine}";
+                    }
+                    else
+                    {
+                        int rndch = randomEngine4ChoiceTxt.Next(0, newchoiceL.Count);
+                        choiceInfob.Text += $"{i + 1}.{newchoiceL[rndch]}{Environment.NewLine}";
+                        newchoiceL.RemoveAt(rndch);
+                    }
+                }
+            }
 		}
         public StatList statList;
 
@@ -568,8 +617,16 @@ namespace JustRemember_UWP
 							//It can't go anymore
 							//Spawn Ending choice;
 							CheckTotalChoice();
-							ch0.Visibility = ch1.Visibility = ch2.Visibility = ch3.Visibility = ch4.Visibility = Visibility.Collapsed;
-							chImportant.Visibility = Visibility.Visible;
+                            if (Utilities.currentSettings.choiceStyle == selectMode.styleA)
+                            {
+                                ch0.Visibility = ch1.Visibility = ch2.Visibility = ch3.Visibility = ch4.Visibility = Visibility.Collapsed;
+                                chImportant.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                ch0b.Visibility = ch1b.Visibility = ch2b.Visibility = ch3b.Visibility = ch4b.Visibility = Visibility.Collapsed;
+                                chImportantb.Visibility = Visibility.Visible;
+                            }
 						}
 						else
 						{
@@ -580,25 +637,49 @@ namespace JustRemember_UWP
 					}
 					else if (Utilities.newStat.currentMode == challageMode.Normal)
 					{
-						//Hide wrong choice
-						switch (choice)
-						{
-							case 0:
-								ch0.Visibility = Visibility.Collapsed;
-								break;
-							case 1:
-								ch1.Visibility = Visibility.Collapsed;
-								break;
-							case 2:
-								ch2.Visibility = Visibility.Collapsed;
-								break;
-							case 3:
-								ch3.Visibility = Visibility.Collapsed;
-								break;
-							case 4:
-								ch4.Visibility = Visibility.Collapsed;
-								break;
-						}
+                        //Hide wrong choice
+                        if (Utilities.currentSettings.choiceStyle == selectMode.styleA)
+                        {
+                            switch (choice)
+                            {
+                                case 0:
+                                    ch0.Visibility = Visibility.Collapsed;
+                                    break;
+                                case 1:
+                                    ch1.Visibility = Visibility.Collapsed;
+                                    break;
+                                case 2:
+                                    ch2.Visibility = Visibility.Collapsed;
+                                    break;
+                                case 3:
+                                    ch3.Visibility = Visibility.Collapsed;
+                                    break;
+                                case 4:
+                                    ch4.Visibility = Visibility.Collapsed;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            switch (choice)
+                            {
+                                case 0:
+                                    ch0b.Visibility = Visibility.Collapsed;
+                                    break;
+                                case 1:
+                                    ch1b.Visibility = Visibility.Collapsed;
+                                    break;
+                                case 2:
+                                    ch2b.Visibility = Visibility.Collapsed;
+                                    break;
+                                case 3:
+                                    ch3b.Visibility = Visibility.Collapsed;
+                                    break;
+                                case 4:
+                                    ch4b.Visibility = Visibility.Collapsed;
+                                    break;
+                            }
+                        }
 						//It wrong
 						Utilities.newStat.wrongPerchoice[currentProgress] += 1;
 						wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
@@ -782,6 +863,47 @@ namespace JustRemember_UWP
             }
             pauseMenu.PaneBackground.Opacity = 0.5;
             menuBG.Opacity = 0.5;
+        }
+
+        private void pauseMenu_PaneClosed(SplitView sender, object args)
+        {
+            pauseMenu.Focus(FocusState.Keyboard);
+        }
+
+        private void pauseMenu_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Windows.System.VirtualKey.Number1:
+                    if (Utilities.currentSettings.totalChoice >= 1)
+                    {
+                        ChooseChoice(0);
+                    }
+                    break;
+                case Windows.System.VirtualKey.Number2:
+                    if (Utilities.currentSettings.totalChoice >= 2) { ChooseChoice(1); }
+                    break;
+                case Windows.System.VirtualKey.Number3:
+                    if (Utilities.currentSettings.totalChoice >= 3) { ChooseChoice(2); }
+                    break;
+                case Windows.System.VirtualKey.Number4:
+                    if (Utilities.currentSettings.totalChoice >= 4) { ChooseChoice(3); }
+                    break;
+                case Windows.System.VirtualKey.Number5:
+                    if (Utilities.currentSettings.totalChoice >= 5) { ChooseChoice(4); }
+                    break;
+            }
+            if (e.Key.ToString().StartsWith("Number"))
+            {
+                if (currentProgress <= 0)
+                {
+                    ChooseChoice(-1);
+                }
+                else
+                {
+                    ChooseChoice(-5);
+                }
+            }
         }
     }
 }

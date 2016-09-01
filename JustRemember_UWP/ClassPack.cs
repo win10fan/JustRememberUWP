@@ -37,7 +37,7 @@ namespace JustRemember_UWP
 		public static string ToStringAsTime(this float total)
 		{
 			TimeSpan ttlspan = TimeSpan.FromSeconds(total);
-			return $"{ttlspan.Minutes}:{ttlspan.Seconds}";
+			return $"{ttlspan.Minutes:00}:{ttlspan.Seconds:00}";
 		}
         
 		public static string ObscureText(this string text)
@@ -339,6 +339,12 @@ namespace JustRemember_UWP
             }
             return returned;
         }
+    }
+
+    public enum selectMode
+    {
+        styleA,
+        styleB
     }
 
     public enum afterEnd
@@ -696,6 +702,7 @@ namespace JustRemember_UWP
             string prenotepath = Windows.ApplicationModel.Package.Current.InstalledLocation.Path + "\\Prenote";
             var files = Directory.GetFiles(prenotepath);
             string deployPath = ApplicationData.Current.LocalFolder.Path + "\\Prenote";
+            Directory.CreateDirectory(deployPath);
             for (int i = 0;i < files.Length - 1;i++)
             {
                 string[] path = Path.GetFileName(files[i]).Split('-');

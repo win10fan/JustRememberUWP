@@ -28,6 +28,11 @@
                             <ComboBoxItem Content="English"/>
                             <ComboBoxItem Content="ไทย"/>
                         </ComboBox>
+                        <TextBlock Text="Choice selection style" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                            <RadioButton x:Name="choiceStyleA" Loaded="choiceStyleA_Loaded"/>
+                            <RadioButton Margin="5,0,0,0" x:Name="choiceStyleB" Loaded="choiceStyleB_Loaded"/>
+                        </StackPanel>
                         <TextBlock Text="Selected choice result display" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <Slider Margin="5" HorizontalAlignment="Left" Width="150" x:Name="cdpSize" Loaded="cdpSize_Loaded" ValueChanged="cdpSize_ValueChanged"/>
                         <TextBlock Text="Default seed" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
@@ -94,8 +99,8 @@
                     <ListView ItemsSource="{x:Bind stats.Stats}" x:Name="statList">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:statInfo">
-                                <StackPanel Margin="8" Orientation="Horizontal">
-                                    <StackPanel Orientation="Vertical" Margin="5,0,0,0">
+                                <StackPanel Margin="0,8,8,8" Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical">
                                         <TextBlock Text="{x:Bind titleInfo}" FontSize="20"/>
                                         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                                             <TextBlock FontSize="16" Text="{x:Bind timeProgress}"/>
@@ -109,7 +114,7 @@
                     </ListView>
                 </StackPanel>
             </PivotItem>
-            <PivotItem x:Name="aboutPage" Header="About">
+            <PivotItem x:Name="aboutPage" Header="About &amp; Reset">
                 <ScrollViewer>
                     <ItemsControl>
                         <TextBlock x:Name="textBlock1" TextWrapping="Wrap" FontSize="20" Margin="5,5,0,0" Padding="5,5,0,0" Text="Just Remember: Universal App"/>
@@ -117,8 +122,12 @@
                         <TextBlock x:Name="textBlock3" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Made by: @ToonWK"/>
                         <TextBlock x:Name="textBlock4" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="App version: 1.4"/>
                         <TextBlock x:Name="textBlock5" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Powered by Visual Studio 14.0.25425.01"/>
-                        <Button x:Name="button1" Content="Reset Stat" Click="button1_Click" Margin="20,10,0,10"/>
-                        <Button x:Name="button2" Content="Reset app setting" Click="button2_Click" Margin="20,0,0,0"/>
+                        <TextBlock FontSize="20" Margin="0,15,0,0"/>
+                        <Button Click="resetSetting_Click" Content="Reset setting"/>
+                        <Button Margin="0,5,0,0" Click="resetstat_Click" Content="Reset stat"/>
+                        <Button Margin="0,5,0,0" Click="resetsession_Click" Content="Reset sessions"/>
+                        <Button Margin="0,5,0,0" Click="resetusernote_Click" Content="Remove all user note"/>
+                        <Button Margin="0,5,0,0" Click="resetall_Click" Content="Reset everything"/>
                     </ItemsControl>
                 </ScrollViewer>
             </PivotItem>

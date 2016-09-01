@@ -19,6 +19,8 @@ namespace JustRemember_UWP
         public afterEnd AfterFinalChoice { get; set; }
         public ifNotGotoEnd TodoWithStat { get; set; }
         public bool hintAtFirstchoice { get; set; }
+        public selectMode choiceStyle { get; set; }
+        
         //TODO:Add session system
         public Settings() //Default setting
 		{
@@ -35,6 +37,7 @@ namespace JustRemember_UWP
             AfterFinalChoice = afterEnd.gotoEnd;
             TodoWithStat = ifNotGotoEnd.saveAllStat;
             hintAtFirstchoice = false;
+            choiceStyle = selectMode.styleA;
 			//notes = new List<Note>();
 			//sessions = new List<SessionInfo>();
 		}
@@ -72,7 +75,8 @@ namespace JustRemember_UWP
             value += $"{nameof(autoScrollContent)}={StringSerializeHelper.BoolToString(content.autoScrollContent)}{Environment.NewLine}";
             value += $"{nameof(AfterFinalChoice)}={content.AfterFinalChoice.ToString()}{Environment.NewLine}";
             value += $"{nameof(TodoWithStat)}={content.TodoWithStat.ToString()}{Environment.NewLine}";
-            value += $"{nameof(hintAtFirstchoice)}={StringSerializeHelper.BoolToString(content.hintAtFirstchoice)}";
+            value += $"{nameof(hintAtFirstchoice)}={StringSerializeHelper.BoolToString(content.hintAtFirstchoice)}{Environment.NewLine}";
+            value += $"{nameof(choiceStyle)}={content.choiceStyle.ToString()}";
             return value;
         }
 
@@ -97,6 +101,7 @@ namespace JustRemember_UWP
                 else if (line.StartsWith(nameof(AfterFinalChoice))) { value.AfterFinalChoice = StringSerializeHelper.GetEnum<afterEnd>(line, nameof(AfterFinalChoice)); }
                 else if (line.StartsWith(nameof(TodoWithStat))) { value.TodoWithStat = StringSerializeHelper.GetEnum<ifNotGotoEnd>(line, nameof(TodoWithStat)); }
                 else if (line.StartsWith(nameof(hintAtFirstchoice))) { value.hintAtFirstchoice = StringSerializeHelper.GetBool(line, nameof(hintAtFirstchoice)); }
+                else if (line.StartsWith(nameof(choiceStyle))) { value.choiceStyle = StringSerializeHelper.GetEnum<selectMode>(line, nameof(choiceStyle)); }
             }
             return value;
         }
