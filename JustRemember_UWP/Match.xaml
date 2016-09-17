@@ -81,46 +81,46 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
                     <ScrollViewer Grid.Row="0">
-                    <ItemsControl>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="50"/>
-                            </Grid.RowDefinitions>
-                            <Button Grid.Row="0" Grid.Column="0" x:Name="loadOther" Click="loadOther_Click" Content="&#xE7C3;" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1"  Text="Note" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                            <Button Click="loadOther_Click" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
+                        <ItemsControl>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="0" Grid.Column="0" x:Name="loadOther" Click="loadOther_Click" Content="&#xE7C3;" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1"  Text="Note" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <Button Click="loadOther_Click" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
-                            <Button Grid.Row="1" Grid.Column="0" x:Name="loadSession" Content="&#xE823;" Click="loadSession_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1"  Text="Session" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                            <Button Click="loadSession_Click" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
+                                <Button Grid.Row="1" Grid.Column="0" x:Name="loadSession" Content="&#xE823;" Click="loadSession_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1"  Text="Session" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <Button Click="loadSession_Click" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
-                            <Button Grid.Row="2" Grid.Column="0" x:Name="restartMatch" Content="&#xE72C;" Click="restartMatch_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                            <TextBlock Grid.Row="2" Grid.Column="1"  Text="Restart match" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                            <Button Click="restartMatch_Click" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
+                                <Button Grid.Row="2" Grid.Column="0" x:Name="restartMatch" Content="&#xE72C;" Click="restartMatch_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1"  Text="Restart match" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <Button Click="restartMatch_Click" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
-                            <Button Grid.Row="3" Grid.Column="0" x:Name="mainmenuPage" Content="&#xE80F;" Click="mainmenuPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="1"  Text="Main menu" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                            <Button Click="mainmenuPage_Click" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
+                                <Button Grid.Row="3" Grid.Column="0" x:Name="mainmenuPage" Content="&#xE80F;" Click="mainmenuPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1"  Text="Main menu" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <Button Click="mainmenuPage_Click" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
-                            <Button Grid.Row="4" Grid.Column="0" x:Name="settingPage" Content="&#xE713;" Click="settingPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                            <TextBlock Grid.Row="4" Grid.Column="1" Text="Settings" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                            <Button Click="settingPage_Click" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
+                                <Button Grid.Row="4" Grid.Column="0" x:Name="settingPage" Content="&#xE713;" Click="settingPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="Settings" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <Button Click="settingPage_Click" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
-                            <Button x:Name="exitApp" Grid.Row="5" Grid.Column="0" Content="&#xE894;" Click="exitApp_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                            <TextBlock Grid.Row="5" Grid.Column="1" Text="Exit" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                            <Button Click="exitApp_Click" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
-                        </Grid>
+                                <Button x:Name="exitApp" Grid.Row="5" Grid.Column="0" Content="&#xE894;" Click="exitApp_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+                                <TextBlock Grid.Row="5" Grid.Column="1" Text="Exit" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <Button Click="exitApp_Click" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
+                            </Grid>
                         </ItemsControl>
                     </ScrollViewer>
                     <Grid Grid.Row="1">
@@ -162,12 +162,12 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" x:Name="choiceInfob"/>
                     <StackPanel Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal" Height="40" HorizontalAlignment="Center">
-                        <Button Click="ch0_Click" Margin="4" x:Name="ch0b" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                        <Button Click="ch1_Click" Margin="4" x:Name="ch1b" Content="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                        <Button Click="ch2_Click" Margin="4" x:Name="ch2b" Content="3" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                        <Button Click="ch3_Click" Margin="4" x:Name="ch3b" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                        <Button Click="ch4_Click" Margin="4" x:Name="ch4b" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                        <Button Click="chImportant_Click" Margin="4" x:Name="chImportantb" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                        <Button Click="ch0_Click" Margin="4" x:Name="ch0b" Content="  1  " HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
+                        <Button Click="ch1_Click" Margin="4" x:Name="ch1b" Content="  2  " HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
+                        <Button Click="ch2_Click" Margin="4" x:Name="ch2b" Content="  3  " HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
+                        <Button Click="ch3_Click" Margin="4" x:Name="ch3b" Content="  4  " HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
+                        <Button Click="ch4_Click" Margin="4" x:Name="ch4b" Content="  5  " HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
+                        <Button Click="chImportant_Click" Margin="4" x:Name="chImportantb" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
                     </StackPanel>
                 </Grid>
             </Grid>

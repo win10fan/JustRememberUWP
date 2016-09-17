@@ -563,5 +563,23 @@ namespace JustRemember_UWP
         {
             await allReset.ShowAsync();
         }
+
+        private void Image_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (choiceStyleB.IsChecked == true)
+            {
+                choiceStyleA.IsChecked = true;
+                choiceStyleB.IsChecked = false;
+            }
+        }
+
+        private void Image_Tapped_1(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            if (choiceStyleA.IsChecked == true)
+            {
+                choiceStyleB.IsChecked = true;
+                choiceStyleA.IsChecked = false;
+            }
+        }
     }
 }
