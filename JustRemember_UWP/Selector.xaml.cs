@@ -10,9 +10,17 @@ namespace JustRemember_UWP
 		public Selector()
 		{
 			InitializeComponent();
-		}
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Visible;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += Selector_BackRequested;
+        }
 
-		private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private void Selector_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
+        {
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
+            Frame.Navigate(typeof(MainPage));
+        }
+
+        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
 		{
 			await Note.GetNotesList();
 			RefreshList();
@@ -41,13 +49,15 @@ namespace JustRemember_UWP
 		}
 
 		private void button_Click(object sender, RoutedEventArgs e)
-		{
-			Frame.Navigate(typeof(MainPage));
+        {
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
+            Frame.Navigate(typeof(MainPage));
 		}
 
 		private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
 		{
-			Frame.Navigate(typeof(NoteEditor));
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
+            Frame.Navigate(typeof(NoteEditor));
 		}
 
 		private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,7 +72,8 @@ namespace JustRemember_UWP
 				Utilities.selected = Utilities.notes[listView.SelectedIndex];
 				if (!Utilities.isSmallLoaderMode)
 				{
-					Frame.Navigate(typeof(Match));
+                    Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
+                    Frame.Navigate(typeof(Match));
 				}
 			}
 		}
@@ -84,6 +95,7 @@ namespace JustRemember_UWP
                 Utilities.selected = Utilities.notes[listView.SelectedIndex];
                 if (!Utilities.isSmallLoaderMode)
                 {
+                    Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
                     Frame.Navigate(typeof(Match));
                 }
             }

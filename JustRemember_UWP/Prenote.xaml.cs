@@ -15,15 +15,30 @@ namespace JustRemember_UWP
 		{
 			InitializeComponent();
 			Prenotes = new PrenoteList();
-		}
-		
-		public PrenoteList Prenotes;
+            Prenotes.onNavigated += (string val) => PathUpdate(val);
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Visible;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += Prenote_BackRequested;
+        }
+
+        public void PathUpdate(string value)
+        {
+            string dpp = value.Remove(0, PrenoteList.baseFolder.Path.Length);
+            curPath.Text = dpp;
+        }
+
+        private void Prenote_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
+        {
+            Button_Click(null, null);
+        }
+
+        public PrenoteList Prenotes;
         int level = 0;
 		
 		private async void Button_Click(object sender, RoutedEventArgs e)
 		{
             if (level == 0)
             {
+                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Prenote_BackRequested;
                 Frame.GoBack();
                 return;
             }
@@ -53,11 +68,13 @@ namespace JustRemember_UWP
 			selected.Title = selectedPrenote.Name;
 			selected.Content = selectedPrenote.Content;
 			Utilities.selected = selected;
-			Frame.Navigate(typeof(Match));
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Prenote_BackRequested;
+            Frame.Navigate(typeof(Match));
 		}
 
 		private void AppBarButton_Click(object sender, RoutedEventArgs e)
-		{
+        {
             Frame.GoBack();
 		}
 
@@ -81,6 +98,8 @@ namespace JustRemember_UWP
                     selected.Title = selectedPrenote.Name;
                     selected.Content = selectedPrenote.Content;
                     Utilities.selected = selected;
+                    Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
+                    Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Prenote_BackRequested;
                     Frame.Navigate(typeof(Match));
                 }
                 else
@@ -101,6 +120,22 @@ namespace JustRemember_UWP
 		public StorageFolder currentFolder = ApplicationData.Current.LocalFolder;
 		public static readonly StorageFolder baseFolder = ApplicationData.Current.LocalFolder;
 		private ObservableCollection<PrenoteInfo> prenotes = new ObservableCollection<PrenoteInfo>();
+        public delegate void PrenotePathMoved(string newPath);
+        public PrenotePathMoved onNavigated;
+
+        public string currentPath
+        {
+            get
+            {
+                return path;
+            }
+            set
+            {
+                onNavigated?.Invoke(value);
+                path = value;                
+            }
+        }
+        string path;
 		public ObservableCollection<PrenoteInfo> Prenotes
 		{
 			get
@@ -127,6 +162,7 @@ namespace JustRemember_UWP
 				PrenoteInfo info = await PrenoteInfo.GetPrenoteAsync(file);
 				prenotes.Add(info);
 			}
+            currentPath = currentFolder.Path;
 		}
 
 		public bool allowUpper
@@ -154,6 +190,7 @@ namespace JustRemember_UWP
 				PrenoteInfo info = await PrenoteInfo.GetPrenoteAsync(file);
 				prenotes.Add(info);
 			}
+            currentPath = currentFolder.Path;
 		}
 	}
 

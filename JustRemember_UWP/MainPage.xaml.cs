@@ -14,9 +14,10 @@ namespace JustRemember_UWP
 			QuitDialog.Commands.Add(new UICommand("Yes") { Invoked = delegate { Application.Current.Exit(); } });
 			QuitDialog.Commands.Add(new UICommand("No") { Id = 1 });
 			QuitDialog.CancelCommandIndex = 1;
-		}
-
-		MessageDialog QuitDialog;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
+        }
+        
+        MessageDialog QuitDialog;
 
 		private async void quit_btn_Click(object sender, RoutedEventArgs e)
 		{

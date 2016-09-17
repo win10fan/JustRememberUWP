@@ -19,13 +19,29 @@ namespace JustRemember_UWP
             currentConfig = Settings.Load();
             DialogPrep();
 			InitializeComponent();
-		}
+            if (!Utilities.isSmallLoaderMode)
+            {
+                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Visible;
+                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += Setting_BackRequested;
+            }
+        }
+
+        private void Setting_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
+        {
+            if (Utilities.isSmallLoaderMode)
+            {
+                return;
+            }
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Setting_BackRequested;
+            Frame.GoBack();
+        }
+
         public StatList stats;
         public Settings currentConfig;
 
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
-			Frame.Navigate(typeof(MainPage));
+            Frame.GoBack();
 		}
         
 		private void titleBar_Loaded(object sender, RoutedEventArgs e)

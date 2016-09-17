@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
@@ -18,7 +19,21 @@ namespace JustRemember_UWP
 			endList.Items.Add("");
 			endList.Items.Add(userTime);
 			endList.Items.Add(userLimitTime);
-		}
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().BackRequested += End_BackRequested;
+        }
+
+        private void End_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (Utilities.currentSettings.defaultSeed == -1)
+            {
+                stats.Stats.Add(Utilities.newStat);
+                StatList.SaveAll(stats.Stats);
+                Utilities.newStat = new statInfo();
+            }
+            SystemNavigationManager.GetForCurrentView().BackRequested -= End_BackRequested;
+            Frame.GoBack();
+        }
 
         public StatList stats;
 
@@ -100,13 +115,15 @@ namespace JustRemember_UWP
                 StatList.SaveAll(stats.Stats);
                 Utilities.newStat = new statInfo();
             }
-            Frame.Navigate(typeof(Match));
+            SystemNavigationManager.GetForCurrentView().BackRequested -= End_BackRequested;
+            Frame.GoBack();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Utilities.newStat = new statInfo();
-            Frame.Navigate(typeof(Match));
+            SystemNavigationManager.GetForCurrentView().BackRequested -= End_BackRequested;
+            Frame.GoBack();
         }
     }
 }
