@@ -20,7 +20,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <AppxBundle>Never</AppxBundle>
-    <PackageCertificateThumbprint>C086B85BEA51E7021B655C0936700EB357DC223B</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>B4E46DC92AD9A5896E3F2044BE18654FADB31882</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -170,6 +170,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Prenote\EN-Character-A to Z.txt" />
+    <Content Include="Prenote\EN-Languistic-VoicedAndVoiceless.txt" />
     <Content Include="Prenote\TH-ฌาปนกิจ-1กุสะลา.txt" />
     <Content Include="Prenote\TH-ฌาปนกิจ-2ปัญจักขันธา.txt" />
     <Content Include="Prenote\TH-ฌาปนกิจ-3เหตุปัจจะโย.txt" />

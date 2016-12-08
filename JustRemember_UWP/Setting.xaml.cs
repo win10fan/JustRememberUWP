@@ -586,6 +586,7 @@ namespace JustRemember_UWP
             {
                 choiceStyleA.IsChecked = true;
                 choiceStyleB.IsChecked = false;
+                defWrite.IsChecked = false;
             }
         }
 
@@ -595,7 +596,20 @@ namespace JustRemember_UWP
             {
                 choiceStyleB.IsChecked = true;
                 choiceStyleA.IsChecked = false;
+                defWrite.IsChecked = false;
             }
+        }
+
+        private void difWrite_Loaded(object sender, RoutedEventArgs e)
+        {
+            defWrite.IsChecked = currentConfig.choiceStyle == selectMode.styleC;
+            defWrite.Checked += difWrite_Checked;
+        }
+
+        private void difWrite_Checked(object sender, RoutedEventArgs e)
+        {
+            currentConfig.choiceStyle = selectMode.styleC;
+            Settings.Save(currentConfig);
         }
     }
 }

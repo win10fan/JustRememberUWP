@@ -63,6 +63,13 @@ namespace JustRemember_UWP
             //
             choicesListHolder.Visibility = Utilities.currentSettings.choiceStyle == selectMode.styleA ? Visibility.Visible : Visibility.Collapsed;
             choicesListHolderB.Visibility = Utilities.currentSettings.choiceStyle == selectMode.styleB ? Visibility.Visible : Visibility.Collapsed;
+            choicesListHolderC.Visibility = Utilities.currentSettings.choiceStyle == selectMode.styleC ? Visibility.Visible : Visibility.Collapsed;
+            if (Utilities.currentSettings.choiceStyle == selectMode.styleC)
+            {
+                chImportantc.Visibility = Visibility.Visible;
+                resultWrite.Visibility = Visibility.Collapsed;
+                resultWriteSubmit.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Match_BackRequested(object sender, BackRequestedEventArgs e)
@@ -88,6 +95,7 @@ namespace JustRemember_UWP
             get
             {
                 if (currentChoiceMode == mode.begin) { now = 0; return 0; }
+                if (currentChoiceMode == mode.end) { now = textList.Count - 1; currentChoiceMode = mode.end; return textList.Count - 1; }
                 return now;
             }
             set
@@ -361,6 +369,10 @@ namespace JustRemember_UWP
             wrongCounter.Text = Utilities.newStat.totalWrong.ToString();
             //Update font display size
             dpTxt.FontSize = Utilities.currentSettings.displayTextSize;
+            if (Utilities.currentSettings.choiceStyle == selectMode.styleB)
+            {
+                choiceInfob.FontSize = Utilities.currentSettings.displayTextSize;
+            }
             if (Utilities.newStat.useTimeLimit)
             {
                 if (Utilities.newStat.totalTime >= Utilities.newStat.totalLimitTime)
@@ -370,6 +382,11 @@ namespace JustRemember_UWP
                     await overMSG.ShowAsync();
                     timerNow.Start();
                 }
+            }
+            //Update for debug info
+            if (Utilities.currentSettings.choiceStyle == selectMode.styleC)
+            {
+                debugInfo.Text = $"Text: Current={currentProgress}{Environment.NewLine}Total={textList.Count}";
             }
         }
 
@@ -857,11 +874,26 @@ namespace JustRemember_UWP
             {
                 ChooseChoice(-5);
             }
+            if (Utilities.currentSettings.choiceStyle == selectMode.styleC)
+            {
+                chImportantc.Visibility = Visibility.Collapsed;
+                resultWrite.Visibility = Visibility.Visible;
+                resultWriteSubmit.Visibility = Visibility.Visible;
+            }
         }
 
         private async void restartMatch_Click(object sender, RoutedEventArgs e)
         {
             if (otherPage.Visibility == Visibility.Visible) { return; }
+            choicesListHolder.Visibility = Utilities.currentSettings.choiceStyle == selectMode.styleA ? Visibility.Visible : Visibility.Collapsed;
+            choicesListHolderB.Visibility = Utilities.currentSettings.choiceStyle == selectMode.styleB ? Visibility.Visible : Visibility.Collapsed;
+            choicesListHolderC.Visibility = Utilities.currentSettings.choiceStyle == selectMode.styleC ? Visibility.Visible : Visibility.Collapsed;
+            if (Utilities.currentSettings.choiceStyle == selectMode.styleC)
+            {
+                chImportantc.Visibility = Visibility.Visible;
+                resultWrite.Visibility = Visibility.Collapsed;
+                resultWriteSubmit.Visibility = Visibility.Collapsed;
+            }
             await resetM.ShowAsync();
         }
 
@@ -926,6 +958,71 @@ namespace JustRemember_UWP
                 else
                 {
                     ChooseChoice(-5);
+                }
+            }
+        }
+
+        private void resultWriteSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            SubmitResult();
+        }
+
+        void SubmitResult()
+        {
+            if (currentChoiceMode == mode.end)
+            {
+                resultWrite.Text = "";
+                ChooseChoice(-5);
+                return;
+            }
+            if (resultWrite.Text == textList[currentProgress].Text)
+            {
+                ChooseChoice(currentValidChoice);
+                resultWrite.Text = "";
+                return;
+            }
+            else
+            {
+                if (currentValidChoice == 1)
+                {
+                    ChooseChoice(2);
+                    resultWrite.Text = "";
+                    return;
+                }
+                else
+                {
+                    ChooseChoice(1);
+                    resultWrite.Text = "";
+                    return;
+                }
+            }
+        }
+
+        private void resultWrite_Paste(object sender, TextControlPasteEventArgs e)
+        {
+            if (currentValidChoice == 1)
+            {
+                ChooseChoice(2);
+                resultWrite.Text = "";
+                return;
+            }
+            else
+            {
+                ChooseChoice(1);
+                resultWrite.Text = "";
+                return;
+            }
+        }
+
+        private void resultWrite_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            int i = 0;
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                i += 1;
+                if (i == 0)
+                {
+                    SubmitResult();
                 }
             }
         }

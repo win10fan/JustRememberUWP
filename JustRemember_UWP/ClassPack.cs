@@ -344,7 +344,8 @@ namespace JustRemember_UWP
     public enum selectMode
     {
         styleA,
-        styleB
+        styleB,
+        styleC
     }
 
     public enum afterEnd

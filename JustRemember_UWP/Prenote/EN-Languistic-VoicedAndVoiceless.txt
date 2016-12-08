@@ -1,0 +1,2 @@
+﻿voiceless: p t k f θ s ∫ h t∫
+voiced: b d g m n ŋ v ð z ʒ dʒ l r w j

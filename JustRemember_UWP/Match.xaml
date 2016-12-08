@@ -21,6 +21,8 @@
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="1"/>
                         <Setter Target="choicesListHolderB.(Grid.Column)" Value="0"/>
                         <Setter Target="choicesListHolderB.(Grid.Row)" Value="1"/>
+                        <Setter Target="choicesListHolderC.(Grid.Column)" Value="0"/>
+                        <Setter Target="choicesListHolderC.(Grid.Row)" Value="1"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="*"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="auto"/>
                         <Setter Target="matchInfo.HorizontalAlignment" Value="Right"/>
@@ -37,6 +39,8 @@
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="0"/>
                         <Setter Target="choicesListHolderB.(Grid.Column)" Value="1"/>
                         <Setter Target="choicesListHolderB.(Grid.Row)" Value="0"/>
+                        <Setter Target="choicesListHolderC.(Grid.Column)" Value="1"/>
+                        <Setter Target="choicesListHolderC.(Grid.Row)" Value="0"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="auto"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="*"/>
                         <Setter Target="matchInfo.HorizontalAlignment" Value="Center"/>
@@ -53,6 +57,8 @@
                         <Setter Target="choicesListHolder.(Grid.Row)" Value="0"/>
                         <Setter Target="choicesListHolderB.(Grid.Column)" Value="1"/>
                         <Setter Target="choicesListHolderB.(Grid.Row)" Value="0"/>
+                        <Setter Target="choicesListHolderC.(Grid.Column)" Value="1"/>
+                        <Setter Target="choicesListHolderC.(Grid.Row)" Value="0"/>
                         <Setter Target="actualContent.RowDefinitions[1].Height" Value="auto"/>
                         <Setter Target="actualContent.ColumnDefinitions[1].Width" Value="*"/>
                         <Setter Target="matchInfo.HorizontalAlignment" Value="Center"/>
@@ -170,6 +176,12 @@
                         <Button Click="chImportant_Click" Margin="4" x:Name="chImportantb" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
                     </StackPanel>
                 </Grid>
+                <StackPanel x:Name="choicesListHolderC" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                    <TextBox x:Name="resultWrite" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250" FontSize="24" Paste="resultWrite_Paste" KeyDown="resultWrite_KeyDown"></TextBox>
+                    <Button x:Name="resultWriteSubmit" VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Margin="0,10,0,0" Content="&#xE10B;" FontSize="26" Height="40" FontFamily="Segoe MDL2 Assets" Click="resultWriteSubmit_Click"/>
+                    <TextBlock x:Name="debugInfo" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                    <Button Click="chImportant_Click" Margin="4" x:Name="chImportantc" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
+                </StackPanel>
             </Grid>
         </SplitView>
         <!--Other page-->

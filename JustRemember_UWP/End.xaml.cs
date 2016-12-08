@@ -115,15 +115,13 @@ namespace JustRemember_UWP
                 StatList.SaveAll(stats.Stats);
                 Utilities.newStat = new statInfo();
             }
-            SystemNavigationManager.GetForCurrentView().BackRequested -= End_BackRequested;
-            Frame.GoBack();
+            Frame.Navigate(typeof(Match));
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Utilities.newStat = new statInfo();
-            SystemNavigationManager.GetForCurrentView().BackRequested -= End_BackRequested;
-            Frame.GoBack();
+            Frame.Navigate(typeof(Match));
         }
     }
 }
