@@ -10,9 +10,9 @@ namespace JustRemember_UWP
 		public MainPage()
 		{
 			InitializeComponent();
-			QuitDialog = new MessageDialog("Are you sure", "Quit");
-			QuitDialog.Commands.Add(new UICommand("Yes") { Invoked = delegate { Application.Current.Exit(); } });
-			QuitDialog.Commands.Add(new UICommand("No") { Id = 1 });
+			QuitDialog = new MessageDialog(App.language.GetString("noteClear1"), App.language.GetString("mainQuit"));
+            QuitDialog.Commands.Add(new UICommand(App.language.GetString("cmdYes")) { Invoked = delegate { Application.Current.Exit(); } });
+			QuitDialog.Commands.Add(new UICommand(App.language.GetString("cmdNo")) { Id = 1 });
 			QuitDialog.CancelCommandIndex = 1;
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
         }

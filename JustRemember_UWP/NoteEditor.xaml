@@ -7,46 +7,72 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid x:Name="_1" HorizontalAlignment="Stretch" Height="50" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="{ThemeResource AppBarSeparatorForegroundThemeBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <SymbolIcon Symbol="Edit"/>
-            </StackPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="5,0,0,0">
-                <TextBlock x:Name="editorTitle" Text="Untitled - Note Editor" RenderTransformOrigin="0,0.5" VerticalAlignment="Center"  FontSize="24" Height="50" Padding="0,8,0,0" Canvas.Left="50"/>
-            </StackPanel>
-            <StackPanel Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Button x:Name="quitEditor" Click="quit_Click" Content="&#xE10A;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" FontFamily="Segoe MDL2 Assets" Height="50"/>
+        <Grid x:Name="homePage">
+            <Grid x:Name="_1" HorizontalAlignment="Stretch" Height="50" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="{ThemeResource AppBarSeparatorForegroundThemeBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <SymbolIcon Symbol="Edit"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="5,0,0,0">
+                    <TextBlock x:Name="editorTitle" Text="Untitled - Note Editor" RenderTransformOrigin="0,0.5" VerticalAlignment="Center"  FontSize="24" Height="50" Padding="0,8,0,0" Canvas.Left="50"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Button x:Name="quitEditor" Click="quit_Click" Content="&#xE10A;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" FontFamily="Segoe MDL2 Assets" Height="50"/>
+                </StackPanel>
+            </Grid>
+            <TextBox x:Name="textBox" TextWrapping="Wrap" Text="..." Margin="0,50,0,0" BorderThickness="0" />
+        </Grid>
+        <Grid Visibility="Collapsed" x:Name="addNew_List_Parent">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.4"/>
+            </Grid.Background>
+            <StackPanel BorderThickness="1" VerticalAlignment="Center" x:Name="addNewUI" HorizontalAlignment="Center" Width="300" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}">
+                <TextBlock Margin="10,10,0,10" x:Uid="addNL_Tite" Text="Please enter filename" VerticalAlignment="Center" FontSize="20"/>
+                <StackPanel Grid.Row="1">
+                    <TextBox x:Name="addNewListInput" TextChanged="addNewListInput_TextChanged" Width="200" Height="40" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <StackPanel HorizontalAlignment="Center" Margin="0,5,0,0" Orientation="Vertical">
+                        <TextBlock x:Uid="addNL_NoEmpty" x:Name="no_emptyName" Text="Name can't be empty" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                        <TextBlock x:Uid="addNL_InvName" x:Name="no_invalidName" Text="Name can't contains: \ / : * ? &quot; &lt; &gt; |" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                        <TextBlock x:Uid="addNL_ItExist" x:Name="no_nameAlreadyExist" Text="Name already exist" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Click="saveBTN_Click" x:Name="saveBTN">
+                        <SymbolIcon Symbol="Save"/>
+                    </Button>
+                    <Button Click="Button_Click" Margin="5,0">
+                        <SymbolIcon Symbol="Cancel"/>
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </Grid>
-        <TextBox x:Name="textBox" TextWrapping="Wrap" Text="..." Margin="0,50,0,0" BorderThickness="0" />
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:Name="fileRoot" Icon="Page2" Label="File" Click="fileRoot_Click" Width="60" VerticalAlignment="Stretch"/>
-            <AppBarButton x:Name="insertRoot" Icon="Add" Label="Insert" Click="insertRoot_Click" VerticalAlignment="Stretch" Width="60"/>
-            <AppBarButton x:Name="settingRoot" Icon="Setting" Label="Setting" Click="settingRoot_Click" VerticalAlignment="Stretch" Width="60"/>
+            <AppBarButton x:Name="fileRoot" Icon="Page2" x:Uid="noteFile" Label="File" Click="fileRoot_Click" Width="60" VerticalAlignment="Stretch"/>
+            <AppBarButton x:Name="insertRoot" Icon="Add" x:Uid="noteIns" Label="Insert" Click="insertRoot_Click" VerticalAlignment="Stretch" Width="60"/>
+            <AppBarButton x:Name="settingRoot" Icon="Setting" x:Uid="noteSet" Label="Setting" Click="settingRoot_Click" VerticalAlignment="Stretch" Width="60"/>
 
-            <AppBarButton x:Name="menuback" Icon="Back" Label="Back" Click="menuback_Click" Visibility="Collapsed" VerticalAlignment="Stretch" Width="60"/>
+            <AppBarButton x:Name="menuback" Icon="Back" x:Uid="noteBack" Label="Back" Click="menuback_Click" Visibility="Collapsed" VerticalAlignment="Stretch" Width="60"/>
 
-            <AppBarButton x:Name="newFile" Icon="Add" Visibility="Collapsed" Label="New" Click="newFile_Click" VerticalAlignment="Stretch" Width="60"/>
-            <AppBarButton x:Name="openFile" Icon="OpenLocal" Visibility="Collapsed" Label="Open" VerticalAlignment="Stretch" Width="60" Click="openFile_Click"/>
-            <AppBarButton x:Name="saveFile" Icon="Save" Visibility="Collapsed" Label="Save" VerticalAlignment="Stretch" Width="60" Click="saveFile_Click"/>
+            <AppBarButton x:Name="newFile" Icon="Add" x:Uid="noteNew" Visibility="Collapsed" Label="New" Click="newFile_Click" VerticalAlignment="Stretch" Width="60"/>
+            <AppBarButton x:Name="openFile" Icon="OpenLocal" x:Uid="noteOpen" Visibility="Collapsed" Label="Open" VerticalAlignment="Stretch" Width="60" Click="openFile_Click"/>
+            <AppBarButton x:Name="saveFile" Icon="Save" x:Uid="noteSave" Visibility="Collapsed" Label="Save" VerticalAlignment="Stretch" Width="60" Click="saveFile_Click"/>
 
-            <AppBarButton x:Name="clipboardInsert" Icon="Paste" Click="clipboard_Click" Visibility="Collapsed" Label="Paste" VerticalAlignment="Stretch" Width="60"/>
-            <AppBarButton x:Name="newlineInsert" Visibility="Collapsed" Label="New line" Click="newlineInsert_Click" VerticalAlignment="Stretch" Width="60">
+            <AppBarButton x:Name="clipboardInsert" x:Uid="notePaste" Icon="Paste" Click="clipboard_Click" Visibility="Collapsed" Label="Paste" VerticalAlignment="Stretch" Width="60"/>
+            <AppBarButton x:Name="newlineInsert" Visibility="Collapsed" x:Uid="noteNL" Label="New line" Click="newlineInsert_Click" VerticalAlignment="Stretch" Width="60">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xEB97;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton x:Name="tabInsert" Icon="Forward" RenderTransformOrigin="0.5,0.5" Label="Tab" Visibility="Collapsed" VerticalAlignment="Stretch" Width="60"/>
-            <AppBarButton x:Name="fontinc" Icon="FontIncrease" Visibility="Collapsed" Label="Font+" Click="fontinc_Click" Height="60" Width="60"/>
-            <AppBarButton x:Name="fontdec" Icon="FontDecrease" Visibility="Collapsed" Label="Font-" Click="fontdec_Click" Height="60" Width="60"/>
-            <AppBarButton x:Name="setSet" Icon="Help" Visibility="Collapsed" Label="About" Click="about_Click" Height="60" Width="60"/>
+            <AppBarButton x:Name="tabInsert" Icon="Forward" RenderTransformOrigin="0.5,0.5" x:Uid="noteTab" Label="Tab" Visibility="Collapsed" VerticalAlignment="Stretch" Width="60"/>
+            <AppBarButton x:Name="fontinc" Icon="FontIncrease" Visibility="Collapsed" x:Uid="noteInc" Label="Font+" Click="fontinc_Click" Height="60" Width="60"/>
+            <AppBarButton x:Name="fontdec" Icon="FontDecrease" Visibility="Collapsed" x:Uid="noteDec" Label="Font-" Click="fontdec_Click" Height="60" Width="60"/>
+            <AppBarButton x:Name="setSet" Icon="Help" Visibility="Collapsed" x:Uid="noteAbt"  Label="About" Click="about_Click" Height="60" Width="60"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Provider;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -16,15 +20,15 @@ namespace JustRemember_UWP
 			InitializeComponent();
             opennedFile = null;
 			abt = new MessageDialog("Note editor 1.3", "About");
-			abt.Commands.Add(new UICommand("OK") { Id = 0 });
+			abt.Commands.Add(new UICommand(App.language.GetString("cmdOK")) { Id = 0 });
 			abt.CancelCommandIndex = 0;
-			newfilewarn = new MessageDialog("This will clear all your text", "Are you sure?");
-			newfilewarn.Commands.Add(new UICommand("OK") { Invoked = delegate { textBox.Text = ""; opennedFile = null; } });
-			newfilewarn.Commands.Add(new UICommand("Cancel") { Id = 0 });
+			newfilewarn = new MessageDialog(App.language.GetString("noteClear2"), App.language.GetString("noteClear1"));
+			newfilewarn.Commands.Add(new UICommand(App.language.GetString("cmdOK")) { Invoked = delegate { textBox.Text = ""; opennedFile = null; } });
+			newfilewarn.Commands.Add(new UICommand(App.language.GetString("cmdCancel")) { Id = 0 });
 			newfilewarn.CancelCommandIndex = 0;
-			fileNotSaved = new MessageDialog("Do you want to save this change?", "File note saved");
-			fileNotSaved.Commands.Add(new UICommand("Yes") { Invoked = delegate { /*Save progress*/ } });
-			fileNotSaved.Commands.Add(new UICommand("No") { Invoked = delegate { Frame.Navigate(typeof(Selector)); } });
+			fileNotSaved = new MessageDialog(App.language.GetString("noteSave1"), App.language.GetString("noteSave1"));
+			fileNotSaved.Commands.Add(new UICommand(App.language.GetString("cmdYes")) { Invoked = delegate { SaveCurrentFile(); Frame.Navigate(typeof(Selector)); } });
+			fileNotSaved.Commands.Add(new UICommand(App.language.GetString("cmdNo")) { Invoked = delegate { Frame.Navigate(typeof(Selector)); } });
 			appCommandActiveGroup = menuPage.Home;
 		}
 		MessageDialog abt;
@@ -153,10 +157,9 @@ namespace JustRemember_UWP
 			appCommandActiveGroup = menuPage.Set;
 		}
 
-		private void newFile_Click(object sender, RoutedEventArgs e)
+		private async void newFile_Click(object sender, RoutedEventArgs e)
 		{
-			opennedFile = null;
-            textBox.Text = "";
+            await newfilewarn.ShowAsync();
 		}
 
 		private void newlineInsert_Click(object sender, RoutedEventArgs e)
@@ -207,9 +210,75 @@ namespace JustRemember_UWP
             }
         }
 
-        private void saveFile_Click(object sender, RoutedEventArgs e)
+        private async void saveFile_Click(object sender, RoutedEventArgs e)
         {
+            if (opennedFile != null)
+            {
+                await FileIO.WriteTextAsync(opennedFile, textBox.Text);
+            }
+            else
+            {
+                //Ask for save location
+                addNew_List_Parent.Visibility = Visibility.Visible;
+            }
+        }
+        
+        private void addNewListInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string tocp = ((TextBox)sender).Text.ToLower();
+            no_nameAlreadyExist.Visibility = GetSameText(tocp) ? Visibility.Visible : Visibility.Collapsed;
+            no_emptyName.Visibility = string.IsNullOrEmpty(tocp.Trim()) ? Visibility.Visible : Visibility.Collapsed;
+            no_invalidName.Visibility = IsFileValid(tocp) ? Visibility.Visible : Visibility.Collapsed;
+            bool val = no_nameAlreadyExist.Visibility == Visibility.Visible || no_emptyName.Visibility == Visibility.Visible || no_invalidName.Visibility == Visibility.Visible;
+            saveBTN.IsEnabled = !val;
+        }
 
+        private bool IsFileValid(string tocp)
+        {
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                if (tocp.Contains(c))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool GetSameText(string tocp)
+        {
+            var dir = $"{ApplicationData.Current.RoamingFolder.Path}/Note/";
+            foreach (var itm in Directory.GetFiles(dir))
+            {
+                if (Path.GetFileNameWithoutExtension(itm) == tocp)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        async void SaveCurrentFile()
+        {
+            var folder = await ApplicationData.Current.RoamingFolder.GetFolderAsync("Note");
+            var file = await folder.CreateFileAsync(addNewListInput.Text + ".txt", CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, textBox.Text);
+        }
+
+        private async void saveBTN_Click(object sender, RoutedEventArgs e)
+        {
+            var folder = await ApplicationData.Current.RoamingFolder.GetFolderAsync("Note");
+            var file = await folder.CreateFileAsync(addNewListInput.Text + ".txt",CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, textBox.Text);
+            opennedFile = file;
+            addNew_List_Parent.Visibility = Visibility.Collapsed;
+            addNewListInput.Text = "";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            addNew_List_Parent.Visibility = Visibility.Collapsed;
+            addNewListInput.Text = "";
         }
     }
 }

@@ -43,14 +43,14 @@ namespace JustRemember_UWP
             ApplicationLanguages.PrimaryLanguageOverride = Utilities.lang[Utilities.currentSettings.language];
             Suspending += OnSuspending;
             //TODO:Load language
-            //if (config == Settings.Default || config.selectedLanguage == 2)
-            //{
-            //    //Let it be
-            //}
-            //else if (config.selectedLanguage != 2)
-            //{
-            //    ApplicationLanguages.PrimaryLanguageOverride = SettingHelper.GetSelectedLanguage(config.selectedLanguage);
-            //}
+            if (Utilities.currentSettings.language == 0)
+            {
+                ApplicationLanguages.PrimaryLanguageOverride = "en-US";
+            }
+            else if (Utilities.currentSettings.language == 1)
+            {
+                ApplicationLanguages.PrimaryLanguageOverride = "th-TH";
+            }
             language = ResourceLoader.GetForViewIndependentUse();
         }
         public static ResourceLoader language;

@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="addNL_InvName" xml:space="preserve">
+    <value>Name can't contains: \ / : * ? " &lt; &gt; |</value>
+  </data>
+  <data name="addNL_ItExist" xml:space="preserve">
+    <value>Name already exist</value>
+  </data>
+  <data name="addNL_NoEmpty" xml:space="preserve">
+    <value>Name can't be empty</value>
+  </data>
+  <data name="addNL_Tite.Text" xml:space="preserve">
+    <value>Please enter filename</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cmdConti" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="cmdNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="cmdOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="cmdYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="endTime" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="endTimeLimit" xml:space="preserve">
+    <value>Limit</value>
+  </data>
+  <data name="endTitle.Text" xml:space="preserve">
+    <value>This round stat</value>
+  </data>
+  <data name="endTotalWord" xml:space="preserve">
+    <value>Total word</value>
+  </data>
+  <data name="endTotalWrong" xml:space="preserve">
+    <value>Total wrong</value>
+  </data>
+  <data name="matchCon.Header" xml:space="preserve">
+    <value>Content size</value>
+  </data>
+  <data name="matchEx.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="matchLP1" xml:space="preserve">
+    <value>You about to lose this progress.
+Are you sure?</value>
+  </data>
+  <data name="matchMain.Text" xml:space="preserve">
+    <value>Main menu</value>
+  </data>
+  <data name="matchOth.Text" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="matchPaused" xml:space="preserve">
+    <value>Paused...</value>
+  </data>
+  <data name="matchRes.Text" xml:space="preserve">
+    <value>Restart match</value>
+  </data>
+  <data name="matchSes.Text" xml:space="preserve">
+    <value>Session</value>
+  </data>
+  <data name="matchSet.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="matchTimeup1" xml:space="preserve">
+    <value>Time up!</value>
+  </data>
+  <data name="matchTimeup2" xml:space="preserve">
+    <value>Try again?</value>
+  </data>
+  <data name="matchWarn1" xml:space="preserve">
+    <value>Warning!</value>
+  </data>
+  <data name="matchWarn2" xml:space="preserve">
+    <value>If you continue. 
+Your current progress will be lose.
+Press "Continue" if you don't care.</value>
+  </data>
+  <data name="noteAbt.Label" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="noteBack.Label" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="noteClear1" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="noteClear2" xml:space="preserve">
+    <value>This will clear all your text!</value>
+  </data>
+  <data name="noteDec.Label" xml:space="preserve">
+    <value>Font-</value>
+  </data>
+  <data name="noteFile.Label" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="noteInc.Label" xml:space="preserve">
+    <value>Font+</value>
+  </data>
+  <data name="noteIns.Label" xml:space="preserve">
+    <value>Insert</value>
+  </data>
+  <data name="noteNew.Label" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="noteNL.Label" xml:space="preserve">
+    <value>New line</value>
+  </data>
+  <data name="noteOpen.Label" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="notePaste.Label" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="noteSave.Label" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="noteSave1" xml:space="preserve">
+    <value>File not saved</value>
+  </data>
+  <data name="noteSave2" xml:space="preserve">
+    <value>Do you want to save this change?</value>
+  </data>
+  <data name="noteSet.Label" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="noteTab.Label" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="prenote.Text" xml:space="preserve">
+    <value>Prenote</value>
+  </data>
+  <data name="settings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="start.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="pnCancel.Label" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="pnOpen.Label" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="fileDel.Label" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="fileEditor.Label" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="fileRe.Label" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="fileTitle.Text" xml:space="preserve">
+    <value>Choose to begin</value>
+  </data>
+  <data name="fileNo" xml:space="preserve">
+    <value>No user note.
+You can add note at editor</value>
+  </data>
+  <data name="fileYes" xml:space="preserve">
+    <value>Total user note</value>
+  </data>
+  <data name="setAPTheme.Text" xml:space="preserve">
+    <value>Theme changed! Restart to apply</value>
+  </data>
+  <data name="setDark.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="setLight.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="setTheme.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="madeby" xml:space="preserve">
+    <value>Made by: @</value>
+  </data>
+  <data name="madewith" xml:space="preserve">
+    <value>Powered by</value>
+  </data>
+  <data name="resetMSG1" xml:space="preserve">
+    <value>All settings will revert to default.</value>
+  </data>
+  <data name="resetMSG2" xml:space="preserve">
+    <value>All stat will clear to nothing.</value>
+  </data>
+  <data name="resetMSG3" xml:space="preserve">
+    <value>All unfinished session will get remove.</value>
+  </data>
+  <data name="resetMSG4" xml:space="preserve">
+    <value>All your note will gone without going back.</value>
+  </data>
+  <data name="resetMSG5" xml:space="preserve">
+    <value>Everything will reset to default like reinstall.
+If you want to reset. Application will exit"</value>
+  </data>
+  <data name="runon" xml:space="preserve">
+    <value>Running on</value>
+  </data>
+  <data name="set2End.Content" xml:space="preserve">
+    <value>Go to end page</value>
+  </data>
+  <data name="set2Main.Content" xml:space="preserve">
+    <value>Go to main page</value>
+  </data>
+  <data name="set2Reset.Content" xml:space="preserve">
+    <value>Restart match</value>
+  </data>
+  <data name="setAbt.Header" xml:space="preserve">
+    <value>About &amp; Reset</value>
+  </data>
+  <data name="setAutoSC.Text" xml:space="preserve">
+    <value>Display text auto scroll</value>
+  </data>
+  <data name="setCheat.Text" xml:space="preserve">
+    <value>As all choice stay same. It equally cheat. All stat will not save.</value>
+  </data>
+  <data name="setCS1.Content" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="setCS2.Content" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="setCS3.Content" xml:space="preserve">
+    <value>Write</value>
+  </data>
+  <data name="setCStyle.Text" xml:space="preserve">
+    <value>Choice selection style</value>
+  </data>
+  <data name="setDefSeed.Text" xml:space="preserve">
+    <value>Default seed</value>
+  </data>
+  <data name="setEasy.Content" xml:space="preserve">
+    <value>Skip to next choice</value>
+  </data>
+  <data name="setFinale.Text" xml:space="preserve">
+    <value>After final choice</value>
+  </data>
+  <data name="setFirstHint.Text" xml:space="preserve">
+    <value>Hint at first choice</value>
+  </data>
+  <data name="setFont.Text" xml:space="preserve">
+    <value>Selected choice result display</value>
+  </data>
+  <data name="setGen.Header" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="setHard.Content" xml:space="preserve">
+    <value>Reset match</value>
+  </data>
+  <data name="setLang.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="setMin.Text" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="setNorm.Content" xml:space="preserve">
+    <value>Stay at same choice</value>
+  </data>
+  <data name="setReset1.Content" xml:space="preserve">
+    <value>Reset stat</value>
+  </data>
+  <data name="setReset2.Content" xml:space="preserve">
+    <value>Reset sessions</value>
+  </data>
+  <data name="setReset3.Content" xml:space="preserve">
+    <value>Remove all user note</value>
+  </data>
+  <data name="setReset4.Content" xml:space="preserve">
+    <value>Reset everything</value>
+  </data>
+  <data name="setSaveA.Content" xml:space="preserve">
+    <value>Save all</value>
+  </data>
+  <data name="setSaveN.Content" xml:space="preserve">
+    <value>Discard all</value>
+  </data>
+  <data name="setSec.Text" xml:space="preserve">
+    <value>Second</value>
+  </data>
+  <data name="setSes.Header" xml:space="preserve">
+    <value>Session</value>
+  </data>
+  <data name="setShowTXT.Text" xml:space="preserve">
+    <value>Show text instead of ??? on wrong choice</value>
+  </data>
+  <data name="setStat.Header" xml:space="preserve">
+    <value>Stat</value>
+  </data>
+  <data name="setStatWat.Text" xml:space="preserve">
+    <value>What to do with stat</value>
+  </data>
+  <data name="setTimeL.Text" xml:space="preserve">
+    <value>Use time limit</value>
+  </data>
+  <data name="setTimeTTL.Text" xml:space="preserve">
+    <value>Total time limit</value>
+  </data>
+  <data name="setTotalC.Text" xml:space="preserve">
+    <value>Total choice</value>
+  </data>
+  <data name="setWC.Text" xml:space="preserve">
+    <value>When choose wrong choice</value>
+  </data>
+  <data name="version" xml:space="preserve">
+    <value>App version</value>
+  </data>
+  <data name="qsFullSetting.Content" xml:space="preserve">
+    <value>Go to Settings</value>
+  </data>
+  <data name="allStat" xml:space="preserve">
+    <value>Total stat</value>
+  </data>
+  <data name="nostat" xml:space="preserve">
+    <value>No stat found :(</value>
+  </data>
+  <data name="setReset.Content" xml:space="preserve">
+    <value>Reset settings</value>
+  </data>
+  <data name="mainQuit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+</root>

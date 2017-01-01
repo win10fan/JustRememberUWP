@@ -24,34 +24,34 @@ namespace JustRemember_UWP
             timerNow.Tick += TimerNow_Tick;
             timerNow.Start();
             //Over dialog
-            overMSG = new MessageDialog("Try again?", "Time up.");
-            overMSG.Commands.Add(new UICommand("OK") { Invoked = delegate { ResetRound(); } });
+            overMSG = new MessageDialog(App.language.GetString("matchTimeup2"), App.language.GetString("matchTimeup1"));
+            overMSG.Commands.Add(new UICommand(App.language.GetString("cmdOK")) { Invoked = delegate { ResetRound(); } });
             //Load progress lose dialog
-            lostPG = new MessageDialog("If you continue.\nCurrent progress will get replaced.\nContinue?", "Warning!");
-            lostPG.Commands.Add(new UICommand("Continue") { Invoked = delegate
+            lostPG = new MessageDialog(App.language.GetString("matchWarn2"), App.language.GetString("matchWarn1"));
+            lostPG.Commands.Add(new UICommand(App.language.GetString("cmdConti")) { Invoked = delegate
             {
                 Utilities.isSmallLoaderMode = false;
                 SystemNavigationManager.GetForCurrentView().BackRequested -= Match_BackRequested;
                 Frame.Navigate(typeof(MainPage));
             }
             });
-            lostPG.Commands.Add(new UICommand("Cancel") { Id = 0 });
+            lostPG.Commands.Add(new UICommand(App.language.GetString("cmdCancel")) { Id = 0 });
             lostPG.CancelCommandIndex = 0;
             //Load other file dialog
-            loadotherDiag = new MessageDialog("You about to lose current progress.\nPress \"OK\" to continue", "Warning!");
-            loadotherDiag.Commands.Add(new UICommand("OK") { Invoked = delegate {
+            loadotherDiag = new MessageDialog(App.language.GetString("matchLP1"), App.language.GetString("matchWarn1"));
+            loadotherDiag.Commands.Add(new UICommand(App.language.GetString("cmdOK")) { Invoked = delegate {
                 SystemNavigationManager.GetForCurrentView().BackRequested -= Match_BackRequested; Frame.Navigate(typeof(Selector)); } });
-            loadotherDiag.Commands.Add(new UICommand("Cancel") { Id = 0 });
+            loadotherDiag.Commands.Add(new UICommand(App.language.GetString("cmdCancel")) { Id = 0 });
             loadotherDiag.CancelCommandIndex = 0;
             //
-            resetM = new MessageDialog("You about to lose current progress.\nPress \"OK\" to continue", "Warning!");
-            resetM.Commands.Add(new UICommand("OK") { Invoked = delegate { ResetRound(); } });
-            resetM.Commands.Add(new UICommand("Cancel") { Id = 0 });
+            resetM = new MessageDialog(App.language.GetString("matchLP1"), App.language.GetString("matchWarn1"));
+            resetM.Commands.Add(new UICommand(App.language.GetString("cmdOK")) { Invoked = delegate { ResetRound(); } });
+            resetM.Commands.Add(new UICommand(App.language.GetString("cmdCancel")) { Id = 0 });
             resetM.CancelCommandIndex = 0;
             //ExitD
-            exitD = new MessageDialog("Did you really want to exit?\nYou will lose current progress");
-            exitD.Commands.Add(new UICommand("OK") { Invoked = delegate { Application.Current.Exit(); } });
-            exitD.Commands.Add(new UICommand("Cancel") { Id = 0 });
+            exitD = new MessageDialog(App.language.GetString("matchLP1"));
+            exitD.Commands.Add(new UICommand(App.language.GetString("cmdOK")) { Invoked = delegate { Application.Current.Exit(); } });
+            exitD.Commands.Add(new UICommand(App.language.GetString("cmdCancel")) { Id = 0 });
             exitD.CancelCommandIndex = 0;
             //Load file
             LoadFile(Utilities.selected.Title, Utilities.selected.Content);

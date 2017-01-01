@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="RememberIt" Publisher="CN=rayle" Version="1.3.17.0" />
+  <Identity Name="RememberIt" Publisher="CN=Toon" Version="1.3.17.0" />
   <mp:PhoneIdentity PhoneProductId="f7d25787-6213-455d-accd-d5d0fa61021e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>JustRemember</DisplayName>

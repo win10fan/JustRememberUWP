@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using Windows.ApplicationModel;
 using Windows.Globalization;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -24,6 +25,13 @@ namespace JustRemember_UWP
                 Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Visible;
                 Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += Setting_BackRequested;
             }
+            //Load about
+            textBlock1.Text = Package.Current.DisplayName;
+            textBlock2.Text = $"{App.language.GetString("runon")} {Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily}";
+            textBlock3.Text = $"{App.language.GetString("madeby")}{Package.Current.PublisherDisplayName}";
+            var ver = Package.Current.Id.Version;
+            textBlock4.Text = $"{App.language.GetString("version")}: {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}";
+            textBlock5.Text = $"{App.language.GetString("madewith")} Visual Studio 14.0.25431.01 Update 3";
         }
 
         private void Setting_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
@@ -438,11 +446,11 @@ namespace JustRemember_UWP
             noStatNotif.FontSize = 18;
             if (stats.Stats.Count >= 1)
             {
-                noStatNotif.Text = $"Total stat: {stats.Stats.Count}";
+                noStatNotif.Text = $"{App.language.GetString("allStat")}: {stats.Stats.Count}";
             }
             else
             {
-                noStatNotif.Text = "No stat found :(";
+                noStatNotif.Text = App.language.GetString("nostat");
             }
         }
 
@@ -483,29 +491,29 @@ namespace JustRemember_UWP
 
         public void DialogPrep()
         {
-            settingReset = new MessageDialog("All settings will revert to default.", "Are you sure?");
-            settingReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.setting); } });
-            settingReset.Commands.Add(new UICommand("No") { Id = 1 });
+            settingReset = new MessageDialog(App.language.GetString("resetMSG1"), App.language.GetString("noteClear1"));
+            settingReset.Commands.Add(new UICommand(App.language.GetString("cmdYes")) { Invoked = delegate { ResetApp(resetStyle.setting); } });
+            settingReset.Commands.Add(new UICommand(App.language.GetString("cmdNo")) { Id = 1 });
             settingReset.CancelCommandIndex = 1;
             //
-            statReset = new MessageDialog("All stat will clear to nothing.", "Are you sure?");
-            statReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.stat); } });
-            statReset.Commands.Add(new UICommand("No") { Id = 1 });
+            statReset = new MessageDialog(App.language.GetString("resetMSG2"), App.language.GetString("noteClear1"));
+            statReset.Commands.Add(new UICommand(App.language.GetString("cmdYes")) { Invoked = delegate { ResetApp(resetStyle.stat); } });
+            statReset.Commands.Add(new UICommand(App.language.GetString("cmdNo")) { Id = 1 });
             statReset.CancelCommandIndex = 1;
             //
-            sessionReset = new MessageDialog("All unfinished session will get remove.", "Are you sure?");
-            sessionReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.session); } });
-            sessionReset.Commands.Add(new UICommand("No") { Id = 1 });
+            sessionReset = new MessageDialog(App.language.GetString("resetMSG3"), App.language.GetString("noteClear1"));
+            sessionReset.Commands.Add(new UICommand(App.language.GetString("cmdYes")) { Invoked = delegate { ResetApp(resetStyle.session); } });
+            sessionReset.Commands.Add(new UICommand(App.language.GetString("cmdNo")) { Id = 1 });
             sessionReset.CancelCommandIndex = 1;
             //
-            usernoteReset = new MessageDialog("All your note will gone without going back.", "Are you sure?");
-            usernoteReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.note); } });
-            usernoteReset.Commands.Add(new UICommand("No") { Id = 1 });
+            usernoteReset = new MessageDialog(App.language.GetString("resetMSG4"), App.language.GetString("noteClear1"));
+            usernoteReset.Commands.Add(new UICommand(App.language.GetString("cmdYes")) { Invoked = delegate { ResetApp(resetStyle.note); } });
+            usernoteReset.Commands.Add(new UICommand(App.language.GetString("cmdNo")) { Id = 1 });
             usernoteReset.CancelCommandIndex = 1;
             //
-            allReset = new MessageDialog("Everyting will reset to default like reinstall." + Environment.NewLine + "If you want to reset. Application will exit", "Are you sure?");
-            allReset.Commands.Add(new UICommand("Yes") { Invoked = delegate { ResetApp(resetStyle.all); } });
-            allReset.Commands.Add(new UICommand("No") { Id = 1 });
+            allReset = new MessageDialog(App.language.GetString("resetMSG5"), App.language.GetString("noteClear1"));
+            allReset.Commands.Add(new UICommand(App.language.GetString("cmdYes")) { Invoked = delegate { ResetApp(resetStyle.all); } });
+            allReset.Commands.Add(new UICommand(App.language.GetString("cmdNo")) { Id = 1 });
             allReset.CancelCommandIndex = 1;
         }
         public enum resetStyle { setting, stat, session, note, all }

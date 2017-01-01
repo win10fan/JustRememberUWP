@@ -39,7 +39,7 @@ namespace JustRemember_UWP
 				}
 			}
 			listView.ItemsSource = selectors;
-            itemCount.Text = selectors.Count == 0 ? $"No user note.{Environment.NewLine}But you can add from editor" : $"Total user note: {selectors.Count}";
+            itemCount.Text = selectors.Count == 0 ? App.language.GetString("fileNo") : $"{App.language.GetString("fileYes")}: {selectors.Count}";
 		}
 
 		private async void Page_Loaded(object sender, RoutedEventArgs e)

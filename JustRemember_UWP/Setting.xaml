@@ -11,68 +11,68 @@
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
         <Canvas x:Name="titleBar" Height="50" VerticalAlignment="Top" Background="{ThemeResource AppBarBackgroundThemeBrush}" Loaded="titleBar_Loaded">
             <Button x:Name="button" Content="&#xE0A6;" Height="50" Width="50" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" Background="{ThemeResource ButtonBackgroundThemeBrush}" Foreground="{ThemeResource ButtonForegroundThemeBrush}" FontSize="20" Click="button_Click"/>
-            <TextBlock x:Name="settingTitle" Canvas.Left="50" Text="Settings" RenderTransformOrigin="0,0.5" VerticalAlignment="Center"  FontSize="24" Height="50" Padding="5,8,0,0"/>
+            <TextBlock x:Name="settingTitle" x:Uid="settings" Canvas.Left="50" Text="Settings" RenderTransformOrigin="0,0.5" VerticalAlignment="Center"  FontSize="24" Height="50" Padding="5,8,0,0"/>
         </Canvas>
         <Pivot x:Name="settingsContent" Margin="0,50,0,0" Background="{ThemeResource AppBarBackgroundThemeBrush}" Foreground="{ThemeResource PivotForegroundThemeBrush}">
-            <PivotItem x:Name="generalPage" Header="General" Foreground="White">
+            <PivotItem x:Name="generalPage" x:Uid="setGen" Header="General" Foreground="White">
                 <ScrollViewer>
                     <StackPanel Margin="10">
-                        <TextBlock Text="Theme" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Text="Theme" x:Uid="setTheme" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <RadioButton x:Name="darkTheme" Content="Dark" VerticalAlignment="Center" FontSize="16" Checked="darkTheme_Checked" Loaded="darkTheme_Loaded" Foreground="{ThemeResource ButtonForeground}"/>
-                            <RadioButton Margin="5,0,0,0" x:Name="lightTheme" Content="Light" VerticalAlignment="Center" FontSize="16" Loaded="lightTheme_Loaded" Checked="lightTheme_Checked" Foreground="{ThemeResource ButtonForeground}"/>
+                            <RadioButton x:Name="darkTheme" x:Uid="setDark" Content="Dark" VerticalAlignment="Center" FontSize="16" Checked="darkTheme_Checked" Loaded="darkTheme_Loaded" Foreground="{ThemeResource ButtonForeground}"/>
+                            <RadioButton Margin="5,0,0,0" x:Uid="setLight" x:Name="lightTheme" Content="Light" VerticalAlignment="Center" FontSize="16" Loaded="lightTheme_Loaded" Checked="lightTheme_Checked" Foreground="{ThemeResource ButtonForeground}"/>
                         </StackPanel>
-                        <TextBlock FontSize="12" x:Name="themeNotify" Text="Theme changed! Restart to apply" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="themeNotify_Loaded"/>
-                        <TextBlock Visibility="Collapsed" Margin="0,10" Text="Language" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
-                        <ComboBox Visibility="Collapsed" x:Name="langList" Margin="5" Width="150" Loaded="langList_Loaded">
+                        <TextBlock FontSize="12" x:Name="themeNotify" x:Uid="setAPTheme" Text="Theme changed! Restart to apply" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="themeNotify_Loaded"/>
+                        <TextBlock Visibility="Visible" Margin="0,10" x:Uid="setLang" Text="Language" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <ComboBox Visibility="Visible" x:Name="langList" Margin="5" Width="150" Loaded="langList_Loaded">
                             <ComboBoxItem Content="English"/>
-                            <ComboBoxItem Content="ไทย"/>
+                            <ComboBoxItem Content="ภาษาไทย"/>
                         </ComboBox>
-                        <TextBlock Text="Choice selection style" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock x:Uid="setCStyle" Text="Choice selection style" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                            <RadioButton x:Name="choiceStyleA" Loaded="choiceStyleA_Loaded" Content="Center" HorizontalAlignment="Left" Width="25"/>
-                            <RadioButton HorizontalAlignment="Center" Margin="10,0,0,0" Content="Bottom" x:Name="choiceStyleB" Loaded="choiceStyleB_Loaded"/>
-                            <RadioButton HorizontalAlignment="Center" Margin="10,0,0,0" x:Name="defWrite" Content="Write" Loaded="difWrite_Loaded"/>
+                            <RadioButton x:Name="choiceStyleA" Loaded="choiceStyleA_Loaded" x:Uid="setCS1" Content="Center" HorizontalAlignment="Left" Width="25"/>
+                            <RadioButton HorizontalAlignment="Center" Margin="10,0,0,0" x:Uid="setCS2" Content="Bottom" x:Name="choiceStyleB" Loaded="choiceStyleB_Loaded"/>
+                            <RadioButton HorizontalAlignment="Center" Margin="10,0,0,0" x:Uid="setCS3" x:Name="defWrite" Content="Write" Loaded="difWrite_Loaded"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Image Tapped="Image_Tapped" Source="Assets/DesignA.png" Stretch="Fill" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <Image Tapped="Image_Tapped_1" Source="Assets/DesignB.png" Stretch="Fill" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0"/>                            
                         </StackPanel>
-                        <TextBlock Text="Selected choice result display" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock x:Uid="setFont" Text="Selected choice result display" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <Slider Margin="5" HorizontalAlignment="Left" Width="150" x:Name="cdpSize" Loaded="cdpSize_Loaded" ValueChanged="cdpSize_ValueChanged"/>
-                        <TextBlock Text="Default seed" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock x:Uid="setDefSeed" Text="Default seed" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <ToggleSwitch x:Name="defSeed" Loaded="defSeed_Loaded" Toggled="defSeed_Toggled"/>
                         <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                             <TextBox x:Name="defSeedInput" Width="120" MaxLength="9" InputScope="Number" PlaceholderText="12345" HorizontalAlignment="Left" VerticalAlignment="Center" Loaded="defSeedInput_Loaded"/>
                             <Button x:Name="defSeedAccept" Content="&#xE10B;" FontFamily="Segoe MDL2 Assets" FontSize="20" Click="defSeedAccept_Click" Loaded="defSeedAccept_Loaded"/>
                         </StackPanel>
-                        <TextBlock FontSize="12" x:Name="defSeedNotify" Text="As all choice stay same. It equally cheat. All stat will not save." TextWrapping="WrapWholeWords" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="defSeedNotify_Loaded"/>
-                        <TextBlock Text="Display text auto scroll" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock FontSize="12" x:Name="defSeedNotify" x:Uid="setCheat" Text="As all choice stay same. It equally cheat. All stat will not save." TextWrapping="WrapWholeWords" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Loaded="defSeedNotify_Loaded"/>
+                        <TextBlock Text="Display text auto scroll" x:Uid="setAutoSC" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <ToggleSwitch x:Name="autoScrollContent" Loaded="autoScrollContent_Loaded"/>
-                        <TextBlock Margin="0,10" Text="Hint at first choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Margin="0,10" Text="Hint at first choice" x:Uid="setFirstHint" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <ToggleSwitch x:Name="hintAtFirst" Margin="5" Loaded="hintAtFirst_Loaded"/>
-                        <TextBlock Text="After final choice" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Text="After final choice" x:Uid="setFinale" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <StackPanel>
-                            <RadioButton Loaded="GotoEnd_Loaded" x:Name="GotoEnd" Content="Go to end page"/>
-                            <RadioButton Loaded="resetMatch_Loaded" x:Name="resetMatch" Content="Restart match"/>
-                            <RadioButton Loaded="GotoMain_Loaded" x:Name="GotoMain" Content="Go to main page"/>
+                            <RadioButton Loaded="GotoEnd_Loaded" x:Uid="set2End" x:Name="GotoEnd" Content="Go to end page"/>
+                            <RadioButton Loaded="resetMatch_Loaded" x:Uid="set2Reset" x:Name="resetMatch" Content="Restart match"/>
+                            <RadioButton Loaded="GotoMain_Loaded" x:Uid="set2Main" x:Name="GotoMain" Content="Go to main page"/>
                         </StackPanel>
-                        <TextBlock Loaded="statdecide1_Loaded" x:Name="statdecide1" Text="What to do with stat" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Loaded="statdecide1_Loaded" x:Name="statdecide1" x:Uid="setStatWat"  Text="What to do with stat" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <StackPanel>
-                            <RadioButton Loaded="saveAll_Loaded" x:Name="saveAll" Content="Save all"/>
-                            <RadioButton Loaded="discardAll_Loaded" x:Name="discardAll" Content="Discard all"/>
+                            <RadioButton Loaded="saveAll_Loaded" x:Name="saveAll" x:Uid="setSaveA" Content="Save all"/>
+                            <RadioButton Loaded="discardAll_Loaded" x:Name="discardAll" x:Uid="setSaveN" Content="Discard all"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem x:Name="sessionPage" Header="Session">
+            <PivotItem x:Name="sessionPage" x:Uid="setSes" Header="Session">
                 <ScrollViewer>
                     <ItemsControl>
-                        <TextBlock Margin="0,10,0,0" Text="Total choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Margin="0,10,0,0" x:Uid="setTotalC" Text="Total choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <Slider x:Name="totalChoicie" Margin="5"  HorizontalAlignment="Left" Width="150" Loaded="totalChoicie_Loaded"/>
-                        <TextBlock Margin="0,10" Text="Use time limit" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Margin="0,10" x:Uid="setTimeL" Text="Use time limit" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <ToggleSwitch x:Name="useTimelimit" Margin="5" Loaded="useTimelimit_Loaded" Toggled="useTimelimit_Toggled"/>
-                        <TextBlock Margin="0,10" Text="Total time limit" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Margin="0,10" x:Uid="setTimeTTL" Text="Total time limit" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
@@ -82,23 +82,23 @@
                                 <RowDefinition Height="45"/>
                                 <RowDefinition Height="45"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Minute" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource ButtonForeground}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" x:Uid="setMin" Text="Minute" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource ButtonForeground}"/>
                             <Slider Margin="0,0,20,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" x:Name="minuteSet" Minimum="0" Maximum="60" HorizontalAlignment="Left" Width="150" Loaded="minuteSet_Loaded"/>
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="Second" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource ButtonForeground}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" x:Uid="setSec" Text="Second" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource ButtonForeground}"/>
                             <Slider Margin="0,0,20,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" x:Name="secondSet" Minimum="0" Maximum="60" HorizontalAlignment="Left" Width="150" Loaded="secondSet_Loaded"/>
                         </Grid>
-                        <TextBlock Margin="0,10" Text="When choose wrong choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Margin="0,10" x:Uid="setWC" Text="When choose wrong choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <StackPanel Margin="5" Orientation="Vertical">
-                            <RadioButton Loaded="difEasy_Loaded" Checked="difEasy_Checked" x:Name="difEasy" Content="Skip to next choice"/>
-                            <RadioButton Loaded="difNorm_Loaded" Checked="difNorm_Checked" x:Name="difNorm" Content="Stay at same choice"/>
-                            <RadioButton Loaded="difHard_Loaded" Checked="difHard_Checked" x:Name="difHard" Content="Reset match"/>
+                            <RadioButton Loaded="difEasy_Loaded" x:Uid="setEasy" Checked="difEasy_Checked" x:Name="difEasy" Content="Skip to next choice"/>
+                            <RadioButton Loaded="difNorm_Loaded" x:Uid="setNorm" Checked="difNorm_Checked" x:Name="difNorm" Content="Stay at same choice"/>
+                            <RadioButton Loaded="difHard_Loaded" x:Uid="setHard" Checked="difHard_Checked" x:Name="difHard" Content="Reset match"/>
                         </StackPanel>
-                        <TextBlock Margin="0,10" Text="Show text instead of ??? on wrong choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
+                        <TextBlock Margin="0,10" x:Uid="setShowTXT" Text="Show text instead of ??? on wrong choice" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <ToggleSwitch x:Name="showWrong" Margin="5" Loaded="showWrong_Loaded" Toggled="showWrong_Toggled"/>
                     </ItemsControl>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem x:Name="statPage" Header="Stat">
+            <PivotItem x:Name="statPage" x:Uid="setStat" Header="Stat">
                 <StackPanel>
                     <TextBlock x:Name="noStatNotif" Loaded="noStatNotif_Loaded"/>
                     <ListView ItemsSource="{x:Bind stats.Stats}" x:Name="statList">
@@ -119,20 +119,20 @@
                     </ListView>
                 </StackPanel>
             </PivotItem>
-            <PivotItem x:Name="aboutPage" Header="About &amp; Reset">
+            <PivotItem x:Name="aboutPage" x:Uid="setAbt" Header="About &amp; Reset">
                 <ScrollViewer>
                     <ItemsControl>
-                        <TextBlock x:Name="textBlock1" TextWrapping="Wrap" FontSize="20" Margin="5,5,0,0" Padding="5,5,0,0" Text="Just Remember: Universal App"/>
+                        <TextBlock x:Name="textBlock1" TextWrapping="Wrap" FontSize="20" Margin="5,5,0,0" Padding="5,5,0,0" Text="Just Remember"/>
                         <TextBlock x:Name="textBlock2" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Running on Windows 10"/>
                         <TextBlock x:Name="textBlock3" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Made by: @ToonWK"/>
                         <TextBlock x:Name="textBlock4" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="App version: 1.4"/>
-                        <TextBlock x:Name="textBlock5" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Powered by Visual Studio 14.0.25425.01"/>
+                        <TextBlock x:Name="textBlock5" TextWrapping="Wrap" FontSize="18" Margin="5,5,0,0" Padding="5,5,0,0" Text="Powered by Visual Studio 14.0.25431.01 Update 3"/>
                         <TextBlock FontSize="20" Margin="0,15,0,0"/>
-                        <Button Click="resetSetting_Click" Content="Reset setting"/>
-                        <Button Margin="0,5,0,0" Click="resetstat_Click" Content="Reset stat"/>
-                        <Button Margin="0,5,0,0" Click="resetsession_Click" Content="Reset sessions"/>
-                        <Button Margin="0,5,0,0" Click="resetusernote_Click" Content="Remove all user note"/>
-                        <Button Margin="0,5,0,0" Click="resetall_Click" Content="Reset everything"/>
+                        <Button Click="resetSetting_Click" x:Uid="setReset" Content="Reset setting"/>
+                        <Button Margin="0,5,0,0" x:Uid="setReset1" Click="resetstat_Click" Content="Reset stat"/>
+                        <Button Margin="0,5,0,0" x:Uid="setReset2" Click="resetsession_Click" Content="Reset sessions"/>
+                        <Button Margin="0,5,0,0" x:Uid="setReset3" Click="resetusernote_Click" Content="Remove all user note"/>
+                        <Button Margin="0,5,0,0" x:Uid="setReset4" Click="resetall_Click" Content="Reset everything"/>
                     </ItemsControl>
                 </ScrollViewer>
             </PivotItem>

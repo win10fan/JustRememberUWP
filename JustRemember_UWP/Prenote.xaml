@@ -8,15 +8,17 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Visibility="Collapsed" Click="openFolder_Click" x:Name="openFolder" Icon="Forward" Label="Open"/>
-            <AppBarButton Visibility="Collapsed" Click="openFile_Click" x:Name="openFile" Icon="Accept" Label="Open"/>
-            <AppBarButton Click="AppBarButton_Click" Icon="Cancel" Label="Cancel"/>
+            <AppBarButton Visibility="Collapsed" Click="openFolder_Click" x:Name="openFolder" x:Uid="pnOpen" Icon="Forward" Label="Open"/>
+            <AppBarButton Visibility="Collapsed" Click="openFile_Click" x:Name="openFile" x:Uid="pnOpen" Icon="Accept" Label="Open"/>
+            <AppBarButton Click="AppBarButton_Click" Icon="Cancel" x:Uid="pnCancel" Label="Cancel"/>
         </CommandBar>
     </Page.BottomAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Margin="5">
-            <Button x:Name="upBtn" Content="Up" Click="Button_Click"/>
+            <Button Width="40" Height="40" x:Name="upBtn" Click="Button_Click">
+                <SymbolIcon Symbol="Up"/>
+            </Button>
             <TextBlock x:Name="curPath" Margin="5" VerticalAlignment="Center"/>
         </StackPanel>
         <ListView SelectionChanged="selectionList_SelectionChanged" DoubleTapped="selectionList_DoubleTapped" Margin="5,50,5,5" x:Name="selectionList" ItemsSource="{x:Bind Prenotes.Prenotes}">

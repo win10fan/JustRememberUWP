@@ -20,7 +20,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <AppxBundle>Never</AppxBundle>
-    <PackageCertificateThumbprint>B4E46DC92AD9A5896E3F2044BE18654FADB31882</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>BEFC21A4A42D72EE43C9F8EC961D3CE8FBCC20E1</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -101,7 +101,8 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="JustRemember_UWP_TemporaryKey.pfx" />
     <None Include="project.json" />
-    <PRIResource Include="Strings\en-US\Resource.resw" />
+    <PRIResource Include="strings\th-TH\Resources.resw" />
+    <PRIResource Include="strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -283,9 +284,6 @@
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\JustRemember_UWP.th-TH.xlf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Strings\th-TH\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

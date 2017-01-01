@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="cmdConti" xml:space="preserve">
+    <value>ทำต่อไป</value>
+  </data>
+  <data name="cmdNo" xml:space="preserve">
+    <value>ไม่ใช่</value>
+  </data>
+  <data name="cmdOK" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
+  <data name="cmdYes" xml:space="preserve">
+    <value>ใช่</value>
+  </data>
+  <data name="endTime" xml:space="preserve">
+    <value>เวลา</value>
+  </data>
+  <data name="endTimeLimit" xml:space="preserve">
+    <value>จำกัด</value>
+  </data>
+  <data name="endTitle.Text" xml:space="preserve">
+    <value>สถิติรอบนี้</value>
+  </data>
+  <data name="endTotalWord" xml:space="preserve">
+    <value>คำทั้งหมด</value>
+  </data>
+  <data name="endTotalWrong" xml:space="preserve">
+    <value>เลือกผิดทั้งหมด</value>
+  </data>
+  <data name="matchCon.Header" xml:space="preserve">
+    <value>ขนาดตัวหนังสือ</value>
+  </data>
+  <data name="matchEx.Text" xml:space="preserve">
+    <value>ออก</value>
+  </data>
+  <data name="matchLP1" xml:space="preserve">
+    <value>คุณจะสูญเสียความคืบหน้า 
+คุณแน่ใจหรือไม่</value>
+  </data>
+  <data name="matchMain.Text" xml:space="preserve">
+    <value>เมนูหลัก</value>
+  </data>
+  <data name="matchOth.Text" xml:space="preserve">
+    <value>บันทึกย่อ</value>
+  </data>
+  <data name="matchPaused" xml:space="preserve">
+    <value>หยุดชั่วคราว...</value>
+  </data>
+  <data name="matchRes.Text" xml:space="preserve">
+    <value>เริ่มใหม่</value>
+  </data>
+  <data name="matchSes.Text" xml:space="preserve">
+    <value>ที่บันทึกไว้</value>
+  </data>
+  <data name="matchSet.Text" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="matchTimeup1" xml:space="preserve">
+    <value>หมดเวลา!!</value>
+  </data>
+  <data name="matchTimeup2" xml:space="preserve">
+    <value>ลองอีกครั้งหรือไม่?</value>
+  </data>
+  <data name="matchWarn1" xml:space="preserve">
+    <value>คำเตือน!!</value>
+  </data>
+  <data name="matchWarn2" xml:space="preserve">
+    <value>ถ้าคุณดำเนินต่อ 
+ความคืบหน้าปัจจุบันของคุณจะหายไป
+กด "ต่อไป" ถ้าคุณไม่สนใจ</value>
+  </data>
+  <data name="noteClear1" xml:space="preserve">
+    <value>คุณแน่ใจหรือไม่?</value>
+  </data>
+  <data name="noteClear2" xml:space="preserve">
+    <value>คำสั่งนี้จะล้างข้อความที่เขียนมาทั้งหมด</value>
+  </data>
+  <data name="noteSave1" xml:space="preserve">
+    <value>ไฟล์ยัวไม่ได้บันทึก</value>
+  </data>
+  <data name="noteSave2" xml:space="preserve">
+    <value>คุณต้องการบันทึกการเปลี่ยนแปลงนี้หรือไม่</value>
+  </data>
+  <data name="prenote.Text" xml:space="preserve">
+    <value>บันทึกที่มีให้</value>
+  </data>
+  <data name="settings.Text" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="start.Text" xml:space="preserve">
+    <value>เริ่ม</value>
+  </data>
+  <data name="addNL_InvName" xml:space="preserve">
+    <value>ชื่อไม่สามารถประกอบด้วย: \ / : * ? " &lt; &gt; |</value>
+  </data>
+  <data name="addNL_ItExist" xml:space="preserve">
+    <value>ชื่อมีอยู่แล้ว</value>
+  </data>
+  <data name="addNL_NoEmpty" xml:space="preserve">
+    <value>ต้องระบุชื่อ</value>
+  </data>
+  <data name="addNL_Tite.Text" xml:space="preserve">
+    <value>กรุณาป้อนชื่อแฟ้ม</value>
+  </data>
+  <data name="pnCancel.Label" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="pnOpen.Label" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="fileDel.Label" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="fileEditor.Label" xml:space="preserve">
+    <value>แก้ไขบันทึก</value>
+  </data>
+  <data name="fileRe.Label" xml:space="preserve">
+    <value>รีเฟรช</value>
+  </data>
+  <data name="fileTitle.Text" xml:space="preserve">
+    <value>เลือกไฟล์เพื่อเริ่มต้น</value>
+  </data>
+  <data name="fileNo" xml:space="preserve">
+    <value>ไม่พบบันทึกใดๆ.
+คุณสามารถเพิ่มบันทึกได้จาก "แก้ไขบันทึก"</value>
+  </data>
+  <data name="fileYes" xml:space="preserve">
+    <value>บันทึกมีทั้งหมด</value>
+  </data>
+  <data name="setAPTheme.Text" xml:space="preserve">
+    <value>เปลี่ยนชุดรูปแบบแล้ว! ปิด-เปิดแอปใหม่ เพื่อให้เห็นผล</value>
+  </data>
+  <data name="setDark.Content" xml:space="preserve">
+    <value>เข้ม</value>
+  </data>
+  <data name="setLight.Content" xml:space="preserve">
+    <value>อ่อน</value>
+  </data>
+  <data name="setTheme.Text" xml:space="preserve">
+    <value>ชุดรูปแบบ</value>
+  </data>
+  <data name="setCStyle.Text" xml:space="preserve">
+    <value>รูปแบบตัวเลือก</value>
+  </data>
+  <data name="setGen.Header" xml:space="preserve">
+    <value>ทั่วไป</value>
+  </data>
+  <data name="setLang.Text" xml:space="preserve">
+    <value>ภาษา</value>
+  </data>
+  <data name="madeby" xml:space="preserve">
+    <value>จัดทำโดย:</value>
+  </data>
+  <data name="madewith" xml:space="preserve">
+    <value>สร้างด้วย</value>
+  </data>
+  <data name="resetMSG1" xml:space="preserve">
+    <value>การตั้งค่าทั้งหมดจะกลับไปเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="resetMSG2" xml:space="preserve">
+    <value>สถิติทั้งหมดจะล้างหายไป</value>
+  </data>
+  <data name="resetMSG3" xml:space="preserve">
+    <value>เซสชันทั้งหมดที่ยังไม่เสร็จจะถูกลบ</value>
+  </data>
+  <data name="resetMSG4" xml:space="preserve">
+    <value>บันทึกทั้งหมดของคุณจะหายไปอย่างไม่มีวันกลับ</value>
+  </data>
+  <data name="resetMSG5" xml:space="preserve">
+    <value>ทุกอย่างจะถูกลบทิ้งเหมือนเริ่มต้นใหม่
+เมื่อทุกอย่างเสร็จ แอปจะเด้งออก</value>
+  </data>
+  <data name="runon" xml:space="preserve">
+    <value>ทำงานอยู่บน</value>
+  </data>
+  <data name="set2End.Content" xml:space="preserve">
+    <value>ไปหน้าสรุปผล</value>
+  </data>
+  <data name="set2Main.Content" xml:space="preserve">
+    <value>ไปหน้าหลัก</value>
+  </data>
+  <data name="set2Reset.Content" xml:space="preserve">
+    <value>เริ่มใหม่</value>
+  </data>
+  <data name="setAbt.Header" xml:space="preserve">
+    <value>เกี่ยวกับ &amp; รีเซท</value>
+  </data>
+  <data name="setAutoSC.Text" xml:space="preserve">
+    <value>เลื่อนช่องข้อความอัตโนมัติ</value>
+  </data>
+  <data name="setCheat.Text" xml:space="preserve">
+    <value>สถิติจะไม่ถูกบันทึก</value>
+  </data>
+  <data name="setCS1.Content" xml:space="preserve">
+    <value>กึ่งกลาง</value>
+  </data>
+  <data name="setCS2.Content" xml:space="preserve">
+    <value>ล่าง</value>
+  </data>
+  <data name="setCS3.Content" xml:space="preserve">
+    <value>เขียน</value>
+  </data>
+  <data name="setDefSeed.Text" xml:space="preserve">
+    <value>รหัสเริ่มต้น</value>
+  </data>
+  <data name="setEasy.Content" xml:space="preserve">
+    <value>ข้ามไปตัวเลือกถัดไป</value>
+  </data>
+  <data name="setFinale.Text" xml:space="preserve">
+    <value>หลังจากตัวเลือกสุดท้าย</value>
+  </data>
+  <data name="setFirstHint.Text" xml:space="preserve">
+    <value>บอกใบ้ข้อแรก</value>
+  </data>
+  <data name="setFont.Text" xml:space="preserve">
+    <value>ขนาดตัวหนังสือ คำตอบที่เลือก</value>
+  </data>
+  <data name="setHard.Content" xml:space="preserve">
+    <value>เริ่มใหม่</value>
+  </data>
+  <data name="setMin.Text" xml:space="preserve">
+    <value>นาที</value>
+  </data>
+  <data name="setNorm.Content" xml:space="preserve">
+    <value>อยู่ที่ข้อเดิม</value>
+  </data>
+  <data name="setReset1.Content" xml:space="preserve">
+    <value>ล้างสถิติ</value>
+  </data>
+  <data name="setReset2.Content" xml:space="preserve">
+    <value>ล้างเซสซัน</value>
+  </data>
+  <data name="setReset3.Content" xml:space="preserve">
+    <value>ลบบันทึกทั้งหมด</value>
+  </data>
+  <data name="setReset4.Content" xml:space="preserve">
+    <value>ล้างทุกอย่าง</value>
+  </data>
+  <data name="setSaveA.Content" xml:space="preserve">
+    <value>บันทึกทั้งหมด</value>
+  </data>
+  <data name="setSaveN.Content" xml:space="preserve">
+    <value>ไม่บันทึกเลย</value>
+  </data>
+  <data name="setSec.Text" xml:space="preserve">
+    <value>วินาที</value>
+  </data>
+  <data name="setSes.Header" xml:space="preserve">
+    <value>เซสชัน</value>
+  </data>
+  <data name="setShowTXT.Text" xml:space="preserve">
+    <value>แสดงคำตอบแทน ??? เมื่อเลือกข้อผิด</value>
+  </data>
+  <data name="setStat.Header" xml:space="preserve">
+    <value>สถิติ</value>
+  </data>
+  <data name="setStatWat.Text" xml:space="preserve">
+    <value>จะทำอะไรกับสถิติ</value>
+  </data>
+  <data name="setTimeL.Text" xml:space="preserve">
+    <value>จำกัดเวลา</value>
+  </data>
+  <data name="setTimeTTL.Text" xml:space="preserve">
+    <value>ระยะเวลาที่จำกัด</value>
+  </data>
+  <data name="setTotalC.Text" xml:space="preserve">
+    <value>จำนวนตัวเลือก</value>
+  </data>
+  <data name="setWC.Text" xml:space="preserve">
+    <value>เมื่อเลือกคำตอบผิด</value>
+  </data>
+  <data name="version" xml:space="preserve">
+    <value>แอปเวอร์ชั่น</value>
+  </data>
+  <data name="qsFullSetting.Content" xml:space="preserve">
+    <value>ไปที่ตั้งค่า</value>
+  </data>
+  <data name="allStat" xml:space="preserve">
+    <value>สถิติทั้งหมด</value>
+  </data>
+  <data name="nostat" xml:space="preserve">
+    <value>ไม่พบสถิติที่บันทึกไว้ :(</value>
+  </data>
+  <data name="setReset.Content" xml:space="preserve">
+    <value>รีเซ็ตการตั้งค่า</value>
+  </data>
+  <data name="noteOpen.Label" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="noteAbt.Label" xml:space="preserve">
+    <value>เกี่ยวกับ</value>
+  </data>
+  <data name="noteBack.Label" xml:space="preserve">
+    <value>กลับ</value>
+  </data>
+  <data name="noteDec.Label" xml:space="preserve">
+    <value>ลดขนาด</value>
+  </data>
+  <data name="noteFile.Label" xml:space="preserve">
+    <value>ไฟล์</value>
+  </data>
+  <data name="noteInc.Label" xml:space="preserve">
+    <value>เพิ่มขนาด</value>
+  </data>
+  <data name="noteIns.Label" xml:space="preserve">
+    <value>แทรก</value>
+  </data>
+  <data name="noteNew.Label" xml:space="preserve">
+    <value>ใหม่</value>
+  </data>
+  <data name="noteNL.Label" xml:space="preserve">
+    <value>บรรทัดใหม่</value>
+  </data>
+  <data name="notePaste.Label" xml:space="preserve">
+    <value>วาง</value>
+  </data>
+  <data name="noteSave.Label" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="noteSet.Label" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="noteTab.Label" xml:space="preserve">
+    <value>แท็บ</value>
+  </data>
+  <data name="mainQuit" xml:space="preserve">
+    <value>ออก</value>
+  </data>
+</root>
