@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="th-TH" original="JUSTREMEMBER_UWP/STRINGS/EN-US/EN-US.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1795.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="JUSTREMEMBER_UWP/STRINGS/EN-US/RESOURCE.RESW">
+        <trans-unit id="prenote.Text" translate="yes" xml:space="preserve">
+          <source>Prenote</source>
+          <target state="new">Prenote</target>
+        </trans-unit>
+        <trans-unit id="settings.Text" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="new">Settings</target>
+        </trans-unit>
+        <trans-unit id="start.Text" translate="yes" xml:space="preserve">
+          <source>Start</source>
+          <target state="new">Start</target>
+        </trans-unit>
+        <trans-unit id="endTime" translate="yes" xml:space="preserve">
+          <source>Time</source>
+          <target state="new">Time</target>
+        </trans-unit>
+        <trans-unit id="endTimeLimit" translate="yes" xml:space="preserve">
+          <source>Limit</source>
+          <target state="new">Limit</target>
+        </trans-unit>
+        <trans-unit id="endTitle.Text" translate="yes" xml:space="preserve">
+          <source>This round stat</source>
+          <target state="new">This round stat</target>
+        </trans-unit>
+        <trans-unit id="endTotalWord" translate="yes" xml:space="preserve">
+          <source>Total word</source>
+          <target state="new">Total word</target>
+        </trans-unit>
+        <trans-unit id="endTotalWrong" translate="yes" xml:space="preserve">
+          <source>Total wrong</source>
+          <target state="new">Total wrong</target>
+        </trans-unit>
+        <trans-unit id="matchCon.Header" translate="yes" xml:space="preserve">
+          <source>Content size</source>
+          <target state="new">Content size</target>
+        </trans-unit>
+        <trans-unit id="matchEx.Text" translate="yes" xml:space="preserve">
+          <source>Exit</source>
+          <target state="new">Exit</target>
+        </trans-unit>
+        <trans-unit id="matchMain.Text" translate="yes" xml:space="preserve">
+          <source>Main menu</source>
+          <target state="new">Main menu</target>
+        </trans-unit>
+        <trans-unit id="matchOth.Text" translate="yes" xml:space="preserve">
+          <source>Note</source>
+          <target state="new">Note</target>
+        </trans-unit>
+        <trans-unit id="matchPaused" translate="yes" xml:space="preserve">
+          <source>Paused...</source>
+          <target state="new">Paused...</target>
+        </trans-unit>
+        <trans-unit id="matchRes.Text" translate="yes" xml:space="preserve">
+          <source>Restart match</source>
+          <target state="new">Restart match</target>
+        </trans-unit>
+        <trans-unit id="matchSes.Text" translate="yes" xml:space="preserve">
+          <source>Session</source>
+          <target state="new">Session</target>
+        </trans-unit>
+        <trans-unit id="matchSet.Text" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="new">Settings</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

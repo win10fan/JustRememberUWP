@@ -1,6 +1,9 @@
 ﻿using System;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,16 +14,16 @@ namespace JustRemember_UWP
 		public NoteEditor()
 		{
 			InitializeComponent();
-			opennedFile = string.Empty;
+            opennedFile = null;
 			abt = new MessageDialog("Note editor 1.3", "About");
 			abt.Commands.Add(new UICommand("OK") { Id = 0 });
 			abt.CancelCommandIndex = 0;
 			newfilewarn = new MessageDialog("This will clear all your text", "Are you sure?");
-			newfilewarn.Commands.Add(new UICommand("OK") { Invoked = delegate { textBox.Text = ""; opennedFile = ""; } });
+			newfilewarn.Commands.Add(new UICommand("OK") { Invoked = delegate { textBox.Text = ""; opennedFile = null; } });
 			newfilewarn.Commands.Add(new UICommand("Cancel") { Id = 0 });
 			newfilewarn.CancelCommandIndex = 0;
 			fileNotSaved = new MessageDialog("Do you want to save this change?", "File note saved");
-			fileNotSaved.Commands.Add(new UICommand("Yes") { Invoked = delegate { /*Save progress*/} });
+			fileNotSaved.Commands.Add(new UICommand("Yes") { Invoked = delegate { /*Save progress*/ } });
 			fileNotSaved.Commands.Add(new UICommand("No") { Invoked = delegate { Frame.Navigate(typeof(Selector)); } });
 			appCommandActiveGroup = menuPage.Home;
 		}
@@ -28,8 +31,8 @@ namespace JustRemember_UWP
 		MessageDialog newfilewarn;
 		MessageDialog fileNotSaved;
 
-		string _file = string.Empty;
-		public string opennedFile
+        StorageFile _file = null;
+		public StorageFile opennedFile
 		{
 			get
 			{
@@ -37,13 +40,13 @@ namespace JustRemember_UWP
 			}
 			set
 			{
-				if (value == string.Empty)
+				if (value == null)
 				{
 					editorTitle.Text = "Untitled - Note Editor";
 				}
 				else
 				{
-					editorTitle.Text = $"{value} - Note Editor";
+					editorTitle.Text = $"{value.Name} - Note Editor";
 				}
 				_file = value;
 			}
@@ -54,12 +57,14 @@ namespace JustRemember_UWP
 			textBox.Text = "";
 		}
 
-		private void quit_Click(object sender, RoutedEventArgs e)
+		private async void quit_Click(object sender, RoutedEventArgs e)
 		{
-			if (!string.IsNullOrEmpty(textBox.Text) && string.IsNullOrEmpty(opennedFile))
-			{
-				return;
-			}
+            if (opennedFile != null)
+            {
+                await fileNotSaved.ShowAsync();
+                return;
+            }
+            textBox.Text = "";
 			Frame.Navigate(typeof(Selector));
 		}
 
@@ -77,7 +82,7 @@ namespace JustRemember_UWP
 			else
 			{
 				textBox.Text = string.Empty;
-				opennedFile = string.Empty;
+                opennedFile = null;
 			}
 		}
 
@@ -150,7 +155,8 @@ namespace JustRemember_UWP
 
 		private void newFile_Click(object sender, RoutedEventArgs e)
 		{
-			opennedFile = string.Empty;
+			opennedFile = null;
+            textBox.Text = "";
 		}
 
 		private void newlineInsert_Click(object sender, RoutedEventArgs e)
@@ -184,5 +190,26 @@ namespace JustRemember_UWP
 		{
 			selected += 1;
 		}
-	}
+
+        private async void openFile_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.ViewMode = PickerViewMode.List;
+            openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            openPicker.FileTypeFilter.Add(".txt");
+
+            StorageFile file = await openPicker.PickSingleFileAsync();
+            if (file != null)
+            {
+                //Got a file
+                opennedFile = file;
+                textBox.Text = await FileIO.ReadTextAsync(file);
+            }
+        }
+
+        private void saveFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }

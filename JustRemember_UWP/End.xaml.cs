@@ -45,10 +45,9 @@ namespace JustRemember_UWP
 			{
 				if (Utilities.newStat != null)
 				{
-                    var first = Utilities.newStat.totalWords >= 2 ? "s" : "";
-					return $"Total word{first}: {Utilities.newStat.totalWords}";
+					return $"{App.language.GetString("endTotalWord")}: {Utilities.newStat.totalWords}";
 				}
-				return "Total word: N/A";
+				return $"{App.language.GetString("endTotalWord")}: N/A";
 			}
 		}
 
@@ -58,10 +57,10 @@ namespace JustRemember_UWP
 			{
 				if (Utilities.newStat != null)
                 {
-					var first = Utilities.newStat.totalWrong >= 2 ? "s" : "";
-					return $"Total wrong{first}: {Utilities.newStat.totalWrong}";
-				}
-				return "Total wrong: N/A";
+					return $"{App.language.GetString("endTotalWrong")}: {Utilities.newStat.totalWrong}";
+
+                }
+				return $"{App.language.GetString("endTotalWrong")}: N/A";
 			}
 		}
 
@@ -73,10 +72,11 @@ namespace JustRemember_UWP
                 {
 					if (Utilities.newStat.useTimeLimit)
 					{
-						return $"Time: {Utilities.newStat.totalTime.ToStringAsTime()}";
-					}
+						return $"{App.language.GetString("endTime")}: {Utilities.newStat.totalTime.ToStringAsTime()}";
+
+                    }
 				}
-				return "Time: N/A";
+				return $"{App.language.GetString("endTime")}: N/A";
 			}
 		}
 
@@ -88,11 +88,13 @@ namespace JustRemember_UWP
                 {
 					if (Utilities.newStat.useTimeLimit)
 					{
-						return $"Limit: {Utilities.newStat.totalLimitTime.ToStringAsTime()}";
-					}
+						return $"{App.language.GetString("endTimeLimit")}: {Utilities.newStat.totalLimitTime.ToStringAsTime()}";
+
+                    }
 				}
-				return "Limit: N/A";
-			}
+				return $"{App.language.GetString("endTimeLimit")}: N/A";
+
+            }
 		}
         
 		private void lineChart_Loaded(object sender, RoutedEventArgs e)

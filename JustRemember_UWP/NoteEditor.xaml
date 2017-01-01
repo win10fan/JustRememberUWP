@@ -34,8 +34,8 @@
             <AppBarButton x:Name="menuback" Icon="Back" Label="Back" Click="menuback_Click" Visibility="Collapsed" VerticalAlignment="Stretch" Width="60"/>
 
             <AppBarButton x:Name="newFile" Icon="Add" Visibility="Collapsed" Label="New" Click="newFile_Click" VerticalAlignment="Stretch" Width="60"/>
-            <AppBarButton x:Name="openFile" Icon="OpenLocal" Visibility="Collapsed" Label="Open" VerticalAlignment="Stretch" Width="60"/>
-            <AppBarButton x:Name="saveFile" Icon="Save" Visibility="Collapsed" Label="Save" VerticalAlignment="Stretch" Width="60"/>
+            <AppBarButton x:Name="openFile" Icon="OpenLocal" Visibility="Collapsed" Label="Open" VerticalAlignment="Stretch" Width="60" Click="openFile_Click"/>
+            <AppBarButton x:Name="saveFile" Icon="Save" Visibility="Collapsed" Label="Save" VerticalAlignment="Stretch" Width="60" Click="saveFile_Click"/>
 
             <AppBarButton x:Name="clipboardInsert" Icon="Paste" Click="clipboard_Click" Visibility="Collapsed" Label="Paste" VerticalAlignment="Stretch" Width="60"/>
             <AppBarButton x:Name="newlineInsert" Visibility="Collapsed" Label="New line" Click="newlineInsert_Click" VerticalAlignment="Stretch" Width="60">

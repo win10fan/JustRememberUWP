@@ -354,6 +354,8 @@ namespace JustRemember_UWP
                 //Game not ready yet!
                 return;
             }
+            //Update title
+            pauseInfo.Text = pauseMenu.IsPaneOpen ? App.language.GetString("matchPaused") : Utilities.newStat.noteTitle;
             //Update time
             if (Utilities.currentSettings.isLimitTime && !pauseMenu.IsPaneOpen && otherPage.Visibility == Visibility.Collapsed)
             {

@@ -104,27 +104,27 @@
                                     <RowDefinition Height="50"/>
                                 </Grid.RowDefinitions>
                                 <Button Grid.Row="0" Grid.Column="0" x:Name="loadOther" Click="loadOther_Click" Content="&#xE7C3;" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                                <TextBlock Grid.Row="0" Grid.Column="1"  Text="Note" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" x:Uid="matchOth" Text="Note" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                                 <Button Click="loadOther_Click" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
                                 <Button Grid.Row="1" Grid.Column="0" x:Name="loadSession" Content="&#xE823;" Click="loadSession_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                                <TextBlock Grid.Row="1" Grid.Column="1"  Text="Session" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Uid="matchSes" Text="Session" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                                 <Button Click="loadSession_Click" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
                                 <Button Grid.Row="2" Grid.Column="0" x:Name="restartMatch" Content="&#xE72C;" Click="restartMatch_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1"  Text="Restart match" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Uid="matchRes" Text="Restart match" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                                 <Button Click="restartMatch_Click" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
                                 <Button Grid.Row="3" Grid.Column="0" x:Name="mainmenuPage" Content="&#xE80F;" Click="mainmenuPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                                <TextBlock Grid.Row="3" Grid.Column="1"  Text="Main menu" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" x:Uid="matchMain" Text="Main menu" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                                 <Button Click="mainmenuPage_Click" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
                                 <Button Grid.Row="4" Grid.Column="0" x:Name="settingPage" Content="&#xE713;" Click="settingPage_Click" FontFamily="Segoe MDL2 Assets" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                                <TextBlock Grid.Row="4" Grid.Column="1" Text="Settings" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" x:Uid="matchSet" Text="Settings" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                                 <Button Click="settingPage_Click" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
 
                                 <Button x:Name="exitApp" Grid.Row="5" Grid.Column="0" Content="&#xE894;" Click="exitApp_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                                <TextBlock Grid.Row="5" Grid.Column="1" Text="Exit" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                                <TextBlock Grid.Row="5" Grid.Column="1" x:Uid="matchEx" Text="Exit" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
                                 <Button Click="exitApp_Click" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
                             </Grid>
                         </ItemsControl>
@@ -135,7 +135,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="contentSizeControl" Grid.Column="0" Content="&#xE8D3;" Click="Button_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                        <Slider x:Name="contentSlider" Grid.Column="1" Margin="10,0" Header="Content size" Loaded="contentSlider_Loaded" ValueChanged="contentSlider_ValueChanged" GotFocus="contentSlider_GotFocus"/>
+                        <Slider x:Name="contentSlider" Grid.Column="1" Margin="10,0" x:Uid="matchCon" Header="Content size" Loaded="contentSlider_Loaded" ValueChanged="contentSlider_ValueChanged" GotFocus="contentSlider_GotFocus"/>
                     </Grid>
                 </Grid>
             </SplitView.Pane>

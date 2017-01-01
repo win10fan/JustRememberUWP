@@ -2,6 +2,7 @@
 using System.IO;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Globalization;
 using Windows.UI.ViewManagement;
@@ -41,7 +42,18 @@ namespace JustRemember_UWP
 			Current.RequestedTheme = Utilities.currentSettings.theme;
             ApplicationLanguages.PrimaryLanguageOverride = Utilities.lang[Utilities.currentSettings.language];
             Suspending += OnSuspending;
+            //TODO:Load language
+            //if (config == Settings.Default || config.selectedLanguage == 2)
+            //{
+            //    //Let it be
+            //}
+            //else if (config.selectedLanguage != 2)
+            //{
+            //    ApplicationLanguages.PrimaryLanguageOverride = SettingHelper.GetSelectedLanguage(config.selectedLanguage);
+            //}
+            language = ResourceLoader.GetForViewIndependentUse();
         }
+        public static ResourceLoader language;
         
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

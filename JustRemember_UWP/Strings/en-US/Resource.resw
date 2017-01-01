@@ -117,13 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="endTime" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="endTimeLimit" xml:space="preserve">
+    <value>Limit</value>
+  </data>
+  <data name="endTitle.Text" xml:space="preserve">
+    <value>This round stat</value>
+  </data>
+  <data name="endTotalWord" xml:space="preserve">
+    <value>Total word</value>
+  </data>
+  <data name="endTotalWrong" xml:space="preserve">
+    <value>Total wrong</value>
+  </data>
+  <data name="matchCon.Header" xml:space="preserve">
+    <value>Content size</value>
+  </data>
+  <data name="matchEx.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="matchMain.Text" xml:space="preserve">
+    <value>Main menu</value>
+  </data>
+  <data name="matchOth.Text" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="matchPaused" xml:space="preserve">
+    <value>Paused...</value>
+  </data>
+  <data name="matchRes.Text" xml:space="preserve">
+    <value>Restart match</value>
+  </data>
+  <data name="matchSes.Text" xml:space="preserve">
+    <value>Session</value>
+  </data>
+  <data name="matchSet.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="prenote.Text" xml:space="preserve">
-    <value>เอกสาร</value>
+    <value>Prenote</value>
   </data>
   <data name="settings.Text" xml:space="preserve">
-    <value>ตั้งค่า</value>
+    <value>Settings</value>
   </data>
   <data name="start.Text" xml:space="preserve">
-    <value>เริ่ม</value>
+    <value>Start</value>
   </data>
 </root>
