@@ -344,4 +344,13 @@
   <data name="delMode" xml:space="preserve">
     <value>โหมดลบไฟล์. แตะไฟล์ 2 ครั้ง เพื่อลบ</value>
   </data>
+  <data name="matchSS" xml:space="preserve">
+    <value>บันทึกไว้ภายหลัง</value>
+  </data>
+  <data name="note0" xml:space="preserve">
+    <value>ไม่มีเซสชั่นบันทึกอยู่</value>
+  </data>
+  <data name="note1" xml:space="preserve">
+    <value>เซสชั่นที่บันทึกไว้</value>
+  </data>
 </root>

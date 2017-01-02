@@ -42,7 +42,6 @@ namespace JustRemember_UWP
 			Current.RequestedTheme = Utilities.currentSettings.theme;
             ApplicationLanguages.PrimaryLanguageOverride = Utilities.lang[Utilities.currentSettings.language];
             Suspending += OnSuspending;
-            //TODO:Load language
             if (Utilities.currentSettings.language == 0)
             {
                 ApplicationLanguages.PrimaryLanguageOverride = "en-US";
@@ -52,6 +51,8 @@ namespace JustRemember_UWP
                 ApplicationLanguages.PrimaryLanguageOverride = "th-TH";
             }
             language = ResourceLoader.GetForViewIndependentUse();
+            //Load session
+            SessionInfo.Load();
         }
         public static ResourceLoader language;
         

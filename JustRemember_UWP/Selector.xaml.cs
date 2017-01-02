@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 
 namespace JustRemember_UWP
 {
@@ -28,7 +32,6 @@ namespace JustRemember_UWP
 
 		public void RefreshList()
 		{
-			List<SelectorItem> items = new List<SelectorItem>();
 			var selectors = new List<SelectorItem>();
 			if (Utilities.notes != null)
 			{
@@ -38,14 +41,23 @@ namespace JustRemember_UWP
 					selectors.Add(si);
 				}
 			}
-			listView.ItemsSource = selectors;
+            if (Utilities.sessions != null)
+            {
+                foreach (var n in Utilities.sessions)
+                {
+                    SelectorItem si = new SelectorItem(n);
+                    selectors.Add(si);
+                }
+            }
+            listView.ItemsSource = selectors;
+            //
             if (deleteMode.IsChecked == true)
             {
                 itemCount.Text = App.language.GetString("delMode");
             }
             else if (deleteMode.IsChecked == false)
             {
-                itemCount.Text = selectors.Count == 0 ? App.language.GetString("fileNo") : $"{App.language.GetString("fileYes")}: {selectors.Count}";
+                itemCount.Text = $"{App.language.GetString("fileYes")}: {Utilities.notes.Count} | {App.language.GetString("note1")}: {Utilities.sessions.Count}";
             }
 		}
 
@@ -74,37 +86,25 @@ namespace JustRemember_UWP
 
 		private void openFile_Click(object sender, RoutedEventArgs e)
 		{
-			if (listView.SelectedIndex >= 0)
-			{
-				Utilities.selected = Utilities.notes[listView.SelectedIndex];
-				if (!Utilities.isSmallLoaderMode)
-				{
-                    Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
-                    Frame.Navigate(typeof(Match));
-				}
-			}
-		}
-
-        private async void listView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
-        {
-            if (listView.SelectedIndex >= 0)
+            var data = (SelectorItem)listView.SelectedItem;
+            if (data == null) { return; }
+            Utilities.selected = data;
+            if (!Utilities.isSmallLoaderMode)
             {
-                if (deleteMode.IsChecked == true)
-                {
-                    var selec = Utilities.notes[listView.SelectedIndex];
-                    var folder = await Windows.Storage.ApplicationData.Current.RoamingFolder.GetFolderAsync("Note");
-                    var file = await folder.GetFileAsync(selec.Title + ".txt");
-                    await file.DeleteAsync();
-                    await Note.GetNotesList();
-                    RefreshList();
-                    return;
-                }
-                Utilities.selected = Utilities.notes[listView.SelectedIndex];
-                if (!Utilities.isSmallLoaderMode)
-                {
-                    Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
-                    Frame.Navigate(typeof(Match));
-                }
+                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
+                Frame.Navigate(typeof(Match));
+            }
+        }
+
+        private void listView_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            var data = (SelectorItem)listView.SelectedItem;
+            if (data == null) { return; }
+            Utilities.selected = data;
+            if (!Utilities.isSmallLoaderMode)
+            {
+                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested -= Selector_BackRequested;
+                Frame.Navigate(typeof(Match));
             }
         }
 
@@ -115,7 +115,7 @@ namespace JustRemember_UWP
 
         private void deleteMode_Unchecked(object sender, RoutedEventArgs e)
         {
-            itemCount.Text = Utilities.notes.Count == 0 ? App.language.GetString("fileNo") : $"{App.language.GetString("fileYes")}: {Utilities.notes.Count}";
+            itemCount.Text = $"{App.language.GetString("fileYes")}: {Utilities.notes.Count} | {App.language.GetString("note1")}: {Utilities.sessions.Count}";
         }
     }
 }

@@ -53,11 +53,7 @@ namespace JustRemember_UWP
             exitD.Commands.Add(new UICommand(App.language.GetString("cmdOK")) { Invoked = delegate { Application.Current.Exit(); } });
             exitD.Commands.Add(new UICommand(App.language.GetString("cmdCancel")) { Id = 0 });
             exitD.CancelCommandIndex = 0;
-            //Load file
-            LoadFile(Utilities.selected.Title, Utilities.selected.Content);
-            //Load stats
-            statList = new StatList();
-            statList.Stats = StatList.Load();
+            //Load UI settings
             //
             pauseMenu.IsPaneOpen = true;
             //
@@ -69,6 +65,87 @@ namespace JustRemember_UWP
                 chImportantc.Visibility = Visibility.Visible;
                 resultWrite.Visibility = Visibility.Collapsed;
                 resultWriteSubmit.Visibility = Visibility.Collapsed;
+            }
+            //Load stats
+            statList = new StatList();
+            statList.Stats = StatList.Load();
+            //Load note or session
+            if (Utilities.selected.isItSession == Visibility.Visible)
+            {
+                LoadFile(Utilities.selected.content_ses.nowPlayed.Title, Utilities.selected.content_ses.nowPlayed.Content);
+                IsLoadFromSession();
+            }
+            else
+            {
+                //Load file
+                LoadFile(Utilities.selected.Name, Utilities.selected.Content);
+            }
+        }
+
+        public void IsLoadFromSession()
+        {
+            randomEngine = new Random();
+            randomEngine4ChoiceTxt = new Random();
+            //Load session
+            SessionInfo ifo = Utilities.selected.content_ses;
+            //
+            currentProgress = ifo.currentAt;
+            Utilities.newStat = ifo.current;
+            currentValidChoice = ifo.lastCorrect;
+            textList = ifo.lastTextList;
+            choiceList = ifo.choiceList;
+            progressCounter.Value = ifo.progressFillAmount;
+            //dpTxt.Text = ifo.displayText;
+            currentChoiceMode = ifo.lastMode;
+            ChoiceRebuilt();
+            //Restore choice
+            //Mode
+            choicesListHolder.Visibility = ifo.choiceType == selectMode.styleA ? Visibility.Visible : Visibility.Collapsed;
+            choicesListHolderB.Visibility = ifo.choiceType == selectMode.styleB ? Visibility.Visible : Visibility.Collapsed;
+            choicesListHolderC.Visibility = ifo.choiceType == selectMode.styleC ? Visibility.Visible : Visibility.Collapsed;
+            //Selection
+            switch (ifo.choiceType)
+            {
+                case selectMode.styleA:
+                    chImportant.Visibility = ifo.lastChoicesHide[0] ? Visibility.Visible : Visibility.Collapsed;
+                    ch0.Visibility = ifo.lastChoicesHide[1] ? Visibility.Visible : Visibility.Collapsed;
+                    ch1.Visibility = ifo.lastChoicesHide[2] ? Visibility.Visible : Visibility.Collapsed;
+                    ch2.Visibility = ifo.lastChoicesHide[3] ? Visibility.Visible : Visibility.Collapsed;
+                    ch3.Visibility = ifo.lastChoicesHide[4] ? Visibility.Visible : Visibility.Collapsed;
+                    ch4.Visibility = ifo.lastChoicesHide[5] ? Visibility.Visible : Visibility.Collapsed;
+                    ch0.Content = ifo.lastChoices[0];
+                    ch1.Content = ifo.lastChoices[1];
+                    ch2.Content = ifo.lastChoices[2];
+                    ch3.Content = ifo.lastChoices[3];
+                    ch4.Content = ifo.lastChoices[4];
+                    break;
+                case selectMode.styleB:
+                    chImportantb.Visibility = ifo.lastChoicesHide[0] ? Visibility.Visible : Visibility.Collapsed;
+                    ch0b.Visibility = ifo.lastChoicesHide[1] ? Visibility.Visible : Visibility.Collapsed;
+                    ch1b.Visibility = ifo.lastChoicesHide[2] ? Visibility.Visible : Visibility.Collapsed;
+                    ch2b.Visibility = ifo.lastChoicesHide[3] ? Visibility.Visible : Visibility.Collapsed;
+                    ch3b.Visibility = ifo.lastChoicesHide[4] ? Visibility.Visible : Visibility.Collapsed;
+                    ch4b.Visibility = ifo.lastChoicesHide[5] ? Visibility.Visible : Visibility.Collapsed;
+                    choiceInfob.Text = ifo.lastChoices[0];
+                    break;
+                case selectMode.styleC:
+                    chImportantc.Visibility = ifo.lastChoicesHide[0] ? Visibility.Visible : Visibility.Collapsed;
+                    resultWrite.Visibility = ifo.lastChoicesHide[1] ? Visibility.Visible : Visibility.Collapsed;
+                    resultWriteSubmit.Visibility = ifo.lastChoicesHide[2] ? Visibility.Visible : Visibility.Collapsed;
+                    resultWrite.Text = ifo.lastChoices[0];
+                    break;
+            }
+            //Remove this session from session list
+            Utilities.sessions.Remove(ifo);
+            SessionInfo.Save(Utilities.sessions);
+            Utilities.selected = new SelectorItem(nowPlaying);
+        }
+
+        private void ChoiceRebuilt()
+        {
+            for (int i = 0; i < currentProgress;i++)
+            {
+                AddMainText(textList[i], i);
             }
         }
 
@@ -89,6 +166,7 @@ namespace JustRemember_UWP
         MessageDialog exitD;
         Random randomEngine;
         Random randomEngine4ChoiceTxt;
+        public Note nowPlaying;
         #region Match component
         public int currentProgress
         {
@@ -247,6 +325,7 @@ namespace JustRemember_UWP
 
         public void LoadFile(string filename, string content)
         {
+            nowPlaying = new Note(content, filename);
             //Update title
             currentFilename = filename;
             //Load file normal
@@ -303,8 +382,8 @@ namespace JustRemember_UWP
             }
         }
 
-        enum mode { begin, normal, end }
-        mode currentChoiceMode;
+        public enum mode { begin, normal, end }
+        public mode currentChoiceMode;
 
         public void CheckTotalChoice()
         {
@@ -446,8 +525,7 @@ namespace JustRemember_UWP
                 return;
             }
             ActivateOtherpage();
-            //
-            ////TODO:Load session page
+            otherPage.Navigate(typeof(Selector));
         }
 
         private void settingPage_Click(object sender, RoutedEventArgs e)
@@ -741,7 +819,7 @@ namespace JustRemember_UWP
             }
         }
 
-        void AddMainText(textlist item)
+        void AddMainText(textlist item,int index)
         {
             //New line check
             bool a = item.Commands.Contains('\r');
@@ -749,7 +827,7 @@ namespace JustRemember_UWP
             if (item.Mode == textMode.Char)
             {
                 //Start with char. End with commands
-                _AddText(item);
+                _AddText(item, index);
                 //Add commands
                 _AddCommands(item, a, b);
             }
@@ -760,13 +838,18 @@ namespace JustRemember_UWP
                 _AddCommands(item, a, b);
 
                 //Add text
-                _AddText(item);
+                _AddText(item, index);
             }
         }
 
-        void _AddText(textlist item)
+        void AddMainText(textlist item)
         {
-            if (Utilities.newStat.wrongPerchoice[currentProgress] > 0)
+            AddMainText(item, currentProgress);
+        }
+
+        void _AddText(textlist item, int index)
+        {
+            if (Utilities.newStat.wrongPerchoice[index] > 0)
             {
                 //If this choice been wrong
                 if (Utilities.currentSettings.showWrongContent)
@@ -1027,6 +1110,18 @@ namespace JustRemember_UWP
                     SubmitResult();
                 }
             }
+        }
+
+        private void save2Session_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentProgress < 1 || currentProgress > textList.Count - 1)
+            {
+                return;
+            }
+            saveSes.IsEnabled = false;
+            saveSes2.IsEnabled = false;
+            Utilities.sessions.Add(new SessionInfo(this, Utilities.newStat));
+            SessionInfo.Save(Utilities.sessions);
         }
     }
 }

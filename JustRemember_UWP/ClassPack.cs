@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.Serialization.Json;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
+using Windows.UI.Xaml.Controls;
 
 namespace JustRemember_UWP
 {
@@ -93,7 +97,7 @@ namespace JustRemember_UWP
 		public static bool initialize;
 		public static List<Note> notes;
 		public static List<SessionInfo> sessions;
-		public static Note selected;
+		public static SelectorItem selected;
 		public static bool isSmallLoaderMode;//Check if page is run in Match page... "OtherPage" frame
 		public static statInfo newStat;
         public static readonly string[] lang = new string[] { "en", "th" };
@@ -406,20 +410,54 @@ namespace JustRemember_UWP
 	public class SelectorItem
 	{
 		public selectorType Type { get; set; }
+
+        public string ItemType
+        {
+            get
+            {
+                return Type.ToString();
+            }
+        }
+
 		public string Name
 		{
 			get
 			{
 				if (content_ses != null)
 				{
-					return content_ses.LastTitle;
-				}
+                    return content_ses.LastTitle;
+                }
 				else
 				{
 					return content_note.Title;
 				}
 			}
 		}
+
+        public string Content
+        {
+            get
+            {
+                if (itSession)
+                {
+                    return "";
+                }
+                return content_note.Content;
+            }
+        }
+
+        public string Date
+        {
+            get
+            {
+                if (itNote)
+                {
+                    return "";
+                }
+                return content_ses.current.dateandTime;
+            }
+        }
+
 		public Note content_note;
 		public SessionInfo content_ses;
 
@@ -430,19 +468,19 @@ namespace JustRemember_UWP
 
 		public SelectorItem()
 		{
-			Type = selectorType.note;
+			Type = selectorType.Note;
 			content_note = new Note();
 		}
 
 		public SelectorItem(Note content)
 		{
-			Type = selectorType.note;
+			Type = selectorType.Note;
 			content_note = content;
 		}
 
 		public SelectorItem(SessionInfo content)
 		{
-			Type = selectorType.session;
+			Type = selectorType.Session;
 			content_ses = content;
 		}
 
@@ -460,20 +498,145 @@ namespace JustRemember_UWP
 		{
 			return new SelectorItem();
 		}
-	}
+
+        //Binding data
+        public Visibility isItNote
+        {
+            get
+            {
+                return Type == selectorType.Note ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        public Visibility isItSession
+        {
+            get
+            {
+                return Type == selectorType.Session ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        bool itSession { get { return Type == selectorType.Session; } }
+        bool itNote { get { return Type == selectorType.Note; } }
+
+        //Session data
+        public string timeDetail
+        {
+            get
+            {
+                if (itNote)
+                {
+                    return "";
+                }
+                return content_ses.current.timeProgress;
+            }
+        }
+
+        public string progressDetail
+        {
+            get
+            {
+                if (itNote)
+                {
+                    return "";
+                }
+                return $"{content_ses.currentAt}/{content_ses.current.totalWords} (x:{content_ses.current.totalWrong})";
+            }
+        }
+
+        public int timePG
+        {
+            get
+            {
+                if (itNote)
+                {
+                    return 0;
+                }
+                return content_ses.current.timeInPercent;
+            }
+        }
+
+        public int wordPG
+        {
+            get
+            {
+                if (itNote)
+                {
+                    return 0;
+                }
+                float cache = (content_ses.currentAt / content_ses.current.totalWords) * 100;
+                return Convert.ToInt32(cache);
+            }
+        }
+
+        public Visibility isClickMode
+        {
+            get
+            {
+                if (itNote)
+                {
+                    return Visibility.Collapsed;
+                }
+                if (content_ses.choiceType != selectMode.styleC)
+                {
+                    return Visibility.Visible;
+                }
+                return Visibility.Collapsed;
+            }
+        }
+
+        public Visibility isWriteMode
+        {
+            get
+            {
+                if (itNote) { return Visibility.Collapsed; }
+                if (content_ses.choiceType == selectMode.styleC)
+                {
+                    return Visibility.Visible;
+                }
+                return Visibility.Collapsed;
+            }
+        }
+
+        public string ch1 { get { if (itNote) { return ""; } if (content_ses.current.totalChoice >= 1) { return content_ses.choiceList[0]; } return ""; } }
+        public string ch2 { get { if (itNote) { return ""; } if (content_ses.current.totalChoice >= 2) { return content_ses.choiceList[1]; } return ""; } }
+        public string ch3 { get { if (itNote) { return ""; } if (content_ses.current.totalChoice >= 3) { return content_ses.choiceList[2]; } return ""; } }
+        public string ch4 { get { if (itNote) { return ""; } if (content_ses.current.totalChoice >= 4) { return content_ses.choiceList[3]; } return ""; } }
+        public string ch5 { get { if (itNote) { return ""; } if (content_ses.current.totalChoice >= 5) { return content_ses.choiceList[4]; } return ""; } }
+
+        public SolidColorBrush ch1Col { get { if (itNote) { return null; } if (content_ses.current.totalChoice >= 1) { return content_ses.lastChoicesHide[1] ? new SolidColorBrush((Color)App.Current.Resources["SystemAccentColor"]) : new SolidColorBrush((Color)App.Current.Resources["BackButtonForegroundThemeBrush"]); } return null; } }
+        public SolidColorBrush ch2Col { get { if (itNote) { return null; } if (content_ses.current.totalChoice >= 2) { return content_ses.lastChoicesHide[2] ? new SolidColorBrush((Color)App.Current.Resources["SystemAccentColor"]) : new SolidColorBrush((Color)App.Current.Resources["BackButtonForegroundThemeBrush"]); } return null; } }
+        public SolidColorBrush ch3Col { get { if (itNote) { return null; } if (content_ses.current.totalChoice >= 3) { return content_ses.lastChoicesHide[3] ? new SolidColorBrush((Color)App.Current.Resources["SystemAccentColor"]) : new SolidColorBrush((Color)App.Current.Resources["BackButtonForegroundThemeBrush"]); } return null; } }
+        public SolidColorBrush ch4Col { get { if (itNote) { return null; } if (content_ses.current.totalChoice >= 4) { return content_ses.lastChoicesHide[4] ? new SolidColorBrush((Color)App.Current.Resources["SystemAccentColor"]) : new SolidColorBrush((Color)App.Current.Resources["BackButtonForegroundThemeBrush"]); } return null; } }
+        public SolidColorBrush ch5Col { get { if (itNote) { return null; } if (content_ses.current.totalChoice >= 5) { return content_ses.lastChoicesHide[5] ? new SolidColorBrush((Color)App.Current.Resources["SystemAccentColor"]) : new SolidColorBrush((Color)App.Current.Resources["BackButtonForegroundThemeBrush"]); } return null; } }
+
+        public Visibility ch1Hid { get { if (itNote) { return Visibility.Collapsed; } if (content_ses.current.totalChoice >= 1) { return Visibility.Visible; } return Visibility.Collapsed; } }
+        public Visibility ch2Hid { get { if (itNote) { return Visibility.Collapsed; } if (content_ses.current.totalChoice >= 2) { return Visibility.Visible; } return Visibility.Collapsed; } }
+        public Visibility ch3Hid { get { if (itNote) { return Visibility.Collapsed; } if (content_ses.current.totalChoice >= 3) { return Visibility.Visible; } return Visibility.Collapsed; } }
+        public Visibility ch4Hid { get { if (itNote) { return Visibility.Collapsed; } if (content_ses.current.totalChoice >= 4) { return Visibility.Visible; } return Visibility.Collapsed; } }
+        public Visibility ch5Hid { get { if (itNote) { return Visibility.Collapsed; } if (content_ses.current.totalChoice >= 5) { return Visibility.Visible; } return Visibility.Collapsed; } }
+
+        public string writeInput
+        {
+            get
+            {
+                if (itNote) { return ""; }
+                return content_ses.lastChoices[0];
+            }
+        }
+    }
 
 	public enum selectorType
 	{
-		file,
-		note,
-		session
+		Note,
+		Session
 	}
 
 	public struct Note
 	{
 		public string Title;
 		public string Content;
-
+        
 		public Note(string content, string title)
 		{
 			Title = title;
@@ -590,8 +753,13 @@ namespace JustRemember_UWP
 		public int lastCorrect;
 		public List<textlist> lastTextList = new List<textlist>();
 		public List<string> choiceList = new List<string>();
-		public float progressFillAmount;
+		public double progressFillAmount;
 		public List<string> lastChoices = new List<string>();
+        public List<bool> lastChoicesHide = new List<bool>();
+        public selectMode choiceType;
+        //public string displayText;
+        public Note nowPlayed;
+        public Match.mode lastMode;
 
 		public SessionInfo()
 		{
@@ -602,71 +770,128 @@ namespace JustRemember_UWP
 			choiceList = new List<string>();
 			progressFillAmount = 0;
 			lastChoices = new List<string>();
+            //displayText = "";
+            choiceType = selectMode.styleA;
+            lastChoicesHide = new List<bool>();
+            nowPlayed = new Note();
+            lastMode = Match.mode.normal;
 		}
-        
-		//public SessionInfo(MainMerge now)
-		//{
-		//	current = now.newStat;
-		//	currentAt = now.currentProgress;
-		//	lastCorrect = now.currentValidChoice;
-		//	lastTextList = now.textList;
-		//	choiceList = now.choiceList;
-		//	LastTitle = now.mainPageTitleText.text;
-		//	progressFillAmount = now.mainPageProgressbar.fillAmount;
-		//	var items = MainMerge.n.mainPageChoiceParent.GetComponentsInChildren<Text>();
-		//	if (items != null)
-		//	{
-		//		foreach (var i in items)
-		//		{
-		//			lastChoices.Add(i.text);
-		//		}
-		//	}
-		//	//for (int i = 0; i < 10; i++)
-		//	//{
-		//	//	GameObject go = GameObject.Find("CHSpecific" + i);
-		//	//	if (go != null)
-		//	//	{
-		//	//		Text ct = go.transform.FindChild("ChoiceText").GetComponent<Text>();
-		//	//		lastChoices.Add(ct.text);
-		//	//	}
-		//	//}
-		//}
 
+        public SessionInfo(Match info, statInfo currentStat)
+        {
+            current = currentStat;
+            currentAt = info.currentProgress;
+            lastCorrect = info.currentValidChoice;
+            lastTextList = info.textList;
+            choiceList = info.choiceList;
+            progressFillAmount = info.progressCounter.Value;
+            //displayText = info.dpTxt.Text;
+            nowPlayed = info.nowPlaying;
+            lastMode = info.currentChoiceMode;
+            //Find current choice style
+            if (info.choicesListHolder.Visibility == Windows.UI.Xaml.Visibility.Visible)
+            {
+                choiceType = selectMode.styleA;
+            }
+            else if (info.choicesListHolderB.Visibility == Windows.UI.Xaml.Visibility.Visible)
+            {
+                choiceType = selectMode.styleB;
+            }
+            else if (info.choicesListHolderC.Visibility == Windows.UI.Xaml.Visibility.Visible)
+            {
+                choiceType = selectMode.styleC;
+            }
+            switch (choiceType)
+            {
+                case selectMode.styleA:
+                    lastChoicesHide = new List<bool>();
+                    lastChoices = new List<string>();
+                    lastChoicesHide.Add(info.chImportant.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch0.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch1.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch2.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch3.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch4.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoices.Add(info.ch0.Content.ToString());
+                    lastChoices.Add(info.ch1.Content.ToString());
+                    lastChoices.Add(info.ch2.Content.ToString());
+                    lastChoices.Add(info.ch3.Content.ToString());
+                    lastChoices.Add(info.ch4.Content.ToString());
+                    break;
+                case selectMode.styleB:
+                    lastChoicesHide = new List<bool>();
+                    lastChoices = new List<string>();
+                    lastChoicesHide.Add(info.chImportantb.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch0b.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch1b.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch2b.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch3b.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.ch4b.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoices.Add(info.choiceInfob.Text);
+                    break;
+                case selectMode.styleC:
+                    lastChoicesHide = new List<bool>();
+                    lastChoices = new List<string>();
+                    lastChoicesHide.Add(info.chImportantc.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.resultWrite.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoicesHide.Add(info.resultWriteSubmit.Visibility == Windows.UI.Xaml.Visibility.Visible);
+                    lastChoices.Add(info.resultWrite.Text);
+                    break;
+            }
+        }
+        
 		public static implicit operator SessionInfo(SelectorItem input)
 		{
 			return input.content_ses;
 		} 
 
-		public static void Save(List<SessionInfo> now)
+		public static async void Save(List<SessionInfo> now)
 		{
-			string path = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "\\Session.xml");
-            DataContractJsonSerializer jsoninfo = new DataContractJsonSerializer(typeof(List<SessionInfo>));
-            //string content = JsonUtility.ToJson(now);
-            using (Stream write = new FileStream(path, FileMode.CreateNew))
+            StorageFolder folder = ApplicationData.Current.RoamingFolder;
+            var file = await folder.TryGetItemAsync("session.json");
+            if (file == null)
             {
-                jsoninfo.WriteObject(write, now);
-                //write.Write(xser.ser);
+                //not exist
+                file = await folder.CreateFileAsync("session.json");
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<SessionInfo>));
+                using (Stream write = new FileStream(file.Path,FileMode.OpenOrCreate))
+                {
+                    ser.WriteObject(write, now);
+                }
+            }
+            else
+            {
+                //exist
+                await file.DeleteAsync();
+                file = await folder.CreateFileAsync("session.json");
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<SessionInfo>));
+                using (Stream write = new FileStream(file.Path, FileMode.OpenOrCreate))
+                {
+                    ser.WriteObject(write, now);
+                }
             }
 		}
 
-        public static List<SessionInfo> Load()
+        public static async void Load()
         {
-            string path = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "\\Session.xml");
-            if (!File.Exists(path))
+            StorageFolder folder = ApplicationData.Current.RoamingFolder;
+            var file = await folder.TryGetItemAsync("session.json");
+            if (file == null)
             {
-                return new List<SessionInfo>();
+                Utilities.sessions = new List<SessionInfo>();
             }
-            List<SessionInfo> allses = new List<SessionInfo>();
-            //SessionInfo sif = new SessionInfo();
-            DataContractJsonSerializer info = new DataContractJsonSerializer(typeof(List<SessionInfo>));
-            using (Stream stream = new FileStream(path, FileMode.Open))
+            else
             {
-                allses = (List<SessionInfo>)info.ReadObject(stream);
+                List<SessionInfo> allses = new List<SessionInfo>();
+                DataContractJsonSerializer info = new DataContractJsonSerializer(typeof(List<SessionInfo>));
+                using (Stream stream = new FileStream(file.Path, FileMode.Open))
+                {
+                    allses = (List<SessionInfo>)info.ReadObject(stream);
+                }
+                Utilities.sessions = allses;
             }
-            Utilities.sessions = allses;
-            return allses;
         }
-	}
+    }
     
 	public enum Operator
 	{

@@ -77,13 +77,14 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="wrongCounter" Grid.Column="1" TextWrapping="Wrap" Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" />
             <TextBlock x:Name="timeCounterText" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="progressCounter" Grid.Column="1" VerticalAlignment="Top" Height="12" Value="50"/>
+            <ProgressBar x:FieldModifier="public" x:Name="progressCounter" Grid.Column="1" VerticalAlignment="Top" Height="12" Value="50"/>
         </Grid>
         <SplitView x:Name="pauseMenu" IsPaneOpen="True" Margin="0,50,0,0" CompactPaneLength="50" PaneBackground="#FF171717" PaneClosed="pauseMenu_PaneClosed" KeyDown="pauseMenu_KeyDown">
             <SplitView.Pane>
                 <Grid x:Name="menuBG" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
                     <ScrollViewer Grid.Row="0">
@@ -134,6 +135,17 @@
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <Button x:Name="saveSes" Grid.Row="5" Grid.Column="0" Click="save2Session_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}">
+                            <SymbolIcon Symbol="Save"/>
+                        </Button>
+                        <TextBlock Grid.Row="5" Grid.Column="1" x:Uid="matchSS" Text="Save this session" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                        <Button x:Name="saveSes2" Click="save2Session_Click" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                         <Button x:Name="contentSizeControl" Grid.Column="0" Content="&#xE8D3;" Click="Button_Click" FontFamily="Segoe MDL2 Assets" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Background="{ThemeResource AppBarItemBackgroundThemeBrush}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"/>
                         <Slider x:Name="contentSlider" Grid.Column="1" Margin="10,0" x:Uid="matchCon" Header="Content size" Loaded="contentSlider_Loaded" ValueChanged="contentSlider_ValueChanged" GotFocus="contentSlider_GotFocus"/>
                     </Grid>
@@ -150,23 +162,23 @@
                 </Grid.RowDefinitions>
                 <!--Text content-->
                 <ScrollViewer x:Name="displayTextScroll"  Grid.Column="0" Grid.Row="0">
-                    <TextBlock x:Name="dpTxt" Text="" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>
+                    <TextBlock x:Name="dpTxt" x:FieldModifier="public" Text="" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>
                 </ScrollViewer>
 
-                <ItemsControl x:Name="choicesListHolder"  Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button Click="ch0_Click" Margin="4" x:Name="ch0" Content="choice 0" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button Click="ch1_Click" Margin="4" x:Name="ch1" Content="choice 1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button Click="ch2_Click" Margin="4" x:Name="ch2" Content="choice 2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button Click="ch3_Click" Margin="4" x:Name="ch3" Content="choice 3" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button Click="ch4_Click" Margin="4" x:Name="ch4" Content="choice 4" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button Click="chImportant_Click" Margin="4" x:Name="chImportant" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                <ItemsControl x:FieldModifier="public" x:Name="choicesListHolder"  Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button x:FieldModifier="public" Click="ch0_Click" Margin="4" x:Name="ch0" Content="choice 0" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                    <Button x:FieldModifier="public" Click="ch1_Click" Margin="4" x:Name="ch1" Content="choice 1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                    <Button x:FieldModifier="public" Click="ch2_Click" Margin="4" x:Name="ch2" Content="choice 2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                    <Button x:FieldModifier="public" Click="ch3_Click" Margin="4" x:Name="ch3" Content="choice 3" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                    <Button x:FieldModifier="public" Click="ch4_Click" Margin="4" x:Name="ch4" Content="choice 4" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                    <Button x:FieldModifier="public" Click="chImportant_Click" Margin="4" x:Name="chImportant" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
                 </ItemsControl>
-                <Grid x:Name="choicesListHolderB" Grid.Row="0" Grid.Column="1">
+                <Grid x:FieldModifier="public" x:Name="choicesListHolderB" Grid.Row="0" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" x:Name="choiceInfob"/>
+                    <TextBlock x:FieldModifier="public" Grid.Row="0" x:Name="choiceInfob"/>
                     <Grid Grid.Row="1" HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -175,22 +187,19 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Click="ch0_Click" Margin="4" x:Name="ch0b" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                        <Button Grid.Column="1" Click="ch1_Click" Margin="4" x:Name="ch1b" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                        <Button Grid.Column="2" Click="ch2_Click" Margin="4" x:Name="ch2b" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                        <Button Grid.Column="3" Click="ch3_Click" Margin="4" x:Name="ch3b" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                        <Button Grid.Column="4" Click="ch4_Click" Margin="4" x:Name="ch4b" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                        <Button Grid.Column="3" Click="chImportant_Click" Margin="4" x:Name="chImportantb" Content="&gt;&gt;&gt;" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                        <Button x:FieldModifier="public" Grid.Column="0" Click="ch0_Click" Margin="4" x:Name="ch0b" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                        <Button x:FieldModifier="public" Grid.Column="1" Click="ch1_Click" Margin="4" x:Name="ch1b" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                        <Button x:FieldModifier="public" Grid.Column="2" Click="ch2_Click" Margin="4" x:Name="ch2b" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                        <Button x:FieldModifier="public" Grid.Column="3" Click="ch3_Click" Margin="4" x:Name="ch3b" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                        <Button x:FieldModifier="public" Grid.Column="4" Click="ch4_Click" Margin="4" x:Name="ch4b" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                        <Button x:FieldModifier="public" Grid.Column="3" Click="chImportant_Click" Margin="4" x:Name="chImportantb" Content="&gt;&gt;&gt;" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
                     </Grid>
-                    <!--<StackPanel Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal" Height="40" HorizontalAlignment="Center">
-                        
-                    </StackPanel>-->
                 </Grid>
-                <StackPanel x:Name="choicesListHolderC" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                    <TextBox x:Name="resultWrite" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250" FontSize="24" Paste="resultWrite_Paste" KeyDown="resultWrite_KeyDown"></TextBox>
-                    <Button x:Name="resultWriteSubmit" VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Margin="0,10,0,0" Content="&#xE10B;" FontSize="26" Height="40" FontFamily="Segoe MDL2 Assets" Click="resultWriteSubmit_Click"/>
-                    <TextBlock x:Name="debugInfo" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                    <Button Click="chImportant_Click" Margin="4" x:Name="chImportantc" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
+                <StackPanel x:FieldModifier="public" x:Name="choicesListHolderC" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                    <TextBox x:FieldModifier="public" x:Name="resultWrite" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250" FontSize="24" Paste="resultWrite_Paste" KeyDown="resultWrite_KeyDown"/>
+                    <Button x:Name="resultWriteSubmit" x:FieldModifier="public" VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Margin="0,10,0,0" Content="&#xE10B;" FontSize="26" Height="40" FontFamily="Segoe MDL2 Assets" Click="resultWriteSubmit_Click"/>
+                    <TextBlock Visibility="Collapsed" x:Name="debugInfo" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+                    <Button x:FieldModifier="public" Click="chImportant_Click" Margin="4" x:Name="chImportantc" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
                 </StackPanel>
             </Grid>
         </SplitView>

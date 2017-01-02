@@ -447,6 +447,15 @@ If you want to reset. Application will exit"</value>
     <value>Quit</value>
   </data>
   <data name="delMode" xml:space="preserve">
-    <value>Delete mode. Double tap any file to delete</value>
+    <value>Delete mode. Double tap item to delete</value>
+  </data>
+  <data name="matchSS" xml:space="preserve">
+    <value>Save this session</value>
+  </data>
+  <data name="note0" xml:space="preserve">
+    <value>No session saved</value>
+  </data>
+  <data name="note1" xml:space="preserve">
+    <value>Total session</value>
   </data>
 </root>

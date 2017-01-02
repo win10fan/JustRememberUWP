@@ -52,25 +52,25 @@
         </trans-unit>
         <trans-unit id="matchEx.Text" translate="yes" xml:space="preserve">
           <source>Exit</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ออก</target>
+          <target state="translated" state-qualifier="tm-suggestion">ออก</target>
         </trans-unit>
         <trans-unit id="matchLP1" translate="yes" xml:space="preserve">
           <source>You about to lose this progress.
 Are you sure?</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">คุณจะสูญเสียความคืบหน้า 
+          <target state="translated" state-qualifier="mt-suggestion">คุณจะสูญเสียความคืบหน้า 
 คุณแน่ใจหรือไม่</target>
         </trans-unit>
         <trans-unit id="matchMain.Text" translate="yes" xml:space="preserve">
           <source>Main menu</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">เมนูหลัก</target>
+          <target state="translated" state-qualifier="tm-suggestion">เมนูหลัก</target>
         </trans-unit>
         <trans-unit id="matchOth.Text" translate="yes" xml:space="preserve">
           <source>Note</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">บันทึกย่อ</target>
+          <target state="translated" state-qualifier="tm-suggestion">บันทึกย่อ</target>
         </trans-unit>
         <trans-unit id="matchPaused" translate="yes" xml:space="preserve">
           <source>Paused...</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">หยุดชั่วคราว...</target>
+          <target state="translated" state-qualifier="mt-suggestion">หยุดชั่วคราว...</target>
         </trans-unit>
         <trans-unit id="matchRes.Text" translate="yes" xml:space="preserve">
           <source>Restart match</source>
@@ -90,7 +90,7 @@ Are you sure?</source>
         </trans-unit>
         <trans-unit id="matchTimeup2" translate="yes" xml:space="preserve">
           <source>Try again?</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ลองอีกครั้งหรือไม่?</target>
+          <target state="translated" state-qualifier="tm-suggestion">ลองอีกครั้งหรือไม่?</target>
         </trans-unit>
         <trans-unit id="matchWarn1" translate="yes" xml:space="preserve">
           <source>Warning!</source>
@@ -118,7 +118,7 @@ Press "Continue" if you don't care.</source>
         </trans-unit>
         <trans-unit id="noteSave2" translate="yes" xml:space="preserve">
           <source>Do you want to save this change?</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">คุณต้องการบันทึกการเปลี่ยนแปลงนี้หรือไม่</target>
+          <target state="translated" state-qualifier="mt-suggestion">คุณต้องการบันทึกการเปลี่ยนแปลงนี้หรือไม่</target>
         </trans-unit>
         <trans-unit id="prenote.Text" translate="yes" xml:space="preserve">
           <source>Prenote</source>
@@ -130,7 +130,7 @@ Press "Continue" if you don't care.</source>
         </trans-unit>
         <trans-unit id="start.Text" translate="yes" xml:space="preserve">
           <source>Start</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">เริ่ม</target>
+          <target state="translated" state-qualifier="tm-suggestion">เริ่ม</target>
         </trans-unit>
         <trans-unit id="addNL_InvName" translate="yes" xml:space="preserve">
           <source>Name can't contains: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</source>
@@ -237,9 +237,8 @@ You can add note at editor</source>
         <trans-unit id="resetMSG5" translate="yes" xml:space="preserve">
           <source>Everything will reset to default like reinstall.
 If you want to reset. Application will exit"</source>
-          <target state="needs-review-translation">ทุกอย่างจะถูกลบทิ้งเหมือนเริ่มต้นใหม่
+          <target state="translated">ทุกอย่างจะถูกลบทิ้งเหมือนเริ่มต้นใหม่
 เมื่อทุกอย่างเสร็จ แอปจะเด้งออก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="runon" translate="yes" xml:space="preserve">
           <source>Running on</source>
@@ -450,8 +449,20 @@ If you want to reset. Application will exit"</source>
           <target state="translated">เขียน</target>
         </trans-unit>
         <trans-unit id="delMode" translate="yes" xml:space="preserve">
-          <source>Delete mode. Double tap any file to delete</source>
+          <source>Delete mode. Double tap item to delete</source>
           <target state="translated">โหมดลบไฟล์. แตะไฟล์ 2 ครั้ง เพื่อลบ</target>
+        </trans-unit>
+        <trans-unit id="matchSS" translate="yes" xml:space="preserve">
+          <source>Save this session</source>
+          <target state="translated">บันทึกไว้ภายหลัง</target>
+        </trans-unit>
+        <trans-unit id="note0" translate="yes" xml:space="preserve">
+          <source>No session saved</source>
+          <target state="translated">ไม่มีเซสชั่นบันทึกอยู่</target>
+        </trans-unit>
+        <trans-unit id="note1" translate="yes" xml:space="preserve">
+          <source>Total session</source>
+          <target state="translated">เซสชั่นที่บันทึกไว้</target>
         </trans-unit>
       </group>
     </body>
