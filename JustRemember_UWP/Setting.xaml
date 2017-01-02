@@ -29,15 +29,26 @@
                             <ComboBoxItem Content="ภาษาไทย"/>
                         </ComboBox>
                         <TextBlock x:Uid="setCStyle" Text="Choice selection style" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
-                        <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                            <RadioButton x:Name="choiceStyleA" Loaded="choiceStyleA_Loaded" x:Uid="setCS1" Content="Center" HorizontalAlignment="Left" Width="25"/>
-                            <RadioButton HorizontalAlignment="Center" Margin="10,0,0,0" x:Uid="setCS2" Content="Bottom" x:Name="choiceStyleB" Loaded="choiceStyleB_Loaded"/>
-                            <RadioButton HorizontalAlignment="Center" Margin="10,0,0,0" x:Uid="setCS3" x:Name="defWrite" Content="Write" Loaded="difWrite_Loaded"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Tapped="Image_Tapped" Source="Assets/DesignA.png" Stretch="Fill" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Image Tapped="Image_Tapped_1" Source="Assets/DesignB.png" Stretch="Fill" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0"/>                            
-                        </StackPanel>
+                        <ListBox Loaded="ListBox_Loaded">
+                            <ListBoxItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Assets/DesignA.png" Stretch="Fill" Width="60" Height="60"/>
+                                    <TextBlock x:Uid="setCS1" Text="Center" VerticalAlignment="Center" FontSize="20" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Assets/DesignB.png" Stretch="Fill" Width="60" Height="60"/>
+                                    <TextBlock x:Uid="setCS2" Text="Bottom" VerticalAlignment="Center" FontSize="20" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Assets/DesignC.png" Stretch="Fill" Width="60" Height="60"/>
+                                    <TextBlock x:Uid="setCS3" Text="Write" VerticalAlignment="Center" FontSize="20" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                        </ListBox>
                         <TextBlock x:Uid="setFont" Text="Selected choice result display" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>
                         <Slider Margin="5" HorizontalAlignment="Left" Width="150" x:Name="cdpSize" Loaded="cdpSize_Loaded" ValueChanged="cdpSize_ValueChanged"/>
                         <TextBlock x:Uid="setDefSeed" Text="Default seed" Margin="0,10" FontSize="18" Foreground="{ThemeResource ButtonForeground}"/>

@@ -39,7 +39,14 @@ namespace JustRemember_UWP
 				}
 			}
 			listView.ItemsSource = selectors;
-            itemCount.Text = selectors.Count == 0 ? App.language.GetString("fileNo") : $"{App.language.GetString("fileYes")}: {selectors.Count}";
+            if (deleteMode.IsChecked == true)
+            {
+                itemCount.Text = App.language.GetString("delMode");
+            }
+            else if (deleteMode.IsChecked == false)
+            {
+                itemCount.Text = selectors.Count == 0 ? App.language.GetString("fileNo") : $"{App.language.GetString("fileYes")}: {selectors.Count}";
+            }
 		}
 
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -99,6 +106,16 @@ namespace JustRemember_UWP
                     Frame.Navigate(typeof(Match));
                 }
             }
+        }
+
+        private void deleteMode_Checked(object sender, RoutedEventArgs e)
+        {
+            itemCount.Text = App.language.GetString("delMode");
+        }
+
+        private void deleteMode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            itemCount.Text = Utilities.notes.Count == 0 ? App.language.GetString("fileNo") : $"{App.language.GetString("fileYes")}: {Utilities.notes.Count}";
         }
     }
 }

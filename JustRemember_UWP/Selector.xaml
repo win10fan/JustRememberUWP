@@ -49,7 +49,7 @@
             </CommandBar.Content>
             <AppBarButton x:Name="openEditor" Icon="Edit" x:Uid="fileEditor" Label="Editor" Width="60" Click="AppBarButton_Click_1"/>
             <AppBarButton Icon="Refresh" Width="60" x:Uid="fileRe" Label="Refresh" Click="AppBarButton_Click"/>
-            <AppBarToggleButton x:Name="deleteMode" x:Uid="fileDel" Width="60" Icon="Delete" Label="Delete"/>
+            <AppBarToggleButton Checked="deleteMode_Checked" Unchecked="deleteMode_Unchecked" x:Name="deleteMode" x:Uid="fileDel" Width="60" Icon="Delete" Label="Delete"/>
             <AppBarButton x:Name="openFile" Width="60" x:Uid="noteOpen" HorizontalAlignment="Left" Icon="Forward" Label="Open" VerticalAlignment="Top" Click="openFile_Click" Visibility="Collapsed"/>
         </CommandBar>
     </Page.BottomAppBar>

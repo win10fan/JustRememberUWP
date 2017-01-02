@@ -170,7 +170,7 @@ Press "Continue" if you don't care.</source>
         </trans-unit>
         <trans-unit id="fileTitle.Text" translate="yes" xml:space="preserve">
           <source>Choose to begin</source>
-          <target state="translated">เลือกไฟล์เพื่อเริ่มต้น</target>
+          <target state="translated">เลือกไฟล์เพื่อเริ่ม</target>
         </trans-unit>
         <trans-unit id="fileNo" translate="yes" xml:space="preserve">
           <source>No user note.
@@ -268,18 +268,6 @@ If you want to reset. Application will exit"</source>
         <trans-unit id="setCheat.Text" translate="yes" xml:space="preserve">
           <source>As all choice stay same. It equally cheat. All stat will not save.</source>
           <target state="translated">สถิติจะไม่ถูกบันทึก</target>
-        </trans-unit>
-        <trans-unit id="setCS1.Content" translate="yes" xml:space="preserve">
-          <source>Center</source>
-          <target state="translated">กึ่งกลาง</target>
-        </trans-unit>
-        <trans-unit id="setCS2.Content" translate="yes" xml:space="preserve">
-          <source>Bottom</source>
-          <target state="translated">ล่าง</target>
-        </trans-unit>
-        <trans-unit id="setCS3.Content" translate="yes" xml:space="preserve">
-          <source>Write</source>
-          <target state="translated">เขียน</target>
         </trans-unit>
         <trans-unit id="setDefSeed.Text" translate="yes" xml:space="preserve">
           <source>Default seed</source>
@@ -448,6 +436,22 @@ If you want to reset. Application will exit"</source>
         <trans-unit id="mainQuit" translate="yes" xml:space="preserve">
           <source>Quit</source>
           <target state="translated">ออก</target>
+        </trans-unit>
+        <trans-unit id="setCS1.Text" translate="yes" xml:space="preserve">
+          <source>Center</source>
+          <target state="translated">กดคำตอบ</target>
+        </trans-unit>
+        <trans-unit id="setCS2.Text" translate="yes" xml:space="preserve">
+          <source>Bottom</source>
+          <target state="translated">กดตัวเลข</target>
+        </trans-unit>
+        <trans-unit id="setCS3.Text" translate="yes" xml:space="preserve">
+          <source>Write</source>
+          <target state="translated">เขียน</target>
+        </trans-unit>
+        <trans-unit id="delMode" translate="yes" xml:space="preserve">
+          <source>Delete mode. Double tap any file to delete</source>
+          <target state="translated">โหมดลบไฟล์. แตะไฟล์ 2 ครั้ง เพื่อลบ</target>
         </trans-unit>
       </group>
     </body>

@@ -453,31 +453,7 @@ namespace JustRemember_UWP
                 noStatNotif.Text = App.language.GetString("nostat");
             }
         }
-
-        private void choiceStyleA_Loaded(object sender, RoutedEventArgs e)
-        {
-            choiceStyleA.IsChecked = currentConfig.choiceStyle == selectMode.styleA;
-            choiceStyleA.Checked += ChoiceStyleA_Checked;
-        }
-
-        private void ChoiceStyleA_Checked(object sender, RoutedEventArgs e)
-        {
-            currentConfig.choiceStyle = selectMode.styleA;
-            Settings.Save(currentConfig);
-        }
-
-        private void choiceStyleB_Loaded(object sender, RoutedEventArgs e)
-        {
-            choiceStyleB.IsChecked = currentConfig.choiceStyle == selectMode.styleB;
-            choiceStyleB.Checked += ChoiceStyleB_Checked;
-        }
-
-        private void ChoiceStyleB_Checked(object sender, RoutedEventArgs e)
-        {
-            currentConfig.choiceStyle = selectMode.styleB;
-            Settings.Save(currentConfig);
-        }
-
+        
         private async void resetSetting_Click(object sender, RoutedEventArgs e)
         {
             await settingReset.ShowAsync();
@@ -587,37 +563,26 @@ namespace JustRemember_UWP
         {
             await allReset.ShowAsync();
         }
-
-        private void Image_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if (choiceStyleB.IsChecked == true)
-            {
-                choiceStyleA.IsChecked = true;
-                choiceStyleB.IsChecked = false;
-                defWrite.IsChecked = false;
-            }
-        }
-
-        private void Image_Tapped_1(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if (choiceStyleA.IsChecked == true)
-            {
-                choiceStyleB.IsChecked = true;
-                choiceStyleA.IsChecked = false;
-                defWrite.IsChecked = false;
-            }
-        }
-
-        private void difWrite_Loaded(object sender, RoutedEventArgs e)
-        {
-            defWrite.IsChecked = currentConfig.choiceStyle == selectMode.styleC;
-            defWrite.Checked += difWrite_Checked;
-        }
-
+        
         private void difWrite_Checked(object sender, RoutedEventArgs e)
         {
             currentConfig.choiceStyle = selectMode.styleC;
             Settings.Save(currentConfig);
+        }
+        
+        private void ListBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ListBox)sender).SelectedIndex = (int)currentConfig.choiceStyle;
+            ((ListBox)sender).SelectionChanged += Setting_SelectionChanged;
+        }
+
+        private void Setting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ListBox)sender).SelectedIndex >= 0)
+            {
+                currentConfig.choiceStyle = (selectMode)((ListBox)sender).SelectedIndex;
+                Settings.Save(currentConfig);
+            }
         }
     }
 }

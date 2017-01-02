@@ -133,7 +133,7 @@
     <value>รีเฟรช</value>
   </data>
   <data name="fileTitle.Text" xml:space="preserve">
-    <value>เลือกไฟล์เพื่อเริ่มต้น</value>
+    <value>เลือกไฟล์เพื่อเริ่ม</value>
   </data>
   <data name="fileNo" xml:space="preserve">
     <value>ไม่พบบันทึกใดๆ.
@@ -205,15 +205,6 @@
   </data>
   <data name="setCheat.Text" xml:space="preserve">
     <value>สถิติจะไม่ถูกบันทึก</value>
-  </data>
-  <data name="setCS1.Content" xml:space="preserve">
-    <value>กึ่งกลาง</value>
-  </data>
-  <data name="setCS2.Content" xml:space="preserve">
-    <value>ล่าง</value>
-  </data>
-  <data name="setCS3.Content" xml:space="preserve">
-    <value>เขียน</value>
   </data>
   <data name="setDefSeed.Text" xml:space="preserve">
     <value>รหัสเริ่มต้น</value>
@@ -340,5 +331,17 @@
   </data>
   <data name="mainQuit" xml:space="preserve">
     <value>ออก</value>
+  </data>
+  <data name="setCS1.Text" xml:space="preserve">
+    <value>กดคำตอบ</value>
+  </data>
+  <data name="setCS2.Text" xml:space="preserve">
+    <value>กดตัวเลข</value>
+  </data>
+  <data name="setCS3.Text" xml:space="preserve">
+    <value>เขียน</value>
+  </data>
+  <data name="delMode" xml:space="preserve">
+    <value>โหมดลบไฟล์. แตะไฟล์ 2 ครั้ง เพื่อลบ</value>
   </data>
 </root>

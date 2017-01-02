@@ -24,7 +24,7 @@
                     <Button x:Name="quitEditor" Click="quit_Click" Content="&#xE10A;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" FontFamily="Segoe MDL2 Assets" Height="50"/>
                 </StackPanel>
             </Grid>
-            <TextBox x:Name="textBox" TextWrapping="Wrap" Text="..." Margin="0,50,0,0" BorderThickness="0" />
+            <TextBox x:Name="textBox" IsTextPredictionEnabled="True" TextWrapping="Wrap" Text="..." Margin="0,50,0,0" BorderThickness="0" />
         </Grid>
         <Grid Visibility="Collapsed" x:Name="addNew_List_Parent">
             <Grid.Background>

@@ -341,13 +341,13 @@ If you want to reset. Application will exit"</value>
   <data name="setCheat.Text" xml:space="preserve">
     <value>As all choice stay same. It equally cheat. All stat will not save.</value>
   </data>
-  <data name="setCS1.Content" xml:space="preserve">
+  <data name="setCS1.Text" xml:space="preserve">
     <value>Center</value>
   </data>
-  <data name="setCS2.Content" xml:space="preserve">
+  <data name="setCS2.Text" xml:space="preserve">
     <value>Bottom</value>
   </data>
-  <data name="setCS3.Content" xml:space="preserve">
+  <data name="setCS3.Text" xml:space="preserve">
     <value>Write</value>
   </data>
   <data name="setCStyle.Text" xml:space="preserve">
@@ -445,5 +445,8 @@ If you want to reset. Application will exit"</value>
   </data>
   <data name="mainQuit" xml:space="preserve">
     <value>Quit</value>
+  </data>
+  <data name="delMode" xml:space="preserve">
+    <value>Delete mode. Double tap any file to delete</value>
   </data>
 </root>

@@ -159,13 +159,23 @@ namespace JustRemember_UWP
 
 		private async void newFile_Click(object sender, RoutedEventArgs e)
 		{
-            await newfilewarn.ShowAsync();
-		}
+            if (opennedFile != null || !string.IsNullOrEmpty(textBox.Text))
+            {
+                await newfilewarn.ShowAsync();
+                return;
+            }
+            textBox.Text = "";
+            opennedFile = null;
+        }
 
 		private void newlineInsert_Click(object sender, RoutedEventArgs e)
 		{
 			textBox.Text += Environment.NewLine;
-		}
+            if (textBox.Text.Length < 1) { return; }
+            textBox.SelectionStart = textBox.Text.Length;
+            textBox.SelectionLength = 0;
+
+        }
 
 		public static int[] fontSizes = new int[] { 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 36, 48, 72, 94, 108 };
 		public int selected

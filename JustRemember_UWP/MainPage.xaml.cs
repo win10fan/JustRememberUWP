@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.ApplicationModel;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,5 +39,18 @@ namespace JustRemember_UWP
 		{
 			Frame.Navigate(typeof(Prenote));
 		}
+
+        private async void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                //Thanks @RipleyWorp for the help here
+                statusBar.ProgressIndicator.ProgressValue = 0;
+                statusBar.ProgressIndicator.Text = Package.Current.DisplayName;
+                await statusBar.ProgressIndicator.ShowAsync();
+                //To here
+            }
+        }
     }
 }
