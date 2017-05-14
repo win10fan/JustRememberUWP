@@ -105,6 +105,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.2</Version>
     </PackageReference>
+    <PackageReference Include="SwipeListView">
+      <Version>1.2.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-us\Resources.resw" />
@@ -115,11 +118,8 @@
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
-    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\SampleModel.cs" />
-    <Compile Include="Models\Session.cs" />
-    <Compile Include="Models\Stat.cs" />
-    <Compile Include="Models\Textlist.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\LiveTileService.cs" />
@@ -130,6 +130,7 @@
     <Compile Include="ViewModels\ChooseDetailViewModel.cs" />
     <Compile Include="ViewModels\ChooseViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\NotesViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\ChooseDetailControl.xaml.cs">
       <DependentUpon>ChooseDetailControl.xaml</DependentUpon>

@@ -48,7 +48,7 @@
                     Margin="0,4,0,0"/>
                 <TextBlock
                     x:Uid="Settings_AboutDescription"
-                    Style="{ThemeResource BodyTextBlockStyle}"/>
+                   />
                 <HyperlinkButton
                     x:Uid="Settings_PrivacyTermsLink"
                     Margin="0,8,0,0"/>
