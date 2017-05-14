@@ -93,8 +93,14 @@
                             </ic:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </AppBarButton>
-                    
-                    
+
+                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open">
+                        <i:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Click">
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.SendToMatch}"/>
+                            </ic:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </AppBarButton>
                     <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Edit" Label="Edit">
                         <i:Interaction.Behaviors>
                             <ic:EventTriggerBehavior EventName="Click">

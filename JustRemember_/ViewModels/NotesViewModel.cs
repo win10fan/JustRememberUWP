@@ -17,6 +17,7 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls.Primitives;
 using JustRemember_.Views;
 using Windows.UI.Xaml.Input;
+using JustRemember_.Services;
 
 namespace JustRemember_.ViewModels
 {
@@ -63,6 +64,7 @@ namespace JustRemember_.ViewModels
         public ICommand EditSelected { get; private set; }
         public ICommand DeleteSelected { get; private set; }
         public ICommand DeSelect { get; private set; }
+        public ICommand SendToMatch { get; private set; }
 
         public NotesViewModel()
         {
@@ -73,6 +75,12 @@ namespace JustRemember_.ViewModels
             EditSelected = new RelayCommand<RoutedEventArgs>(EditSelectedItem);
             DeleteSelected = new RelayCommand<RoutedEventArgs>(DeleteSelectedItem);
             DeSelect = new RelayCommand<RoutedEventArgs>(DeSelectNote);
+            SendToMatch = new RelayCommand<RoutedEventArgs>(NavigateToMatchWithNote);
+        }
+
+        private void NavigateToMatchWithNote(RoutedEventArgs obj)
+        {
+            NavigationService.Navigate<Match>(Notes[wr.workAround.SelectedIndex]);
         }
 
         private void DeSelectNote(RoutedEventArgs obj)
@@ -86,14 +94,13 @@ namespace JustRemember_.ViewModels
             {
                 return;
             }
-            Debug.Write(Notes[wr.WAR.SelectedIndex].Title);
             await NoteModel.DeleteNote(Notes[wr.WAR.SelectedIndex].Title);
             Notes = await NoteModel.GetNotesAsync();
         }
 
         private void EditSelectedItem(RoutedEventArgs obj)
         {
-
+            //TODO:Kick user to Editor page
         }
 
         async void ImportTextFile(RoutedEventArgs obj)
@@ -125,7 +132,14 @@ namespace JustRemember_.ViewModels
         
         public void OnItemDoubleClick(DoubleTappedRoutedEventArgs obj)
         {
-            //OnPropertyChanged(nameof(IsSelected));
+            if (wr.workAround.SelectedIndex == -1)
+            {
+                return;
+            }
+            else
+            {
+                NavigationService.Navigate<Match>(Notes[wr.workAround.SelectedIndex]);
+            }
         }
 
         public async void Initialize()

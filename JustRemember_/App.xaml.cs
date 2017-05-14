@@ -4,6 +4,9 @@ using JustRemember_.Services;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using JustRemember_.Models;
+using JustRemember_.Helpers;
+using Windows.Storage;
 
 namespace JustRemember_
 {
@@ -24,7 +27,7 @@ namespace JustRemember_
             InitializeComponent();
 
             //Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
-            _activationService = new Lazy<ActivationService>(CreateActivationService);
+            _activationService = new Lazy<ActivationService>(CreateActivationService);            
         }
 
         /// <summary>
@@ -34,6 +37,12 @@ namespace JustRemember_
         /// <param name="e">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("appconfig");
+            if (item == null)
+            {
+                AppConfigModel config = new AppConfigModel();
+                config.Save();
+            }
             if (!e.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(e); 
