@@ -44,7 +44,13 @@ namespace JustRemember_.Views
             {
                 //Unknow??
             }
+            ViewModel.view = this;
             base.OnNavigatedTo(e);
+        }
+
+        public ScrollViewer displayTexts
+        {
+            get => displayTextScroll; set => displayTextScroll = value;
         }
     }
 }

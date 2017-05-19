@@ -11,6 +11,7 @@ namespace JustRemember_.Models
     public class SessionModel
     {
         public NoteModel SelectedNote { get; set; }
+        public bool noteWhiteSpaceMode { get; set; }
         public StatModel StatInfo { get; set; }
         public int currentChoice { get; set; }
         public List<TextList> texts { get; set; } = new List<TextList>();
@@ -56,11 +57,11 @@ namespace JustRemember_.Models
             return item;
         }
 
-        public static List<TextList> Extract(string content)
+        public static List<TextList> Extract(string content, out bool? mode)
         {
             List<PreDeterminiteText> basicSort = ExtractContent(content);
             PreDeterminiteText prev = null;
-            bool? mode = null; //True = Begin with white space on every items | false = Begin with text on all items
+            mode = null; //True = Begin with white space on every items | false = Begin with text on all items
             int lastID = 0;
             foreach (var pd in basicSort)
             {

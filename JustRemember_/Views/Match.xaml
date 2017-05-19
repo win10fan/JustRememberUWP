@@ -30,7 +30,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock VerticalAlignment="Center">
-                        <Run Text="{x:Bind ViewModel.current.currentChoice}"/>
+                        <Run Text="{x:Bind ViewModel.currentChoice}"/>
                         <Run Text="/"/>
                         <Run Text="{x:Bind ViewModel.current.StatInfo.NoteWordCount}"/>
                     </TextBlock>
@@ -46,19 +46,25 @@
         <!--Choice list-->
         <Grid Grid.Row="1">
             <ItemsControl Visibility="Visible" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Margin="4" Content="choice 0" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button Margin="4" Content="choice 1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button Margin="4" Content="choice 2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button Margin="4" Content="choice 3" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button Margin="4" Content="choice 4" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button Margin="4" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                <Button Margin="4" Content="{x:Bind ViewModel.Choice0Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice0Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                <Button Margin="4" Content="{x:Bind ViewModel.Choice1Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice1Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                <Button Margin="4" Content="{x:Bind ViewModel.Choice2Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice2Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                <Button Margin="4" Content="{x:Bind ViewModel.Choice3Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice3Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                <Button Margin="4" Content="{x:Bind ViewModel.Choice4Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice4Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+                <Button Margin="4" Content="&gt;&gt;&gt;" Visibility="{x:Bind ViewModel.choiceImDisplay, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
             </ItemsControl>
             <Grid Visibility="Collapsed" Grid.Row="0" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:FieldModifier="public" Grid.Row="0" x:Name="choiceInfob"/>
+                <TextBlock Grid.Row="0" x:Name="choiceInfob">
+                    <Run Text="1: "/><Run Text="{x:Bind ViewModel.Choice0Content}"/><LineBreak/>
+                    <Run Text="2: "/><Run Text="{x:Bind ViewModel.Choice1Content}"/><LineBreak/>
+                    <Run Text="3: "/><Run Text="{x:Bind ViewModel.Choice2Content}"/><LineBreak/>
+                    <Run Text="4: "/><Run Text="{x:Bind ViewModel.Choice3Content}"/><LineBreak/>
+                    <Run Text="5: "/><Run Text="{x:Bind ViewModel.Choice4Content}"/>
+                </TextBlock>
                 <Grid Grid.Row="1" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -67,12 +73,12 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:FieldModifier="public" Grid.Column="0" Margin="4" x:Name="ch0b" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                    <Button x:FieldModifier="public" Grid.Column="1" Margin="4" x:Name="ch1b" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                    <Button x:FieldModifier="public" Grid.Column="2" Margin="4" x:Name="ch2b" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                    <Button x:FieldModifier="public" Grid.Column="3" Margin="4" x:Name="ch3b" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                    <Button x:FieldModifier="public" Grid.Column="4" Margin="4" x:Name="ch4b" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
-                    <Button x:FieldModifier="public" Grid.Column="3" Margin="4" x:Name="chImportantb" Content="&gt;&gt;&gt;" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                    <Button Grid.Column="0" Margin="4" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                    <Button Grid.Column="1" Margin="4" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                    <Button Grid.Column="2" Margin="4" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                    <Button Grid.Column="3" Margin="4" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                    <Button Grid.Column="4" Margin="4" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                    <Button Grid.Column="3" Margin="4" Content="&gt;&gt;&gt;" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
                 </Grid>
             </Grid>
             <StackPanel Visibility="Collapsed" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">

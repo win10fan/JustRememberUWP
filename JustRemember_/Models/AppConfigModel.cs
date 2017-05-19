@@ -13,7 +13,7 @@ namespace JustRemember_.Models
         public int language { get; set; }
         public bool isItLightTheme { get; set; }
         public bool isLimitTime { get; set; }
-        public bool showWrongContent { get; set; }
+        public bool obfuscateWrongText { get; set; }
         public matchMode defaultMode { get; set; }
         public TimeSpan limitTime { get; set; }
         public int totalChoice { get; set; }

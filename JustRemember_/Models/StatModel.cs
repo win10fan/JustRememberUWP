@@ -11,12 +11,28 @@ namespace JustRemember_.Models
         public DateTime beginTime;
         public int NoteWordCount;
         public int configChoice;
-        public List<int> wrongPerChoice = new List<int>();
+        public Dictionary<int, List<bool>> choiceInfo;
         public bool isTimeLimited;
         public TimeSpan totalTimespend;
         public TimeSpan totalLimitTime;
         public matchMode setMode;
         public string noteTitle;
+
+        public int GetTotalWrong()
+        {
+            int wrongCount = 0;
+            foreach (var item in choiceInfo)
+            {
+                foreach (bool vlu in item.Value)
+                {
+                    if (vlu)
+                    {
+                        wrongCount += 1;
+                    }
+                }
+            }
+            return wrongCount;
+        }
         /*public class statInfo
     {
         public string dateandTime;
