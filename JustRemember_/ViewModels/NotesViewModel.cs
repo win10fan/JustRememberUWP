@@ -12,6 +12,7 @@ using Windows.Storage.Pickers;
 using JustRemember_.Views;
 using Windows.UI.Xaml.Input;
 using JustRemember_.Services;
+using System.Collections.Generic;
 
 namespace JustRemember_.ViewModels
 {
@@ -30,7 +31,7 @@ namespace JustRemember_.ViewModels
             storage = value;
             OnPropertyChanged(propertyName);
         }
-
+        
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -74,7 +75,151 @@ namespace JustRemember_.ViewModels
 
         private void NavigateToMatchWithNote(RoutedEventArgs obj)
         {
-            NavigationService.Navigate<Match>(Notes[wr.workAround.SelectedIndex]);
+            InitializeAndGoToMatch();
+        }
+
+        void InitializeAndGoToMatch()
+        {
+            //Initialize things before throw it to main page
+            SessionModel current = new SessionModel();
+            AppConfigModel Config = config;
+            //Load anything else
+            //Initialize class
+            current = new SessionModel();
+            //Initialize Session
+            current.maxChoice = Config.totalChoice;
+            current.SelectedNote = Notes[wr.workAround.SelectedIndex];
+            current.currentChoice = 0;
+            bool? nW = false;
+            current.texts = TextList.Extract(current.SelectedNote.Content, out nW);
+            current.noteWhiteSpaceMode = nW == true;
+            HashSet<string> hashed = new HashSet<string>();
+            List<string> chooseAble = new List<string>();
+            foreach (TextList t in current.texts)
+            {
+                hashed.Add(t.actualText);
+            }
+            chooseAble = new List<string>(hashed);
+            var choices = new List<ChoiceSet>();
+            //--Generate choice
+            Random validChoice = new Random();
+            Random choiceTexts = new Random();
+            for (int i = 0; i < current.texts.Count - 1; i++)
+            {
+                ChoiceSet c = new ChoiceSet();
+                c.choices = new List<string>();
+                //Get valid number first
+                int valid = validChoice.Next(0, (current.maxChoice + 1) * 100);
+                valid = valid / 100;
+                c.corrected = valid.Clamp(0, current.maxChoice);
+                //Generate choice text depend on difficult
+                for (int cnt = 0; cnt < current.maxChoice; cnt++)
+                {
+                    if (cnt == c.corrected)
+                    {
+                        c.choices.Add(chooseAble[i]);
+                    }
+                    c.choices.Add("");
+                }
+                switch (Config.defaultMode)
+                {
+                    case matchMode.Easy:
+                        //Generate random text in a whole array
+                        for (int num = current.maxChoice; num > -1; num--)
+                        {
+                            if (num == c.corrected)
+                            {
+                                continue;
+                            }
+                            int range = choiceTexts.Next(0, chooseAble.Count - 1);
+                            c.choices[num] = chooseAble[range];
+                        }
+                        break;
+                    case matchMode.Normal:
+                        //Generate chocie that near current choice within range of 1/4
+                        for (int num = current.maxChoice; num > -1; num--)
+                        {
+                            if (num == c.corrected)
+                            {
+                                continue;
+                            }
+                            if ((chooseAble.Count - 1) < 20)
+                            {
+                                int range = choiceTexts.Next(0, chooseAble.Count - 1);
+                                c.choices[num] = chooseAble[range];
+                            }
+                            else
+                            {
+                                int quater = chooseAble.Count - 1;
+                                int half = chooseAble.Count - 1;
+                                int quaterPastHalf = half + quater;
+                                if (i < quater)
+                                {
+                                    int range = choiceTexts.Next(0, half);
+                                    c.choices[num] = chooseAble[range];
+                                }
+                                else if (i > quater && i < quaterPastHalf)
+                                {
+                                    int range = choiceTexts.Next(quater, quaterPastHalf);
+                                    c.choices[num] = chooseAble[range];
+                                }
+                                else if (i > quaterPastHalf)
+                                {
+                                    int range = choiceTexts.Next(half, chooseAble.Count - 1);
+                                    c.choices[num] = chooseAble[range];
+                                }
+                            }
+                        }
+                        break;
+                    case matchMode.Hard:
+                        //Generate in range near current with in range 10
+                        for (int num = current.maxChoice; num > -1; num--)
+                        {
+                            if (num == c.corrected)
+                            {
+                                continue;
+                            }
+                            int min = i - 10;
+                            int max = i + 10;
+                            int range = choiceTexts.Next(
+                                min.Clamp(0, chooseAble.Count - 1),
+                                max.Clamp(0, chooseAble.Count - 1));
+                            c.choices[num] = chooseAble[range];
+                        }
+                        break;
+                }
+                //Put choice in choice list
+                choices.Add(c);
+            }
+            current.choices = choices;
+            //Initialize stat
+            current.StatInfo = new StatModel();
+            current.StatInfo.beginTime = DateTime.Now;
+            current.StatInfo.NoteWordCount = current.texts.Count - 1;
+            current.StatInfo.configChoice = Config.totalChoice;
+            current.StatInfo.choiceInfo = new Dictionary<int, List<bool>>();
+            List<bool> choiceWrongInfo = new List<bool>();
+            for (int i = 0; i < current.maxChoice; i++) { choiceWrongInfo.Add(false); }
+            for (int i = 0; i < current.texts.Count - 1; i++)
+            {
+                current.StatInfo.choiceInfo.Add(i, choiceWrongInfo);
+            }
+            current.StatInfo.isTimeLimited = Config.isLimitTime;
+            if (Config.isLimitTime)
+            {
+                current.StatInfo.totalLimitTime = Config.limitTime;
+            }
+            current.StatInfo.totalTimespend = TimeSpan.MinValue;
+            current.StatInfo.totalLimitTime = Config.limitTime;
+            current.StatInfo.setMode = Config.defaultMode;
+            current.StatInfo.noteTitle = current.SelectedNote.Title;
+            //Initialize selectedChoices
+            current.selectedChoices = new List<SelectedChoices>();
+            for (int i = 0; i < current.texts.Count - 1; i++)
+            {
+                current.selectedChoices.Add(new SelectedChoices());
+            }
+            NavigationService.Navigate<Match>(current);
         }
 
         private void DeSelectNote(RoutedEventArgs obj)
@@ -132,13 +277,15 @@ namespace JustRemember_.ViewModels
             }
             else
             {
-                NavigationService.Navigate<Match>(Notes[wr.workAround.SelectedIndex]);
+                InitializeAndGoToMatch();
             }
         }
 
+        AppConfigModel config;
         public async void Initialize()
         {
             Notes = await NoteModel.GetNotesAsync();
+            config = await SettingsStorageExtensions.ReadAsync<AppConfigModel>(ApplicationData.Current.LocalFolder, "appconfig");
         }
 
         public string NoteCount

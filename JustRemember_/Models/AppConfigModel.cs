@@ -37,6 +37,24 @@ namespace JustRemember_.Models
         {
             await SettingsStorageExtensions.SaveAsync(ApplicationData.Current.LocalFolder, "appconfig", this);
         }
+
+        public AppConfigModel()
+        {
+            //Provide default setting
+            language = 0;
+            isItLightTheme = false;
+            isLimitTime = false;
+            obfuscateWrongText = false;
+            defaultMode = matchMode.Easy;
+            limitTime = TimeSpan.FromMinutes(5);
+            totalChoice = 3;
+            displayTextSize = 18;
+            defaultSeed = -1;
+            autoScrollContent = true;
+            AfterFinalChoice = whenFinalChoice.EndPage;
+            saveStatAfterEnd = true;
+            hintAtFirstchoice = true;
+        }
     }
 
     public enum whenFinalChoice

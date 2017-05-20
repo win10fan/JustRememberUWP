@@ -25,6 +25,7 @@ namespace JustRemember_.Views
     /// </summary>
     public sealed partial class Match : Page
     {
+        public static SessionModel transfer;
         public Match()
         {
             this.InitializeComponent();
@@ -32,18 +33,16 @@ namespace JustRemember_.Views
         public SessionViewModel ViewModel { get; } = new SessionViewModel();
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter.GetType() == typeof(NoteModel))
-            {
-                ViewModel.InitializeNew((NoteModel)e.Parameter);
-            }
-            else if (e.Parameter.GetType() == typeof(SessionModel))
-            {
-                ViewModel.RestoreSession((SessionModel)e.Parameter);
-            }
-            else
-            {
-                //Unknow??
-            }
+            //if (e.Parameter.GetType() == typeof(SessionModel))
+            //{
+            //    //It can be only this
+            //    ViewModel.current = (SessionModel)e.Parameter;
+            //    //After everything restore
+            //    ViewModel.RestoreSession();
+            //}
+            ViewModel.current = new SessionModel();
+            ViewModel.current = (SessionModel)e.Parameter;
+            ViewModel.RestoreSession();
             ViewModel.view = this;
             base.OnNavigatedTo(e);
         }

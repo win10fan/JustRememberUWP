@@ -33,6 +33,19 @@ namespace JustRemember_.Models
             }
             return wrongCount;
         }
+
+        public StatModel()
+        {
+            beginTime = DateTime.Now;
+            NoteWordCount = 10;
+            configChoice = 3;
+            choiceInfo = new Dictionary<int, List<bool>>();
+            isTimeLimited = false;
+            totalTimespend = TimeSpan.MinValue;
+            totalLimitTime = TimeSpan.FromMinutes(5);
+            setMode = matchMode.Easy;
+            noteTitle = "Untitled";
+        }
         /*public class statInfo
     {
         public string dateandTime;

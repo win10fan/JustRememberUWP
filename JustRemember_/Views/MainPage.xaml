@@ -10,7 +10,7 @@
     xmlns:local="using:JustRemember_.Models"
     mc:Ignorable="d">
     <Pivot x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource HomePivot}">
-        <PivotItem Header="Notes" Margin="0">
+        <PivotItem Header="Notes" Margin="0" Foreground="{ThemeResource AccentButtonForeground}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -136,7 +136,7 @@
     </Page.BottomAppBar>-->
             </Grid>
         </PivotItem>
-        <PivotItem Header="Sessions">
+        <PivotItem Header="Sessions" Foreground="{ThemeResource AccentButtonForeground}">
             <Grid/>
         </PivotItem>
     </Pivot>

@@ -211,7 +211,7 @@
                                                     <ContentControl.Clip>
                                                         <RectangleGeometry x:Name="HeaderClipperGeometry"/>
                                                     </ContentControl.Clip>
-                                                    <Grid Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
+                                                    <Grid Background="{ThemeResource AccentButtonBackground}">
                                                         <Grid.RenderTransform>
                                                             <CompositeTransform x:Name="HeaderOffsetTranslateTransform"/>
                                                         </Grid.RenderTransform>
