@@ -34,13 +34,14 @@ namespace JustRemember_.ViewModels
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(currentChoice)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isPausing)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalWrong)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalLimitTime)));
-            //Update choice buttons
-            //Update choice visibility
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice0Display)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(choicesSelected)));
+             //Update choice buttons
+             //Update choice visibility
+             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice0Display)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice1Display)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice2Display)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice3Display)));
@@ -54,6 +55,18 @@ namespace JustRemember_.ViewModels
             if (Config.autoScrollContent)
             {
                 view?.displayTexts?.ChangeView(view.displayTexts.HorizontalOffset, view.displayTexts.ExtentHeight, view.displayTexts.ZoomFactor);
+            }
+        }
+
+        public string totalText
+        {
+            get
+            {
+                if (current == null)
+                {
+                    return "??";
+                }
+                return current.texts.Count.ToString();
             }
         }
 
@@ -81,12 +94,21 @@ namespace JustRemember_.ViewModels
         ThreadPoolTimer timer;
         void SetTimer()
         {
-            timer = ThreadPoolTimer.CreatePeriodicTimer((t) =>
+            if (current.StatInfo.isTimeLimited)
             {
-                //Count timer
-                current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(1));
+                timer = ThreadPoolTimer.CreatePeriodicTimer((t) =>
+                {
+                    //Count timer
+                    current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(1));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalLimitTime)));
+                }, TimeSpan.FromSeconds(1));
+            }
+            else
+            {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
-            }, TimeSpan.FromSeconds(1));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalLimitTime)));
+            }
         }
 
         /// <summary>
@@ -101,27 +123,24 @@ namespace JustRemember_.ViewModels
                 {
                     return 0;
                 }
+                if (current.currentChoice > current.texts.Count - 1)
+                {
+                    return current.texts.Count - 1;
+                }
                 return current.currentChoice;
             }
             set
             {
-                current.currentChoice = value;
+                if ((value - current.currentChoice) > 1)
+                {
+                    value = current.currentChoice + 1;
+                    current.currentChoice = value;
+                }
             }
         }
-
-        public ICommand chooseChoice0;
-        public ICommand chooseChoice1;
-        public ICommand chooseChoice2;
-        public ICommand chooseChoice3;
-        public ICommand chooseChoice4;
-
+        
         public void InitializeCommands()
         {
-            chooseChoice0 = new RelayCommand<RoutedEventArgs>(Choose0);
-            chooseChoice1 = new RelayCommand<RoutedEventArgs>(Choose1);
-            chooseChoice2 = new RelayCommand<RoutedEventArgs>(Choose2);
-            chooseChoice3 = new RelayCommand<RoutedEventArgs>(Choose3);
-            chooseChoice4 = new RelayCommand<RoutedEventArgs>(Choose4);
             isPausing = false;
             while (current == null)
             {
@@ -129,116 +148,86 @@ namespace JustRemember_.ViewModels
             }
             OnPropertyChanged(nameof(current));
         }
-        
-        private void Choose0(RoutedEventArgs obj)
-        {
-            Choose(0);
-        }
 
-        private void Choose1(RoutedEventArgs obj)
+        public List<SelectedChoices> choicesSelected
         {
-            Choose(1);
-        }
-
-        private void Choose2(RoutedEventArgs obj)
-        {
-            Choose(2);
-        }
-
-        private void Choose3(RoutedEventArgs obj)
-        {
-            Choose(3);
-        }
-
-        private void Choose4(RoutedEventArgs obj)
-        {
-            Choose(4);
+            get
+            {
+                return current.selectedChoices;
+            }
+            set
+            {
+                current.selectedChoices = value;
+            }
         }
         
         public void UpdateText(bool IsItRightChoice)
         {
+            //Check if choice has been added
+            if (current.selectedChoices.Count - 1 < current.currentChoice)
+            {
+                //No choice made yet
+                current.selectedChoices.Add(new SelectedChoices());
+                OnPropertyChanged("choicesSelected");
+            }
             //
             if (IsItRightChoice)
             {
-                if (current.selectedChoices[currentChoice].isItWrong)
+                if (current.StatInfo.setMode == matchMode.Easy)
                 {
-                    //Choose wrong choice before
-                    //Assume this is normal mode
-                    if (current.noteWhiteSpaceMode)
-                    {
-                        if (Config.obfuscateWrongText)
-                        {
-                            current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].whitespace}{current.texts[currentChoice].text.obfuscateText()}";
-                        }
-                        else
-                        {
-                            current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].whitespace}{current.texts[currentChoice].text}";
-                        }
-                    }
-                    else if (!current.noteWhiteSpaceMode)
-                    {
-                        if (Config.obfuscateWrongText)
-                        {
-                            current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].text.obfuscateText()}{current.texts[currentChoice].whitespace}";
-                        }
-                        else
-                        {
-                            current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].text}{current.texts[currentChoice].whitespace}";
-                        }
-                    }
-                    return;
+                    //Choose the right choice in easy
+                    //Update that selected
+                    current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text;
                 }
-                else
+                if (current.StatInfo.setMode == matchMode.Normal)
                 {
-                    //Correct choice selected | for first time in this choice. No other choice selected wrong
-                    //Assume this is Easy mode
-                    if (current.noteWhiteSpaceMode)
+                    //Choose the right choice in Normal
+                    //Check if it was right on the first time or not
+                    bool wrongBefore = false;
+                    foreach (bool v in current.StatInfo.choiceInfo[currentChoice])
                     {
-                        current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].whitespace}{current.texts[currentChoice].text}";
+                        if (v)
+                        {
+                            //It has wrong choice before
+                            wrongBefore = true;
+                        }
                     }
-                    else if (!current.noteWhiteSpaceMode)
+                    if (wrongBefore)
                     {
-                        current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].text}{current.texts[currentChoice].whitespace}";
+                        //Obfuscate the text
+                        current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text.obfuscateText();
                     }
                 }
             }
             else
             {
-                current.selectedChoices[currentChoice].isItWrong = true;
-                if (current.StatInfo.setMode == matchMode.Normal)
+                //Choose the wrong choice
+                if (current.StatInfo.setMode == matchMode.Easy)
                 {
-                    //Not show the text until it correct
-                    return;
-                }
-                //Incorrect choice selected
-                if (current.noteWhiteSpaceMode)
-                {
+                    //Choose the wrong choice in easy
+                    //Update that selected
                     if (Config.obfuscateWrongText)
                     {
-                        current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].whitespace}{current.texts[currentChoice].text.obfuscateText()}";
+                        current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text.obfuscateText();
                     }
                     else
                     {
-                        current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].whitespace}{current.texts[currentChoice].text}";
+                        current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text;
                     }
+                    current.selectedChoices[currentChoice].isItWrong = true;
                 }
-                else if (!current.noteWhiteSpaceMode)
+                else
                 {
-                    if (Config.obfuscateWrongText)
-                    {
-                        current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].text.obfuscateText()}{current.texts[currentChoice].whitespace}";
-                    }
-                    else
-                    {
-                        current.selectedChoices[currentChoice].finalText = $"{current.texts[currentChoice].text}{current.texts[currentChoice].whitespace}";
-                    }
+                    //Choose wrong choice on normal
+                    //Hard mode would not be at this point as it force to reset match before anything else
+                    //Do nothing anyway though
                 }
             }
+            view.controls.ItemsSource = choicesSelected;
         }
 
         public void Choose(int choice)
         {
-            Debug.Write("Hello!!");
             //Normal choice
             if (choice != current.choices[currentChoice].corrected)
             {
@@ -258,8 +247,6 @@ namespace JustRemember_.ViewModels
                             //Let UI show final button
                             break;
                         }
-                        //Move to next choice
-                        current.currentChoice += 1;
                         break;
                     case matchMode.Normal:
                         //Mark selected choice as wrong
@@ -312,8 +299,10 @@ namespace JustRemember_.ViewModels
             }
             else
             {
-                currentChoice += 1;
+                current.currentChoice += 1;
             }
+            totalWrong = current.StatInfo.GetTotalWrong();
+            OnPropertyChanged("current");
         }
         
         public Visibility Choice0Display
@@ -488,13 +477,18 @@ namespace JustRemember_.ViewModels
             }
         }
 
+        int wrongCount;
         public int totalWrong
         {
             get
             {
 
                 if (current == null) { return 0; }
-                return current.StatInfo.GetTotalWrong();
+                return wrongCount;
+            }
+            set
+            {
+                Set(ref wrongCount, value);
             }
         }
 

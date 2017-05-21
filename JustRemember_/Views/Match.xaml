@@ -2,12 +2,9 @@
     x:Class="JustRemember_.Views.Match"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:JustRemember_.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:stat="using:JustRemember_.Models"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -18,12 +15,12 @@
         <Grid Grid.Row="0" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
             <ScrollViewer x:Name="displayTextScroll"  Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <!--<TextBlock x:Name="dpTxt" x:FieldModifier="public" Text="Test place holder text" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>-->
-                <ItemsControl ItemsSource="{x:Bind ViewModel.current.selectedChoices,Mode=OneWay}">
-                    <DataTemplate x:DataType="stat:SelectedChoices">
-                        <VariableSizedWrapGrid>
+                <ItemsControl x:Name="selected" ItemsSource="{x:Bind ViewModel.choicesSelected,Mode=OneWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="stat:SelectedChoices">
                             <TextBlock Text="{x:Bind finalText, Mode=OneWay}" Foreground="{x:Bind mark, Mode=OneWay}"/>
-                        </VariableSizedWrapGrid>
-                    </DataTemplate>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
             <Grid Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
@@ -41,56 +38,26 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock VerticalAlignment="Center">
-                        <Run Text="{x:Bind ViewModel.currentChoice}"/>
+                        <Run Text="{x:Bind ViewModel.currentChoice,Mode=OneWay}"/>
                         <Run Text="/"/>
-                        <Run Text="{x:Bind ViewModel.current.StatInfo.NoteWordCount}"/>
+                        <Run Text="{x:Bind ViewModel.totalText}"/>
                     </TextBlock>
-                    <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{x:Bind ViewModel.totalWrong}"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{x:Bind ViewModel.totalWrong,Mode=OneWay}"/>
                     <TextBlock TextAlignment="Right" Grid.Column="2" VerticalAlignment="Center">
-                        <Run Text="{x:Bind ViewModel.spendedTime}"/>
+                        <Run Text="{x:Bind ViewModel.spendedTime,Mode=OneWay}"/>
                         <Run Text="/"/>
-                        <Run Text="{x:Bind ViewModel.totalLimitTime}"/>
+                        <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneWay}"/>
                     </TextBlock> 
                 </Grid>
             </Grid>
         </Grid>
         <!--Choice list-->
         <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Row="1">
-            <Button Margin="4" Content="{x:Bind ViewModel.Choice0Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice0Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6">
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="Click">
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice0}"/>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </Button>
-            <Button Margin="4" Content="{x:Bind ViewModel.Choice1Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice1Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6">
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="Click">
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice1}"/>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </Button>
-            <Button Margin="4" Content="{x:Bind ViewModel.Choice2Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice2Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6">
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="Click">
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice2}"/>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </Button>
-            <Button Margin="4" Content="{x:Bind ViewModel.Choice3Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice3Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6">
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="Click">
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice3}"/>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </Button>
-            <Button Margin="4" Content="{x:Bind ViewModel.Choice4Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice4Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6">
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="Click">
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice4}"/>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </Button>
+            <Button Click="Choice0" Margin="4" Content="{x:Bind ViewModel.Choice0Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice0Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+            <Button Click="Choice1" Margin="4" Content="{x:Bind ViewModel.Choice1Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice1Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+            <Button Click="Choice2" Margin="4" Content="{x:Bind ViewModel.Choice2Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice2Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+            <Button Click="Choice3" Margin="4" Content="{x:Bind ViewModel.Choice3Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice3Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+            <Button Click="Choice4" Margin="4" Content="{x:Bind ViewModel.Choice4Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice4Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
         </ItemsControl>
         <Grid Visibility="Collapsed" Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -112,41 +79,11 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Margin="4" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="Click">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice0}"/>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Button>
-                <Button Grid.Column="1" Margin="4" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="Click">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice1}"/>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Button>
-                <Button Grid.Column="2" Margin="4" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="Click">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice2}"/>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Button>
-                <Button Grid.Column="3" Margin="4" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="Click">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice3}"/>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Button>
-                <Button Grid.Column="4" Margin="4" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="Click">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.chooseChoice4}"/>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Button>
+                <Button Click="Choice0" Grid.Column="0" Margin="4" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                <Button Click="Choice1" Grid.Column="1" Margin="4" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                <Button Click="Choice2" Grid.Column="2" Margin="4" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                <Button Click="Choice3" Grid.Column="3" Margin="4" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
+                <Button Click="Choice4" Grid.Column="4" Margin="4" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6" FontSize="18"/>
             </Grid>
         </Grid>
         <StackPanel Visibility="Collapsed" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">

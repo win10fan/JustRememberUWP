@@ -104,20 +104,20 @@ namespace JustRemember_.ViewModels
             //--Generate choice
             Random validChoice = new Random();
             Random choiceTexts = new Random();
-            for (int i = 0; i < current.texts.Count - 1; i++)
+            for (int i = 0; i < current.texts.Count; i++)
             {
                 ChoiceSet c = new ChoiceSet();
                 c.choices = new List<string>();
                 //Get valid number first
-                int valid = validChoice.Next(0, (current.maxChoice + 1) * 100);
+                int valid = validChoice.Next(0, (current.maxChoice) * 100);
                 valid = valid / 100;
-                c.corrected = valid.Clamp(0, current.maxChoice);
+                c.corrected = valid.Clamp(0, current.maxChoice - 1);
                 //Generate choice text depend on difficult
                 for (int cnt = 0; cnt < current.maxChoice; cnt++)
                 {
                     if (cnt == c.corrected)
                     {
-                        c.choices.Add(chooseAble[i]);
+                        c.choices.Add(current.texts[i].actualText);
                     }
                     c.choices.Add("");
                 }
@@ -131,8 +131,10 @@ namespace JustRemember_.ViewModels
                             {
                                 continue;
                             }
-                            int range = choiceTexts.Next(0, chooseAble.Count - 1);
-                            c.choices[num] = chooseAble[range];
+                            int range = choiceTexts.Next(0, chooseAble.Count - 2);
+                            List<string> cache = new List<string>(chooseAble);
+                            cache.Remove(current.texts[i].actualText);
+                            c.choices[num] = cache[range];
                         }
                         break;
                     case matchMode.Normal:
@@ -156,17 +158,23 @@ namespace JustRemember_.ViewModels
                                 if (i < quater)
                                 {
                                     int range = choiceTexts.Next(0, half);
-                                    c.choices[num] = chooseAble[range];
+                                    List<string> cache = new List<string>(chooseAble);
+                                    cache.Remove(current.texts[i].actualText);
+                                    c.choices[num] = cache[range];
                                 }
                                 else if (i > quater && i < quaterPastHalf)
                                 {
                                     int range = choiceTexts.Next(quater, quaterPastHalf);
-                                    c.choices[num] = chooseAble[range];
+                                    List<string> cache = new List<string>(chooseAble);
+                                    cache.Remove(current.texts[i].actualText);
+                                    c.choices[num] = cache[range];
                                 }
                                 else if (i > quaterPastHalf)
                                 {
                                     int range = choiceTexts.Next(half, chooseAble.Count - 1);
-                                    c.choices[num] = chooseAble[range];
+                                    List<string> cache = new List<string>(chooseAble);
+                                    cache.Remove(current.texts[i].actualText);
+                                    c.choices[num] = cache[range];
                                 }
                             }
                         }
@@ -184,7 +192,9 @@ namespace JustRemember_.ViewModels
                             int range = choiceTexts.Next(
                                 min.Clamp(0, chooseAble.Count - 1),
                                 max.Clamp(0, chooseAble.Count - 1));
-                            c.choices[num] = chooseAble[range];
+                            List<string> cache = new List<string>(chooseAble);
+                            cache.Remove(current.texts[i].actualText);
+                            c.choices[num] = cache[range];
                         }
                         break;
                 }
@@ -198,11 +208,14 @@ namespace JustRemember_.ViewModels
             current.StatInfo.NoteWordCount = current.texts.Count - 1;
             current.StatInfo.configChoice = Config.totalChoice;
             current.StatInfo.choiceInfo = new Dictionary<int, List<bool>>();
-            List<bool> choiceWrongInfo = new List<bool>();
-            for (int i = 0; i < current.maxChoice; i++) { choiceWrongInfo.Add(false); }
-            for (int i = 0; i < current.texts.Count - 1; i++)
+            for (int i = 0; i < current.texts.Count; i++)
             {
-                current.StatInfo.choiceInfo.Add(i, choiceWrongInfo);
+                List<bool> wrongIfo = new List<bool>();
+                for (int c = 0;c != current.maxChoice;c++)
+                {
+                    wrongIfo.Add(false);
+                }
+                current.StatInfo.choiceInfo.Add(i, wrongIfo);
             }
             current.StatInfo.isTimeLimited = Config.isLimitTime;
             if (Config.isLimitTime)
@@ -215,10 +228,6 @@ namespace JustRemember_.ViewModels
             current.StatInfo.noteTitle = current.SelectedNote.Title;
             //Initialize selectedChoices
             current.selectedChoices = new List<SelectedChoices>();
-            for (int i = 0; i < current.texts.Count - 1; i++)
-            {
-                current.selectedChoices.Add(new SelectedChoices());
-            }
             NavigationService.Navigate<Match>(current);
         }
 

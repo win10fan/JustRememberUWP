@@ -51,5 +51,36 @@ namespace JustRemember_.Views
         {
             get => displayTextScroll; set => displayTextScroll = value;
         }
+
+        private void Choice0(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Choose(0);
+        }
+
+        private void Choice1(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Choose(1);
+        }
+
+        private void Choice2(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Choose(2);
+        }
+
+        private void Choice3(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Choose(3);
+        }
+
+        private void Choice4(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Choose(4);
+        }
+
+        public ItemsControl controls
+        {
+            get { return selected; }
+            set { selected = value; }
+        }
     }
 }

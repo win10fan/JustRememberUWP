@@ -26,7 +26,6 @@ namespace JustRemember_.Helpers
     {
         private readonly Action<T> _execute;
         private readonly Func<T, bool> _canExecute;
-        private ICommand importNote;
 
         public event EventHandler CanExecuteChanged;
         public RelayCommand(Action<T> execute) : this(execute, null) { }
@@ -35,11 +34,6 @@ namespace JustRemember_.Helpers
         {
             this._execute = execute ?? throw new ArgumentNullException("execute");
             this._canExecute = canExecute;
-        }
-
-        public RelayCommand(ICommand importNote)
-        {
-            this.importNote = importNote;
         }
 
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute((T)parameter);
