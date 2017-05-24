@@ -77,10 +77,10 @@ namespace JustRemember_.Views
             ViewModel.Choose(4);
         }
 
-        public ItemsControl controls
+        public TextBlock displayTXT
         {
-            get { return selected; }
-            set { selected = value; }
+            get { return dpTxt; }
+            set { dpTxt = value; }
         }
     }
 }

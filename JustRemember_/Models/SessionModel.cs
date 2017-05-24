@@ -1,6 +1,7 @@
 ﻿using JustRemember_.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,11 @@ namespace JustRemember_.Models
         public bool noteWhiteSpaceMode { get; set; } //True = Begin with white space on every items | false = Begin with text on all items
         public StatModel StatInfo { get; set; }
         public int currentChoice { get; set; }
-        public List<TextList> texts { get; set; } = new List<TextList>();
-        public List<ChoiceSet> choices { get; set; } = new List<ChoiceSet>();
+        public ObservableCollection<TextList> texts { get; set; } = new ObservableCollection<TextList>();
+        public ObservableCollection<ChoiceSet> choices { get; set; } = new ObservableCollection<ChoiceSet>();
         public int maxChoice { get; set; }
-        public List<SelectedChoices> selectedChoices { get; set; } = new List<SelectedChoices>();
+        public ObservableCollection<SelectedChoices> selectedChoices { get; set; } = new ObservableCollection<SelectedChoices>();
+        public bool isNew { get; set; }
 
         public SessionModel()
         {
@@ -29,10 +31,10 @@ namespace JustRemember_.Models
             noteWhiteSpaceMode = false;
             StatInfo = new StatModel();
             currentChoice = 0;
-            texts = new List<TextList>();
-            choices = new List<ChoiceSet>();
+            texts = new ObservableCollection<TextList>();
+            choices = new ObservableCollection<ChoiceSet>();
             maxChoice = 3;
-            selectedChoices = new List<SelectedChoices>();
+            selectedChoices = new ObservableCollection<SelectedChoices>();
         }
     }
 
@@ -54,9 +56,9 @@ namespace JustRemember_.Models
             isWhitespace = false;
         }
 
-        public static List<PreDeterminiteText> ExtractContent(string content)
+        public static ObservableCollection<PreDeterminiteText> ExtractContent(string content)
         {
-            List<PreDeterminiteText> item = new List<PreDeterminiteText>();
+            ObservableCollection<PreDeterminiteText> item = new ObservableCollection<PreDeterminiteText>();
             if (content.Length < 1) { return item; }
             foreach (char c in content)
             {
@@ -77,9 +79,9 @@ namespace JustRemember_.Models
             return item;
         }
 
-        public static List<TextList> Extract(string content, out bool? mode)
+        public static ObservableCollection<TextList> Extract(string content, out bool? mode)
         {
-            List<PreDeterminiteText> basicSort = ExtractContent(content);
+            ObservableCollection<PreDeterminiteText> basicSort = ExtractContent(content);
             PreDeterminiteText prev = null;
             mode = null; //True = Begin with white space on every items | false = Begin with text on all items
             int lastID = 0;
@@ -157,7 +159,7 @@ namespace JustRemember_.Models
                     }
                 }
             }
-            List<TextList> list = new List<TextList>();
+            ObservableCollection<TextList> list = new ObservableCollection<TextList>();
             for (int i= 0;i < lastID + 1; i++) { list.Add(new TextList()); }
             foreach (var pd in basicSort)
             {
@@ -202,8 +204,8 @@ namespace JustRemember_.Models
 
     public class SelectedChoices
     {
-        public bool isItWrong;
-        public string finalText; //This already have white space combine
+        public bool isItWrong { get; set; }
+        public string finalText { get; set; } //This already have white space combine
 
         public SelectedChoices()
         {
@@ -217,9 +219,13 @@ namespace JustRemember_.Models
             {
                 if (isItWrong)
                 {
-                    return new SolidColorBrush(((Color)Application.Current.Resources["SystemAccentColor"]));
+                    return new SolidColorBrush(Colors.Red);
                 }
-                return new SolidColorBrush(((Color)Application.Current.Resources["TextControlForeground"]));
+                if (Application.Current.RequestedTheme == ApplicationTheme.Light)
+                {
+                    return new SolidColorBrush(Colors.Black);
+                }
+                return new SolidColorBrush(Colors.White);
             }
         }
     }

@@ -31,7 +31,7 @@ namespace JustRemember_.ViewModels
             storage = value;
             OnPropertyChanged(propertyName);
         }
-        
+
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -42,13 +42,13 @@ namespace JustRemember_.ViewModels
         }
 
         ObservableCollection<NoteModel> _notes;
-        
+
         public ObservableCollection<NoteModel> Notes
         {
             get { return _notes; }
             set
             {
-                Set(ref _notes, value);                
+                Set(ref _notes, value);
             }
         }
 
@@ -80,34 +80,40 @@ namespace JustRemember_.ViewModels
 
         void InitializeAndGoToMatch()
         {
-            //Initialize things before throw it to main page
-            SessionModel current = new SessionModel();
+            //Initialize things before throw it to main page 
+            //Copy config
             AppConfigModel Config = config;
+            //Initialize session
+            SessionModel current = new SessionModel()
+            {
+                selectedChoices = new ObservableCollection<SelectedChoices>(),
+                isNew = true,
+                maxChoice = Config.totalChoice,
+                currentChoice = 0
+            };
             //Load anything else
-            //Initialize class
-            current = new SessionModel();
             //Initialize Session
-            current.maxChoice = Config.totalChoice;
             current.SelectedNote = Notes[wr.workAround.SelectedIndex];
-            current.currentChoice = 0;
-            bool? nW = false;
-            current.texts = TextList.Extract(current.SelectedNote.Content, out nW);
+            current.texts = TextList.Extract(current.SelectedNote.Content, out bool? nW);
             current.noteWhiteSpaceMode = nW == true;
             HashSet<string> hashed = new HashSet<string>();
-            List<string> chooseAble = new List<string>();
+            ObservableCollection<string> chooseAble = new ObservableCollection<string>();
             foreach (TextList t in current.texts)
             {
                 hashed.Add(t.actualText);
             }
-            chooseAble = new List<string>(hashed);
-            var choices = new List<ChoiceSet>();
+            chooseAble = new ObservableCollection<string>(hashed);
+            var choices = new ObservableCollection<ChoiceSet>();
             //--Generate choice
             Random validChoice = new Random();
             Random choiceTexts = new Random();
             for (int i = 0; i < current.texts.Count; i++)
             {
-                ChoiceSet c = new ChoiceSet();
-                c.choices = new List<string>();
+                ChoiceSet c = new ChoiceSet()
+                {
+                    choices = new List<string>(),
+
+                };
                 //Get valid number first
                 int valid = validChoice.Next(0, (current.maxChoice) * 100);
                 valid = valid / 100;
@@ -203,31 +209,28 @@ namespace JustRemember_.ViewModels
             }
             current.choices = choices;
             //Initialize stat
-            current.StatInfo = new StatModel();
-            current.StatInfo.beginTime = DateTime.Now;
-            current.StatInfo.NoteWordCount = current.texts.Count - 1;
-            current.StatInfo.configChoice = Config.totalChoice;
-            current.StatInfo.choiceInfo = new Dictionary<int, List<bool>>();
+            current.StatInfo = new StatModel()
+            {
+                beginTime = DateTime.Now,
+                NoteWordCount = current.texts.Count - 1,
+                configChoice = Config.totalChoice,
+                choiceInfo = new Dictionary<int, List<bool>>(),
+                setMode = Config.defaultMode,
+                noteTitle = current.SelectedNote.Title,
+                totalTimespend = TimeSpan.MinValue,
+                isTimeLimited = Config.isLimitTime,
+                totalLimitTime = Config.isLimitTime ? Config.limitTime : TimeSpan.MinValue
+            };
             for (int i = 0; i < current.texts.Count; i++)
             {
                 List<bool> wrongIfo = new List<bool>();
-                for (int c = 0;c != current.maxChoice;c++)
+                for (int c = 0; c != current.maxChoice; c++)
                 {
                     wrongIfo.Add(false);
                 }
                 current.StatInfo.choiceInfo.Add(i, wrongIfo);
             }
-            current.StatInfo.isTimeLimited = Config.isLimitTime;
-            if (Config.isLimitTime)
-            {
-                current.StatInfo.totalLimitTime = Config.limitTime;
-            }
-            current.StatInfo.totalTimespend = TimeSpan.MinValue;
-            current.StatInfo.totalLimitTime = Config.limitTime;
-            current.StatInfo.setMode = Config.defaultMode;
-            current.StatInfo.noteTitle = current.SelectedNote.Title;
-            //Initialize selectedChoices
-            current.selectedChoices = new List<SelectedChoices>();
+            //Goto Match page
             NavigationService.Navigate<Match>(current);
         }
 
@@ -253,9 +256,11 @@ namespace JustRemember_.ViewModels
 
         async void ImportTextFile(RoutedEventArgs obj)
         {
-            FileOpenPicker openPicker = new FileOpenPicker();
-            openPicker.ViewMode = PickerViewMode.List;
-            openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            FileOpenPicker openPicker = new FileOpenPicker()
+            {
+                ViewMode = PickerViewMode.List,
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
             openPicker.FileTypeFilter.Add(".txt");
 
             StorageFile file = await openPicker.PickSingleFileAsync();
@@ -277,7 +282,7 @@ namespace JustRemember_.ViewModels
         {
             OnPropertyChanged(nameof(IsSelected));
         }
-        
+
         public void OnItemDoubleClick(DoubleTappedRoutedEventArgs obj)
         {
             if (wr.workAround.SelectedIndex == -1)
@@ -317,7 +322,7 @@ namespace JustRemember_.ViewModels
                 return Notes?.Count < 1 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
-        
+
         public Visibility IsSelected
         {
             get
@@ -329,7 +334,7 @@ namespace JustRemember_.ViewModels
                 return Visibility.Visible;
             }
         }
-        
+
         public Visibility IsNotSelected
         {
             get

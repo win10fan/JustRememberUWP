@@ -13,6 +13,8 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using System.Windows.Input;
 using JustRemember_.Views;
+using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Documents;
 
 namespace JustRemember_.ViewModels
 {
@@ -41,7 +43,7 @@ namespace JustRemember_.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(choicesSelected)));
              //Update choice buttons
              //Update choice visibility
-             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice0Display)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice0Display)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice1Display)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice2Display)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice3Display)));
@@ -149,7 +151,7 @@ namespace JustRemember_.ViewModels
             OnPropertyChanged(nameof(current));
         }
 
-        public List<SelectedChoices> choicesSelected
+        public ObservableCollection<SelectedChoices> choicesSelected
         {
             get
             {
@@ -159,6 +161,24 @@ namespace JustRemember_.ViewModels
             {
                 current.selectedChoices = value;
             }
+        }
+
+        SelectedChoices _chLT;
+        public SelectedChoices latestChoices
+        {
+            get
+            {
+                return _chLT;
+            }
+            set { _chLT = value; AddTextDisplay(); }
+        }
+        public void AddTextDisplay()
+        {
+            view.displayTXT.Inlines.Add(new Run
+            {
+                Text = latestChoices.finalText,
+                Foreground = latestChoices.mark
+            });
         }
         
         public void UpdateText(bool IsItRightChoice)
@@ -221,9 +241,12 @@ namespace JustRemember_.ViewModels
                     //Choose wrong choice on normal
                     //Hard mode would not be at this point as it force to reset match before anything else
                     //Do nothing anyway though
+                    return;
                 }
             }
-            view.controls.ItemsSource = choicesSelected;
+            Update();
+            //view.controls.ItemsSource = choicesSelected;
+            latestChoices = current.selectedChoices[currentChoice];
         }
 
         public void Choose(int choice)

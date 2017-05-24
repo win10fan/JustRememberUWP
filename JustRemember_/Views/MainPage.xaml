@@ -17,7 +17,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel.NoteCount, Mode=OneWay}" Grid.Row="0"/>
+                <TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel.NoteCount, Mode=OneWay}" Grid.Row="0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
                 <ListView x:Name="workAround" Margin="5" Grid.Row="1" SelectionMode="Single" ItemsSource="{x:Bind ViewModel.Notes, Mode=OneWay}" x:FieldModifier="public">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="DoubleTapped">

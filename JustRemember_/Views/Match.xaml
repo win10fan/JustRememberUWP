@@ -14,14 +14,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
             <ScrollViewer x:Name="displayTextScroll"  Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                <!--<TextBlock x:Name="dpTxt" x:FieldModifier="public" Text="Test place holder text" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>-->
-                <ItemsControl x:Name="selected" ItemsSource="{x:Bind ViewModel.choicesSelected,Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="stat:SelectedChoices">
-                            <TextBlock Text="{x:Bind finalText, Mode=OneWay}" Foreground="{x:Bind mark, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <TextBlock x:Name="dpTxt" x:FieldModifier="public" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>
             </ScrollViewer>
             <Grid Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
                 <Grid.RowDefinitions>
