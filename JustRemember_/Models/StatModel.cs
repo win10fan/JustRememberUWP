@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace JustRemember_.Models
 {
@@ -32,6 +33,27 @@ namespace JustRemember_.Models
                 }
             }
             return wrongCount;
+        }
+
+        public Visibility wasTimeLimited
+        {
+            get
+            {
+                if (isTimeLimited) { return Visibility.Visible; }
+                return Visibility.Collapsed;
+            }
+        }
+
+        public int timeValue
+        {
+            get
+            {
+                if (!isTimeLimited) { return 0; }
+                double a = totalTimespend.TotalSeconds;
+                double b = totalLimitTime.TotalSeconds;
+                double val = a / b;
+                return (int)(val * 100);
+            }
         }
 
         public StatModel()

@@ -15,6 +15,8 @@ using System.Windows.Input;
 using JustRemember_.Views;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Documents;
+using JustRemember_.Services;
+using Windows.UI.Popups;
 
 namespace JustRemember_.ViewModels
 {
@@ -41,8 +43,12 @@ namespace JustRemember_.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalWrong)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(choicesSelected)));
-             //Update choice buttons
-             //Update choice visibility
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(sessionButtonColor)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isItBottomMode)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isItCenterMode)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isItWriteMode)));
+            //Update choice buttons
+            //Update choice visibility
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice0Display)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice1Display)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice2Display)));
@@ -140,7 +146,10 @@ namespace JustRemember_.ViewModels
                 }
             }
         }
-        
+
+        public ICommand BackToMainMenu;
+        public ICommand SaveToSessions;
+
         public void InitializeCommands()
         {
             isPausing = false;
@@ -149,6 +158,46 @@ namespace JustRemember_.ViewModels
                 Task.Delay(5);
             }
             OnPropertyChanged(nameof(current));
+            //Dialogs
+            wantToLeave = new MessageDialog("Do you want to leave this session?", "Confirm");
+            wantToLeave.Commands.Add(new UICommand()
+            {
+                Invoked = delegate { NavigationService.Navigate<MainPage>(); },
+                Label = "Yes"
+            });
+            wantToLeave.Commands.Add(new UICommand("No"));
+            //Command
+            BackToMainMenu = new RelayCommand<RoutedEventArgs>(KickToMainPage);
+            SaveToSessions = new RelayCommand<RoutedEventArgs>(SaveToSessionList);
+        }
+
+        private async void SaveToSessionList(RoutedEventArgs obj)
+        {
+            if (isSessionSaved) { return; }
+            isSessionSaved = true;
+            await SavedSessionModel.AddNew(current);
+        }
+
+        public MessageDialog wantToLeave;
+        private async void KickToMainPage(RoutedEventArgs obj)
+        {
+            if (isSessionSaved)
+            {
+                NavigationService.Navigate<MainPage>();
+                return;
+            }
+            await wantToLeave.ShowAsync();
+        }
+
+        public bool isSessionSaved;
+
+        public Visibility sessionButtonColor
+        {
+            get
+            {
+                if (isSessionSaved) { return Visibility.Visible; }
+                return Visibility.Collapsed;
+            }
         }
 
         public ObservableCollection<SelectedChoices> choicesSelected
@@ -491,10 +540,14 @@ namespace JustRemember_.ViewModels
                 if (value)
                 {
                     timer.Cancel();
+                    view.UnPause.Stop();
+                    view.Pause.Begin();
                 }
                 else
                 {
                     SetTimer();
+                    view.Pause.Stop();
+                    view.UnPause.Begin();
                 }
                 Set(ref _p, value);
             }
@@ -532,6 +585,28 @@ namespace JustRemember_.ViewModels
                 if (current == null) { return "--:--"; }
                 if (current?.StatInfo?.isTimeLimited == false) { return "--:--"; }
                 return $"{current?.StatInfo?.totalLimitTime.Minutes:00}:{current.StatInfo?.totalLimitTime.Seconds}";
+            }
+        }
+
+        public Visibility isItCenterMode
+        {
+            get
+            {
+                return Config.choiceStyle == choiceDisplayMode.Center ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        public Visibility isItBottomMode
+        {
+            get
+            {
+                return Config.choiceStyle == choiceDisplayMode.Bottom ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        public Visibility isItWriteMode
+        {
+            get
+            {
+                return Config.choiceStyle == choiceDisplayMode.Write ? Visibility.Visible : Visibility.Collapsed;
             }
         }
     }

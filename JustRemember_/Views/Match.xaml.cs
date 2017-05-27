@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -33,13 +34,6 @@ namespace JustRemember_.Views
         public SessionViewModel ViewModel { get; } = new SessionViewModel();
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //if (e.Parameter.GetType() == typeof(SessionModel))
-            //{
-            //    //It can be only this
-            //    ViewModel.current = (SessionModel)e.Parameter;
-            //    //After everything restore
-            //    ViewModel.RestoreSession();
-            //}
             ViewModel.current = new SessionModel();
             ViewModel.current = (SessionModel)e.Parameter;
             ViewModel.RestoreSession();
@@ -81,6 +75,18 @@ namespace JustRemember_.Views
         {
             get { return dpTxt; }
             set { dpTxt = value; }
+        }
+
+        public Storyboard Pause
+        {
+            get { return startPause; }
+            set { startPause = value; }
+        }
+        
+        public Storyboard UnPause
+        {
+            get { return stopPause; }
+            set { stopPause = value; }
         }
     }
 }

@@ -24,6 +24,31 @@ namespace JustRemember_.Models
         public int maxChoice { get; set; }
         public ObservableCollection<SelectedChoices> selectedChoices { get; set; } = new ObservableCollection<SelectedChoices>();
         public bool isNew { get; set; }
+        public string GeneratedName
+        {
+            get
+            {
+                var time = StatInfo.beginTime;
+                return $"{time.Year}{time.Month}{time.Date}-{time.Hour}{time.Minute}{time.Second}-{StatInfo.noteTitle}";
+            }
+        }
+
+        public int totalChoices
+        {
+            get
+            {
+                return texts.Count;
+            }
+        }
+
+        public int choiceProgress
+        {
+            get
+            {
+                float a = (float)currentChoice / (float)totalChoices;
+                return (int)(a * 100);
+            }
+        }
 
         public SessionModel()
         {

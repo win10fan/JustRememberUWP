@@ -8,6 +8,7 @@ namespace JustRemember_.Views
     public sealed partial class MainPage : Page
     {
         public NotesViewModel ViewModel { get; } = new NotesViewModel();
+        public SavedSessionViewModel ViewModel2 { get; } = new SavedSessionViewModel();
         public MainPage()
         {
             InitializeComponent();
@@ -17,6 +18,7 @@ namespace JustRemember_.Views
         {
             ViewModel.Initialize();
             ViewModel.wr = this;
+            ViewModel2.Initialize();
             base.OnNavigatedTo(e);
         }
 

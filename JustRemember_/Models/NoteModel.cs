@@ -26,16 +26,15 @@ namespace JustRemember_.Models
 
         public static async Task<ObservableCollection<NoteModel>> GetNotesAsync()
         {
+            StorageFolder folder = ApplicationData.Current.RoamingFolder;
             if (!Directory.Exists(ApplicationData.Current.RoamingFolder.Path + "\\Notes\\"))
             {
-                StorageFolder fol = ApplicationData.Current.RoamingFolder;
-                await fol.CreateFolderAsync("Notes");
+                await folder.CreateFolderAsync("Notes");
             }
             if (Directory.GetFiles(ApplicationData.Current.RoamingFolder.Path + "\\Notes\\").Length < 1)
             {
                 return new ObservableCollection<NoteModel>();
             }
-            StorageFolder folder = ApplicationData.Current.RoamingFolder;
             var noteFolder = await folder.GetFolderAsync("Notes");
             var noteFiles = await noteFolder.GetFilesAsync();
             ObservableCollection<NoteModel> allNote = new ObservableCollection<NoteModel>();
