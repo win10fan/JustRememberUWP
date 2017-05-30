@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ namespace JustRemember_.Models
     {
         public string Title { get; set; }
         public string Content { get; set; }
+
+		[JsonIgnore]
         public string FirstLine
         {
             get

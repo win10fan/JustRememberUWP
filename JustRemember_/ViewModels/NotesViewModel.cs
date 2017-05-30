@@ -13,6 +13,7 @@ using JustRemember_.Views;
 using Windows.UI.Xaml.Input;
 using JustRemember_.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace JustRemember_.ViewModels
 {
@@ -39,7 +40,20 @@ namespace JustRemember_.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(noNoteSuggestion)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsNotSelected)));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isReady)));
         }
+
+		public Visibility isReady
+		{
+			get
+			{
+				if (config == null)
+				{
+					return Visibility.Visible;
+				}
+				return Visibility.Collapsed;
+			}
+		}
 
         ObservableCollection<NoteModel> _notes;
 
@@ -61,7 +75,8 @@ namespace JustRemember_.ViewModels
         public ICommand DeSelect { get; private set; }
         public ICommand SendToMatch { get; private set; }
 
-        public NotesViewModel()
+		DispatcherTimer tck;
+		public NotesViewModel()
         {
             OpenNote = new RelayCommand<DoubleTappedRoutedEventArgs>(OnItemDoubleClick);
             SelectNote = new RelayCommand<SelectionChangedEventArgs>(OnSelectNote);
@@ -71,9 +86,43 @@ namespace JustRemember_.ViewModels
             DeleteSelected = new RelayCommand<RoutedEventArgs>(DeleteSelectedItem);
             DeSelect = new RelayCommand<RoutedEventArgs>(DeSelectNote);
             SendToMatch = new RelayCommand<RoutedEventArgs>(NavigateToMatchWithNote);
+			//Other
+			tck = new DispatcherTimer()
+			{
+				Interval = TimeSpan.FromMilliseconds(500),
+			};
+			tck.Tick += Tck_TickAsync;
+			tck.Start();
         }
 
-        private void NavigateToMatchWithNote(RoutedEventArgs obj)
+		DateTime tilStop;
+		bool getStop;
+		private async void Tck_TickAsync(object sender, object e)
+		{
+			if (config == null)
+			{
+				App.Config = await SettingsStorageExtensions.ReadAsync<AppConfigModel>(ApplicationData.Current.LocalFolder, "appconfig");
+				config = App.Config;
+				return;
+			}
+			OnPropertyChanged(nameof(isReady));
+			if (config != null)
+			{
+				if (!getStop)
+				{
+					tilStop = DateTime.Now + TimeSpan.FromSeconds(1);
+					getStop = true;
+					return;
+				}
+				if (DateTime.Now > tilStop)
+				{
+					OnPropertyChanged(nameof(isReady));
+					tck.Stop();
+				}
+			}
+		}
+
+		private void NavigateToMatchWithNote(RoutedEventArgs obj)
         {
             InitializeAndGoToMatch();
         }

@@ -9,43 +9,44 @@
     xmlns:uwp="using:Universal.UI.Xaml.Controls"
     xmlns:local="using:JustRemember_.Models"
     mc:Ignorable="d">
-    <Pivot x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource HomePivot}">
-        <PivotItem Header="Notes" Margin="0" Foreground="{ThemeResource AccentButtonForeground}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel.NoteCount, Mode=OneWay}" Grid.Row="0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
-                <ListView x:Name="workAround" Margin="5" Grid.Row="1" SelectionMode="Single" ItemsSource="{x:Bind ViewModel.Notes, Mode=OneWay}" x:FieldModifier="public">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="DoubleTapped">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.OpenNote}"/>
-                        </ic:EventTriggerBehavior>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.SelectNote}"/>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="local:NoteModel">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Grid.Row="0" FontSize="22" Text="{x:Bind Title}"/>
-                                <TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Grid.Row="1" FontSize="16" Text="{x:Bind FirstLine}" Foreground="{ThemeResource TextControlForegroundDisabled}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <TextBlock Visibility="{x:Bind ViewModel.noNoteSuggestion, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="30" FontSize="30" TextWrapping="Wrap" TextAlignment="Right">
+	<Grid>
+		<Pivot x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource HomePivot}">
+			<PivotItem Header="Notes" Margin="0" Foreground="{ThemeResource AccentButtonForeground}">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel.NoteCount, Mode=OneWay}" Grid.Row="0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
+					<ListView x:Name="workAround" Margin="5" Grid.Row="1" SelectionMode="Single" ItemsSource="{x:Bind ViewModel.Notes, Mode=OneWay}" x:FieldModifier="public">
+						<i:Interaction.Behaviors>
+							<ic:EventTriggerBehavior EventName="DoubleTapped">
+								<ic:InvokeCommandAction Command="{x:Bind ViewModel.OpenNote}"/>
+							</ic:EventTriggerBehavior>
+							<ic:EventTriggerBehavior EventName="SelectionChanged">
+								<ic:InvokeCommandAction Command="{x:Bind ViewModel.SelectNote}"/>
+							</ic:EventTriggerBehavior>
+						</i:Interaction.Behaviors>
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate x:DataType="local:NoteModel">
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*"/>
+										<RowDefinition Height="*"/>
+									</Grid.RowDefinitions>
+									<TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Grid.Row="0" FontSize="22" Text="{x:Bind Title}"/>
+									<TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Grid.Row="1" FontSize="16" Text="{x:Bind FirstLine}" Foreground="{ThemeResource TextControlForegroundDisabled}"/>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					<TextBlock Visibility="{x:Bind ViewModel.noNoteSuggestion, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="30" FontSize="30" TextWrapping="Wrap" TextAlignment="Right">
                     <Run>You don't have any note</Run>
                     <LineBreak/>
                     <Run>You can add note by Write new note</Run>
@@ -53,108 +54,108 @@
                     <Run>Or import text file</Run>
                     <LineBreak/>
                     <Run>By click at menu below</Run>
-                </TextBlock>
-                <CommandBar Grid.Row="2">
-                    <CommandBar.SecondaryCommands>
-                        <AppBarButton Icon="AllApps" Label="Prenote">
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Click">
-                                    <ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </AppBarButton>
-                        <AppBarButton Icon="Setting" Label="Settings">
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Click">
-                                    <ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </AppBarButton>
-                    </CommandBar.SecondaryCommands>
+					</TextBlock>
+					<CommandBar Grid.Row="2">
+						<CommandBar.SecondaryCommands>
+							<AppBarButton Icon="AllApps" Label="Prenote">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</AppBarButton>
+							<AppBarButton Icon="Setting" Label="Settings">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</AppBarButton>
+						</CommandBar.SecondaryCommands>
 
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="OpenFile" Label="Import">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ImportNote}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Refresh" Label="Reload">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ReloadList}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="OpenFile" Label="Import">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.ImportNote}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Refresh" Label="Reload">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.ReloadList}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
 
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.SendToMatch}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Edit" Label="Edit">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.EditSelected}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Delete" Label="Delete">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.DeSelect}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                </CommandBar>
-            </Grid>
-        </PivotItem>
-        <PivotItem Header="Sessions" Foreground="{ThemeResource AccentButtonForeground}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel2.SessionCount, Mode=OneWay}" Grid.Row="0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
-                <ListView x:Name="sessionList" Margin="5" Grid.Row="1" SelectionMode="Single" ItemsSource="{x:Bind ViewModel2.model.save, Mode=OneWay}">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="DoubleTapped">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.OpenNote}"/>
-                        </ic:EventTriggerBehavior>
-                        <ic:EventTriggerBehavior EventName="SelectionChanged">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.SelectNote}"/>
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="local:SessionModel">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock TextWrapping="WrapWholeWords">
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.SendToMatch}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Edit" Label="Edit">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.EditSelected}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Delete" Label="Delete">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeSelect}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+					</CommandBar>
+				</Grid>
+			</PivotItem>
+			<PivotItem Header="Sessions" Foreground="{ThemeResource AccentButtonForeground}">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel2.SessionCount, Mode=OneWay}" Grid.Row="0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
+					<ListView x:Name="sessionList" Margin="5" Grid.Row="1" SelectionMode="Single" ItemsSource="{x:Bind ViewModel2.model.save, Mode=OneWay}">
+						<!--<i:Interaction.Behaviors>
+	   <ic:EventTriggerBehavior EventName="DoubleTapped">
+		<ic:InvokeCommandAction Command="{x:Bind ViewModel.OpenNote}"/>
+	   </ic:EventTriggerBehavior>
+	   <ic:EventTriggerBehavior EventName="SelectionChanged">
+		<ic:InvokeCommandAction Command="{x:Bind ViewModel.SelectNote}"/>
+	   </ic:EventTriggerBehavior>
+	  </i:Interaction.Behaviors>-->
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate x:DataType="local:SessionModel">
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*"/>
+										<RowDefinition Height="*"/>
+									</Grid.RowDefinitions>
+									<TextBlock TextWrapping="WrapWholeWords">
                                     <Run Text="&#xE121; " FontSize="14">
                                         <ToolTipService.ToolTip>
                                             <TextBlock Text="{x:Bind StatInfo.beginTime, Mode=OneWay}"/>
@@ -162,104 +163,111 @@
                                     </Run>
                                     <Run Text="{x:Bind StatInfo.noteTitle, Mode=OneWay}" FontSize="20"/>
                                 </TextBlock>
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Visibility="{x:Bind StatInfo.wasTimeLimited, Mode=OneWay}" Orientation="Horizontal">
-                                        <TextBlock>
+									<StackPanel Orientation="Vertical">
+										<StackPanel Visibility="{x:Bind StatInfo.wasTimeLimited, Mode=OneWay}" Orientation="Horizontal">
+											<TextBlock>
                                             <Run Text="{x:Bind StatInfo.totalTimespend, Mode=OneWay}"/>
                                             <Run Text="/"/>
                                             <Run Text="{x:Bind StatInfo.totalLimitTime, Mode=OneWay}"/>
-                                        </TextBlock>
-                                        <ProgressBar Minimum="0" Maximum="100" Value="{x:Bind StatInfo.timeValue, Mode=OneWay}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock>
+											</TextBlock>
+											<ProgressBar Minimum="0" Maximum="100" Value="{x:Bind StatInfo.timeValue, Mode=OneWay}"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock>
                                             <Run Text="{x:Bind currentChoice, Mode=OneWay}"/>
                                             <Run Text="/"/>
                                             <Run Text="{x:Bind totalChoices, Mode=OneWay}"/>
-                                        </TextBlock>
-                                        <ProgressBar Minimum="0" Maximum="100" Value="{x:Bind choiceProgress, Mode=OneWay}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock>
+											</TextBlock>
+											<ProgressBar Minimum="0" Maximum="100" Value="{x:Bind choiceProgress, Mode=OneWay}"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock>
                                             <Run Text="&#xE121;" FontFamily="Segoe MDL2 Assets"/>
                                             <!--<Run Text="{x:Bind StatInfo.}"-->
-                                        </TextBlock>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <CommandBar Grid.Row="2">
-                    <CommandBar.SecondaryCommands>
-                        <AppBarButton Icon="AllApps" Label="Prenote">
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Click">
-                                    <ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </AppBarButton>
-                        <AppBarButton Icon="Setting" Label="Settings">
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Click">
-                                    <ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </AppBarButton>
-                    </CommandBar.SecondaryCommands>
+											</TextBlock>
+										</StackPanel>
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					<CommandBar Grid.Row="2">
+						<CommandBar.SecondaryCommands>
+							<AppBarButton Icon="AllApps" Label="Prenote">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</AppBarButton>
+							<AppBarButton Icon="Setting" Label="Settings">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</AppBarButton>
+						</CommandBar.SecondaryCommands>
 
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="OpenFile" Label="Import">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ImportNote}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Refresh" Label="Reload">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ReloadList}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="OpenFile" Label="Import">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.ImportNote}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Refresh" Label="Reload">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.ReloadList}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
 
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.SendToMatch}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Edit" Label="Edit">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.EditSelected}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Delete" Label="Delete">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                    <AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select">
-                        <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="Click">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.DeSelect}"/>
-                            </ic:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </AppBarButton>
-                </CommandBar>
-            </Grid>
-        </PivotItem>
-    </Pivot>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.SendToMatch}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Edit" Label="Edit">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.EditSelected}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Delete" Label="Delete">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeSelect}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+					</CommandBar>
+				</Grid>
+			</PivotItem>
+		</Pivot>
+		<Grid Visibility="{x:Bind ViewModel.isReady, Mode=OneWay}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
+				<ProgressRing Width="80" Height="80" Margin="5" IsActive="True"/>
+				<TextBlock Text="Initializing settings" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" FontSize="30"/>
+			</StackPanel>
+		</Grid>
+	</Grid>
 </Page>

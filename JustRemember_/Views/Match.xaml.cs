@@ -38,6 +38,7 @@ namespace JustRemember_.Views
             ViewModel.current = (SessionModel)e.Parameter;
             ViewModel.RestoreSession();
             ViewModel.view = this;
+			ViewModel.isPausing = false;
             base.OnNavigatedTo(e);
         }
 
@@ -87,6 +88,30 @@ namespace JustRemember_.Views
         {
             get { return stopPause; }
             set { stopPause = value; }
+        }
+
+        private void TryPause(object sender, TappedRoutedEventArgs e)
+        {
+            ViewModel.isPausing = true;
+        }
+
+        private void BackToMainMenu(object sender, RoutedEventArgs e)
+        {
+            ViewModel.KickToMainPage();
+        }
+
+        private void SaveSession(object sender, RoutedEventArgs e)
+        {
+			if (ViewModel.currentChoice < 1)
+			{
+				return;
+			}
+            ViewModel.SaveToSessionList();
+        }
+
+        private void TryUnPause(object sender, RoutedEventArgs e)
+        {
+            ViewModel.isPausing = false;
         }
     }
 }

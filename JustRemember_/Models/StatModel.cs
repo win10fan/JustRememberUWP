@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace JustRemember_.Models
         public TimeSpan totalLimitTime;
         public matchMode setMode;
         public string noteTitle;
-
+  
         public int GetTotalWrong()
         {
             int wrongCount = 0;
@@ -35,7 +36,8 @@ namespace JustRemember_.Models
             return wrongCount;
         }
 
-        public Visibility wasTimeLimited
+  [JsonIgnore]
+  public Visibility wasTimeLimited
         {
             get
             {
@@ -44,7 +46,8 @@ namespace JustRemember_.Models
             }
         }
 
-        public int timeValue
+  [JsonIgnore]
+  public int timeValue
         {
             get
             {

@@ -4,138 +4,127 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:stat="using:JustRemember_.Models"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.Resources>
-            <Storyboard x:Name="startPause">
-                <DoubleAnimation 
-                    Storyboard.TargetName="Row0" 
-                    Storyboard.TargetProperty="MaxHeight"
-                    EnableDependentAnimation="True"
-                    From="0"
-                    To="300"
-                    Duration="0:0:1"/>
-                <DoubleAnimation 
-                    Storyboard.TargetName="Row2" 
-                    Storyboard.TargetProperty="MaxHeight"
-                    EnableDependentAnimation="True"
-                    From="280"
-                    To="0"
-                    Duration="0:0:1"/>
-                <DoubleAnimation 
-                    Storyboard.TargetName="RowOfInfo" 
-                    Storyboard.TargetProperty="MaxHeight"
-                    EnableDependentAnimation="True"
-                    From="32"
-                    To="0"
-                    Duration="0:0:1"/>
-            </Storyboard>
-            <Storyboard x:Name="stopPause">
-                <DoubleAnimation 
+	<Page.Resources>
+		<Style x:Key="recTan" TargetType="Grid">
+			<Style.Setters>
+				<Setter Property="Background" Value="{ThemeResource AccentButtonBackground}"/>
+				<Setter Property="BorderBrush" Value="{ThemeResource AccentButtonBorderBrush}"/>
+				<Setter Property="BorderThickness" Value="1"/>
+				<Setter Property="Margin" Value="2"/>
+			</Style.Setters>
+		</Style>
+		<Style x:Key="txtIcon" TargetType="TextBlock">
+			<Setter Property="Margin" Value="0,-10,0,0"/>
+			<Setter Property="VerticalAlignment" Value="Stretch"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		</Style>
+	</Page.Resources>
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+			<Storyboard x:Name="startPause">
+				<DoubleAnimationUsingKeyFrames 
+					BeginTime="0:0:0" 
+					Storyboard.TargetName="infoGrid"
+					Storyboard.TargetProperty="MaxHeight"
+					Duration="0:0:1"
+					EnableDependentAnimation="True">
+					<SplineDoubleKeyFrame KeyTime="0:0:0" Value="32"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
+				</DoubleAnimationUsingKeyFrames>
+				<DoubleAnimationUsingKeyFrames
+					Storyboard.TargetName="Row0"
+					Storyboard.TargetProperty="MaxHeight"
+					Duration="0:0:1"
+					EnableDependentAnimation="True">
+					<SplineDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:1" Value="300"/>
+				</DoubleAnimationUsingKeyFrames>
+				<DoubleAnimationUsingKeyFrames
+					Storyboard.TargetName="Row2"
+					Storyboard.TargetProperty="MaxHeight"
+					Duration="0:0:1"
+					EnableDependentAnimation="True">
+					<SplineDoubleKeyFrame KeyTime="0:0:0" Value="280"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="280"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
+			<Storyboard x:Name="stopPause">
+				<DoubleAnimation 
                     Storyboard.TargetName="Row0" 
                     Storyboard.TargetProperty="MaxHeight"
                     EnableDependentAnimation="True"
                     From="300"
                     To="0"
                     Duration="0:0:1"/>
-                <DoubleAnimation 
+				<DoubleAnimation 
                     Storyboard.TargetName="Row2" 
                     Storyboard.TargetProperty="MaxHeight"
                     EnableDependentAnimation="True"
                     From="0"
                     To="280"
                     Duration="0:0:1"/>
-                <DoubleAnimation 
-                    Storyboard.TargetName="RowOfInfo" 
+				<DoubleAnimation 
+                    Storyboard.TargetName="infoGrid" 
                     Storyboard.TargetProperty="MaxHeight"
                     EnableDependentAnimation="True"
                     From="0"
-                    To="32"
+                    To="64"
                     Duration="0:0:1"/>
-            </Storyboard>
-        </Grid.Resources>
-        <Grid.RowDefinitions>
-            <RowDefinition x:Name="Row0" Height="0"/>
-            <RowDefinition x:Name="Row1" Height="*"/>
-            <RowDefinition x:Name="Row2" Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
-            <Rectangle Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
-            <Rectangle Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
-            <StackPanel>
-                <GridView>
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsWrapGrid Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
-                    <GridView.ItemContainerStyle>
-                        <Style TargetType="GridViewItem">
-                            <Style.Setters>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <Grid Background="{ThemeResource AccentButtonBackground}" Margin="5" Height="100" Width="105">
-                                                <ContentPresenter Margin="5"/>
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style.Setters>
-                        </Style>
-                    </GridView.ItemContainerStyle>
-                    <GridViewItem>
-                        <Grid>
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Click">
-                                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.BackToMainMenu, Mode=OneWay}"/>
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE112;" FontFamily="Segoe MDL2 Assets"/>
-                            <TextBlock VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Leave"/>
-                        </Grid>
-                    </GridViewItem>
-                    <GridViewItem>
-                        <Grid>
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Click">
-                                    <ic:ChangePropertyAction PropertyName="ViewModel.isPausing" Value="false"/>
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE0E5;" FontFamily="Segoe MDL2 Assets"/>
-                            <TextBlock VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Continue"/>
-                        </Grid>
-                    </GridViewItem>
-                    <GridViewItem>
-                        <Grid>
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Click">
-                                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.SaveToSessions, Mode=OneWay}"/>
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <Rectangle Visibility="{x:Bind ViewModel.sessionButtonColor, Mode=OneWay}" Margin="-5" Fill="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
-                            <TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE105;" FontFamily="Segoe MDL2 Assets"/>
-                            <TextBlock VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Save session"/>
-                        </Grid>
-                    </GridViewItem>
-                    <GridViewItem>
-                        <Grid>
-                            <TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE117;" FontFamily="Segoe MDL2 Assets"/>
-                            <TextBlock VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Restart"/>
-                        </Grid>
-                    </GridViewItem>
-                    <GridViewItem>
-                        <Grid>
-                            <TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE115;" FontFamily="Segoe MDL2 Assets"/>
-                            <TextBlock VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Settings"/>
-                        </Grid>
-                    </GridViewItem>
-                    <GridViewItem>
-                        <TextBlock Foreground="{ThemeResource AccentButtonForeground}">
+			</Storyboard>
+		</Grid.Resources>
+		<Grid.RowDefinitions>
+			<RowDefinition x:Name="Row0" Height="*"/>
+			<RowDefinition x:Name="Row1" Height="*"/>
+			<RowDefinition x:Name="Row2" Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
+			<Rectangle Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
+			<Rectangle Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<!--Tile-->
+				<Grid Margin="5">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="1.25*"/>
+					</Grid.ColumnDefinitions>
+					<Grid Grid.Row="0" Grid.Column="0" Style="{StaticResource recTan}">
+						<TextBlock Text="&#xE112;" Margin="0,-10,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" FontFamily="Segoe MDL2 Assets"/>
+						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Leave"/>
+						<Button Click="BackToMainMenu" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent"/>
+					</Grid>
+					<Grid Grid.Row="0" Grid.Column="1" Style="{StaticResource recTan}">
+						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE0E5;" FontFamily="Segoe MDL2 Assets"/>
+						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Continue"/>
+						<Button Click="TryUnPause" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent"/>
+					</Grid>
+					<Grid Grid.Row="0" Grid.Column="2" Style="{StaticResource recTan}">
+						<Rectangle Visibility="{x:Bind ViewModel.sessionButtonColor, Mode=OneWay}" Fill="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE105;" FontFamily="Segoe MDL2 Assets"/>
+						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Save session"/>
+						<Button Click="SaveSession" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent"/>
+					</Grid>
+					<Grid Grid.Row="1" Grid.Column="0" Style="{StaticResource recTan}">
+						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE117;" FontFamily="Segoe MDL2 Assets"/>
+						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Restart"/>
+					</Grid>
+					<Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource recTan}">
+						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE115;" FontFamily="Segoe MDL2 Assets"/>
+						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Settings"/>
+					</Grid>
+					<Grid Grid.Row="1" Grid.Column="2" Style="{StaticResource recTan}">
+						<TextBlock Margin="5,2" Foreground="{ThemeResource AccentButtonForeground}">
                             <Run Text="Progress: "/>
                             <Run Text="{x:Bind ViewModel.currentChoice,Mode=OneWay}"/>
                             <Run Text="/"/>
@@ -148,99 +137,94 @@
                             <Run Text="{x:Bind ViewModel.spendedTime,Mode=OneWay}"/>
                             <Run Text="/"/>
                             <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneWay}"/>
-                        </TextBlock>
-                    </GridViewItem>
-                </GridView>
-                <Slider Margin="10,0" Value="{x:Bind ViewModel.Config.displayTextSize, Mode=TwoWay}">
-                    <Slider.Header>
-                        <TextBlock>
+						</TextBlock>
+					</Grid>
+				</Grid>
+				<Slider Grid.Row="1" Margin="5" Value="{x:Bind ViewModel.Config.displayTextSize, Mode=TwoWay}">
+					<Slider.Header>
+						<TextBlock>
                             <Run Text="Display text size ("/>
                             <Run Text="{x:Bind ViewModel.Config.displayTextSize, Mode=OneWay}"/>
                             <Run Text="):"/>
-                        </TextBlock>
-                    </Slider.Header>
-                </Slider>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
-            <ScrollViewer x:Name="displayTextScroll"  Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                <TextBlock x:Name="dpTxt" x:FieldModifier="public" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>
-            </ScrollViewer>
-            <Grid Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="Click">
-                        <ic:ChangePropertyAction PropertyName="ViewModel.isPausing" Value="true"/>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-                <Grid.RowDefinitions>
-                    <RowDefinition x:Name="RowOfDPTXT" Height="Auto"/>
-                    <RowDefinition x:Name="RowOfInfo" Height="32"/>
-                </Grid.RowDefinitions>
-                <Rectangle Opacity="0.8" Grid.Row="0" Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
-                <TextBlock Grid.Row="0" Margin="5" Text="{x:Bind ViewModel.current.SelectedNote.Title}"/>
-                <Rectangle Opacity="0.8" Grid.Row="1" Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
-                <Grid Margin="5" Grid.Row="1" VerticalAlignment="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center">
+						</TextBlock>
+					</Slider.Header>
+				</Slider>
+			</Grid>
+		</Grid>
+		<Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
+			<ScrollViewer x:Name="displayTextScroll" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+				<TextBlock x:Name="dpTxt" x:FieldModifier="public" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>
+			</ScrollViewer>
+			<Grid VerticalAlignment="Top" x:Name="infoGrid" Tapped="TryPause" Grid.Row="0" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="32"/>
+				</Grid.RowDefinitions>
+				<Rectangle Opacity="0.8" Grid.Row="0" Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
+				<TextBlock Grid.Row="0" Margin="5" Text="{x:Bind ViewModel.current.SelectedNote.Title}"/>
+				<Rectangle Opacity="0.8" Grid.Row="1" Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
+				<Grid Margin="5" Grid.Row="1" VerticalAlignment="Top">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock VerticalAlignment="Center">
                         <Run Text="{x:Bind ViewModel.currentChoice,Mode=OneWay}"/>
                         <Run Text="/"/>
                         <Run Text="{x:Bind ViewModel.totalText, Mode=OneWay}"/>
-                    </TextBlock>
-                    <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{x:Bind ViewModel.totalWrong,Mode=OneWay}"/>
-                    <TextBlock TextAlignment="Right" Grid.Column="2" VerticalAlignment="Center">
+					</TextBlock>
+					<TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{x:Bind ViewModel.totalWrong,Mode=OneWay}"/>
+					<TextBlock TextAlignment="Right" Grid.Column="2" VerticalAlignment="Center">
                         <Run Text="{x:Bind ViewModel.spendedTime,Mode=OneWay}"/>
                         <Run Text="/"/>
                         <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneWay}"/>
-                    </TextBlock>
-                </Grid>
-            </Grid>
-        </Grid>
-        <!--Choice list-->
-        <Grid Grid.Row="2">
-            <ItemsControl Visibility="{x:Bind ViewModel.isItCenterMode}" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice0" Margin="4" Content="{x:Bind ViewModel.Choice0Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice0Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice1" Margin="4" Content="{x:Bind ViewModel.Choice1Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice1Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice2" Margin="4" Content="{x:Bind ViewModel.Choice2Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice2Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice3" Margin="4" Content="{x:Bind ViewModel.Choice3Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice3Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-                <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice4" Margin="4" Content="{x:Bind ViewModel.Choice4Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice4Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-            </ItemsControl>
-            <Grid Visibility="{x:Bind ViewModel.isItBottomMode}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-                <TextBlock FontSize="{x:Bind ViewModel.Config.displayTextSize}" Grid.Row="0" x:Name="choiceInfob">
+					</TextBlock>
+				</Grid>
+			</Grid>
+		</Grid>
+		<!--Choice list-->
+		<Grid Grid.Row="2">
+			<ItemsControl Visibility="{x:Bind ViewModel.isItCenterMode}" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice0" Margin="4" Content="{x:Bind ViewModel.Choice0Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice0Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice1" Margin="4" Content="{x:Bind ViewModel.Choice1Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice1Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice2" Margin="4" Content="{x:Bind ViewModel.Choice2Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice2Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice3" Margin="4" Content="{x:Bind ViewModel.Choice3Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice3Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice4" Margin="4" Content="{x:Bind ViewModel.Choice4Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice4Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+			</ItemsControl>
+			<Grid Visibility="{x:Bind ViewModel.isItBottomMode}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="60"/>
+				</Grid.RowDefinitions>
+				<TextBlock FontSize="{x:Bind ViewModel.Config.displayTextSize, Mode=OneWay}" Grid.Row="0" x:Name="choiceInfob">
                     <Run Text="1: "/><Run Text="{x:Bind ViewModel.Choice0Content}"/><LineBreak/>
                     <Run Text="2: "/><Run Text="{x:Bind ViewModel.Choice1Content}"/><LineBreak/>
                     <Run Text="3: "/><Run Text="{x:Bind ViewModel.Choice2Content}"/><LineBreak/>
                     <Run Text="4: "/><Run Text="{x:Bind ViewModel.Choice3Content}"/><LineBreak/>
                     <Run Text="5: "/><Run Text="{x:Bind ViewModel.Choice4Content}"/>
-                </TextBlock>
-                <Grid Grid.Row="1" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice0" Grid.Column="0" Margin="4" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice1" Grid.Column="1" Margin="4" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice2" Grid.Column="2" Margin="4" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice3" Grid.Column="3" Margin="4" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-                    <Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice4" Grid.Column="4" Margin="4" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-                </Grid>
-            </Grid>
-            <StackPanel Visibility="{x:Bind ViewModel.isItWriteMode}" VerticalAlignment="Center">
-                <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250" FontSize="24"/>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Margin="0,10,0,0" Content="&#xE10B;" FontSize="26" Height="40" FontFamily="Segoe MDL2 Assets"/>
-                <TextBlock Visibility="Collapsed" x:Name="debugInfo" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
-                <Button Margin="4" x:Name="chImportantc" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
-            </StackPanel>
-        </Grid>
-    </Grid>
+				</TextBlock>
+				<Grid Grid.Row="1" HorizontalAlignment="Center">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice0" Grid.Column="0" Margin="4" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice1" Grid.Column="1" Margin="4" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice2" Grid.Column="2" Margin="4" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice3" Grid.Column="3" Margin="4" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice4" Grid.Column="4" Margin="4" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+				</Grid>
+			</Grid>
+			<StackPanel Visibility="{x:Bind ViewModel.isItWriteMode}" VerticalAlignment="Center">
+				<TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250" FontSize="24"/>
+				<Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Margin="0,10,0,0" Content="&#xE10B;" FontSize="26" Height="40" FontFamily="Segoe MDL2 Assets"/>
+				<TextBlock Visibility="Collapsed" x:Name="debugInfo" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
+				<Button Margin="4" x:Name="chImportantc" Content="&gt;&gt;&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6" FontSize="18" Height="48"/>
+			</StackPanel>
+		</Grid>
+	</Grid>
 </Page>
