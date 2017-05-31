@@ -19,6 +19,7 @@ namespace JustRemember_.Views
             ViewModel.Initialize();
             ViewModel.wr = this;
             ViewModel2.Initialize();
+			ViewModel2.view = this;
             base.OnNavigatedTo(e);
         }
 
@@ -30,5 +31,11 @@ namespace JustRemember_.Views
                 workAround = value;
             }
         }
+
+		public ListView SSL
+		{
+			get { return sessionList; }
+			set { sessionList = value; }
+		}
     }
 }

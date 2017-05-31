@@ -8,70 +8,88 @@ using Windows.UI.Xaml;
 
 namespace JustRemember_.Models
 {
-    public class StatModel
-    {
-        public DateTime beginTime;
-        public int NoteWordCount;
-        public int configChoice;
-        public Dictionary<int, List<bool>> choiceInfo;
-        public bool isTimeLimited;
-        public TimeSpan totalTimespend;
-        public TimeSpan totalLimitTime;
-        public matchMode setMode;
-        public string noteTitle;
-  
-        public int GetTotalWrong()
-        {
-            int wrongCount = 0;
-            foreach (var item in choiceInfo)
-            {
-                foreach (bool vlu in item.Value)
-                {
-                    if (vlu)
-                    {
-                        wrongCount += 1;
-                    }
-                }
-            }
-            return wrongCount;
-        }
+	public class StatModel
+	{
+		public DateTime beginTime;
+		public int NoteWordCount;
+		public int configChoice;
+		public Dictionary<int, List<bool>> choiceInfo;
+		public bool isTimeLimited;
+		public TimeSpan totalTimespend;
+		public TimeSpan totalLimitTime;
+		public matchMode setMode;
+		public string noteTitle;
 
-  [JsonIgnore]
-  public Visibility wasTimeLimited
-        {
-            get
-            {
-                if (isTimeLimited) { return Visibility.Visible; }
-                return Visibility.Collapsed;
-            }
-        }
+		public int GetTotalWrong()
+		{
+			int wrongCount = 0;
+			foreach (var item in choiceInfo)
+			{
+				foreach (bool vlu in item.Value)
+				{
+					if (vlu)
+					{
+						wrongCount += 1;
+					}
+				}
+			}
+			return wrongCount;
+		}
 
-  [JsonIgnore]
-  public int timeValue
-        {
-            get
-            {
-                if (!isTimeLimited) { return 0; }
-                double a = totalTimespend.TotalSeconds;
-                double b = totalLimitTime.TotalSeconds;
-                double val = a / b;
-                return (int)(val * 100);
-            }
-        }
+		[JsonIgnore]
+		public Visibility wasTimeLimited
+		{
+			get
+			{
+				if (isTimeLimited) { return Visibility.Visible; }
+				return Visibility.Collapsed;
+			}
+		}
 
-        public StatModel()
-        {
-            beginTime = DateTime.Now;
-            NoteWordCount = 10;
-            configChoice = 3;
-            choiceInfo = new Dictionary<int, List<bool>>();
-            isTimeLimited = false;
-            totalTimespend = TimeSpan.MinValue;
-            totalLimitTime = TimeSpan.FromMinutes(5);
-            setMode = matchMode.Easy;
-            noteTitle = "Untitled";
-        }
-        /*public class statInfo
+		[JsonIgnore]
+		public int timeValue
+		{
+			get
+			{
+				if (!isTimeLimited) { return 0; }
+				double a = totalTimespend.TotalSeconds;
+				double b = totalLimitTime.TotalSeconds;
+				double val = a / b;
+				return (int)(val * 100);
+			}
+		}
+
+		[JsonIgnore]
+		public string begintimeSTR
+		{
+			get
+			{
+				return $"{beginTime.Day}/{beginTime.Month}/{beginTime.Year} {beginTime.Hour}:{beginTime.Minute}:{beginTime.Second}";
+			}
+		}
+
+		[JsonIgnore]
+		public int isTimeSlotShow
+		{
+			get
+			{
+				return isTimeLimited ? 30 : 0;
+			}
+		}
+
+		public StatModel()
+		{
+			beginTime = DateTime.Now;
+			NoteWordCount = 10;
+			configChoice = 3;
+			choiceInfo = new Dictionary<int, List<bool>>();
+			isTimeLimited = false;
+			totalTimespend = TimeSpan.MinValue;
+			totalLimitTime = TimeSpan.FromMinutes(5);
+			setMode = matchMode.Easy;
+			noteTitle = "Untitled";
+		}
+		/*public class statInfo
     {
         public string dateandTime;
         public int totalWords;
@@ -197,12 +215,12 @@ namespace JustRemember_.Models
             }
         }
     }*/
-    }
+	}
 
-    public enum matchMode
-    {
-        Easy,
-        Normal,
-        Hard
-    }
+	public enum matchMode
+	{
+		Easy,
+		Normal,
+		Hard
+	}
 }

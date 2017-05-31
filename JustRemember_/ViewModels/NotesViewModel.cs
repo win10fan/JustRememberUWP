@@ -28,7 +28,6 @@ namespace JustRemember_.ViewModels
             {
                 return;
             }
-
             storage = value;
             OnPropertyChanged(propertyName);
         }
