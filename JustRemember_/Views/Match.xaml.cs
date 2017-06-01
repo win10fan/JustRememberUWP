@@ -39,6 +39,14 @@ namespace JustRemember_.Views
             ViewModel.RestoreSession();
             ViewModel.view = this;
 			ViewModel.isPausing = false;
+			if (!ViewModel.current.isNew)
+			{
+				//Reload text display
+				for (int i = 0; i < ViewModel.currentChoice; i++)
+				{
+					ViewModel.AddTextDisplay(i);
+				}
+			}
             base.OnNavigatedTo(e);
         }
 

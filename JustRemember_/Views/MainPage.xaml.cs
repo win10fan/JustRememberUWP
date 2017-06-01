@@ -37,5 +37,35 @@ namespace JustRemember_.Views
 			get { return sessionList; }
 			set { sessionList = value; }
 		}
-    }
+
+		private void sessionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			ViewModel2.UpdateSelection(e);
+		}
+
+		private void sessionList_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+		{
+			ViewModel2.DoubleClickSession(e);
+		}
+
+		private void RefreshSession(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			ViewModel2.RefrehListAsync(e);
+		}
+
+		private void DeleteSelectedSesion(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			ViewModel2.DeleteSelectedSession(e);
+		}
+
+		private void DeSelectSession(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			ViewModel2.DeSelectSession(e);
+		}
+
+		private void OpenSession(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			ViewModel2.OpenSessionMenu(e);
+		}
+	}
 }

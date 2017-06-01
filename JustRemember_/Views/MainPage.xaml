@@ -134,15 +134,7 @@
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 					<TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel2.SessionCount, Mode=OneWay}" Grid.Row="0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
-					<ListView x:Name="sessionList" Margin="5" Grid.Row="1" SelectionMode="Single" ItemsSource="{x:Bind ViewModel2.SavedSessions, Mode=OneWay}">
-						<i:Interaction.Behaviors>
-							<ic:EventTriggerBehavior EventName="DoubleTapped">
-								<ic:InvokeCommandAction Command="{x:Bind ViewModel2.openSession}"/>
-							</ic:EventTriggerBehavior>
-							<ic:EventTriggerBehavior EventName="SelectionChanged">
-								<ic:InvokeCommandAction Command="{x:Bind ViewModel2.selectSession}"/>
-							</ic:EventTriggerBehavior>
-						</i:Interaction.Behaviors>
+					<ListView x:Name="sessionList" Margin="5" Grid.Row="1" SelectionMode="Single" SelectionChanged="sessionList_SelectionChanged" DoubleTapped="sessionList_DoubleTapped" ItemsSource="{x:Bind ViewModel2.SavedSessions, Mode=OneWay}">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -212,34 +204,10 @@
 							</AppBarButton>
 						</CommandBar.SecondaryCommands>
 
-						<AppBarButton Visibility="Visible" Icon="Refresh" Label="Reload">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.refreshSession}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</AppBarButton>
-						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.openSessionOnMenu}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</AppBarButton>
-						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="Delete" Label="Delete">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.deleteSession}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</AppBarButton>
-						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.deSelect}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</AppBarButton>
+						<AppBarButton Visibility="Visible" Icon="Refresh" Label="Reload" Click="RefreshSession"/>
+						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open" Click="OpenSession"/>
+						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="Delete" Label="Delete" Click="DeleteSelectedSesion"/>
+						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select" Click="DeSelectSession"/>
 					</CommandBar>
 				</Grid>
 			</PivotItem>

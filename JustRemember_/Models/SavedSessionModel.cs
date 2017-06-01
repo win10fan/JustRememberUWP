@@ -110,6 +110,19 @@ namespace JustRemember_.Models
 			await FileIO.WriteTextAsync(fileG, geneContent);
 		}
 
+		public static async Task Delete(string filename)
+		{
+			StorageFolder folder = await ApplicationData.Current.RoamingFolder.GetFolderAsync("Sessions");
+			StorageFile main = await folder.GetFileAsync(filename);
+			StorageFile note = await folder.GetFileAsync($"{filename}{noteExtension}");
+			StorageFile stat = await folder.GetFileAsync($"{filename}{statExtension}");
+			StorageFile chos = await folder.GetFileAsync($"{filename}{choicesExtension}");
+			await main.DeleteAsync();
+			await note.DeleteAsync();
+			await stat.DeleteAsync();
+			await chos.DeleteAsync();
+		}
+
 		const string noteExtension = ".note";
 		const string statExtension = ".stat";
 		const string choicesExtension = ".gen";
