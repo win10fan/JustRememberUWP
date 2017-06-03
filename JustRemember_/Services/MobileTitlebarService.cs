@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace JustRemember_.Services
 {
 	public static class MobileTitlebarService
 	{
-		public static async void Refresh(string text, Color bg, Color fg)
+		public static async void Refresh(string text, object bg, object fg)
 		{
 			if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
 			{
 				var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-				statusBar.BackgroundColor = bg;
-				statusBar.ForegroundColor = fg;
+				statusBar.BackgroundColor = ((SolidColorBrush)bg).Color;
+				statusBar.ForegroundColor = ((SolidColorBrush)fg).Color;
 				if (text == "")
 				{
 					text = Package.Current.DisplayName;

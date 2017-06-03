@@ -8,6 +8,7 @@ using JustRemember_.Models;
 using JustRemember_.Helpers;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace JustRemember_
 {
@@ -40,7 +41,8 @@ namespace JustRemember_
 		/// <param name="e">Details about the launch request and process.</param>
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			MobileTitlebarService.Refresh("", (Color)Resources["ApplicationPageBackgroundThemeBrush"], (Color)Resources["ApplicationForegroundThemeBrush"]);
+			MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
+			await ThemeSelectorService.SetThemeAsync(ElementTheme.Dark);
 			Config = await AppConfigModel.Load2();
 			if (!e.PrelaunchActivated)
 			{

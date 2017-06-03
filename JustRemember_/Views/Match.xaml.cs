@@ -49,7 +49,7 @@ namespace JustRemember_.Views
 					ViewModel.AddTextDisplay(i);
 				}
 			}
-			MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, (Color)Resources["SystemControlPageBackgroundBaseLowBrush"], (Color)Resources["SystemControlForegroundBaseLowBrush"]);
+			MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlPageBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
 
 			base.OnNavigatedTo(e);
         }
@@ -94,7 +94,7 @@ namespace JustRemember_.Views
         {
             get { return startPause; }
             set { startPause = value;
-				MobileTitlebarService.Refresh("Paused...", (Color)Resources["SystemControlPageBackgroundBaseLowBrush"], (Color)Resources["SystemControlForegroundBaseLowBrush"]);
+				MobileTitlebarService.Refresh("Paused...", Resources["SystemControlPageBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
 			}
         }
         
@@ -102,7 +102,7 @@ namespace JustRemember_.Views
         {
             get { return stopPause; }
             set { stopPause = value;
-				MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, (Color)Resources["SystemControlBackgroundAccentBrush"], (Color)Resources["SystemControlForegroundAltHighBrush"]);
+				MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlBackgroundAccentBrush"], Resources["SystemControlForegroundAltHighBrush"]);
 			}
         }
 
