@@ -131,10 +131,12 @@
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\LiveTileService.cs" />
     <Compile Include="Services\LiveTileService.Samples.cs" />
+    <Compile Include="Services\MobileTitlebarService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="ViewModels\AppConfigViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\NoteEditorViewModel.cs" />
     <Compile Include="ViewModels\NotesViewModel.cs" />
     <Compile Include="ViewModels\SavedSessionViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
@@ -144,6 +146,9 @@
     </Compile>
     <Compile Include="Views\Match.xaml.cs">
       <DependentUpon>Match.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NoteEditorView.xaml.cs">
+      <DependentUpon>NoteEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -164,7 +169,6 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
     <Compile Include="Helpers\Singleton.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Assets\AppList\AppList.scale-100.png" />
     <Content Include="Assets\AppList\AppList.scale-125.png" />
@@ -233,6 +237,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <Content Include="Assets\Fonts\THSarabunNewBold.ttf" />
+    <Content Include="Assets\Fonts\THSarabunNewBoldItalic.ttf" />
+    <Content Include="Assets\Fonts\THSarabunNewItalic.ttf" />
+    <Content Include="Assets\Fonts\THSarabunNew.ttf" />
     <None Include="JustRemember__TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -250,10 +258,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\NoteEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

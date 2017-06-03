@@ -1,4 +1,5 @@
 ﻿using JustRemember_.Models;
+using JustRemember_.Services;
 using JustRemember_.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System.Threading;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -47,7 +49,9 @@ namespace JustRemember_.Views
 					ViewModel.AddTextDisplay(i);
 				}
 			}
-            base.OnNavigatedTo(e);
+			MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, (Color)Resources["SystemControlPageBackgroundBaseLowBrush"], (Color)Resources["SystemControlForegroundBaseLowBrush"]);
+
+			base.OnNavigatedTo(e);
         }
 
         public ScrollViewer displayTexts
@@ -89,13 +93,17 @@ namespace JustRemember_.Views
         public Storyboard Pause
         {
             get { return startPause; }
-            set { startPause = value; }
+            set { startPause = value;
+				MobileTitlebarService.Refresh("Paused...", (Color)Resources["SystemControlPageBackgroundBaseLowBrush"], (Color)Resources["SystemControlForegroundBaseLowBrush"]);
+			}
         }
         
         public Storyboard UnPause
         {
             get { return stopPause; }
-            set { stopPause = value; }
+            set { stopPause = value;
+				MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, (Color)Resources["SystemControlBackgroundAccentBrush"], (Color)Resources["SystemControlForegroundAltHighBrush"]);
+			}
         }
 
         private void TryPause(object sender, TappedRoutedEventArgs e)

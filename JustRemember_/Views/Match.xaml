@@ -80,9 +80,7 @@
 			<RowDefinition x:Name="Row1" Height="*"/>
 			<RowDefinition x:Name="Row2" Height="*"/>
 		</Grid.RowDefinitions>
-		<Grid Grid.Row="0" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
-			<Rectangle Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
-			<Rectangle Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
+		<Grid Grid.Row="0" Background="{ThemeResource SystemControlBackgroundBaseMediumBrush}">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"/>
@@ -160,9 +158,9 @@
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="32"/>
 				</Grid.RowDefinitions>
-				<Rectangle Opacity="0.8" Grid.Row="0" Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
+				<Rectangle Opacity="0.8" Grid.Row="0" Fill="{ThemeResource SystemControlBackgroundAccentBrush}"/>
 				<TextBlock Grid.Row="0" Margin="5" Text="{x:Bind ViewModel.current.SelectedNote.Title}"/>
-				<Rectangle Opacity="0.8" Grid.Row="1" Fill="{ThemeResource SystemControlPageBackgroundBaseLowBrush}"/>
+				<Rectangle Opacity="0.8" Grid.Row="1" Fill="{ThemeResource SystemControlBackgroundAccentBrush}"/>
 				<Grid Margin="5" Grid.Row="1" VerticalAlignment="Top">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>

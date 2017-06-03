@@ -11,10 +11,16 @@ using Windows.Storage;
 
 namespace JustRemember_.Models
 {
-    public struct NoteModel
+    public class NoteModel
     {
         public string Title { get; set; }
         public string Content { get; set; }
+
+		public NoteModel()
+		{
+			Title = "Untitled";
+			Content = "";
+		}
 
 		[JsonIgnore]
         public string FirstLine
@@ -45,10 +51,12 @@ namespace JustRemember_.Models
             {
                 foreach (var file in noteFiles)
                 {
-                    NoteModel n3 = new NoteModel();
-                    n3.Title = file.DisplayName;
-                    n3.Content = await FileIO.ReadTextAsync(file);
-                    allNote.Add(n3);
+					NoteModel n3 = new NoteModel()
+					{
+						Title = file.DisplayName,
+						Content = await FileIO.ReadTextAsync(file)
+					};
+					allNote.Add(n3);
                 }
             }
             return allNote;
@@ -64,5 +72,41 @@ namespace JustRemember_.Models
                 await noteFiles.DeleteAsync();
             }
         }
-    }
+
+		public static async Task SaveNote(NoteModel note)
+		{
+			var folder = (StorageFolder) await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Notes");
+			if (folder != null)
+			{
+				//Folder exist
+				var nf = await folder.GetFileAsync(note.Title);
+				if (nf == null)
+				{
+					//No file
+					nf = await folder.CreateFileAsync(note.Title);
+				}
+				else
+				{
+					await nf.DeleteAsync();
+					nf = await folder.CreateFileAsync(note.Title);
+				}
+				await FileIO.WriteTextAsync(nf, note.Content);
+			}
+		}
+
+		public static NoteModel empty
+		{
+			get
+			{
+				string title = "$Empty";
+				string content = "$%#@^)_(@$^)_@(^@#^$#&*)_@#^@";
+				NoteModel emp = new NoteModel()
+				{
+					Title = title,
+					Content = content
+				};
+				return emp;
+			}
+		}
+	}
 }

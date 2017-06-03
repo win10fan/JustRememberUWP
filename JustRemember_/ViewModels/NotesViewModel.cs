@@ -300,6 +300,11 @@ namespace JustRemember_.ViewModels
         private void EditSelectedItem(RoutedEventArgs obj)
         {
             //TODO:Kick user to Editor page
+			if (wr.WAR.SelectedIndex < 0)
+			{
+				return;
+			}
+			NavigationService.Navigate<NoteEditorView>(Notes[wr.WAR.SelectedIndex]);
         }
 
         async void ImportTextFile(RoutedEventArgs obj)

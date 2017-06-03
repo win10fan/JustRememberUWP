@@ -1,0 +1,196 @@
+﻿<Page
+    x:Class="JustRemember_.Views.NoteEditorView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:JustRemember_.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:mod="using:JustRemember_.Models"
+    mc:Ignorable="d">
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Resources>
+			<Storyboard x:Name="showMenu">
+				<DoubleAnimation
+					Storyboard.TargetName="menuIcon"
+					Storyboard.TargetProperty="Rotation"
+					From="180"
+					To="0"
+					Duration="0:0:0.2"/>
+			</Storyboard>
+			<Storyboard x:Name="hideMenu">
+				<DoubleAnimation
+					Storyboard.TargetName="menuIcon"
+					Storyboard.TargetProperty="Rotation"
+					From="0"
+					To="180"
+					Duration="0:0:0.2"/>
+			</Storyboard>
+		</Grid.Resources>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="50"/>
+			<RowDefinition Height="*" x:Name="menuPane"/>
+		</Grid.RowDefinitions>
+		<RichEditBox x:Name="mainEdit" Grid.Row="1" FontFamily="{x:Bind editor.FontName, Mode=OneWay}">
+			<i:Interaction.Behaviors>
+				<ic:EventTriggerBehavior EventName="KeyDown">
+					<ic:InvokeCommandAction Command="{x:Bind editor.splitUndo}"/>
+				</ic:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+		</RichEditBox>
+		<CommandBar Grid.Row="2" Style="{StaticResource EditorCMD}">
+			<AppBarButton Label="Leave" Icon="Back">
+				<i:Interaction.Behaviors>
+					<ic:EventTriggerBehavior EventName="Click">
+						<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+					</ic:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
+			</AppBarButton>
+			<AppBarSeparator/>
+			<AppBarButton IsEnabled="{x:Bind editor.canUndo, Mode=OneWay}" Label="Undo" Icon="Undo">
+				<i:Interaction.Behaviors>
+					<ic:EventTriggerBehavior EventName="Click">
+						<ic:InvokeCommandAction Command="{x:Bind editor.Undo}"/>
+					</ic:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
+			</AppBarButton>
+			<AppBarButton IsEnabled="{x:Bind editor.canRedo, Mode=OneWay}" Label="Redo" Icon="Redo">
+				<i:Interaction.Behaviors>
+					<ic:EventTriggerBehavior EventName="Click">
+						<ic:InvokeCommandAction Command="{x:Bind editor.Redo}"/>
+					</ic:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
+			</AppBarButton>
+			<AppBarSeparator/>
+			<AppBarButton Click="AppBarButton_Click">
+				<AppBarButton.Icon>
+					<FontIcon Glyph="&#xE0E4;" FontSize="24" RenderTransformOrigin="0.5,0.5">
+						<FontIcon.RenderTransform>
+							<CompositeTransform x:Name="menuIcon" Rotation="0"/>
+						</FontIcon.RenderTransform>
+					</FontIcon>
+				</AppBarButton.Icon>
+			</AppBarButton>
+		</CommandBar>
+		<ScrollViewer Grid.Row="3">
+			<Grid Margin="5">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="50"/>
+				</Grid.RowDefinitions>
+				<StackPanel Grid.Row="0" Orientation="Horizontal">
+					<SymbolIcon Margin="15" Symbol="Page2" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon.RenderTransform>
+							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+						</SymbolIcon.RenderTransform>
+					</SymbolIcon>
+					<TextBlock Text="New" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+				</StackPanel>
+				<Button Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" Height="50">
+					<i:Interaction.Behaviors>
+						<ic:EventTriggerBehavior EventName="Click">
+							<ic:InvokeCommandAction Command="{x:Bind editor.clearInput}"/>
+						</ic:EventTriggerBehavior>
+					</i:Interaction.Behaviors>
+				</Button>
+				
+				<StackPanel Grid.Row="1" Orientation="Vertical">
+					<StackPanel Orientation="Horizontal">
+						<SymbolIcon Margin="15" Symbol="Edit" RenderTransformOrigin="0.5,0.5">
+							<SymbolIcon.RenderTransform>
+								<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+							</SymbolIcon.RenderTransform>
+						</SymbolIcon>
+						<TextBox x:Name="fileDefine" Text="{x:Bind editor.NoteName, Mode=TwoWay}" VerticalAlignment="Center" Margin="10,0" FontSize="23">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="TextChanged">
+									<ic:InvokeCommandAction Command="{x:Bind editor.saveFilename}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</TextBox>
+					</StackPanel>
+					<TextBlock Visibility="{x:Bind editor.isEmpty, Mode=OneWay}" FontSize="20" Margin="10,0" Text="Name can't be empty" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+					<TextBlock Visibility="{x:Bind editor.isContainIlegalName, Mode=OneWay}" FontSize="20" Margin="10,0" Text="Name can't contains: \ / : * ? &quot; &lt; &gt; |" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+					<TextBlock Visibility="{x:Bind editor.isAlreadyExist, Mode=OneWay}" FontSize="20" Margin="10,0" Text="Name already exist" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+				</StackPanel>
+				
+				<StackPanel Grid.Row="2" Orientation="Horizontal">
+					<SymbolIcon Margin="15" Symbol="Save" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon.RenderTransform>
+							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+						</SymbolIcon.RenderTransform>
+					</SymbolIcon>
+					<TextBlock Text="Save" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+				</StackPanel>
+				<Button Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" Height="50">
+					<i:Interaction.Behaviors>
+						<ic:EventTriggerBehavior EventName="Click">
+							<ic:InvokeCommandAction Command="{x:Bind editor.saveInput}"/>
+						</ic:EventTriggerBehavior>
+					</i:Interaction.Behaviors>
+				</Button>
+				
+				<StackPanel Grid.Row="3" Orientation="Horizontal">
+					<SymbolIcon Margin="15" Symbol="OpenLocal" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon.RenderTransform>
+							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+						</SymbolIcon.RenderTransform>
+					</SymbolIcon>
+					<TextBlock Text="Load" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+				</StackPanel>
+				<Button Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" Height="50">
+					<i:Interaction.Behaviors>
+						<ic:EventTriggerBehavior EventName="Click">
+							<ic:InvokeCommandAction Command="{x:Bind editor.loadInput}"/>
+						</ic:EventTriggerBehavior>
+					</i:Interaction.Behaviors>
+				</Button>
+
+				<StackPanel Grid.Row="4" Orientation="Horizontal">
+					<SymbolIcon Margin="15" Symbol="Bold" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon.RenderTransform>
+							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+						</SymbolIcon.RenderTransform>
+					</SymbolIcon>
+					<TextBlock Text="Bold" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+				</StackPanel>
+				<ToggleButton Opacity="0.5" Grid.Row="4" IsChecked="{x:Bind editor.isBold, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+				<StackPanel Grid.Row="5" Orientation="Horizontal">
+					<SymbolIcon Margin="15" Symbol="Italic" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon.RenderTransform>
+							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+						</SymbolIcon.RenderTransform>
+					</SymbolIcon>
+					<TextBlock Text="Italic" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+				</StackPanel>
+				<ToggleButton Opacity="0.5" Grid.Row="5" IsChecked="{x:Bind editor.isItalic, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+				<StackPanel Grid.Row="6" Orientation="Horizontal">
+					<SymbolIcon Margin="15" Symbol="FontSize" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon.RenderTransform>
+							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+						</SymbolIcon.RenderTransform>
+					</SymbolIcon>
+					<TextBlock VerticalAlignment="Center" Margin="10,0" FontSize="23">
+						<Run Text="Size ("/>
+						<Run Text="{x:Bind editor.FontSize, Mode=OneWay}"/>
+						<Run Text=")"/>
+					</TextBlock>
+					<Slider Width="200" VerticalAlignment="Center" Margin="10,0" Minimum="8" Maximum="72" Value="{x:Bind editor.FontSize, Mode=TwoWay}"/>
+				</StackPanel>
+
+				<TextBlock Text="Note editor 1.0.0.2" Grid.Row="7" FontSize="18"/>
+			</Grid>
+		</ScrollViewer>
+	</Grid>
+</Page>

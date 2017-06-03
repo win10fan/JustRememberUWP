@@ -1,3 +1,4 @@
+using JustRemember_.Services;
 using JustRemember_.ViewModels;
 
 using Windows.UI.Xaml.Controls;
@@ -20,6 +21,7 @@ namespace JustRemember_.Views
             ViewModel.wr = this;
             ViewModel2.Initialize();
 			ViewModel2.view = this;
+			MobileTitlebarService.Refresh();
             base.OnNavigatedTo(e);
         }
 

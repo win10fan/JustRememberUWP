@@ -76,7 +76,7 @@
 						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
-									<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+									<ic:NavigateToPageAction TargetPage="JustRemember_.Views.NoteEditorView"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</AppBarButton>
