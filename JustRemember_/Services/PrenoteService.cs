@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JustRemember.Models;
+using JustRemember.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace JustRemember_.Services
+namespace JustRemember.Services
 {
 	public static class PrenoteService
 	{
@@ -47,7 +49,7 @@ namespace JustRemember_.Services
 			}
 		}
 		
-		public static IEnumerable<string> GetBreadcrumbPath(this string path)
+		public static IEnumerable<PathDir> GetBreadcrumbPath(this string path)
 		{
 			string tmp = "";
 			if (!path.StartsWith("/"))
@@ -57,11 +59,18 @@ namespace JustRemember_.Services
 			var index = tmp.IndexOf("/");
 			var indices = tmp.Select((x, idx) => new { x, idx }).Where(p => p.x == '/' && p.idx > index + 1).Select(p => p.idx);
 
+			var ret = new DirectoryInfo(path);
+			//if (path.Parent != null) ret.AddRange(Split(path.Parent));
+			//ret.Add(path);
+
 			foreach (var idx in indices)
 			{
-				yield return path.Substring(0, idx - 1);
+				if (ret.Parent.Name != "Prenote")
+				{ ret = ret.Parent; }
+				
+				yield return new PathDir(path.Substring(0, idx - 1), ret.Parent.FullName);
 			}
-			yield return path;
+			yield return new PathDir(path, path);
 		}
 	}
 }

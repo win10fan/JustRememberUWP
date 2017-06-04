@@ -1,10 +1,10 @@
-using JustRemember_.Services;
-using JustRemember_.ViewModels;
+using JustRemember.Services;
+using JustRemember.ViewModels;
 
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace JustRemember_.Views
+namespace JustRemember.Views
 {
     public sealed partial class MainPage : Page
     {

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace JustRemember_.Activation
+namespace JustRemember.Activation
 {
     //For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
     internal abstract class ActivationHandler

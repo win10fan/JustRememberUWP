@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace JustRemember_.Models
+namespace JustRemember.Models
 {
     public class NoteModel
     {
@@ -92,6 +92,17 @@ namespace JustRemember_.Models
 				}
 				await FileIO.WriteTextAsync(nf, note.Content);
 			}
+		}
+
+		public static async Task<NoteModel> GetOneNoteButNotMicrosoftOneNoteButNoteWithParticularPath(string path)
+		{
+			StorageFile fol = await StorageFile.GetFileFromPathAsync(path);
+			NoteModel datNote = new NoteModel()
+			{
+				Title = fol.DisplayName,
+				Content = await FileIO.ReadTextAsync(fol)
+			};
+			return datNote;
 		}
 
 		public static NoteModel empty

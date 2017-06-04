@@ -1,6 +1,6 @@
 using Windows.UI.Xaml.Controls;
 
-namespace JustRemember_.Models
+namespace JustRemember.Models
 {
     public class SampleModel
     {

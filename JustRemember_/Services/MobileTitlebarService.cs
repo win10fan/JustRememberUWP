@@ -7,7 +7,7 @@ using Windows.ApplicationModel;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
-namespace JustRemember_.Services
+namespace JustRemember.Services
 {
 	public static class MobileTitlebarService
 	{

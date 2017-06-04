@@ -1,12 +1,12 @@
-﻿using JustRemember_.Helpers;
-using JustRemember_.Models;
+﻿using JustRemember.Helpers;
+using JustRemember.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JustRemember_.ViewModels
+namespace JustRemember.ViewModels
 {
     public class AppConfigViewModel : Observable
     {

@@ -2,15 +2,15 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-using JustRemember_.Activation;
-using JustRemember_.Helpers;
+using JustRemember.Activation;
+using JustRemember.Helpers;
 
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 
-namespace JustRemember_.Services
+namespace JustRemember.Services
 {
     internal partial class LiveTileService : ActivationHandler<LaunchActivatedEventArgs>
     {

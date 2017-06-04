@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace JustRemember_.Services
+namespace JustRemember.Services
 {
     public static class NavigationService
     {

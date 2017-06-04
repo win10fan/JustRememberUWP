@@ -1,8 +1,8 @@
 using System;
 
-using JustRemember_.Helpers;
+using JustRemember.Helpers;
 
-namespace JustRemember_.ViewModels
+namespace JustRemember.ViewModels
 {
     public class MainViewModel : Observable
     {

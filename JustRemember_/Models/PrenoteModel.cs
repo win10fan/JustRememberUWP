@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace JustRemember_.Models
+namespace JustRemember.Models
 {
 	public class PrenoteModel
 	{
@@ -49,6 +49,18 @@ namespace JustRemember_.Models
 				notes.Add(GetPrenote(s));
 			}
 			return notes;
+		}
+	}
+
+	public class PathDir
+	{
+		public string Name { get; set; }
+		public string FullPath { get; set; }
+
+		public PathDir(string p, string ap)
+		{
+			Name = p;
+			FullPath = ap;
 		}
 	}
 }

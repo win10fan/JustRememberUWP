@@ -1,5 +1,5 @@
-﻿using JustRemember_.Helpers;
-using JustRemember_.Models;
+﻿using JustRemember.Helpers;
+using JustRemember.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -9,13 +9,13 @@ using System.ComponentModel;
 using Windows.UI.Xaml;
 using System.Runtime.CompilerServices;
 using Windows.Storage.Pickers;
-using JustRemember_.Views;
+using JustRemember.Views;
 using Windows.UI.Xaml.Input;
-using JustRemember_.Services;
+using JustRemember.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace JustRemember_.ViewModels
+namespace JustRemember.ViewModels
 {
     public class NotesViewModel : INotifyPropertyChanged
     {

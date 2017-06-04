@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 
-using JustRemember_.Services;
+using JustRemember.Services;
 
 using Windows.ApplicationModel.Activation;
 
-namespace JustRemember_.Activation
+namespace JustRemember.Activation
 {
     internal class DefaultLaunchActivationHandler : ActivationHandler<LaunchActivatedEventArgs>
     {

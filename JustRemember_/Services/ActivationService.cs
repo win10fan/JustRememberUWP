@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using JustRemember_.Activation;
-using JustRemember_.Helpers;
+using JustRemember.Activation;
+using JustRemember.Helpers;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
@@ -12,7 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace JustRemember_.Services
+namespace JustRemember.Services
 {
     //For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
     internal class ActivationService

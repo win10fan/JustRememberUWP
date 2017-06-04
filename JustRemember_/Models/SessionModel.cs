@@ -1,4 +1,4 @@
-﻿using JustRemember_.Services;
+﻿using JustRemember.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace JustRemember_.Models
+namespace JustRemember.Models
 {
  public class SessionModel
  {

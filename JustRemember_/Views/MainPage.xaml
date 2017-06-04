@@ -1,13 +1,12 @@
 <Page x:Name="mainPage"
-    x:Class="JustRemember_.Views.MainPage"
+    x:Class="JustRemember.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:uwp="using:Universal.UI.Xaml.Controls"
-    xmlns:local="using:JustRemember_.Models"
+    xmlns:local="using:JustRemember.Models"
     mc:Ignorable="d">
 	<Grid>
 		<Pivot x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource HomePivot}">
@@ -60,7 +59,7 @@
 							<AppBarButton Icon="AllApps" Label="Prenote">
 								<i:Interaction.Behaviors>
 									<ic:EventTriggerBehavior EventName="Click">
-										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.PrenoteView"/>
 									</ic:EventTriggerBehavior>
 								</i:Interaction.Behaviors>
 							</AppBarButton>
@@ -191,7 +190,7 @@
 							<AppBarButton Icon="AllApps" Label="Prenote">
 								<i:Interaction.Behaviors>
 									<ic:EventTriggerBehavior EventName="Click">
-										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
+										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.PrenoteView"/>
 									</ic:EventTriggerBehavior>
 								</i:Interaction.Behaviors>
 							</AppBarButton>

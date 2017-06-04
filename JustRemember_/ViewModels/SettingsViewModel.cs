@@ -1,12 +1,12 @@
 using System;
 using System.Windows.Input;
 
-using JustRemember_.Helpers;
-using JustRemember_.Services;
+using JustRemember.Helpers;
+using JustRemember.Services;
 
 using Windows.ApplicationModel;
 
-namespace JustRemember_.ViewModels
+namespace JustRemember.ViewModels
 {
     public class SettingsViewModel : Observable
     {

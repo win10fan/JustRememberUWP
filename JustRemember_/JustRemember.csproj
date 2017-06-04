@@ -7,8 +7,8 @@
     <ProjectGuid>{D827775F-C94E-4572-BD75-BA47709D1DF0}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JustRemember_</RootNamespace>
-    <AssemblyName>JustRemember_</AssemblyName>
+    <RootNamespace>JustRemember</RootNamespace>
+    <AssemblyName>JustRemember</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
@@ -107,9 +107,6 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="SwipeListView">
-      <Version>1.2.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

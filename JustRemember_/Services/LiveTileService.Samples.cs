@@ -6,7 +6,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 
-namespace JustRemember_.Services
+namespace JustRemember.Services
 {
     internal partial class LiveTileService
     {

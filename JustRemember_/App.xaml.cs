@@ -1,16 +1,16 @@
 using System;
 
-using JustRemember_.Services;
+using JustRemember.Services;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using JustRemember_.Models;
-using JustRemember_.Helpers;
+using JustRemember.Models;
+using JustRemember.Helpers;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
-namespace JustRemember_
+namespace JustRemember
 {
 	/// <summary>
 	/// Provides application-specific behavior to supplement the default Application class.

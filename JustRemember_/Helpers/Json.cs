@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace JustRemember_.Helpers
+namespace JustRemember.Helpers
 {
     public static class Json
     {

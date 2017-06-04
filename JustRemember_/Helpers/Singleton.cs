@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace JustRemember_.Helpers
+namespace JustRemember.Helpers
 {
     internal static class Singleton<T> where T : new()
     {

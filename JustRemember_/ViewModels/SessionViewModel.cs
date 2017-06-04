@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using JustRemember_.Models;
 using Windows.System.Threading;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
-using JustRemember_.Helpers;
-using Windows.Storage;
 using Windows.UI.Xaml;
-using System.Windows.Input;
-using JustRemember_.Views;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Documents;
-using JustRemember_.Services;
 using Windows.UI.Popups;
+using JustRemember.Models;
+using JustRemember.Views;
+using JustRemember.Services;
 
-namespace JustRemember_.ViewModels
+namespace JustRemember.ViewModels
 {
 	public class SessionViewModel : INotifyPropertyChanged
 	{

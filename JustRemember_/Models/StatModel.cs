@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace JustRemember_.Models
+namespace JustRemember.Models
 {
 	public class StatModel
 	{

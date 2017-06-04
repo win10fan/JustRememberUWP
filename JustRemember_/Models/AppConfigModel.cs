@@ -1,4 +1,4 @@
-﻿using JustRemember_.Helpers;
+﻿using JustRemember.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace JustRemember_.Models
+namespace JustRemember.Models
 {
 	public class AppConfigModel
 	{

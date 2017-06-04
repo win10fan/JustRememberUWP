@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 
-namespace JustRemember_.Helpers
+namespace JustRemember.Helpers
 {
     public static class SettingsStorageExtensions
     {

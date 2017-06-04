@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
 
-using JustRemember_.Helpers;
+using JustRemember.Helpers;
 
 using Windows.Storage;
 using Windows.UI.Xaml;
 
-namespace JustRemember_.Services
+namespace JustRemember.Services
 {
     public static class ThemeSelectorService
     {

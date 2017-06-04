@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 using Windows.ApplicationModel.Resources;
 
-namespace JustRemember_.Helpers
+namespace JustRemember.Helpers
 {
     internal static class ResourceExtensions
     {

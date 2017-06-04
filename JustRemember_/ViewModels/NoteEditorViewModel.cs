@@ -1,7 +1,7 @@
-﻿using JustRemember_.Helpers;
-using JustRemember_.Models;
-using JustRemember_.Services;
-using JustRemember_.Views;
+﻿using JustRemember.Helpers;
+using JustRemember.Models;
+using JustRemember.Services;
+using JustRemember.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +19,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace JustRemember_.ViewModels
+namespace JustRemember.ViewModels
 {
 	public class NoteEditorViewModel : INotifyPropertyChanged
 	{

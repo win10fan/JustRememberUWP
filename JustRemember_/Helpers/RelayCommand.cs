@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
 
-namespace JustRemember_.Helpers
+namespace JustRemember.Helpers
 {
     public class RelayCommand : ICommand
     {

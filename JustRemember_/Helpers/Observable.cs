@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace JustRemember_.Helpers
+namespace JustRemember.Helpers
 {
     public class Observable : INotifyPropertyChanged
     {
