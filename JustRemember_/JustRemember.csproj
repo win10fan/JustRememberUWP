@@ -297,7 +297,6 @@
     <Content Include="Assets\Fonts\THSarabunNewBoldItalic.ttf" />
     <Content Include="Assets\Fonts\THSarabunNewItalic.ttf" />
     <Content Include="Assets\Fonts\THSarabunNew.ttf" />
-    <None Include="JustRemember__TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
