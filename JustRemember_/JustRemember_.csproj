@@ -140,6 +140,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NoteEditorViewModel.cs" />
     <Compile Include="ViewModels\NotesViewModel.cs" />
+    <Compile Include="ViewModels\PrenoteViewModel.cs" />
     <Compile Include="ViewModels\SavedSessionViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -151,6 +152,9 @@
     </Compile>
     <Compile Include="Views\NoteEditorView.xaml.cs">
       <DependentUpon>NoteEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrenoteView.xaml.cs">
+      <DependentUpon>PrenoteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -314,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NoteEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrenoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

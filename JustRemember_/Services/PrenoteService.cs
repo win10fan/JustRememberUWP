@@ -46,7 +46,7 @@ namespace JustRemember_.Services
 				//}
 			}
 		}
-
+		
 		public static IEnumerable<string> GetBreadcrumbPath(this string path)
 		{
 			string tmp = "";
