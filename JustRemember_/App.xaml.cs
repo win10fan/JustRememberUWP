@@ -42,6 +42,10 @@ namespace JustRemember_
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
 			MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
+			if (!PrenoteService.isDeployed)
+			{
+				PrenoteService.DeployPrenote();
+			}
 			await ThemeSelectorService.SetThemeAsync(ElementTheme.Dark);
 			Config = await AppConfigModel.Load2();
 			if (!e.PrelaunchActivated)
