@@ -33,44 +33,41 @@ namespace JustRemember.Services
 			for (int i = 0; i < files.Length - 1; i++)
 			{
 				string[] path = Path.GetFileName(files[i]).Split('-');
-				if (path.Length == 3)
+				string cachePath = $"{deployPath}\\{string.Join("\\", path)}";
+				FileInfo f = new FileInfo(cachePath);
+				if (!Directory.Exists(f.DirectoryName))
 				{
-					string cachep = $"{deployPath}\\{path[0]}\\{path[1]}";
-					if (!Directory.Exists(cachep))
-					{
-						Directory.CreateDirectory(cachep);
-					}
-					cachep += "\\" + path[2];
-					File.Copy(files[i], cachep);
+					Directory.CreateDirectory(f.DirectoryName);
 				}
-				//else //Deeper prenote
-				//{                    
-				//}
+				File.Copy(files[i], cachePath);
 			}
 		}
 		
 		public static IEnumerable<PathDir> GetBreadcrumbPath(this string path)
 		{
-			string tmp = "";
-			if (!path.StartsWith("/"))
-			{
-				tmp = "/" + path;
-			}
-			var index = tmp.IndexOf("/");
-			var indices = tmp.Select((x, idx) => new { x, idx }).Where(p => p.x == '/' && p.idx > index + 1).Select(p => p.idx);
-
+			if (path == null) { yield break; }
 			var ret = new DirectoryInfo(path);
+			yield return new PathDir(ret.FullName);
+			for (int i = 0;i < 10;i++)
+			{
+				if (ret.Name != "Prenote")
+				{
+					ret = ret.Parent;
+				}
+				else { yield break; }
+				yield return new PathDir(ret.FullName);
+			}
+			yield break;
 			//if (path.Parent != null) ret.AddRange(Split(path.Parent));
 			//ret.Add(path);
 
-			foreach (var idx in indices)
-			{
-				if (ret.Parent.Name != "Prenote")
-				{ ret = ret.Parent; }
+			//foreach (var idx in null)
+			//{
+			//	if (ret.Parent.Name != "Prenote")
+			//	{ ret = ret.Parent; }
 				
-				yield return new PathDir(path.Substring(0, idx - 1), ret.Parent.FullName);
-			}
-			yield return new PathDir(path, path);
+			//	yield return new PathDir(path.Substring(0, idx - 1), ret.Parent.FullName);
+			//}
 		}
 	}
 }

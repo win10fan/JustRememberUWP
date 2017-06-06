@@ -56,29 +56,11 @@
 					</TextBlock>
 					<CommandBar Grid.Row="2">
 						<CommandBar.SecondaryCommands>
-							<AppBarButton Icon="AllApps" Label="Prenote">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.PrenoteView"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</AppBarButton>
-							<AppBarButton Icon="Setting" Label="Settings">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</AppBarButton>
+							<AppBarButton Icon="AllApps" Label="Prenote" Click="GoToPrenote"/>
+							<AppBarButton Icon="Setting" Label="Settings" Click="GotoSettings"/>
 						</CommandBar.SecondaryCommands>
 
-						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:NavigateToPageAction TargetPage="JustRemember_.Views.NoteEditorView"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add" Click="GoToNoteEditor"/>
 						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="OpenFile" Label="Import">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
@@ -187,20 +169,8 @@
 					</ListView>
 					<CommandBar Grid.Row="2">
 						<CommandBar.SecondaryCommands>
-							<AppBarButton Icon="AllApps" Label="Prenote">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.PrenoteView"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</AppBarButton>
-							<AppBarButton Icon="Setting" Label="Settings">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</AppBarButton>
+							<AppBarButton Icon="AllApps" Label="Prenote" Click="GoToPrenote"/>
+							<AppBarButton Icon="Setting" Label="Settings" Click="GotoSettings"/>
 						</CommandBar.SecondaryCommands>
 
 						<AppBarButton Visibility="Visible" Icon="Refresh" Label="Reload" Click="RefreshSession"/>
@@ -212,7 +182,7 @@
 			</PivotItem>
 		</Pivot>
 		<!--"{x:Bind ViewModel.isReady, Mode=OneWay}"-->
-		<Grid Visibility="Collapsed" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+		<Grid Visibility="{x:Bind ViewModel.isReady, Mode=OneWay}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
 				<ProgressRing Width="80" Height="80" Margin="5" IsActive="True"/>
 				<TextBlock Text="Initializing settings" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" FontSize="30"/>

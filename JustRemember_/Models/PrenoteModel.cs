@@ -40,11 +40,16 @@ namespace JustRemember.Models
 			return GetPrenote(path.Path);
 		}
 
-		public static ObservableCollection<PrenoteModel> GetChild(StorageFolder path)
+		public static async Task<ObservableCollection<PrenoteModel>> GetChild(StorageFolder path)
 		{
-			var sub = Directory.GetFiles(path.Path);
+			var sub = await path.GetFoldersAsync();
+			var nts = await path.GetFilesAsync();
 			ObservableCollection<PrenoteModel> notes = new ObservableCollection<PrenoteModel>();
 			foreach (var s in sub)
+			{
+				notes.Add(GetPrenote(s));
+			}
+			foreach (var s in nts)
 			{
 				notes.Add(GetPrenote(s));
 			}
@@ -57,10 +62,10 @@ namespace JustRemember.Models
 		public string Name { get; set; }
 		public string FullPath { get; set; }
 
-		public PathDir(string p, string ap)
+		public PathDir(string p)
 		{
-			Name = p;
-			FullPath = ap;
+			Name = new DirectoryInfo(p).Name;
+			FullPath = p;
 		}
 	}
 }

@@ -40,7 +40,6 @@ namespace JustRemember.ViewModels
 		}
 
 		public StorageFolder basePath = ApplicationData.Current.LocalFolder;
-		public StorageFolder statis = ApplicationData.Current.LocalFolder;
 		public AppConfigModel config;
 
 		string _pt;
@@ -58,7 +57,7 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				var pth = Path.GetBreadcrumbPath();
+				var pth = Path.GetBreadcrumbPath().Reverse();
 				var val = new ObservableCollection<PathDir>(pth);
 				return val;
 			}
@@ -67,10 +66,10 @@ namespace JustRemember.ViewModels
 		public async void Navigate(string path)
 		{
 			basePath = await StorageFolder.GetFolderFromPathAsync(path);
-			Path = basePath.Path.Remove(0, statis.Path.Length);
-			Debug.Write(Path + "\r\n");
-			notes = PrenoteModel.GetChild(basePath);
-			isMoreUp = new DirectoryInfo(basePath.Path).Parent.Name == "Prenote";
+			Path = basePath.Path;
+			notes = await PrenoteModel.GetChild(basePath);
+			isMoreUp = new DirectoryInfo(basePath.Path).Name != "Prenote";
+			OnPropertyChanged(nameof(notes));
 		}
 
 		public ObservableCollection<PrenoteModel> notes;
@@ -85,9 +84,7 @@ namespace JustRemember.ViewModels
 			{
 				basePath = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Prenote");
 			}
-			statis = basePath;
-			Path = basePath.Path.Remove(0, statis.Path.Length);
-			notes = PrenoteModel.GetChild(basePath);
+			Navigate(basePath.Path);
 			config = await AppConfigModel.Load2();
 			//Command
 			navTo = new RelayCommand<RoutedEventArgs>(NAVTO);
@@ -101,10 +98,19 @@ namespace JustRemember.ViewModels
 			set => Set(ref _canUp, value);
 		}
 
+		public void NavToAccordingToWhatYouBeenClickOnPathList(int selected)
+		{
+			Navigate(PathsSplit[selected].FullPath);
+		}
+
 		private void NAVUP(RoutedEventArgs obj)
 		{
-			if (!isMoreUp) { NavigationService.GoBack(); return; }
 			DirectoryInfo dir = new DirectoryInfo(basePath.Path);
+			if (dir.Name == "Prenote")
+			{
+				NavigationService.GoBack();
+				return;
+			}
 			Navigate(dir.Parent.FullName);
 		}
 

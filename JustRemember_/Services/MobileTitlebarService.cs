@@ -11,7 +11,7 @@ namespace JustRemember.Services
 {
 	public static class MobileTitlebarService
 	{
-		public static async void Refresh(string text, object bg, object fg)
+		public static async Task Refresh(string text, object bg, object fg)
 		{
 			if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
 			{
@@ -28,36 +28,32 @@ namespace JustRemember.Services
 				await statusBar.ProgressIndicator.ShowAsync();
 				//To here
 			}
-		}
-
-		public static async void Refresh(string text)
-		{
-			if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+			else
 			{
-				var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+				var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+				var titleBar = appView.TitleBar;
 				if (text == "")
 				{
-					text = Package.Current.DisplayName;
+					appView.Title = "";
 				}
-				//Thanks @RipleyWorp for the help here
-				statusBar.ProgressIndicator.ProgressValue = 0;
-				statusBar.ProgressIndicator.Text = text;
-				await statusBar.ProgressIndicator.ShowAsync();
-				//To here
+				else
+				{
+					appView.Title = $"{text}";
+				}
+				titleBar.BackgroundColor = ((SolidColorBrush)bg).Color;
+				titleBar.ButtonBackgroundColor = ((SolidColorBrush)bg).Color;
+				titleBar.ForegroundColor = ((SolidColorBrush)fg).Color;
 			}
+		}
+
+		public static async Task Refresh(string text)
+		{
+			await Refresh(text, App.Current.Resources["ApplicationPageBackgroundThemeBrush"], App.Current.Resources["ApplicationForegroundThemeBrush"]);
 		}
 
 		public static async void Refresh()
 		{
-			if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-			{
-				var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-				//Thanks @RipleyWorp for the help here
-				statusBar.ProgressIndicator.ProgressValue = 0;
-				statusBar.ProgressIndicator.Text = Package.Current.DisplayName;
-				await statusBar.ProgressIndicator.ShowAsync();
-				//To here
-			}
+			await Refresh("", App.Current.Resources["ApplicationPageBackgroundThemeBrush"], App.Current.Resources["ApplicationForegroundThemeBrush"]);
 		}
 	}
 }

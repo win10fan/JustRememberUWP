@@ -69,5 +69,21 @@ namespace JustRemember.Views
 		{
 			ViewModel2.OpenSessionMenu(e);
 		}
+
+		private void GotoSettings(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			//TODO:Navigate this to settings
+			//NavigationService.Navigate<NoteEditorView>();
+		}
+
+		private void GoToPrenote(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			NavigationService.Navigate<PrenoteView>();
+		}
+
+		private void GoToNoteEditor(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			NavigationService.Navigate<NoteEditorView>();
+		}
 	}
 }

@@ -33,5 +33,23 @@ namespace JustRemember.Views
 			get => fl;
 			set => fl = value;
 		}
+
+		private void NavTo(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+		{
+			vm.navTo.Execute(e);
+		}
+
+		private void NavUp(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			vm.navUp.Execute(e);
+		}
+
+		private void navigateToDat(object sender, SelectionChangedEventArgs e)
+		{
+			if (pathItem.SelectedIndex > -1)
+			{
+				vm.NavToAccordingToWhatYouBeenClickOnPathList(pathItem.SelectedIndex);
+			}
+		}
 	}
 }
