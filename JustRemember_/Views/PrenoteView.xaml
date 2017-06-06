@@ -20,32 +20,42 @@
 						<RowDefinition Height="50"/>
 						<RowDefinition Height="*"/>
 					</Grid.RowDefinitions>
-					<CommandBar Style="{StaticResource EditorCMD}" Grid.Row="0">
-						<CommandBar.Content>
-							<ScrollViewer VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled">
-								<ListView x:Name="pathItem" ItemsSource="{x:Bind vm.PathsSplit, Mode=OneWay}" SelectionChanged="navigateToDat">
-									<ListView.ItemsPanel>
-										<ItemsPanelTemplate>
-											<StackPanel Background="Transparent" Orientation="Horizontal" />
-										</ItemsPanelTemplate>
-									</ListView.ItemsPanel>
-									<ListView.ItemTemplate>
-										<DataTemplate x:DataType="mod:PathDir">
-											<Grid Height="50">
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="Auto"/>
-													<ColumnDefinition Width="12"/>
-												</Grid.ColumnDefinitions>
-												<TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="18" Text="{x:Bind Name}"/>
-												<TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="2,5,0,0" FontSize="10" Text="&#xE26B;" FontFamily="Segoe MDL2 Assets"/>
-											</Grid>
-										</DataTemplate>
-									</ListView.ItemTemplate>
-								</ListView>
-							</ScrollViewer>
-						</CommandBar.Content>
-						<AppBarButton Icon="Up" Label="Up" Click="NavUp"/>
-					</CommandBar>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="70"/>
+						</Grid.ColumnDefinitions>
+						<CommandBar Style="{StaticResource EditorCMD}" Grid.Row="0">
+							<CommandBar.Content>
+								<ScrollViewer x:Name="scItem" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled">
+									<ListView x:Name="pathItem" ItemsSource="{x:Bind vm.PathsSplit, Mode=OneWay}" SelectionChanged="navigateToDat">
+										<ListView.ItemsPanel>
+											<ItemsPanelTemplate>
+												<StackPanel Background="Transparent" Orientation="Horizontal" />
+											</ItemsPanelTemplate>
+										</ListView.ItemsPanel>
+										<ListView.ItemTemplate>
+											<DataTemplate x:DataType="mod:PathDir">
+												<Grid Height="50">
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="Auto"/>
+														<ColumnDefinition Width="12"/>
+													</Grid.ColumnDefinitions>
+													<TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="18" Text="{x:Bind Name}"/>
+													<TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="2,5,0,0" FontSize="10" Text="&#xE26B;" FontFamily="Segoe MDL2 Assets"/>
+												</Grid>
+											</DataTemplate>
+										</ListView.ItemTemplate>
+									</ListView>
+								</ScrollViewer>
+							</CommandBar.Content>
+						</CommandBar>
+						<CommandBar Style="{StaticResource EditorCMD}"  Grid.Column="1">
+							<AppBarButton Icon="Up" Label="Up" Click="NavUp"/>
+						</CommandBar>
+					</Grid>
+					
+					
 
 					<ListView x:Name="fl" Grid.Row="1" ItemsSource="{x:Bind vm.notes, Mode=OneWay}" DoubleTapped="NavTo" >
 						<ListView.ItemTemplate>
