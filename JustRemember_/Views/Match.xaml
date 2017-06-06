@@ -71,7 +71,7 @@
                     Storyboard.TargetProperty="MaxHeight"
                     EnableDependentAnimation="True"
                     From="0"
-                    To="64"
+                    To="32"
                     Duration="0:0:1"/>
 			</Storyboard>
 		</Grid.Resources>
@@ -80,7 +80,8 @@
 			<RowDefinition x:Name="Row1" Height="*"/>
 			<RowDefinition x:Name="Row2" Height="*"/>
 		</Grid.RowDefinitions>
-		<Grid Grid.Row="0" Background="{ThemeResource SystemControlBackgroundBaseMediumBrush}">
+		<!--SystemControlBackgroundBaseMediumBrush-->
+		<Grid Grid.Row="0" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"/>
@@ -154,13 +155,7 @@
 				<TextBlock x:Name="dpTxt" x:FieldModifier="public" TextWrapping="Wrap" Margin="10" VerticalAlignment="Bottom"/>
 			</ScrollViewer>
 			<Grid VerticalAlignment="Top" x:Name="infoGrid" Tapped="TryPause" Grid.Row="0" Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="32"/>
-				</Grid.RowDefinitions>
-				<Rectangle Opacity="0.8" Grid.Row="0" Fill="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-				<TextBlock Grid.Row="0" Margin="5" Text="{x:Bind ViewModel.current.SelectedNote.Title}"/>
-				<Rectangle Opacity="0.8" Grid.Row="1" Fill="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+				<Rectangle Opacity="0.8" Grid.Row="1" Fill="{ThemeResource AccentButtonBackground}"/>
 				<Grid Margin="5" Grid.Row="1" VerticalAlignment="Top">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>

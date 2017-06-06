@@ -11,13 +11,31 @@ namespace JustRemember.Services
 {
 	public static class MobileTitlebarService
 	{
+		public static bool isMobile
+		{
+			get
+			{
+				if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
 		public static async Task Refresh(string text, object bg, object fg)
 		{
 			if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
 			{
 				var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-				statusBar.BackgroundColor = ((SolidColorBrush)bg).Color;
-				statusBar.ForegroundColor = ((SolidColorBrush)fg).Color;
+				if (bg != null)
+				{
+					statusBar.BackgroundColor = ((SolidColorBrush)bg).Color;
+				}
+				if (fg != null)
+				{
+					statusBar.ForegroundColor = ((SolidColorBrush)fg).Color;
+				}
 				if (text == "")
 				{
 					text = Package.Current.DisplayName;
@@ -40,20 +58,25 @@ namespace JustRemember.Services
 				{
 					appView.Title = $"{text}";
 				}
-				titleBar.BackgroundColor = ((SolidColorBrush)bg).Color;
-				titleBar.ButtonBackgroundColor = ((SolidColorBrush)bg).Color;
-				titleBar.ForegroundColor = ((SolidColorBrush)fg).Color;
+				if (bg != null)
+				{
+					titleBar.BackgroundColor = ((SolidColorBrush)bg).Color;
+				}
+				if (fg != null)
+				{
+					titleBar.ButtonBackgroundColor = ((SolidColorBrush)bg).Color;
+				}
 			}
 		}
 
 		public static async Task Refresh(string text)
 		{
-			await Refresh(text, App.Current.Resources["ApplicationPageBackgroundThemeBrush"], App.Current.Resources["ApplicationForegroundThemeBrush"]);
+			await Refresh(text, null, null);
 		}
 
 		public static async void Refresh()
 		{
-			await Refresh("", App.Current.Resources["ApplicationPageBackgroundThemeBrush"], App.Current.Resources["ApplicationForegroundThemeBrush"]);
+			await Refresh("", null, null);
 		}
 	}
 }

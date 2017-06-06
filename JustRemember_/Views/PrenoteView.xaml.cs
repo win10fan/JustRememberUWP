@@ -1,5 +1,6 @@
 ﻿using JustRemember.Services;
 using JustRemember.ViewModels;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -44,11 +45,14 @@ namespace JustRemember.Views
 			vm.navUp.Execute(e);
 		}
 
-		private void navigateToDat(object sender, SelectionChangedEventArgs e)
+		private async void navigateToDat(object sender, SelectionChangedEventArgs e)
 		{
 			if (pathItem.SelectedIndex > -1)
 			{
 				vm.NavToAccordingToWhatYouBeenClickOnPathList(pathItem.SelectedIndex);
+				await Task.Delay(500);
+				scItem.ChangeView(0, scItem.HorizontalOffset, scItem.ZoomFactor);
+				//view?.displayTexts?.ChangeView(view.displayTexts.HorizontalOffset, view.displayTexts.ExtentHeight, view.displayTexts.ZoomFactor);
 			}
 		}
 	}

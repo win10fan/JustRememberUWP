@@ -34,7 +34,7 @@ namespace JustRemember.Views
             this.InitializeComponent();
         }
         public SessionViewModel ViewModel { get; } = new SessionViewModel();
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.current = new SessionModel();
             ViewModel.current = (SessionModel)e.Parameter;
@@ -49,7 +49,14 @@ namespace JustRemember.Views
 					ViewModel.AddTextDisplay(i);
 				}
 			}
-			MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlPageBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
+			if (MobileTitlebarService.isMobile)
+			{
+				await MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlPageBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
+			}
+			else
+			{
+				await MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle);
+			}
 
 			base.OnNavigatedTo(e);
         }
@@ -93,23 +100,20 @@ namespace JustRemember.Views
         public Storyboard Pause
         {
             get { return startPause; }
-            set { startPause = value;
-				MobileTitlebarService.Refresh("Paused...", Resources["SystemControlPageBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
-			}
+            set { startPause = value; }
         }
         
         public Storyboard UnPause
         {
             get { return stopPause; }
-            set { stopPause = value;
-				MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlBackgroundAccentBrush"], Resources["SystemControlForegroundAltHighBrush"]);
-			}
+            set { stopPause = value; }
         }
 
-        private void TryPause(object sender, TappedRoutedEventArgs e)
+        private async void TryPause(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.isPausing = true;
-        }
+			await MobileTitlebarService.Refresh("Paused...", Resources["SystemControlBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
+		}
 
         private void BackToMainMenu(object sender, RoutedEventArgs e)
         {
@@ -125,9 +129,10 @@ namespace JustRemember.Views
             ViewModel.SaveToSessionList();
         }
 
-        private void TryUnPause(object sender, RoutedEventArgs e)
+        private async void TryUnPause(object sender, RoutedEventArgs e)
         {
             ViewModel.isPausing = false;
-        }
+			await MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlBackgroundAccentBrush"], Resources["SystemControlForegroundAltHighBrush"]);
+		}
     }
 }
