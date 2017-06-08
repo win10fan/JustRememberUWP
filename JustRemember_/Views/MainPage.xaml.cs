@@ -73,7 +73,7 @@ namespace JustRemember.Views
 		private void GotoSettings(object sender, Windows.UI.Xaml.RoutedEventArgs e)
 		{
 			//TODO:Navigate this to settings
-			//NavigationService.Navigate<NoteEditorView>();
+			NavigationService.Navigate<AppConfigView>();
 		}
 
 		private void GoToPrenote(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -84,6 +84,19 @@ namespace JustRemember.Views
 		private void GoToNoteEditor(object sender, Windows.UI.Xaml.RoutedEventArgs e)
 		{
 			NavigationService.Navigate<NoteEditorView>();
+		}
+
+		private async void changePage(Pivot sender, PivotItemEventArgs args)
+		{
+			switch (sender.SelectedIndex)
+			{
+				case 0:
+					await MobileTitlebarService.Refresh("Note");
+					return;
+				case 1:
+					await MobileTitlebarService.Refresh("Session");
+					return;
+			}
 		}
 	}
 }

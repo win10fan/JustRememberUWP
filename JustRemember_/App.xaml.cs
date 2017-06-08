@@ -9,6 +9,7 @@ using JustRemember.Helpers;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
+using System.Collections.ObjectModel;
 
 namespace JustRemember
 {
@@ -33,6 +34,7 @@ namespace JustRemember
 		}
 
 		public static AppConfigModel Config;
+		public static ObservableCollection<StatModel> Stats;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
@@ -41,9 +43,10 @@ namespace JustRemember
 		/// <param name="e">Details about the launch request and process.</param>
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
+			await MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
 			await ThemeSelectorService.SetThemeAsync(ElementTheme.Dark);
 			Config = await AppConfigModel.Load2();
+			Stats = await StatModel.Get();
 			if (!e.PrelaunchActivated)
 			{
 				await ActivationService.ActivateAsync(e);

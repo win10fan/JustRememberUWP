@@ -35,9 +35,8 @@ namespace JustRemember.Views
 
 		protected async override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			if (e.Parameter is NoteModel)
+			if (e.Parameter is NoteModel note)
 			{
-				var note = (NoteModel)e.Parameter;
 				if (note.Title == NoteModel.empty.Title && note.Content == NoteModel.empty.Content)
 				{
 					editor.editedNote = new NoteModel();
@@ -72,7 +71,7 @@ namespace JustRemember.Views
 					editor.fileList.Add(n.Title);
 				}
 			}
-			MobileTitlebarService.Refresh(editor.NoteName);
+			await MobileTitlebarService.Refresh(editor.NoteName);
 			base.OnNavigatedTo(e);
 		}
 

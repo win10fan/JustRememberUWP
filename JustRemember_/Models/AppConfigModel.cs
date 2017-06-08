@@ -35,7 +35,7 @@ namespace JustRemember.Models
 			if (tf == null)
 			{
 				var nit = new AppConfigModel();
-				nit.Save();
+				await nit.Save();
 				return nit;
 			}
 			else
@@ -58,7 +58,7 @@ namespace JustRemember.Models
 			var tf = await ApplicationData.Current.LocalFolder.TryGetItemAsync("appconfig");
 			if (tf == null)
 			{
-				Save();
+				await Save();
 				return new AppConfigModel();
 			}
 			else
@@ -76,7 +76,7 @@ namespace JustRemember.Models
 		}
 
 		bool isSaving;
-		public async void Save()
+		public async Task Save()
 		{
 			if (isSaving) { return; }
 			isSaving = true;

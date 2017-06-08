@@ -25,7 +25,7 @@
 							<ColumnDefinition Width="*"/>
 							<ColumnDefinition Width="70"/>
 						</Grid.ColumnDefinitions>
-						<CommandBar Style="{StaticResource EditorCMD}" Grid.Row="0">
+						<CommandBar Style="{StaticResource EditorCMD}" Grid.Row="0" Background="{ThemeResource AccentButtonBackground}">
 							<CommandBar.Content>
 								<ScrollViewer x:Name="scItem" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled">
 									<ListView x:Name="pathItem" ItemsSource="{x:Bind vm.PathsSplit, Mode=OneWay}" SelectionChanged="navigateToDat">
@@ -48,9 +48,9 @@
 										</ListView.ItemTemplate>
 									</ListView>
 								</ScrollViewer>
-							</CommandBar.Content>
+							</CommandBar.Content> 
 						</CommandBar>
-						<CommandBar Style="{StaticResource EditorCMD}"  Grid.Column="1">
+						<CommandBar Style="{StaticResource EditorCMD}"  Grid.Column="1" Background="{ThemeResource AccentButtonBackground}">
 							<AppBarButton Icon="Up" Label="Up" Click="NavUp"/>
 						</CommandBar>
 					</Grid>

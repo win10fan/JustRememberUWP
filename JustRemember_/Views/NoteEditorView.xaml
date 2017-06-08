@@ -173,19 +173,25 @@
 				</StackPanel>
 				<ToggleButton Opacity="0.5" Grid.Row="5" IsChecked="{x:Bind editor.isItalic, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-				<StackPanel Grid.Row="6" Orientation="Horizontal">
-					<SymbolIcon Margin="15" Symbol="FontSize" RenderTransformOrigin="0.5,0.5">
-						<SymbolIcon.RenderTransform>
-							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
-						</SymbolIcon.RenderTransform>
-					</SymbolIcon>
-					<TextBlock VerticalAlignment="Center" Margin="10,0" FontSize="23">
+				<Grid Grid.Row="6">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<StackPanel Orientation="Horizontal" Grid.Column="0">
+						<SymbolIcon Margin="15" Symbol="FontSize" RenderTransformOrigin="0.5,0.5">
+							<SymbolIcon.RenderTransform>
+								<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+							</SymbolIcon.RenderTransform>
+						</SymbolIcon>
+						<TextBlock VerticalAlignment="Center" Margin="10,0" FontSize="23">
 						<Run Text="Size ("/>
 						<Run Text="{x:Bind editor.FontSize, Mode=OneWay}"/>
 						<Run Text=")"/>
-					</TextBlock>
-					<Slider Width="200" VerticalAlignment="Center" Margin="10,0" Minimum="8" Maximum="72" Value="{x:Bind editor.FontSize, Mode=TwoWay}"/>
-				</StackPanel>
+						</TextBlock>
+					</StackPanel>
+					<Slider Grid.Column="1" VerticalAlignment="Bottom" Margin="10,0,30,0" Minimum="8" Maximum="72" Value="{x:Bind editor.FontSize, Mode=TwoWay}"/>
+				</Grid>
 
 				<TextBlock Text="Note editor 1.0.0.2" Grid.Row="7" FontSize="18"/>
 			</Grid>

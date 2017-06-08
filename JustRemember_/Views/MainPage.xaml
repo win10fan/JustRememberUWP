@@ -9,8 +9,15 @@
     xmlns:local="using:JustRemember.Models"
     mc:Ignorable="d">
 	<Grid>
-		<Pivot x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource HomePivot}">
-			<PivotItem Header="Notes" Margin="0" Foreground="{ThemeResource AccentButtonForeground}">
+		<Pivot PivotItemLoaded="changePage" x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource SettingsPivot}">
+			<PivotItem Margin="0" Foreground="{ThemeResource AccentButtonForeground}">
+				<PivotItem.Header>
+					<SymbolIcon Symbol="Page2" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon.RenderTransform>
+							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+						</SymbolIcon.RenderTransform>
+					</SymbolIcon>
+				</PivotItem.Header>
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
@@ -107,7 +114,14 @@
 					</CommandBar>
 				</Grid>
 			</PivotItem>
-			<PivotItem Header="Sessions" Foreground="{ThemeResource AccentButtonForeground}" Margin="0">
+			<PivotItem Foreground="{ThemeResource AccentButtonForeground}" Margin="0">
+				<PivotItem.Header>
+					<SymbolIcon Symbol="Clock" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon.RenderTransform>
+							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+						</SymbolIcon.RenderTransform>
+					</SymbolIcon>
+				</PivotItem.Header>
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>

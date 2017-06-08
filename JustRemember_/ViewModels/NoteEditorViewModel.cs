@@ -35,9 +35,13 @@ namespace JustRemember.ViewModels
 			OnPropertyChanged(propertyName);
 		}
 
-		protected void OnPropertyChanged(string property)
+		protected async void OnPropertyChanged(string property)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+			if (property == nameof(NoteName))
+			{
+				await MobileTitlebarService.Refresh(NoteName);
+			}
 		}
 
 		public NoteEditorView view;
@@ -64,7 +68,6 @@ namespace JustRemember.ViewModels
 			set
 			{
 				_note.Title = value;
-				MobileTitlebarService.Refresh(value);
 				OnPropertyChanged(nameof(editedNote));
 			}
 		}
