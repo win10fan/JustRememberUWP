@@ -9,7 +9,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.ApplicationModel;
+using Windows.Storage;
 using Windows.UI.Xaml;
 
 namespace JustRemember.ViewModels
@@ -29,7 +31,7 @@ namespace JustRemember.ViewModels
 			OnPropertyChanged(propertyName);
 		}
 
-		protected async void OnPropertyChanged(string propertyName)
+		protected void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
@@ -44,10 +46,76 @@ namespace JustRemember.ViewModels
 			}
 		}
 
+		public ICommand ResetConfig;
+		public ICommand ResetStat;
+		public ICommand ResetSessions;
+		public ICommand ResetNotes;
+		public ICommand ResetAll;
+
 		public void Initialie()
 		{
 			config = App.Config;
 			stats = App.Stats;
+			ResetConfig = new RelayCommand<RoutedEventArgs>(RESETCONFIG);
+			ResetStat = new RelayCommand<RoutedEventArgs>(RESETSTAT);
+			ResetSessions = new RelayCommand<RoutedEventArgs>(RESETSESSIONS);
+			ResetNotes = new RelayCommand<RoutedEventArgs>(RESETNOTES);
+			ResetAll = new RelayCommand<RoutedEventArgs>(RESETALL);
+		}
+
+		public async void RESETCONFIG(RoutedEventArgs obj)
+		{
+			AppConfigModel res = new AppConfigModel();
+			await res.Save();
+			NavigationService.GoBack();
+		}
+		public async void RESETSTAT(RoutedEventArgs obj)
+		{
+			StorageFolder fol = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Stat");
+			if (fol != null)
+			{
+				await fol.DeleteAsync(StorageDeleteOption.PermanentDelete);
+			}
+			NavigationService.GoBack();
+		}
+		public async void RESETSESSIONS(RoutedEventArgs obj)
+		{
+			StorageFolder fol = (StorageFolder)await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Sessions");
+			if (fol != null)
+			{
+				await fol.DeleteAsync(StorageDeleteOption.PermanentDelete);
+			}
+			NavigationService.GoBack();
+		}
+		public async void RESETNOTES(RoutedEventArgs obj)
+		{
+			StorageFolder fol = (StorageFolder)await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Notes");
+			if (fol != null)
+			{
+				await fol.DeleteAsync(StorageDeleteOption.PermanentDelete);
+			}
+			NavigationService.GoBack();
+		}
+		public async void RESETALL(RoutedEventArgs obj)
+		{
+			AppConfigModel res = new AppConfigModel();
+			await res.Save();
+			StorageFolder fol = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Stat");
+			if (fol != null)
+			{
+				await fol.DeleteAsync(StorageDeleteOption.PermanentDelete);
+			}
+			fol = (StorageFolder)await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Sessions");
+			if (fol != null)
+			{
+				await fol.DeleteAsync(StorageDeleteOption.PermanentDelete);
+			}
+			fol = (StorageFolder)await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Notes");
+			if (fol != null)
+			{
+				await fol.DeleteAsync(StorageDeleteOption.PermanentDelete);
+			}
+			NavigationService.GoBack();
 		}
 
 		public int choiceMode
@@ -207,8 +275,8 @@ namespace JustRemember.ViewModels
 
 		PackageId app { get => Package.Current.Id; }
 
-		public string AppName { get => app.Name; }
-		public string AppMaker { get => app.Publisher; }
+		public string AppName { get => Package.Current.DisplayName; }
+		public string AppMaker { get => Package.Current.PublisherDisplayName; }
 		public string AppRunOn { get => app.Architecture.ToString(); }
 		public string AppVersion { get => $"{app.Version.Major}.{app.Version.Minor}.{app.Version.Revision}{app.Version.Build}"; }
 

@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:mod="using:JustRemember.Models"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
@@ -335,11 +337,41 @@
 							<Run Text="Running on Windows 10 "/><Run Text="{x:Bind config.AppRunOn, Mode=OneTime}"/><LineBreak/>
 							<Run Text="Made by @"/><Run Text="{x:Bind config.AppMaker, Mode=OneTime}"/><LineBreak/>
 						</TextBlock>
-						<Button Content="Reset setting"/>
-						<Button Margin="0,5,0,0" Content="Reset stat"/>
-						<Button Margin="0,5,0,0" Content="Reset sessions"/>
-						<Button Margin="0,5,0,0" Content="Remove all user note"/>
-						<Button Margin="0,5,0,0" Content="Reset everything"/>
+						<Button Content="Reset setting">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind config.ResetConfig}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button Margin="0,5,0,0" Content="Reset stat">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind config.ResetStat}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button Margin="0,5,0,0" Content="Reset sessions">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind config.ResetSessions}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button Margin="0,5,0,0" Content="Remove all user note">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind config.ResetNotes}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button Margin="0,5,0,0" Content="Reset everything">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind config.ResetAll}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
 					</ItemsControl>
 				</ScrollViewer>
 			</PivotItem>
