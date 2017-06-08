@@ -127,7 +127,7 @@
                             <Run Text="Progress: "/>
                             <Run Text="{x:Bind ViewModel.currentChoice,Mode=OneWay}"/>
                             <Run Text="/"/>
-                            <Run Text="{x:Bind ViewModel.totalText, Mode=OneWay}"/>
+                            <Run Text="{x:Bind ViewModel.totalText, Mode=OneTime}"/>
                             <LineBreak/>
                             <Run Text="Wrong: "/>
                             <Run Text="{x:Bind ViewModel.totalWrong,Mode=OneWay}"/>
@@ -135,7 +135,7 @@
                             <Run Text="Time: "/>  
                             <Run Text="{x:Bind ViewModel.spendedTime,Mode=OneWay}"/>
                             <Run Text="/"/>
-                            <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneWay}"/>
+                            <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneTime}"/>
 						</TextBlock>
 					</Grid>
 				</Grid>
@@ -171,7 +171,7 @@
 					<TextBlock TextAlignment="Right" Grid.Column="2" VerticalAlignment="Center">
                         <Run Text="{x:Bind ViewModel.spendedTime,Mode=OneWay}"/>
                         <Run Text="/"/>
-                        <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneWay}"/>
+                        <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneTime}"/>
 					</TextBlock>
 				</Grid>
 			</Grid>
@@ -179,11 +179,11 @@
 		<!--Choice list-->
 		<Grid Grid.Row="2">
 			<ItemsControl Visibility="{x:Bind ViewModel.isItCenterMode}" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice0" Margin="4" Content="{x:Bind ViewModel.Choice0Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice0Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice1" Margin="4" Content="{x:Bind ViewModel.Choice1Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice1Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice2" Margin="4" Content="{x:Bind ViewModel.Choice2Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice2Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice3" Margin="4" Content="{x:Bind ViewModel.Choice3Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice3Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
-				<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice4" Margin="4" Content="{x:Bind ViewModel.Choice4Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice4Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button Click="Choice0" Margin="4" Content="{x:Bind ViewModel.Choice0Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice0Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button Click="Choice1" Margin="4" Content="{x:Bind ViewModel.Choice1Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice1Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button Click="Choice2" Margin="4" Content="{x:Bind ViewModel.Choice2Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice2Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button Click="Choice3" Margin="4" Content="{x:Bind ViewModel.Choice3Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice3Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
+				<Button Click="Choice4" Margin="4" Content="{x:Bind ViewModel.Choice4Content, Mode=OneWay}" Visibility="{x:Bind ViewModel.Choice4Display, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,6"/>
 			</ItemsControl>
 			<Grid Visibility="{x:Bind ViewModel.isItBottomMode}">
 				<Grid.RowDefinitions>
@@ -191,11 +191,11 @@
 					<RowDefinition Height="60"/>
 				</Grid.RowDefinitions>
 				<TextBlock FontSize="{x:Bind ViewModel.Config.displayTextSize, Mode=OneWay}" Grid.Row="0" x:Name="choiceInfob">
-                    <Run Text="1: "/><Run Text="{x:Bind ViewModel.Choice0Content}"/><LineBreak/>
-                    <Run Text="2: "/><Run Text="{x:Bind ViewModel.Choice1Content}"/><LineBreak/>
-                    <Run Text="3: "/><Run Text="{x:Bind ViewModel.Choice2Content}"/><LineBreak/>
-                    <Run Text="4: "/><Run Text="{x:Bind ViewModel.Choice3Content}"/><LineBreak/>
-                    <Run Text="5: "/><Run Text="{x:Bind ViewModel.Choice4Content}"/>
+                    <Run Text="1: "/><Run Text="{x:Bind ViewModel.Choice0Content, Mode=OneWay}"/><LineBreak/>
+                    <Run Text="2: "/><Run Text="{x:Bind ViewModel.Choice1Content, Mode=OneWay}"/><LineBreak/>
+                    <Run Text="3: "/><Run Text="{x:Bind ViewModel.Choice2Content, Mode=OneWay}"/><LineBreak/>
+                    <Run Text="4: "/><Run Text="{x:Bind ViewModel.Choice3Content, Mode=OneWay}"/><LineBreak/>
+                    <Run Text="5: "/><Run Text="{x:Bind ViewModel.Choice4Content, Mode=OneWay}"/>
 				</TextBlock>
 				<Grid Grid.Row="1" HorizontalAlignment="Center">
 					<Grid.ColumnDefinitions>
@@ -205,11 +205,11 @@
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice0" Grid.Column="0" Margin="4" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice1" Grid.Column="1" Margin="4" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice2" Grid.Column="2" Margin="4" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice3" Grid.Column="3" Margin="4" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
-					<Button FontSize="{x:Bind ViewModel.Config.displayTextSize}" Click="Choice4" Grid.Column="4" Margin="4" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button Visibility="{x:Bind ViewModel.Choice0Display, Mode=OneWay}" Click="Choice0" Grid.Column="0" Margin="4" Content="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button Visibility="{x:Bind ViewModel.Choice1Display, Mode=OneWay}" Click="Choice1" Grid.Column="1" Margin="4" Content="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button Visibility="{x:Bind ViewModel.Choice2Display, Mode=OneWay}" Click="Choice2" Grid.Column="2" Margin="4" Content="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button Visibility="{x:Bind ViewModel.Choice3Display, Mode=OneWay}" Click="Choice3" Grid.Column="3" Margin="4" Content="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
+					<Button Visibility="{x:Bind ViewModel.Choice4Display, Mode=OneWay}" Click="Choice4" Grid.Column="4" Margin="4" Content="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="12,6"/>
 				</Grid>
 			</Grid>
 			<StackPanel Visibility="{x:Bind ViewModel.isItWriteMode}" VerticalAlignment="Center">

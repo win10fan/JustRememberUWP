@@ -265,10 +265,10 @@ namespace JustRemember.ViewModels
                 choiceInfo = new Dictionary<int, List<bool>>(),
                 setMode = Config.defaultMode,
                 noteTitle = current.SelectedNote.Title,
-                totalTimespend = TimeSpan.MinValue,
+                totalTimespend = TimeSpan.FromMilliseconds(0),
                 isTimeLimited = Config.isLimitTime,
-                totalLimitTime = Config.isLimitTime ? Config.limitTime : TimeSpan.MinValue
-            };
+				totalLimitTime = Config.isLimitTime ? TimeSpan.FromSeconds(Config.limitTime) : TimeSpan.MinValue
+			};
             for (int i = 0; i < current.texts.Count; i++)
             {
                 List<bool> wrongIfo = new List<bool>();

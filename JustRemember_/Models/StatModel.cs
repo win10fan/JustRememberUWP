@@ -130,7 +130,7 @@ namespace JustRemember.Models
 			configChoice = 3;
 			choiceInfo = new Dictionary<int, List<bool>>();
 			isTimeLimited = false;
-			totalTimespend = TimeSpan.MinValue;
+			totalTimespend = TimeSpan.FromMilliseconds(0);
 			totalLimitTime = TimeSpan.FromMinutes(5);
 			setMode = matchMode.Easy;
 			noteTitle = "Untitled";

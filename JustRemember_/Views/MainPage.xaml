@@ -12,7 +12,7 @@
 		<Pivot PivotItemLoaded="changePage" x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource SettingsPivot}">
 			<PivotItem Margin="0" Foreground="{ThemeResource AccentButtonForeground}">
 				<PivotItem.Header>
-					<SymbolIcon Symbol="Page2" RenderTransformOrigin="0.5,0.5">
+					<SymbolIcon Foreground="{ThemeResource AccentButtonForeground}" Symbol="Page2" RenderTransformOrigin="0.5,0.5">
 						<SymbolIcon.RenderTransform>
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>
@@ -116,7 +116,7 @@
 			</PivotItem>
 			<PivotItem Foreground="{ThemeResource AccentButtonForeground}" Margin="0">
 				<PivotItem.Header>
-					<SymbolIcon Symbol="Clock" RenderTransformOrigin="0.5,0.5">
+					<SymbolIcon Foreground="{ThemeResource AccentButtonForeground}" Symbol="Clock" RenderTransformOrigin="0.5,0.5">
 						<SymbolIcon.RenderTransform>
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>

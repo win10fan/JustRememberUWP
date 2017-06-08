@@ -228,12 +228,12 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				return _lim;
+				return TimeSpan.FromMinutes(cf.limitTime);
 			}
 			set
 			{
 				Set(ref _lim, value);
-				cf.limitTime = _lim;
+				cf.limitTime =_lim.TotalMinutes;
 			}
 		}
 

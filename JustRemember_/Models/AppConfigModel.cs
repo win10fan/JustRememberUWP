@@ -15,7 +15,7 @@ namespace JustRemember.Models
 		public bool isLimitTime { get; set; }
 		public bool obfuscateWrongText { get; set; }
 		public matchMode defaultMode { get; set; }
-		public TimeSpan limitTime { get; set; }
+		public double limitTime { get; set; }
 		public int totalChoice { get; set; }
 		public int displayTextSize { get; set; }
 		public int defaultSeed { get; set; }
@@ -112,7 +112,7 @@ namespace JustRemember.Models
 			isLimitTime = false;
 			obfuscateWrongText = false;
 			defaultMode = matchMode.Easy;
-			limitTime = TimeSpan.FromMinutes(5);
+			limitTime = TimeSpan.FromMinutes(5).TotalSeconds;
 			totalChoice = 3;
 			displayTextSize = 18;
 			defaultSeed = -1;

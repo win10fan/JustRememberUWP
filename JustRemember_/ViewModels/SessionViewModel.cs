@@ -25,7 +25,6 @@ namespace JustRemember.ViewModels
 			{
 				return;
 			}
-
 			storage = value;
 			OnPropertyChanged(propertyName);
 		}
@@ -34,32 +33,16 @@ namespace JustRemember.ViewModels
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(currentChoice)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isPausing)));
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalWrong)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalText)));
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(choicesSelected)));
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(sessionButtonColor)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isItBottomMode)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isItCenterMode)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isItWriteMode)));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
 			//Update choice buttons
-			//Update choice visibility
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice0Display)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice1Display)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice2Display)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice3Display)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice4Display)));
-			//Update choice text
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice0Content)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice1Content)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice2Content)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice3Content)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Choice4Content)));
-			if (Config?.autoScrollContent == true)
-			{
-				view?.displayTexts?.ChangeView(view.displayTexts.HorizontalOffset, view.displayTexts.ExtentHeight, view.displayTexts.ZoomFactor);
-			}
-			Config?.Save();
+			OnPropertyChanged(nameof(Choice0Display));
+			OnPropertyChanged(nameof(Choice1Display));
+			OnPropertyChanged(nameof(Choice2Display));
+			OnPropertyChanged(nameof(Choice3Display));
+			OnPropertyChanged(nameof(Choice4Display));
 		}
 
 		public string totalText
@@ -85,34 +68,29 @@ namespace JustRemember.ViewModels
 			get => _session;
 			set => Set(ref _session, value);
 		}
-
-		AppConfigModel _c = new AppConfigModel();
-		public AppConfigModel Config
-		{
-			get => _c;
-			set => Set(ref _c, value);
-		}
-
+		
 		public Match view;
-
-		ThreadPoolTimer timer;
+		
+		DispatcherTimer timerUI;
 		void SetTimer()
 		{
 			if (current.StatInfo.isTimeLimited)
 			{
-				timer = ThreadPoolTimer.CreatePeriodicTimer((t) =>
-				{
-		//Count timer
-		current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(1));
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalLimitTime)));
-				}, TimeSpan.FromSeconds(1));
+				timerUI = new DispatcherTimer();
+				timerUI.Interval = TimeSpan.FromSeconds(1);
+				timerUI.Tick += TimerUI_Tick;
 			}
 			else
 			{
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalLimitTime)));
 			}
+		}
+
+		private void TimerUI_Tick(object sender, object e)
+		{
+			current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(1));
+			Update();
 		}
 
 		/// <summary>
@@ -140,6 +118,18 @@ namespace JustRemember.ViewModels
 					value = current.currentChoice + 1;
 					current.currentChoice = value;
 				}
+				//Update choice items
+				OnPropertyChanged(nameof(Choice0Display));
+				OnPropertyChanged(nameof(Choice1Display));
+				OnPropertyChanged(nameof(Choice2Display));
+				OnPropertyChanged(nameof(Choice3Display));
+				OnPropertyChanged(nameof(Choice4Display));
+				//Update choice text
+				OnPropertyChanged(nameof(Choice0Content));
+				OnPropertyChanged(nameof(Choice1Content));
+				OnPropertyChanged(nameof(Choice2Content));
+				OnPropertyChanged(nameof(Choice3Content));
+				OnPropertyChanged(nameof(Choice4Content));
 			}
 		}
 
@@ -373,6 +363,12 @@ namespace JustRemember.ViewModels
 			}
 			totalWrong = current.StatInfo.GetTotalWrong();
 			OnPropertyChanged("current");
+			//Update choice text
+			OnPropertyChanged(nameof(Choice0Content));
+			OnPropertyChanged(nameof(Choice1Content));
+			OnPropertyChanged(nameof(Choice2Content));
+			OnPropertyChanged(nameof(Choice3Content));
+			OnPropertyChanged(nameof(Choice4Content));
 		}
 
 		public Visibility Choice0Display
@@ -520,13 +516,9 @@ namespace JustRemember.ViewModels
 			}
 		}
 
+		public AppConfigModel Config { get => App.Config; set => App.Config = value; }
 		public void RestoreSession()
 		{
-			if (App.Config == null)
-			{
-				Debug.Write("Fuuuuuuu");
-				Application.Current.Exit();
-			}
 			Config = App.Config;
 			InitializeCommands();
 		}
@@ -542,19 +534,20 @@ namespace JustRemember.ViewModels
 			{
 				if (value)
 				{
-					timer?.Cancel();
+					timerUI?.Stop();
 					view.UnPause.Stop();
 					view.Pause.Begin();
 					view.displayTXT.VerticalAlignment = VerticalAlignment.Top;
 				}
 				else
 				{
-					SetTimer();
+					timerUI?.Start();
 					view.Pause?.Stop();
 					view.UnPause?.Begin();
 					view.displayTXT.VerticalAlignment = VerticalAlignment.Bottom;
 				}
 				Set(ref _p, value);
+				OnPropertyChanged(nameof(isPausing));
 			}
 		}
 

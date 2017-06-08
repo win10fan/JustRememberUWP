@@ -36,7 +36,6 @@ namespace JustRemember.Views
         public SessionViewModel ViewModel { get; } = new SessionViewModel();
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.current = new SessionModel();
             ViewModel.current = (SessionModel)e.Parameter;
             ViewModel.RestoreSession();
             ViewModel.view = this;

@@ -15,7 +15,6 @@
 				<Setter Property="FontSize" Value="16"/>
 				<Setter Property="Margin" Value="0,2,0,0"/>
 				<Setter Property="VerticalAlignment" Value="Center"/>
-				<Setter Property="Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}"/>
 			</Style>
 			<Style x:Key="settingTitleLabel" TargetType="TextBlock">
 				<Setter Property="FontSize" Value="20"/>
@@ -36,7 +35,7 @@
 			<PivotItem x:Name="generalPage" x:Uid="setGen" Foreground="White">
 				<PivotItem.Header>
 					<StackPanel Orientation="Vertical">
-						<SymbolIcon Symbol="Home" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon Foreground="{ThemeResource AccentButtonForeground}" Symbol="Home" RenderTransformOrigin="0.5,0.5">
 							<SymbolIcon.RenderTransform>
 								<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 							</SymbolIcon.RenderTransform>
@@ -56,12 +55,12 @@
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="0">
-							<TextBlock Text="Use light theme" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Use light theme" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.useLight, Mode=TwoWay}"/>
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="1">
-							<TextBlock Text="Choice style" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Choice style" Style="{ThemeResource settingTitleLabel}"/>
 							<ListBox SelectedIndex="{x:Bind config.choiceMode,Mode=TwoWay}" Margin="0,5">
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
@@ -112,34 +111,34 @@
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="2">
-							<TextBlock Text="Display font size" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Display font size" Style="{ThemeResource settingTitleLabel}"/>
 							<Slider Minimum="8" Maximum="72" Margin="0,5" Value="{x:Bind config.FontSize, Mode=TwoWay}"/>
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="3">
-							<TextBlock Text="Default seed" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Default seed" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.useSeed, Mode=TwoWay}"/>
 							<TextBox Visibility="{x:Bind config.seedUI, Mode=OneWay}" Text="{x:Bind config.seedValue, Mode=TwoWay}" Width="200" MaxLength="9" InputScope="Number" PlaceholderText="12345" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-							<TextBlock Visibility="{x:Bind config.seedUI, Mode=OneWay}"  Style="{ThemeResource settingNotifyLabel}">
+							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Visibility="{x:Bind config.seedUI, Mode=OneWay}"  Style="{ThemeResource settingNotifyLabel}">
 									<Run Text="As all choice stay same."/><LineBreak/>
 									<Run Text="It equally cheat. All stat will not save."/>
 							</TextBlock>
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="4">
-							<TextBlock Text="Display text auto scroll" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Display text auto scroll" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.autoScroll, Mode=TwoWay}"/>
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="5">
-							<TextBlock Text="After final choice" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="After final choice" Style="{ThemeResource settingTitleLabel}"/>
 							<StackPanel>
 								<RadioButton IsChecked="{x:Bind config.afterEndIsIt1, Mode=TwoWay}" Content="Go to end page"/>
 								<RadioButton IsChecked="{x:Bind config.afterEndIsIt2, Mode=TwoWay}" Content="Restart match"/>
 								<RadioButton IsChecked="{x:Bind config.afterEndIsIt3, Mode=TwoWay}" Content="Go to main page"/>
 							</StackPanel>
 							<StackPanel Margin="5,0" Visibility="{x:Bind config.showNotEndPage, Mode=OneWay}">
-								<TextBlock Text="And..." Style="{ThemeResource settingTitleLabel}"/>
+								<TextBlock  Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="And..." Style="{ThemeResource settingTitleLabel}"/>
 								<StackPanel>
 									<RadioButton IsChecked="{x:Bind config.saveAllStat, Mode=TwoWay}" Content="Save all stat"/>
 									<RadioButton IsChecked="{x:Bind config.deleteAllStat, Mode=TwoWay}" Content="Discard all stat"/>
@@ -152,7 +151,7 @@
 			<PivotItem x:Name="sessionPage" x:Uid="setSes">
 				<PivotItem.Header>
 					<StackPanel Orientation="Vertical">
-						<SymbolIcon Symbol="Clock" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon Foreground="{ThemeResource AccentButtonForeground}" Symbol="Clock" RenderTransformOrigin="0.5,0.5">
 							<SymbolIcon.RenderTransform>
 								<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 							</SymbolIcon.RenderTransform>
@@ -210,7 +209,7 @@
 			<PivotItem x:Name="statPage" x:Uid="setStat">
 				<PivotItem.Header>
 					<StackPanel Orientation="Vertical">
-						<SymbolIcon Symbol="AllApps" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon Foreground="{ThemeResource AccentButtonForeground}" Symbol="AllApps" RenderTransformOrigin="0.5,0.5">
 							<SymbolIcon.RenderTransform>
 								<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 							</SymbolIcon.RenderTransform>
@@ -323,7 +322,7 @@
 			<PivotItem x:Name="aboutPage" x:Uid="setAbt">
 				<PivotItem.Header>
 					<StackPanel Orientation="Vertical">
-						<SymbolIcon Symbol="Help" RenderTransformOrigin="0.5,0.5">
+						<SymbolIcon Foreground="{ThemeResource AccentButtonForeground}" Symbol="Help" RenderTransformOrigin="0.5,0.5">
 							<SymbolIcon.RenderTransform>
 								<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 							</SymbolIcon.RenderTransform>
