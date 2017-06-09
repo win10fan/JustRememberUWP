@@ -94,7 +94,7 @@ namespace JustRemember.Models
 			}
 		}
 
-		public static async Task<NoteModel> GetOneNoteButNotMicrosoftOneNoteButNoteWithParticularPath(string path)
+		public static async Task<NoteModel> GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(string path)
 		{
 			StorageFile fol = await StorageFile.GetFileFromPathAsync(path);
 			NoteModel datNote = new NoteModel()

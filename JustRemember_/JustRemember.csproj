@@ -122,7 +122,6 @@
     <Compile Include="Models\AppConfigModel.cs" />
     <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\PrenoteModel.cs" />
-    <Compile Include="Models\SampleModel.cs" />
     <Compile Include="Models\SavedSessionModel.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\StatModel.cs" />
@@ -156,9 +155,6 @@
     </Compile>
     <Compile Include="Views\PrenoteView.xaml.cs">
       <DependentUpon>PrenoteView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -329,10 +325,6 @@
     <Page Include="Views\PrenoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

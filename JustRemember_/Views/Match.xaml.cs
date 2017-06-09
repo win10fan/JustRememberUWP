@@ -23,31 +23,24 @@ using Windows.UI.Xaml.Navigation;
 
 namespace JustRemember.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class Match : Page
-    {
-        public static SessionModel transfer;
-        public Match()
-        {
-            this.InitializeComponent();
-        }
-        public SessionViewModel ViewModel { get; } = new SessionViewModel();
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ViewModel.current = (SessionModel)e.Parameter;
-            ViewModel.RestoreSession();
-            ViewModel.view = this;
-			ViewModel.isPausing = false;
-			if (!ViewModel.current.isNew)
-			{
-				//Reload text display
-				for (int i = 0; i < ViewModel.currentChoice; i++)
-				{
-					ViewModel.AddTextDisplay(i);
-				}
-			}
+	/// <summary>
+	/// An empty page that can be used on its own or navigated to within a Frame.
+	/// </summary>
+	public sealed partial class Match : Page
+	{
+		public static SessionModel transfer;
+		public Match()
+		{
+			this.InitializeComponent();
+		}
+		public SessionViewModel ViewModel { get; } = new SessionViewModel();
+		protected override async void OnNavigatedTo(NavigationEventArgs e)
+		{
+			ViewModel.current = (SessionModel)e.Parameter;
+			ViewModel.view = this;
+			ViewModel.RestoreSession();
+
+			//ViewModel.isPausing = false;
 			if (MobileTitlebarService.isMobile)
 			{
 				await MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlPageBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
@@ -56,82 +49,42 @@ namespace JustRemember.Views
 			{
 				await MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle);
 			}
-
 			base.OnNavigatedTo(e);
-        }
-
-        public ScrollViewer displayTexts
-        {
-            get => displayTextScroll; set => displayTextScroll = value;
-        }
-
-        private void Choice0(object sender, RoutedEventArgs e)
-        {
-            ViewModel.Choose(0);
-        }
-
-        private void Choice1(object sender, RoutedEventArgs e)
-        {
-            ViewModel.Choose(1);
-        }
-
-        private void Choice2(object sender, RoutedEventArgs e)
-        {
-            ViewModel.Choose(2);
-        }
-
-        private void Choice3(object sender, RoutedEventArgs e)
-        {
-            ViewModel.Choose(3);
-        }
-
-        private void Choice4(object sender, RoutedEventArgs e)
-        {
-            ViewModel.Choose(4);
-        }
-
-        public TextBlock displayTXT
-        {
-            get { return dpTxt; }
-            set { dpTxt = value; }
-        }
-
-        public Storyboard Pause
-        {
-            get { return startPause; }
-            set { startPause = value; }
-        }
-        
-        public Storyboard UnPause
-        {
-            get { return stopPause; }
-            set { stopPause = value; }
-        }
-
-        private async void TryPause(object sender, TappedRoutedEventArgs e)
-        {
-            ViewModel.isPausing = true;
-			await MobileTitlebarService.Refresh("Paused...", Resources["SystemControlBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
 		}
 
-        private void BackToMainMenu(object sender, RoutedEventArgs e)
-        {
-            ViewModel.KickToMainPage();
-        }
-
-        private void SaveSession(object sender, RoutedEventArgs e)
-        {
-			if (ViewModel.currentChoice < 1)
-			{
-				return;
-			}
-            ViewModel.SaveToSessionList();
-        }
-
-        private async void TryUnPause(object sender, RoutedEventArgs e)
-        {
-            ViewModel.isPausing = false;
-			await MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlBackgroundAccentBrush"], Resources["SystemControlForegroundAltHighBrush"]);
+		/// <summary>
+		/// The scroll area that use to place display textblock selected choice
+		/// </summary>
+		public ScrollViewer displayTexts
+		{
+			get => displayTextScroll; set => displayTextScroll = value;
 		}
-    }
+
+		/// <summary>
+		/// textblock that use to display selected choice
+		/// </summary>
+		public TextBlock displayTXT
+		{
+			get { return dpTxt; }
+			set { dpTxt = value; }
+		}
+
+		/// <summary>
+		/// Animation from normal to paused grid
+		/// </summary>
+		public Storyboard Pause
+		{
+			get { return startPause; }
+			set { startPause = value; }
+		}
+
+		/// <summary>
+		/// Animation from paused to normal
+		/// </summary>
+		public Storyboard UnPause
+		{
+			get { return stopPause; }
+			set { stopPause = value; }
+		}
+	}
 }

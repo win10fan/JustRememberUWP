@@ -12,6 +12,8 @@ using Windows.UI.Popups;
 using JustRemember.Models;
 using JustRemember.Views;
 using JustRemember.Services;
+using System.Windows.Input;
+using JustRemember.Helpers;
 
 namespace JustRemember.ViewModels
 {
@@ -32,150 +34,166 @@ namespace JustRemember.ViewModels
 		protected void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(currentChoice)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalWrong)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(choicesSelected)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(sessionButtonColor)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
-			//Update choice buttons
-			OnPropertyChanged(nameof(Choice0Display));
-			OnPropertyChanged(nameof(Choice1Display));
-			OnPropertyChanged(nameof(Choice2Display));
-			OnPropertyChanged(nameof(Choice3Display));
-			OnPropertyChanged(nameof(Choice4Display));
+			if (propertyName == nameof(isSessionSaved))
+			{
+				OnPropertyChanged(nameof(isSessionSaved));
+				OnPropertyChanged(nameof(isSessionNotSaved));
+			}
 		}
 
-		public string totalText
+		public Match view;
+
+		SessionModel _ses;
+		public SessionModel current
+		{
+			get => _ses;
+			set
+			{
+				Set(ref _ses, value);
+			}
+		}
+
+		public AppConfigModel Config
+		{
+			get => App.Config;
+			set => App.Config = value;
+		}
+
+		#region Initialize
+		public void RestoreSession()
+		{
+			if (!current.isNew)
+			{
+				//This is an old session saved
+				//Need to restore it
+				if (!current.isNew)
+				{
+					//Reload text display
+					for (int i = 0; i < currentChoice; i++)
+					{
+						AddTextDisplay(i);
+					}
+				}
+
+			}
+			SetTimer();
+			isPausing = false;
+			UNPAUSEFUNC(null);
+			InitializeCommands();
+			timerUI.Start();
+		}
+
+		#endregion
+
+		#region Binding Property
+		public int FontSize
 		{
 			get
 			{
-				if (current == null)
-				{
-					return "??";
-				}
-				return current.texts.Count.ToString();
+				return Config.displayTextSize;
 			}
-		}
-
-		public void Update()
-		{
-			OnPropertyChanged("current");
-		}
-
-		SessionModel _session;
-		public SessionModel current
-		{
-			get => _session;
-			set => Set(ref _session, value);
-		}
-		
-		public Match view;
-		
-		DispatcherTimer timerUI;
-		void SetTimer()
-		{
-			if (current.StatInfo.isTimeLimited)
+			set
 			{
-				timerUI = new DispatcherTimer();
-				timerUI.Interval = TimeSpan.FromSeconds(1);
-				timerUI.Tick += TimerUI_Tick;
-			}
-			else
-			{
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(totalLimitTime)));
+				Config.displayTextSize = value;
+				OnPropertyChanged(nameof(FontSize));
 			}
 		}
-
-		private void TimerUI_Tick(object sender, object e)
-		{
-			current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(1));
-			Update();
-		}
-
 		/// <summary>
 		/// This choice use for binding on display which can't be -1
 		/// </summary>
+		public int currentDisplayChoice { get { return current.currentChoice + 1; } }
+
 		public int currentChoice
 		{
 			get
 			{
 				if (current == null) { return 0; }
-				if (current.currentChoice < 0)
-				{
-					return 0;
-				}
-				if (current.currentChoice > current.texts.Count - 1)
-				{
-					return current.texts.Count - 1;
-				}
+				if (current.currentChoice < 0) { return 0; }
+				if (current.currentChoice > current.texts.Count - 1) { return current.texts.Count - 1; }
 				return current.currentChoice;
 			}
 			set
 			{
-				if ((value - current.currentChoice) > 1)
-				{
-					value = current.currentChoice + 1;
-					current.currentChoice = value;
-				}
-				//Update choice items
-				OnPropertyChanged(nameof(Choice0Display));
-				OnPropertyChanged(nameof(Choice1Display));
-				OnPropertyChanged(nameof(Choice2Display));
-				OnPropertyChanged(nameof(Choice3Display));
-				OnPropertyChanged(nameof(Choice4Display));
-				//Update choice text
-				OnPropertyChanged(nameof(Choice0Content));
-				OnPropertyChanged(nameof(Choice1Content));
-				OnPropertyChanged(nameof(Choice2Content));
-				OnPropertyChanged(nameof(Choice3Content));
-				OnPropertyChanged(nameof(Choice4Content));
+				current.currentChoice = value;
+				//Update binding value when choice changed to next
+				OnPropertyChanged(nameof(currentDisplayChoice));
 			}
 		}
 
-		public void InitializeCommands()
+		public int totalChoice
 		{
-			while (current == null)
-			{
-				Task.Delay(5);
-			}
-			OnPropertyChanged(nameof(current));
-			//Dialogs
-			wantToLeave = new MessageDialog("Do you want to leave this session?", "Confirm");
-			wantToLeave.Commands.Add(new UICommand()
-			{
-				Invoked = delegate { NavigationService.Navigate<MainPage>(); },
-				Label = "Yes"
-			});
-			wantToLeave.Commands.Add(new UICommand("No"));
+			get { return current.texts.Count; }
 		}
 
-		public async void SaveToSessionList()
-		{
-			if (isSessionSaved) { return; }
-			isSessionSaved = true;
-			await SavedSessionModel.AddNew(current);
-		}
-
-		public MessageDialog wantToLeave;
-		public async void KickToMainPage()
-		{
-			if (isSessionSaved)
-			{
-				NavigationService.Navigate<MainPage>();
-				return;
-			}
-			await wantToLeave.ShowAsync();
-		}
-
-		public bool isSessionSaved;
-
-		public Visibility sessionButtonColor
+		bool issave;
+		public bool isSessionNotSaved
 		{
 			get
 			{
-				if (isSessionSaved) { return Visibility.Visible; }
-				return Visibility.Collapsed;
+				if (currentChoice < 1 || currentChoice > current.texts.Count - 2)
+				{
+					return false;
+				}
+				return !issave;
+			}
+		}
+		public bool isSessionSaved
+		{
+			get
+			{
+				if (currentChoice < 1 || currentChoice > current.texts.Count - 2)
+				{
+					return true;
+				}
+				return issave;
+			}
+			set
+			{
+				Set(ref issave, value);
+			}
+		}
+
+		bool _p;
+		public bool isPausing
+		{
+			get
+			{
+				return _p;
+			}
+			set
+			{
+				if (value)
+				{
+
+				}
+				else
+				{
+
+				}
+				Set(ref _p, value);
+				OnPropertyChanged(nameof(isPausing));
+			}
+		}
+
+		public TimeSpan spendTime
+		{
+			get
+			{
+				return _ses.StatInfo.totalTimespend;
+			}
+			set
+			{
+				Set(ref _ses.StatInfo.totalTimespend, value);
+				OnPropertyChanged(nameof(spendedTime));
+			}
+		}
+
+		public string spendedTime
+		{
+			get
+			{
+				if (!current.StatInfo.isTimeLimited) { return "--:--"; }
+				return $"{spendTime.Minutes:00}:{spendTime.Seconds:00}";
 			}
 		}
 
@@ -183,192 +201,28 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				return current.selectedChoices;
+				return _ses.selectedChoices;
 			}
 			set
 			{
-				current.selectedChoices = value;
+				_ses.selectedChoices = value;
+				OnPropertyChanged(nameof(choicesSelected));
 			}
 		}
 
-		SelectedChoices _chLT;
-		public SelectedChoices latestChoices
+		int wrongCount;
+		public int totalWrong
 		{
 			get
 			{
-				return _chLT;
+				if (current == null) { return 0; }
+				return wrongCount;
 			}
-			set { _chLT = value; AddTextDisplay(); }
-		}
-		public void AddTextDisplay()
-		{
-			view.displayTXT.Inlines.Add(new Run
+			set
 			{
-				Text = latestChoices.finalText,
-				Foreground = latestChoices.mark
-			});
-		}
-
-		public void AddTextDisplay(int at)
-		{
-			view.displayTXT.Inlines.Add(new Run
-			{
-				Text = current.selectedChoices[at].finalText,
-				Foreground = current.selectedChoices[at].mark
-			});
-		}
-
-		public void UpdateText(bool IsItRightChoice)
-		{
-			//Check if choice has been added
-			if (current.selectedChoices.Count - 1 < current.currentChoice)
-			{
-				//No choice made yet
-				current.selectedChoices.Add(new SelectedChoices());
-				OnPropertyChanged("choicesSelected");
+				Set(ref wrongCount, value);
+				OnPropertyChanged(nameof(totalWrong));
 			}
-			//
-			if (IsItRightChoice)
-			{
-				if (current.StatInfo.setMode == matchMode.Easy)
-				{
-					//Choose the right choice in easy
-					//Update that selected
-					current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text;
-				}
-				if (current.StatInfo.setMode == matchMode.Normal)
-				{
-					//Choose the right choice in Normal
-					//Check if it was right on the first time or not
-					bool wrongBefore = false;
-					foreach (bool v in current.StatInfo.choiceInfo[currentChoice])
-					{
-						if (v)
-						{
-							//It has wrong choice before
-							wrongBefore = true;
-						}
-					}
-					if (wrongBefore)
-					{
-						//Obfuscate the text
-						current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text.obfuscateText();
-					}
-				}
-			}
-			else
-			{
-				//Choose the wrong choice
-				if (current.StatInfo.setMode == matchMode.Easy)
-				{
-					//Choose the wrong choice in easy
-					//Update that selected
-					if (Config.obfuscateWrongText)
-					{
-						current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text.obfuscateText();
-					}
-					else
-					{
-						current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text;
-					}
-					current.selectedChoices[currentChoice].isItWrong = true;
-				}
-				else
-				{
-					//Choose wrong choice on normal
-					//Hard mode would not be at this point as it force to reset match before anything else
-					//Do nothing anyway though
-					return;
-				}
-			}
-			Update();
-			//view.controls.ItemsSource = choicesSelected;
-			latestChoices = current.selectedChoices[currentChoice];
-		}
-
-		public void Choose(int choice)
-		{
-			//Normal choice
-			if (choice != current.choices[currentChoice].corrected)
-			{
-				//Wrong choice
-				switch (current.StatInfo.setMode)
-				{
-					case matchMode.Easy:
-						//Mark this choice as wrong
-						current.StatInfo.choiceInfo[currentChoice][choice] = true;
-						//Advance time up little bit as wrong choice has been selected
-						current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(2));
-						//Update choice text
-						UpdateText(false);
-						//Update progress
-						if (current.currentChoice + 1 == current.texts.Count)
-						{
-							//Let UI show final button
-							break;
-						}
-						break;
-					case matchMode.Normal:
-						//Mark selected choice as wrong
-						current.StatInfo.choiceInfo[currentChoice][choice] = true;
-						//Advance time up little bit as wrong choice has been selected
-						current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(5));
-						break;
-					case matchMode.Hard:
-						//Reset round
-						//TODO:Reset match
-						break;
-				}
-			}
-			else if (choice == current.choices[currentChoice].corrected)
-			{
-				//Corrent choice
-				//Update display text
-				//TODO:Update display text in MVVM method
-				UpdateText(true);
-				//Check that choice that has been selected is final
-				if (currentChoice + 1 > current.texts.Count)
-				{
-					//This is the end
-					//Let UI update
-					OnPropertyChanged("current");
-				}
-				else
-				{
-					//Keep on struggle to the next choice
-					currentChoice += 1;
-					OnPropertyChanged("current");
-				}
-			}
-			//
-			if (current.currentChoice > current.texts.Count - 1)
-			{
-				//TODO:Do what depend on setting
-				switch (Config.AfterFinalChoice)
-				{
-					case whenFinalChoice.EndPage:
-						//TODO:Kick user to end page
-						break;
-					case whenFinalChoice.Restart:
-						//TODO:Restart match
-						break;
-					case whenFinalChoice.BackHome:
-						//TODO:Return to main page
-						break;
-				}
-			}
-			else
-			{
-				current.currentChoice += 1;
-			}
-			totalWrong = current.StatInfo.GetTotalWrong();
-			OnPropertyChanged("current");
-			//Update choice text
-			OnPropertyChanged(nameof(Choice0Content));
-			OnPropertyChanged(nameof(Choice1Content));
-			OnPropertyChanged(nameof(Choice2Content));
-			OnPropertyChanged(nameof(Choice3Content));
-			OnPropertyChanged(nameof(Choice4Content));
 		}
 
 		public Visibility Choice0Display
@@ -467,12 +321,17 @@ namespace JustRemember.ViewModels
 			}
 		}
 
-		//Choice text
+		////Choice text
 		public string Choice0Content
 		{
 			get
 			{
-				return current?.choices[currentChoice].choices[0];
+				string title = "";
+				if (Config.choiceStyle == choiceDisplayMode.Bottom)
+				{
+					title = "1: ";
+				}
+				return $"{title}{current?.choices[currentDisplayChoice].choices[0]}";
 			}
 		}
 
@@ -480,7 +339,12 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				return current?.choices[currentChoice].choices[1];
+				string title = "";
+				if (Config.choiceStyle == choiceDisplayMode.Bottom)
+				{
+					title = "2: ";
+				}
+				return $"{title}{current?.choices[currentDisplayChoice].choices[1]}";
 			}
 		}
 
@@ -488,7 +352,12 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				return current?.choices[currentChoice].choices[2];
+				string title = "";
+				if (Config.choiceStyle == choiceDisplayMode.Bottom)
+				{
+					title = "3: ";
+				}
+				return $"{title}{current?.choices[currentDisplayChoice].choices[2]}";
 			}
 		}
 
@@ -500,7 +369,12 @@ namespace JustRemember.ViewModels
 				{
 					return "";
 				}
-				return current?.choices[currentChoice].choices[3];
+				string title = "";
+				if (Config.choiceStyle == choiceDisplayMode.Bottom)
+				{
+					title = "4: ";
+				}
+				return $"{title}{current?.choices[currentDisplayChoice].choices[3]}";
 			}
 		}
 
@@ -512,67 +386,12 @@ namespace JustRemember.ViewModels
 				{
 					return "";
 				}
-				return current?.choices[currentChoice].choices[4];
-			}
-		}
-
-		public AppConfigModel Config { get => App.Config; set => App.Config = value; }
-		public void RestoreSession()
-		{
-			Config = App.Config;
-			InitializeCommands();
-		}
-
-		bool _p;
-		public bool isPausing
-		{
-			get
-			{
-				return _p;
-			}
-			set
-			{
-				if (value)
+				string title = "";
+				if (Config.choiceStyle == choiceDisplayMode.Bottom)
 				{
-					timerUI?.Stop();
-					view.UnPause.Stop();
-					view.Pause.Begin();
-					view.displayTXT.VerticalAlignment = VerticalAlignment.Top;
+					title = "5: ";
 				}
-				else
-				{
-					timerUI?.Start();
-					view.Pause?.Stop();
-					view.UnPause?.Begin();
-					view.displayTXT.VerticalAlignment = VerticalAlignment.Bottom;
-				}
-				Set(ref _p, value);
-				OnPropertyChanged(nameof(isPausing));
-			}
-		}
-
-		int wrongCount;
-		public int totalWrong
-		{
-			get
-			{
-
-				if (current == null) { return 0; }
-				return wrongCount;
-			}
-			set
-			{
-				Set(ref wrongCount, value);
-			}
-		}
-
-		public string spendedTime
-		{
-			get
-			{
-				if (current == null) { return "--:--"; }
-				if (current?.StatInfo?.isTimeLimited == false) { return "--:--"; }
-				return $"{current?.StatInfo?.totalTimespend.Minutes:00}:{current.StatInfo?.totalTimespend.Seconds}";
+				return $"{title}{current?.choices[currentDisplayChoice].choices[4]}";
 			}
 		}
 
@@ -607,25 +426,306 @@ namespace JustRemember.ViewModels
 				return Config.choiceStyle == choiceDisplayMode.Write ? Visibility.Visible : Visibility.Collapsed;
 			}
 		}
-	}
+		#endregion
 
-	public static class ExtendFunc
-	{
-		public static string obfuscateText(this string text)
+		#region Commands & Dialogs
+		MessageDialog confirm;
+
+		public ICommand BackToMainMenu;
+		public ICommand SaveSession;
+		public ICommand PauseFunc;
+		public ICommand UnPauseFunc;
+		public ICommand Choose1;
+		public ICommand Choose2;
+		public ICommand Choose3;
+		public ICommand Choose4;
+		public ICommand Choose5;
+
+		public void InitializeCommands()
 		{
-			string res = "";
-			for (int i = 0; i < text.Length; i++)
+			BackToMainMenu = new RelayCommand<RoutedEventArgs>(BACKTOMAINMENU);
+			SaveSession = new RelayCommand<RoutedEventArgs>(SAVESESSION);
+			PauseFunc = new RelayCommand<RoutedEventArgs>(PAUSEFUNC);
+			UnPauseFunc = new RelayCommand<RoutedEventArgs>(UNPAUSEFUNC);
+			Choose1 = new RelayCommand<RoutedEventArgs>(CHOOSE1);
+			Choose2 = new RelayCommand<RoutedEventArgs>(CHOOSE2);
+			Choose3 = new RelayCommand<RoutedEventArgs>(CHOOSE3);
+			Choose4 = new RelayCommand<RoutedEventArgs>(CHOOSE4);
+			Choose5 = new RelayCommand<RoutedEventArgs>(CHOOSE5);
+
+			//Dialogs
+			confirm = new MessageDialog("Do you want to leave this session?", "Confirm");
+			confirm.Commands.Add(new UICommand()
 			{
-				res += "?";
-			}
-			return res;
+				Invoked = delegate { NavigationService.GoBack(); },
+				Label = "Yes"
+			});
+			confirm.Commands.Add(new UICommand("No"));
 		}
 
-		public static int Clamp(this int value, int min, int max)
+		private void CHOOSE1(RoutedEventArgs obj)
 		{
-			if (value < min) { return min; }
-			if (value > max) { return max; }
-			return value;
+			Choose(0);
 		}
+
+		private void CHOOSE2(RoutedEventArgs obj)
+		{
+			Choose(1);
+		}
+
+		private void CHOOSE3(RoutedEventArgs obj)
+		{
+			Choose(2);
+		}
+
+		private void CHOOSE4(RoutedEventArgs obj)
+		{
+			Choose(3);
+		}
+
+		private void CHOOSE5(RoutedEventArgs obj)
+		{
+			Choose(4);
+		}
+
+		private async void PAUSEFUNC(RoutedEventArgs obj)
+		{
+			isPausing = true;
+			timerUI?.Stop();
+			view.UnPause.Stop();
+			view.Pause.Begin();
+			await Task.Delay(500);
+			view.displayTXT.VerticalAlignment = VerticalAlignment.Top;
+		}
+
+		private async void UNPAUSEFUNC(RoutedEventArgs obj)
+		{
+			isPausing = false;
+			timerUI?.Start();
+			view.Pause?.Stop();
+			view.UnPause?.Begin();
+			await Task.Delay(500);
+			view.displayTXT.VerticalAlignment = VerticalAlignment.Bottom;
+		}
+
+		private async void SAVESESSION(RoutedEventArgs obj)
+		{
+			if (isSessionSaved) { return; }
+			isSessionSaved = true;
+			await SavedSessionModel.AddNew(current);
+		}
+
+		private async void BACKTOMAINMENU(RoutedEventArgs obj)
+		{
+			if (isSessionNotSaved)
+			{
+				NavigationService.GoBack();
+				return;
+			}
+			await confirm.ShowAsync();
+		}
+		#endregion
+
+		#region Function
+		DispatcherTimer timerUI;
+		void SetTimer()
+		{
+			if (current.StatInfo.isTimeLimited)
+			{
+				timerUI = new DispatcherTimer()
+				{
+					Interval = TimeSpan.FromSeconds(1)
+				};
+				timerUI.Tick += TimerUI_Tick;
+			}
+			else
+			{
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
+			}
+		}
+
+		private void TimerUI_Tick(object sender, object e)
+		{
+			spendTime = spendTime.Add(TimeSpan.FromSeconds(1));
+		}
+
+		public async void Choose(int choice)
+		{
+			//Normal choice			
+			if (choice != current.choices[currentChoice].corrected)
+			{
+				//Wrong choice
+				switch (current.StatInfo.setMode)
+				{
+					case matchMode.Easy:
+						//Mark this choice as wrong
+						current.StatInfo.choiceInfo[currentChoice][choice] = true;
+						//Advance time up little bit as wrong choice has been selected
+						current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(2));
+						//Update choice text
+						UpdateText(false);
+						//Update progress
+						if (current.currentChoice + 1 == current.texts.Count)
+						{
+							//TODO:Go to end page
+							break;
+						}
+						break;
+					case matchMode.Normal:
+						//Mark selected choice as wrong
+						current.StatInfo.choiceInfo[currentChoice][choice] = true;
+						//Advance time up little bit as wrong choice has been selected
+						current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(5));
+						break;
+					case matchMode.Hard:
+						//Reset round
+						//TODO:Reset match
+						break;
+				}
+			}
+			else if (choice == current.choices[currentChoice].corrected)
+			{
+				//Corrent choice
+				//Update display text
+				UpdateText(true);
+				//Check that choice that has been selected is final
+				if (currentChoice + 1 > current.texts.Count)
+				{
+					//This is the end
+					//TODO:Go to end page
+				}
+			}
+			//
+			if (current.currentChoice > current.texts.Count - 1)
+			{
+				//TODO:Do what depend on setting
+				switch (Config.AfterFinalChoice)
+				{
+					case whenFinalChoice.EndPage:
+						//TODO:Kick user to end page
+						break;
+					case whenFinalChoice.Restart:
+						//TODO:Restart match
+						break;
+					case whenFinalChoice.BackHome:
+						//TODO:Return to main page
+						break;
+				}
+			}
+			else
+			{
+				currentChoice += 1;
+			}
+			totalWrong = current.StatInfo.GetTotalWrong();
+			//Update choice text
+			OnPropertyChanged(nameof(Choice0Content));
+			OnPropertyChanged(nameof(Choice1Content));
+			OnPropertyChanged(nameof(Choice2Content));
+			OnPropertyChanged(nameof(Choice3Content));
+			OnPropertyChanged(nameof(Choice4Content));
+			issave = await SavedSessionModel.isExist(current);
+			OnPropertyChanged(nameof(isSessionNotSaved));
+		}
+
+		/// <summary>
+		/// Update display text
+		/// </summary>
+		public void UpdateText(bool IsItRightChoice)
+		{
+			int currentChoiceInternal = currentChoice - 1;
+			if (currentChoiceInternal < 0) { currentChoiceInternal = 0; }
+			//Check if choice has been added
+			while (currentChoiceInternal > current.selectedChoices.Count - 1)
+			{
+				//No choice made yet
+				current.selectedChoices.Add(new SelectedChoices());
+				OnPropertyChanged("choicesSelected");
+			}
+			//
+			if (IsItRightChoice)
+			{
+				if (current.StatInfo.setMode == matchMode.Easy)
+				{
+					//Choose the right choice in easy
+					//Update that selected
+					current.selectedChoices[currentChoiceInternal].finalText = current.texts[currentChoiceInternal].text;
+				}
+				if (current.StatInfo.setMode == matchMode.Normal)
+				{
+					//Choose the right choice in Normal
+					//Check if it was right on the first time or not
+					bool wrongBefore = false;
+					foreach (bool v in current.StatInfo.choiceInfo[currentChoiceInternal])
+					{
+						if (v)
+						{
+							//It has wrong choice before
+							wrongBefore = true;
+						}
+					}
+					if (wrongBefore)
+					{
+						//Obfuscate the text
+						current.selectedChoices[currentChoiceInternal].finalText = current.texts[currentChoiceInternal].text.obfuscateText();
+					}
+				}
+			}
+			else
+			{
+				//Choose the wrong choice
+				if (current.StatInfo.setMode == matchMode.Easy)
+				{
+					//Choose the wrong choice in easy
+					//Update that selected
+					if (Config.obfuscateWrongText)
+					{
+						current.selectedChoices[currentChoiceInternal].finalText = current.texts[currentChoiceInternal].text.obfuscateText();
+					}
+					else
+					{
+						current.selectedChoices[currentChoiceInternal].finalText = current.texts[currentChoiceInternal].text;
+					}
+					current.selectedChoices[currentChoiceInternal].isItWrong = true;
+				}
+				else
+				{
+					//Choose wrong choice on normal
+					//Hard mode would not be at this point as it force to reset match before anything else
+					//Do nothing anyway though
+					return;
+				}
+			}
+			//view.controls.ItemsSource = choicesSelected;
+			latestChoices = current.selectedChoices[currentChoiceInternal];
+		}
+
+		SelectedChoices _chLT;
+		public SelectedChoices latestChoices
+		{
+			get
+			{
+				return _chLT;
+			}
+			set { _chLT = value; AddTextDisplay(); }
+		}
+
+		public void AddTextDisplay()
+		{
+			view.displayTXT.Inlines.Add(new Run
+			{
+				Text = latestChoices.finalText,
+				Foreground = latestChoices.mark
+			});
+		}
+
+		public void AddTextDisplay(int at)
+		{
+			view.displayTXT.Inlines.Add(new Run
+			{
+				Text = current.selectedChoices[at].finalText,
+				Foreground = current.selectedChoices[at].mark
+			});
+		}
+		#endregion
 	}
 }
