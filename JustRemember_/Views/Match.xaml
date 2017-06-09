@@ -29,28 +29,28 @@
 					BeginTime="0:0:0" 
 					Storyboard.TargetName="infoGrid"
 					Storyboard.TargetProperty="MaxHeight"
-					Duration="0:0:1"
+					Duration="0:0:0.25"
 					EnableDependentAnimation="True">
 					<SplineDoubleKeyFrame KeyTime="0:0:0" Value="32"/>
-					<SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
 				</DoubleAnimationUsingKeyFrames>
 				<DoubleAnimationUsingKeyFrames
 					Storyboard.TargetName="Row0"
 					Storyboard.TargetProperty="MaxHeight"
-					Duration="0:0:1"
+					Duration="0:0:0.25"
 					EnableDependentAnimation="True">
 					<SplineDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
-					<SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-					<SplineDoubleKeyFrame KeyTime="0:0:1" Value="300"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.125" Value="0"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="300"/>
 				</DoubleAnimationUsingKeyFrames>
 				<DoubleAnimationUsingKeyFrames
 					Storyboard.TargetName="Row2"
 					Storyboard.TargetProperty="MaxHeight"
-					Duration="0:0:1"
+					Duration="0:0:0.25"
 					EnableDependentAnimation="True">
 					<SplineDoubleKeyFrame KeyTime="0:0:0" Value="280"/>
-					<SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="280"/>
-					<SplineDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.125" Value="280"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
 				</DoubleAnimationUsingKeyFrames>
 			</Storyboard>
 			<Storyboard x:Name="stopPause">
@@ -60,21 +60,21 @@
                     EnableDependentAnimation="True"
                     From="300"
                     To="0"
-                    Duration="0:0:1"/>
+                    Duration="0:0:0.25"/>
 				<DoubleAnimation 
                     Storyboard.TargetName="Row2" 
                     Storyboard.TargetProperty="MaxHeight"
                     EnableDependentAnimation="True"
                     From="0"
                     To="280"
-                    Duration="0:0:1"/>
+                    Duration="0:0:0.25"/>
 				<DoubleAnimation 
                     Storyboard.TargetName="infoGrid" 
                     Storyboard.TargetProperty="MaxHeight"
                     EnableDependentAnimation="True"
                     From="0"
                     To="32"
-                    Duration="0:0:1"/>
+                    Duration="0:0:0.25"/>
 			</Storyboard>
 		</Grid.Resources>
 		<Grid.RowDefinitions>
@@ -124,7 +124,7 @@
 					<Grid Grid.Row="0" Grid.Column="2" Style="{StaticResource recTan}">
 						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE105;" FontFamily="Segoe MDL2 Assets"/>
 						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Save session"/>
-						<Button IsEnabled="{x:Bind ViewModel.isSessionNotSaved, Mode=OneWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent">
+						<Button IsEnabled="{x:Bind ViewModel.isStillNotSaveSession, Mode=OneWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.SaveSession}"/>
@@ -139,7 +139,7 @@
 					<Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource recTan}">
 						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE115;" FontFamily="Segoe MDL2 Assets"/>
 						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Settings"/>
-						<Button IsEnabled="{x:Bind ViewModel.isSessionNotSaved, Mode=OneWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent">
+						<Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:NavigateToPageAction TargetPage="AppConfigView"/>
@@ -183,12 +183,12 @@
 				<Rectangle Opacity="0.8" Grid.Row="1" Fill="{ThemeResource AccentButtonBackground}"/>
 				<Grid Grid.Row="1" VerticalAlignment="Top">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="44"/>
+						<ColumnDefinition Width="52"/>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<Button Background="Transparent" Height="32">
+					<Button Width="50" Background="Transparent" Height="32">
 						<SymbolIcon Symbol="Pause"/>
 						<i:Interaction.Behaviors>
 							<ic:EventTriggerBehavior EventName="Click">

@@ -34,11 +34,6 @@ namespace JustRemember.ViewModels
 		protected void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-			if (propertyName == nameof(isSessionSaved))
-			{
-				OnPropertyChanged(nameof(isSessionSaved));
-				OnPropertyChanged(nameof(isSessionNotSaved));
-			}
 		}
 
 		public Match view;
@@ -62,6 +57,7 @@ namespace JustRemember.ViewModels
 		#region Initialize
 		public void RestoreSession()
 		{
+			isStillNotSaveSession = true;
 			if (!current.isNew)
 			{
 				//This is an old session saved
@@ -81,6 +77,7 @@ namespace JustRemember.ViewModels
 			UNPAUSEFUNC(null);
 			InitializeCommands();
 			timerUI.Start();
+			UpdateUI(1, 0);
 		}
 
 		#endregion
@@ -114,6 +111,11 @@ namespace JustRemember.ViewModels
 			}
 			set
 			{
+				if ((value - current.currentChoice) > 0)
+				{
+					//Get to next
+					UpdateUI(value + 1, value);
+				}
 				current.currentChoice = value;
 				//Update binding value when choice changed to next
 				OnPropertyChanged(nameof(currentDisplayChoice));
@@ -124,35 +126,7 @@ namespace JustRemember.ViewModels
 		{
 			get { return current.texts.Count; }
 		}
-
-		bool issave;
-		public bool isSessionNotSaved
-		{
-			get
-			{
-				if (currentChoice < 1 || currentChoice > current.texts.Count - 2)
-				{
-					return false;
-				}
-				return !issave;
-			}
-		}
-		public bool isSessionSaved
-		{
-			get
-			{
-				if (currentChoice < 1 || currentChoice > current.texts.Count - 2)
-				{
-					return true;
-				}
-				return issave;
-			}
-			set
-			{
-				Set(ref issave, value);
-			}
-		}
-
+		
 		bool _p;
 		public bool isPausing
 		{
@@ -225,174 +199,44 @@ namespace JustRemember.ViewModels
 			}
 		}
 
-		public Visibility Choice0Display
-		{
-			get
-			{
-				if (current == null) { return Visibility.Visible; }
-				//Pass the last choice
-				//Current choice is already choose and it wrong
-				else if (current.StatInfo.choiceInfo[currentChoice][0])//If it true already answer | Which mean hide it
-				{
-					return Visibility.Collapsed;
-				}
-				else
-				{
-					return Visibility.Visible;
-				}
-			}
-		}
+		//Choice visibility
+		Visibility _0v, _1v, _2v, _3v, _4v;
+		public Visibility Choice0Display { get => _0v; set => Set(ref _0v, value); }
+		public Visibility Choice1Display { get => _1v; set => Set(ref _1v, value); }
+		public Visibility Choice2Display { get => _2v; set => Set(ref _2v, value); }
+		public Visibility Choice3Display { get => _3v; set => Set(ref _3v, value); }
+		public Visibility Choice4Display { get => _4v; set => Set(ref _4v, value); }
 
-		public Visibility Choice1Display
-		{
-			get
-			{
-				if (current == null) { return Visibility.Visible; }
-				//Pass the last choice
-				//Current choice is already choose and it wrong
-				else if (current.StatInfo.choiceInfo[currentChoice][1])//If it true already answer | Which mean hide it
-				{
-					return Visibility.Collapsed;
-				}
-				else
-				{
-					return Visibility.Visible;
-				}
-			}
-		}
-
-		public Visibility Choice2Display
-		{
-			get
-			{
-				if (current == null) { return Visibility.Visible; }
-				//Pass the last choice
-				//Current choice is already choose and it wrong
-				else if (current.StatInfo.choiceInfo[currentChoice][2])//If it true already answer | Which mean hide it
-				{
-					return Visibility.Collapsed;
-				}
-				else
-				{
-					return Visibility.Visible;
-				}
-			}
-		}
-
-		public Visibility Choice3Display
-		{
-			get
-			{
-				if (current == null) { return Visibility.Visible; }
-				//Pass the last choice
-				//Current choice is already choose and it wrong
-				if (current.maxChoice < 4) { return Visibility.Collapsed; }
-				else if (current.currentChoice > current.choices.Count - 1)
-				{
-					return Visibility.Collapsed;
-				}
-				//Current choice is already choose and it wrong
-				else if (current.StatInfo.choiceInfo[currentChoice][3])//If it true already answer | Which mean hide it
-				{
-					return Visibility.Collapsed;
-				}
-				else
-				{
-					return Visibility.Visible;
-				}
-			}
-		}
-
-		public Visibility Choice4Display
-		{
-			get
-			{
-				if (current == null) { return Visibility.Collapsed; }
-				if (current.maxChoice < 5) { return Visibility.Collapsed; }
-				//Current choice is already choose and it wrong
-				else if (current.StatInfo.choiceInfo[currentChoice][4])//If it true already answer | Which mean hide it
-				{
-					return Visibility.Collapsed;
-				}
-				else
-				{
-					return Visibility.Visible;
-				}
-			}
-		}
-
-		////Choice text
+		//Choice text
+		string _0, _1, _2, _3, _4;
 		public string Choice0Content
 		{
-			get
-			{
-				string title = "";
-				if (Config.choiceStyle == choiceDisplayMode.Bottom)
-				{
-					title = "1: ";
-				}
-				return $"{title}{current?.choices[currentDisplayChoice].choices[0]}";
-			}
+			get => _0;
+			set => Set(ref _0, value);
 		}
 
 		public string Choice1Content
 		{
-			get
-			{
-				string title = "";
-				if (Config.choiceStyle == choiceDisplayMode.Bottom)
-				{
-					title = "2: ";
-				}
-				return $"{title}{current?.choices[currentDisplayChoice].choices[1]}";
-			}
+			get => _1;
+			set => Set(ref _1, value);
 		}
 
 		public string Choice2Content
 		{
-			get
-			{
-				string title = "";
-				if (Config.choiceStyle == choiceDisplayMode.Bottom)
-				{
-					title = "3: ";
-				}
-				return $"{title}{current?.choices[currentDisplayChoice].choices[2]}";
-			}
+			get => _2;
+			set => Set(ref _2, value);
 		}
 
 		public string Choice3Content
 		{
-			get
-			{
-				if (Choice3Display == Visibility.Collapsed)
-				{
-					return "";
-				}
-				string title = "";
-				if (Config.choiceStyle == choiceDisplayMode.Bottom)
-				{
-					title = "4: ";
-				}
-				return $"{title}{current?.choices[currentDisplayChoice].choices[3]}";
-			}
+			get => _3;
+			set => Set(ref _3, value);
 		}
 
 		public string Choice4Content
 		{
-			get
-			{
-				if (Choice4Display == Visibility.Collapsed)
-				{
-					return "";
-				}
-				string title = "";
-				if (Config.choiceStyle == choiceDisplayMode.Bottom)
-				{
-					title = "5: ";
-				}
-				return $"{title}{current?.choices[currentDisplayChoice].choices[4]}";
-			}
+			get => _4;
+			set => Set(ref _4, value);
 		}
 
 		public string totalLimitTime
@@ -510,14 +354,16 @@ namespace JustRemember.ViewModels
 
 		private async void SAVESESSION(RoutedEventArgs obj)
 		{
-			if (isSessionSaved) { return; }
-			isSessionSaved = true;
+			if (!isStillNotSaveSession) { return; }
+			isStillNotSaveSession = false;
 			await SavedSessionModel.AddNew(current);
+			await Task.Delay(100);
+			OnPropertyChanged(nameof(isStillNotSaveSession));
 		}
-
+		public bool isStillNotSaveSession;
 		private async void BACKTOMAINMENU(RoutedEventArgs obj)
 		{
-			if (isSessionNotSaved)
+			if (!isStillNotSaveSession)
 			{
 				NavigationService.GoBack();
 				return;
@@ -549,7 +395,7 @@ namespace JustRemember.ViewModels
 			spendTime = spendTime.Add(TimeSpan.FromSeconds(1));
 		}
 
-		public async void Choose(int choice)
+		public void Choose(int choice)
 		{
 			//Normal choice			
 			if (choice != current.choices[currentChoice].corrected)
@@ -623,8 +469,6 @@ namespace JustRemember.ViewModels
 			OnPropertyChanged(nameof(Choice2Content));
 			OnPropertyChanged(nameof(Choice3Content));
 			OnPropertyChanged(nameof(Choice4Content));
-			issave = await SavedSessionModel.isExist(current);
-			OnPropertyChanged(nameof(isSessionNotSaved));
 		}
 
 		/// <summary>
@@ -632,10 +476,7 @@ namespace JustRemember.ViewModels
 		/// </summary>
 		public void UpdateText(bool IsItRightChoice)
 		{
-			int currentChoiceInternal = currentChoice - 1;
-			if (currentChoiceInternal < 0) { currentChoiceInternal = 0; }
-			//Check if choice has been added
-			while (currentChoiceInternal > current.selectedChoices.Count - 1)
+			while (currentChoice > current.selectedChoices.Count - 1)
 			{
 				//No choice made yet
 				current.selectedChoices.Add(new SelectedChoices());
@@ -648,14 +489,14 @@ namespace JustRemember.ViewModels
 				{
 					//Choose the right choice in easy
 					//Update that selected
-					current.selectedChoices[currentChoiceInternal].finalText = current.texts[currentChoiceInternal].text;
+					current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text;
 				}
 				if (current.StatInfo.setMode == matchMode.Normal)
 				{
 					//Choose the right choice in Normal
 					//Check if it was right on the first time or not
 					bool wrongBefore = false;
-					foreach (bool v in current.StatInfo.choiceInfo[currentChoiceInternal])
+					foreach (bool v in current.StatInfo.choiceInfo[currentChoice])
 					{
 						if (v)
 						{
@@ -666,7 +507,7 @@ namespace JustRemember.ViewModels
 					if (wrongBefore)
 					{
 						//Obfuscate the text
-						current.selectedChoices[currentChoiceInternal].finalText = current.texts[currentChoiceInternal].text.obfuscateText();
+						current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text.obfuscateText();
 					}
 				}
 			}
@@ -679,13 +520,13 @@ namespace JustRemember.ViewModels
 					//Update that selected
 					if (Config.obfuscateWrongText)
 					{
-						current.selectedChoices[currentChoiceInternal].finalText = current.texts[currentChoiceInternal].text.obfuscateText();
+						current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text.obfuscateText();
 					}
 					else
 					{
-						current.selectedChoices[currentChoiceInternal].finalText = current.texts[currentChoiceInternal].text;
+						current.selectedChoices[currentChoice].finalText = current.texts[currentChoice].text;
 					}
-					current.selectedChoices[currentChoiceInternal].isItWrong = true;
+					current.selectedChoices[currentChoice].isItWrong = true;
 				}
 				else
 				{
@@ -696,7 +537,7 @@ namespace JustRemember.ViewModels
 				}
 			}
 			//view.controls.ItemsSource = choicesSelected;
-			latestChoices = current.selectedChoices[currentChoiceInternal];
+			latestChoices = current.selectedChoices[currentChoice];
 		}
 
 		SelectedChoices _chLT;
@@ -725,6 +566,31 @@ namespace JustRemember.ViewModels
 				Text = current.selectedChoices[at].finalText,
 				Foreground = current.selectedChoices[at].mark
 			});
+		}
+
+		const string t1 = "1: ";
+		const string t2 = "2: ";
+		const string t3 = "3: ";
+		const string t4 = "4: ";
+		const string t5 = "5: ";
+		/// <summary>
+		/// Update the UI including choices visibility etc.
+		/// </summary>
+		/// <param name="visual">The number of current progress in display</param>
+		/// <param name="bg">The number of current progress with -1</param>
+		public void UpdateUI(int visual, int bg)
+		{
+			Choice0Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[0] : $"{t1}{current?.choices[bg].choices[0]}";
+			Choice1Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[1] : $"{t2}{current?.choices[bg].choices[1]}";
+			Choice2Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[2] : $"{t3}{current?.choices[bg].choices[2]}";
+			Choice3Content = current.maxChoice < 4 ? "" : Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[3] : $"{t4}{current?.choices[bg].choices[3]}";
+			Choice4Content = current.maxChoice < 5 ? "" : Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[4] : $"{t5}{current?.choices[bg].choices[4]}";
+			//
+			Choice0Display = current.StatInfo.choiceInfo[bg][0] ? Visibility.Collapsed : Visibility.Visible;
+			Choice1Display = current.StatInfo.choiceInfo[bg][1] ? Visibility.Collapsed : Visibility.Visible;
+			Choice2Display = current.StatInfo.choiceInfo[bg][2] ? Visibility.Collapsed : Visibility.Visible;
+			Choice3Display = current.maxChoice < 4 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][3] ? Visibility.Collapsed : Visibility.Visible);
+			Choice4Display = current.maxChoice < 5 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][4] ? Visibility.Collapsed : Visibility.Visible);
 		}
 		#endregion
 	}
