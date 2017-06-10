@@ -123,6 +123,12 @@ namespace JustRemember.Models
 			}
 		}
 
+		[JsonIgnore]
+		public string startedTime
+		{
+			get { return $"{beginTime.ToString("dd/MM/yy HH:mm:ss")}"; }
+		}
+
 		public StatModel()
 		{
 			beginTime = DateTime.Now;

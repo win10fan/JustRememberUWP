@@ -88,6 +88,17 @@ namespace JustRemember.Models
 			return gen(item);
 		}
 
+		public static SessionModel generate(NoteModel item,SessionModel old)
+		{
+			//Wanted to restart
+			List<object> trade = new List<object>
+			{
+				old,
+				item
+			};
+			return gen(trade);
+		}
+
 		private static SessionModel gen(object item)
 		{
 			AppConfigModel Config = App.Config;
@@ -107,162 +118,177 @@ namespace JustRemember.Models
 				//Initialize Session
 				current.SelectedNote = fromNote;
 				current.texts = TextList.Extract(current.SelectedNote.Content, out bool? nW);
-				current.noteWhiteSpaceMode = nW == true;
-				HashSet<string> hashed = new HashSet<string>();
-				ObservableCollection<string> chooseAble = new ObservableCollection<string>();
-				foreach (TextList t in current.texts)
-				{
-					hashed.Add(t.actualText);
-				}
-				chooseAble = new ObservableCollection<string>(hashed);
-				var choices = new ObservableCollection<ChoiceSet>();
-				//--Generate choice
-				Random validChoice = new Random();
-				Random choiceTexts = new Random();
-				for (int i = 0; i < current.texts.Count; i++)
-				{
-					ChoiceSet c = new ChoiceSet()
-					{
-						choices = new List<string>(),
-
-					};
-					//Get valid number first
-					int valid = validChoice.Next(0, (current.maxChoice) * 100);
-					valid = valid / 100;
-					c.corrected = valid.Clamp(0, current.maxChoice - 1);
-					//Generate choice text depend on difficult
-					for (int cnt = 0; cnt < current.maxChoice; cnt++)
-					{
-						if (cnt == c.corrected)
-						{
-							c.choices.Add(current.texts[i].actualText);
-						}
-						c.choices.Add("");
-					}
-					List<string> cache;
-					switch (Config.defaultMode)
-					{						
-						case matchMode.Easy:
-							//Generate random text in a whole array
-							cache = new List<string>(chooseAble);
-							cache.Remove(current.texts[i].actualText);
-							for (int num = current.maxChoice; num > -1; num--)
-							{
-								if (num == c.corrected)
-								{
-									continue;
-								}
-								int range = choiceTexts.Next(0, cache.Count - 1);
-								c.choices[num] = cache[range];
-								cache.RemoveAt(range);
-							}
-							break;
-						case matchMode.Normal:
-							//Generate chocie that near current choice within range of 1/4
-							for (int num = current.maxChoice; num > -1; num--)
-							{
-								if (num == c.corrected)
-								{
-									continue;
-								}
-								if ((chooseAble.Count - 1) < 20)
-								{
-									int range = choiceTexts.Next(0, chooseAble.Count - 1);
-									c.choices[num] = chooseAble[range];
-								}
-								else
-								{
-									int quater = chooseAble.Count - 1;
-									int half = chooseAble.Count - 1;
-									int quaterPastHalf = half + quater;
-									if (i < quater)
-									{
-										int range = choiceTexts.Next(0, half);
-										cache = new List<string>(chooseAble);
-										cache.Remove(current.texts[i].actualText);
-										c.choices[num] = cache[range];
-									}
-									else if (i > quater && i < quaterPastHalf)
-									{
-										int range = choiceTexts.Next(quater, quaterPastHalf);
-										cache = new List<string>(chooseAble);
-										cache.Remove(current.texts[i].actualText);
-										c.choices[num] = cache[range];
-									}
-									else if (i > quaterPastHalf)
-									{
-										int range = choiceTexts.Next(half, chooseAble.Count - 1);
-										cache = new List<string>(chooseAble);
-										cache.Remove(current.texts[i].actualText);
-										c.choices[num] = cache[range];
-									}
-								}
-							}
-							break;
-						case matchMode.Hard:
-							//Generate in range near current with in range 10
-							for (int num = current.maxChoice; num > -1; num--)
-							{
-								if (num == c.corrected)
-								{
-									continue;
-								}
-								int min = i - 10;
-								int max = i + 10;
-								int range = choiceTexts.Next(
-									min.Clamp(0, chooseAble.Count - 1),
-									max.Clamp(0, chooseAble.Count - 1));
-								cache = new List<string>(chooseAble);
-								cache.Remove(current.texts[i].actualText);
-								c.choices[num] = cache[range];
-							}
-							break;
-					}
-					//Put choice in choice list
-					choices.Add(c);
-				}
-				current.choices = choices;
-				//Initialize stat
-				current.StatInfo = new StatModel()
-				{
-					beginTime = DateTime.Now,
-					NoteWordCount = current.texts.Count - 1,
-					configChoice = Config.totalChoice,
-					choiceInfo = new Dictionary<int, List<bool>>(),
-					setMode = Config.defaultMode,
-					noteTitle = current.SelectedNote.Title,
-					totalTimespend = TimeSpan.FromMilliseconds(0),
-					isTimeLimited = Config.isLimitTime,
-					totalLimitTime = Config.isLimitTime ? TimeSpan.FromSeconds(Config.limitTime) : TimeSpan.MinValue
-				};
-				for (int i = 0; i < current.texts.Count; i++)
-				{
-					List<bool> wrongIfo = new List<bool>();
-					for (int c = 0; c != current.maxChoice; c++)
-					{
-						wrongIfo.Add(false);
-					}
-					current.StatInfo.choiceInfo.Add(i, wrongIfo);
-				}
+				current.noteWhiteSpaceMode = nW == true;				
+				current.choices = generateChoice(current.texts,current.maxChoice);
+				current.StatInfo = refreshStat(current);
 			}
-			else
+			else if (item is SessionModel)
 			{
 				//Restore session
 				current = (SessionModel)item;
 				current.isNew = false;
 			}
-			//Debugging
-			string texts = "";
-			foreach (var c in current.choices)
+			else if (item is List<object>)
 			{
-				foreach (string s in c.choices)
-				{
-					texts += $"{s}|";
-				}
-				texts += Environment.NewLine;
+				current = (SessionModel)((List<object>)item)[0];
+				current.choices.Clear();
+				current.choices = generateChoice(current.texts, current.maxChoice);
+				current.StatInfo = refreshStat(current);
+				current.isNew = true;
+				current.currentChoice = 0;
+				current.selectedChoices.Clear();
 			}
-			Debug.Write(texts);
 			return current;
+		}
+
+		private static ObservableCollection<ChoiceSet> generateChoice(ObservableCollection<TextList> texts,int maxChoice)
+		{
+			HashSet<string> hashed = new HashSet<string>();
+			ObservableCollection<string> chooseAble = new ObservableCollection<string>();
+			foreach (TextList t in texts)
+			{
+				hashed.Add(t.actualText);
+			}
+			chooseAble = new ObservableCollection<string>(hashed);
+			var choices = new ObservableCollection<ChoiceSet>();
+			//--Generate choice
+			Random validChoice = new Random();
+			Random choiceTexts = new Random();
+			if (App.Config.defaultSeed != -1)
+			{
+				validChoice = new Random(App.Config.defaultSeed);
+				choiceTexts = new Random(App.Config.defaultSeed);
+			}
+			for (int i = 0; i < texts.Count; i++)
+			{
+				ChoiceSet c = new ChoiceSet()
+				{
+					choices = new List<string>(),
+
+				};
+				//Get valid number first
+				int valid = validChoice.Next(0, (maxChoice) * 100);
+				valid = valid / 100;
+				c.corrected = valid.Clamp(0, maxChoice - 1);
+				//Generate choice text depend on difficult
+				for (int cnt = 0; cnt < maxChoice; cnt++)
+				{
+					if (cnt == c.corrected)
+					{
+						c.choices.Add(texts[i].actualText);
+					}
+					c.choices.Add("");
+				}
+				List<string> cache;
+				switch (App.Config.defaultMode)
+				{
+					case matchMode.Easy:
+						//Generate random text in a whole array
+						cache = new List<string>(chooseAble);
+						cache.Remove(texts[i].actualText);
+						for (int num = maxChoice; num > -1; num--)
+						{
+							if (num == c.corrected)
+							{
+								continue;
+							}
+							int range = choiceTexts.Next(0, cache.Count - 1);
+							c.choices[num] = cache[range];
+							cache.RemoveAt(range);
+						}
+						break;
+					case matchMode.Normal:
+						//Generate chocie that near current choice within range of 1/4
+						for (int num = maxChoice; num > -1; num--)
+						{
+							if (num == c.corrected)
+							{
+								continue;
+							}
+							if ((chooseAble.Count - 1) < 20)
+							{
+								int range = choiceTexts.Next(0, chooseAble.Count - 1);
+								c.choices[num] = chooseAble[range];
+							}
+							else
+							{
+								int quater = chooseAble.Count - 1;
+								int half = chooseAble.Count - 1;
+								int quaterPastHalf = half + quater;
+								if (i < quater)
+								{
+									int range = choiceTexts.Next(0, half);
+									cache = new List<string>(chooseAble);
+									cache.Remove(texts[i].actualText);
+									c.choices[num] = cache[range];
+								}
+								else if (i > quater && i < quaterPastHalf)
+								{
+									int range = choiceTexts.Next(quater, quaterPastHalf);
+									cache = new List<string>(chooseAble);
+									cache.Remove(texts[i].actualText);
+									c.choices[num] = cache[range];
+								}
+								else if (i > quaterPastHalf)
+								{
+									int range = choiceTexts.Next(half, chooseAble.Count - 1);
+									cache = new List<string>(chooseAble);
+									cache.Remove(texts[i].actualText);
+									c.choices[num] = cache[range];
+								}
+							}
+						}
+						break;
+					case matchMode.Hard:
+						//Generate in range near current with in range 10
+						for (int num = maxChoice; num > -1; num--)
+						{
+							if (num == c.corrected)
+							{
+								continue;
+							}
+							int min = i - 10;
+							int max = i + 10;
+							int range = choiceTexts.Next(
+								min.Clamp(0, chooseAble.Count - 1),
+								max.Clamp(0, chooseAble.Count - 1));
+							cache = new List<string>(chooseAble);
+							cache.Remove(texts[i].actualText);
+							c.choices[num] = cache[range];
+						}
+						break;
+				}
+				//Put choice in choice list
+				choices.Add(c);
+			}
+			return choices;
+		}
+
+		private static StatModel refreshStat(SessionModel current)
+		{
+			var Config = App.Config;
+			var StatInfo = new StatModel()
+			{
+				beginTime = DateTime.Now,
+				NoteWordCount = current.texts.Count - 1,
+				configChoice = Config.totalChoice,
+				choiceInfo = new Dictionary<int, List<bool>>(),
+				setMode = Config.defaultMode,
+				noteTitle = current.SelectedNote.Title,
+				totalTimespend = TimeSpan.FromMilliseconds(0),
+				isTimeLimited = Config.isLimitTime,
+				totalLimitTime = Config.isLimitTime ? TimeSpan.FromSeconds(Config.limitTime) : TimeSpan.MinValue
+			};
+			for (int i = 0; i < current.texts.Count; i++)
+			{
+				List<bool> wrongIfo = new List<bool>();
+				for (int c = 0; c != current.maxChoice; c++)
+				{
+					wrongIfo.Add(false);
+				}
+				StatInfo.choiceInfo.Add(i, wrongIfo);
+			}
+			return StatInfo;
 		}
 	}
 

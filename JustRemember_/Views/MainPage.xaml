@@ -62,9 +62,11 @@
                     <Run>By click at menu below</Run>
 					</TextBlock>
 					<CommandBar Grid.Row="2">
+						<CommandBar.Content>
+							<AppBarButton Icon="Setting" Click="GotoSettings"/>
+						</CommandBar.Content>
 						<CommandBar.SecondaryCommands>
 							<AppBarButton Icon="AllApps" Label="Prenote" Click="GoToPrenote"/>
-							<AppBarButton Icon="Setting" Label="Settings" Click="GotoSettings"/>
 						</CommandBar.SecondaryCommands>
 
 						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add" Click="GoToNoteEditor"/>
@@ -182,9 +184,11 @@
 						</ListView.ItemTemplate>
 					</ListView>
 					<CommandBar Grid.Row="2">
+						<CommandBar.Content>
+							<AppBarButton Icon="Setting" Click="GotoSettings"/>
+						</CommandBar.Content>
 						<CommandBar.SecondaryCommands>
 							<AppBarButton Icon="AllApps" Label="Prenote" Click="GoToPrenote"/>
-							<AppBarButton Icon="Setting" Label="Settings" Click="GotoSettings"/>
 						</CommandBar.SecondaryCommands>
 
 						<AppBarButton Visibility="Visible" Icon="Refresh" Label="Reload" Click="RefreshSession"/>

@@ -83,6 +83,23 @@ namespace JustRemember.ViewModels
 		#endregion
 
 		#region Binding Property
+		string _write;
+		public string writeUp
+		{
+			get => _write;
+			set
+			{
+				Set(ref _write, value);
+			}
+		}
+
+		public string beginTimeSTR
+		{
+			get { if (current == null) { return ""; } return current.StatInfo.startedTime; }
+		}
+
+		public Visibility detailStat { get; set; } = Visibility.Collapsed;
+
 		public int FontSize
 		{
 			get
@@ -274,6 +291,9 @@ namespace JustRemember.ViewModels
 
 		#region Commands & Dialogs
 		MessageDialog confirm;
+		MessageDialog resetmatch;
+		MessageDialog notyet;
+		MessageDialog timeup;
 
 		public ICommand BackToMainMenu;
 		public ICommand SaveSession;
@@ -284,6 +304,8 @@ namespace JustRemember.ViewModels
 		public ICommand Choose3;
 		public ICommand Choose4;
 		public ICommand Choose5;
+		public ICommand RestartMatch;
+		public ICommand ToggleDetailStatus;
 
 		public void InitializeCommands()
 		{
@@ -296,6 +318,8 @@ namespace JustRemember.ViewModels
 			Choose3 = new RelayCommand<RoutedEventArgs>(CHOOSE3);
 			Choose4 = new RelayCommand<RoutedEventArgs>(CHOOSE4);
 			Choose5 = new RelayCommand<RoutedEventArgs>(CHOOSE5);
+			RestartMatch = new RelayCommand<RoutedEventArgs>(RESTARTMATCH);
+			ToggleDetailStatus = new RelayCommand<RoutedEventArgs>(TOGGLEDETAILSTATUS);
 
 			//Dialogs
 			confirm = new MessageDialog("Do you want to leave this session?", "Confirm");
@@ -305,6 +329,47 @@ namespace JustRemember.ViewModels
 				Label = "Yes"
 			});
 			confirm.Commands.Add(new UICommand("No"));
+
+			resetmatch = new MessageDialog("This will reset current session to start!", "Are you sure?");
+			resetmatch.Commands.Add(new UICommand()
+			{
+				Invoked = delegate { Restart(); },
+				Label = "Yes"
+			});
+			resetmatch.Commands.Add(new UICommand("No"));
+
+			notyet = new MessageDialog("Not now");
+			notyet.Commands.Add(new UICommand("OK"));
+
+			timeup = new MessageDialog("Faster next time", "Times up!");
+			timeup.Commands.Add(new UICommand()
+			{
+				Invoked = delegate
+				{
+					Restart();
+				},
+				Label = "OK"
+			});
+		}
+
+		private void TOGGLEDETAILSTATUS(RoutedEventArgs obj)
+		{
+			detailStat = detailStat == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+			OnPropertyChanged(nameof(detailStat));
+		}
+
+		private async void RESTARTMATCH(RoutedEventArgs obj)
+		{
+			if (currentChoice < 2) { await notyet.ShowAsync(); return; }
+			if (!isStillNotSaveSession)
+			{
+				Restart();
+				return;
+			}
+			else
+			{
+				await resetmatch.ShowAsync();
+			}
 		}
 
 		private void CHOOSE1(RoutedEventArgs obj)
@@ -354,6 +419,7 @@ namespace JustRemember.ViewModels
 
 		private async void SAVESESSION(RoutedEventArgs obj)
 		{
+			if (currentChoice < 2) { await notyet.ShowAsync(); return; }
 			if (!isStillNotSaveSession) { return; }
 			isStillNotSaveSession = false;
 			await SavedSessionModel.AddNew(current);
@@ -390,9 +456,14 @@ namespace JustRemember.ViewModels
 			}
 		}
 
-		private void TimerUI_Tick(object sender, object e)
+		private async void TimerUI_Tick(object sender, object e)
 		{
 			spendTime = spendTime.Add(TimeSpan.FromSeconds(1));
+			if (spendTime > current.StatInfo.totalLimitTime)
+			{
+				timerUI.Stop();
+				await timeup.ShowAsync();
+			}
 		}
 
 		public void Choose(int choice)
@@ -591,6 +662,18 @@ namespace JustRemember.ViewModels
 			Choice2Display = current.StatInfo.choiceInfo[bg][2] ? Visibility.Collapsed : Visibility.Visible;
 			Choice3Display = current.maxChoice < 4 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][3] ? Visibility.Collapsed : Visibility.Visible);
 			Choice4Display = current.maxChoice < 5 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][4] ? Visibility.Collapsed : Visibility.Visible);
+		}
+
+		public void Restart()
+		{
+			current = SessionModel.generate(current.SelectedNote, current);
+			view.displayTXT.Inlines.Clear();
+			isPausing = false;
+			UNPAUSEFUNC(null);
+			UpdateUI(1, 0);
+			OnPropertyChanged(nameof(currentDisplayChoice));
+			totalWrong = 0;
+			OnPropertyChanged(nameof(totalWrong));
 		}
 		#endregion
 	}

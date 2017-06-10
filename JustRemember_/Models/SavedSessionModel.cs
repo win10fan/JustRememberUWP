@@ -89,22 +89,15 @@ namespace JustRemember.Models
 			var sessionFolder = await folder.GetFolderAsync("Sessions");
 			await SaveOne(ss, sessionFolder);
 		}
-
-		private static SessionModel cache;
-		private static bool cacheRes;
+		
 		public static async Task<bool> isExist(SessionModel ss)
 		{
-			if (cache?.GeneratedName == ss.GeneratedName)
-			{
-				return true;
-			}
 			var getFol = (StorageFolder)await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Sessions");
 			if (getFol != null)
 			{
 				StorageFile datFile =(StorageFile)await getFol.TryGetItemAsync(ss.GeneratedName);
 				if (datFile != null)
 				{
-					cacheRes = true;
 					return true;
 				}
 				return false;
@@ -130,8 +123,6 @@ namespace JustRemember.Models
 			await FileIO.WriteTextAsync(fileN, noteContent);
 			await FileIO.WriteTextAsync(fileS, statContent);
 			await FileIO.WriteTextAsync(fileG, geneContent);
-			cache = info;
-			cacheRes = true;
 		}
 
 		public static async Task Delete(string filename)
