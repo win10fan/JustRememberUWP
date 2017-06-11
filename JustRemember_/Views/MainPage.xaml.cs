@@ -72,7 +72,6 @@ namespace JustRemember.Views
 
 		private void GotoSettings(object sender, Windows.UI.Xaml.RoutedEventArgs e)
 		{
-			//TODO:Navigate this to settings
 			NavigationService.Navigate<AppConfigView>();
 		}
 

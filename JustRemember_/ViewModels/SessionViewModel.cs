@@ -14,6 +14,7 @@ using JustRemember.Views;
 using JustRemember.Services;
 using System.Windows.Input;
 using JustRemember.Helpers;
+using System.Collections.Generic;
 
 namespace JustRemember.ViewModels
 {
@@ -306,6 +307,7 @@ namespace JustRemember.ViewModels
 		public ICommand Choose5;
 		public ICommand RestartMatch;
 		public ICommand ToggleDetailStatus;
+		public ICommand DebugChoose;
 
 		public void InitializeCommands()
 		{
@@ -320,6 +322,7 @@ namespace JustRemember.ViewModels
 			Choose5 = new RelayCommand<RoutedEventArgs>(CHOOSE5);
 			RestartMatch = new RelayCommand<RoutedEventArgs>(RESTARTMATCH);
 			ToggleDetailStatus = new RelayCommand<RoutedEventArgs>(TOGGLEDETAILSTATUS);
+			DebugChoose = new RelayCommand<RoutedEventArgs>(DEBUGCHOOSE);
 
 			//Dialogs
 			confirm = new MessageDialog("Do you want to leave this session?", "Confirm");
@@ -350,6 +353,20 @@ namespace JustRemember.ViewModels
 				},
 				Label = "OK"
 			});
+		}
+
+		private async void DEBUGCHOOSE(RoutedEventArgs obj)
+		{
+			Random rnd = new Random();
+			while (currentChoice < totalChoice - 4)
+			{
+				if (isPausing)
+				{
+					return;
+				}
+				Choose(rnd.Next(0, current.maxChoice));
+				await Task.Delay(50);
+			}
 		}
 
 		private void TOGGLEDETAILSTATUS(RoutedEventArgs obj)
@@ -478,25 +495,19 @@ namespace JustRemember.ViewModels
 						//Mark this choice as wrong
 						current.StatInfo.choiceInfo[currentChoice][choice] = true;
 						//Advance time up little bit as wrong choice has been selected
-						current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(2));
+						spendTime.Add(TimeSpan.FromSeconds(1));
 						//Update choice text
 						UpdateText(false);
-						//Update progress
-						if (current.currentChoice + 1 == current.texts.Count)
-						{
-							//TODO:Go to end page
-							break;
-						}
 						break;
 					case matchMode.Normal:
 						//Mark selected choice as wrong
 						current.StatInfo.choiceInfo[currentChoice][choice] = true;
 						//Advance time up little bit as wrong choice has been selected
-						current.StatInfo.totalTimespend.Add(TimeSpan.FromSeconds(5));
+						spendTime.Add(TimeSpan.FromSeconds(3));
 						break;
 					case matchMode.Hard:
 						//Reset round
-						//TODO:Reset match
+						Restart();
 						break;
 				}
 			}
@@ -505,27 +516,22 @@ namespace JustRemember.ViewModels
 				//Corrent choice
 				//Update display text
 				UpdateText(true);
-				//Check that choice that has been selected is final
-				if (currentChoice + 1 > current.texts.Count)
-				{
-					//This is the end
-					//TODO:Go to end page
-				}
 			}
 			//
-			if (current.currentChoice > current.texts.Count - 1)
+			if (current.currentChoice == current.texts.Count - 1)
 			{
-				//TODO:Do what depend on setting
+				//Do what depend on setting
 				switch (Config.AfterFinalChoice)
 				{
 					case whenFinalChoice.EndPage:
-						//TODO:Kick user to end page
+						EndMatch();
 						break;
 					case whenFinalChoice.Restart:
-						//TODO:Restart match
+						Restart();
 						break;
 					case whenFinalChoice.BackHome:
-						//TODO:Return to main page
+						StatModel.Set(current.StatInfo);
+						NavigationService.Navigate<MainPage>();
 						break;
 				}
 			}
@@ -540,6 +546,13 @@ namespace JustRemember.ViewModels
 			OnPropertyChanged(nameof(Choice2Content));
 			OnPropertyChanged(nameof(Choice3Content));
 			OnPropertyChanged(nameof(Choice4Content));
+		}
+
+		void EndMatch()
+		{
+			var bkp = current.StatInfo;
+			current = SessionModel.generate(current.SelectedNote, current);
+			NavigationService.Navigate<End>(bkp);
 		}
 
 		/// <summary>
@@ -651,6 +664,11 @@ namespace JustRemember.ViewModels
 		/// <param name="bg">The number of current progress with -1</param>
 		public void UpdateUI(int visual, int bg)
 		{
+			if (bg == current.texts.Count)
+			{
+				bg -= 1;
+				visual -= 2;
+			}
 			Choice0Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[0] : $"{t1}{current?.choices[bg].choices[0]}";
 			Choice1Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[1] : $"{t2}{current?.choices[bg].choices[1]}";
 			Choice2Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[2] : $"{t3}{current?.choices[bg].choices[2]}";

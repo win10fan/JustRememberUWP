@@ -216,19 +216,29 @@
 				<Rectangle Opacity="0.8" Grid.Row="1" Fill="{ThemeResource AccentButtonBackground}"/>
 				<Grid Grid.Row="1" VerticalAlignment="Top">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="52"/>
+						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<Button Width="50" Background="Transparent" Height="32">
-						<SymbolIcon Symbol="Pause"/>
-						<i:Interaction.Behaviors>
-							<ic:EventTriggerBehavior EventName="Click">
-								<ic:InvokeCommandAction Command="{x:Bind ViewModel.PauseFunc}"/>
-							</ic:EventTriggerBehavior>
-						</i:Interaction.Behaviors>
-					</Button>
+					<StackPanel Orientation="Horizontal">
+						<Button Width="50" Background="Transparent" Height="32">
+							<SymbolIcon Symbol="Pause"/>
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.PauseFunc}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button Width="50" Background="Transparent" Height="32">
+							<SymbolIcon Symbol="Refresh"/>
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DebugChoose}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+					</StackPanel>
 					<TextBlock Grid.Column="1" VerticalAlignment="Center">
                         <Run Text="{x:Bind ViewModel.currentDisplayChoice,Mode=OneWay}"/>
                         <Run Text="/"/>

@@ -1,0 +1,117 @@
+﻿<Page
+    x:Class="JustRemember.Views.End"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:JustRemember.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:mod="using:JustRemember.Models"
+	xmlns:rad="using:Telerik.UI.Xaml.Controls.Chart"
+    mc:Ignorable="d">
+	<Page.Resources>
+		<ResourceDictionary>
+			<Style x:Key="hdTXT" TargetType="TextBlock">
+				<Setter Property="FontSize" Value="16"/>
+				<Setter Property="Margin" Value="0,2,0,0"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+			</Style>
+			<Style x:Key="settingTitleLabel" TargetType="TextBlock">
+				<Setter Property="FontSize" Value="20"/>
+			</Style>
+			<Style x:Key="settingNotifyLabel" TargetType="TextBlock">
+				<Setter Property="FontSize" Value="12"/>
+				<Setter Property="Foreground" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+			</Style>
+			<Style x:Key="stackSettingItem" TargetType="StackPanel">
+				<Setter Property="Orientation" Value="Vertical"/>
+				<Setter Property="Margin" Value="0,10,0,0"/>
+			</Style>
+		</ResourceDictionary>
+	</Page.Resources>
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<CommandBar Style="{StaticResource EditorCMD}">
+				<CommandBar.Content>
+					<Grid>
+						<TextBlock FontSize="24" Margin="5" Text="{x:Bind current.noteTitle, Mode=OneWay}" TextWrapping="WrapWholeWords" Style="{ThemeResource settingTitleLabel}"/>
+					</Grid>
+				</CommandBar.Content>
+			</CommandBar>
+			<CommandBar Grid.Column="1" Style="{StaticResource EditorCMD}">
+				<AppBarButton Icon="Save" Label="Save" Click="Save"/>
+				<AppBarButton Icon="Delete" Label="Delete" Click="Delete"/>
+				<AppBarButton Icon="Refresh" Label="Refresh" Click="RefreshGraph"/>
+			</CommandBar>
+		</Grid>
+		<Grid Margin="5" Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			
+			<TextBlock Grid.Row="1" Style="{ThemeResource settingTitleLabel}">
+							<Run Text="Started on "/>
+							<Run Text="{x:Bind current.begintimeSTR,Mode=OneWay}"/>
+			</TextBlock>
+			<TextBlock Visibility="{x:Bind current.wasTimeLimited, Mode=OneWay}" Grid.Row="2" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords">
+							<Run Text="This session took "/>
+							<Run Text="{x:Bind current.totalTimespend, Mode=OneWay}"/>
+							<Run Text=" with "/>
+							<Run Text="{x:Bind current.timeLeft, Mode=OneWay}"/>
+							<Run Text=" left before "/>
+							<Run Text="{x:Bind current.totalLimitTime,Mode=OneWay}"/>
+							<Run Text=" limit"/>
+			</TextBlock>
+			<TextBlock Grid.Row="3" Text="{x:Bind current.modeTXT, Mode=OneWay}" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords"/>
+			<ScrollViewer VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Visible" Grid.Row="4" Height="200" VerticalScrollMode="Disabled" HorizontalScrollMode="Enabled">
+				<StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="{x:Bind width, Mode=OneWay}" Height="200">
+					<rad:RadCartesianChart HorizontalAlignment="Left" Height="200" Width="{x:Bind width, Mode=OneWay}">
+						<rad:RadCartesianChart.HorizontalAxis>
+							<rad:CategoricalAxis/>
+						</rad:RadCartesianChart.HorizontalAxis>
+						<rad:RadCartesianChart.VerticalAxis>
+							<rad:LinearAxis/>
+						</rad:RadCartesianChart.VerticalAxis>
+						<rad:LineSeries ItemsSource="{x:Bind choices, Mode=OneWay}" Stroke="{ThemeResource AccentButtonBackground}" StrokeThickness="2">
+							<rad:LineSeries.CategoryBinding>
+								<rad:PropertyNameDataPointBinding PropertyName="catagory"/>
+							</rad:LineSeries.CategoryBinding>
+							<rad:LineSeries.ValueBinding>
+								<rad:PropertyNameDataPointBinding PropertyName="corrected"/>
+							</rad:LineSeries.ValueBinding>
+						</rad:LineSeries>
+						<rad:LineSeries ItemsSource="{x:Bind corrected, Mode=OneWay}" Stroke="#FF008F00" StrokeThickness="2">
+							<rad:LineSeries.CategoryBinding>
+								<rad:PropertyNameDataPointBinding PropertyName="catagory"/>
+							</rad:LineSeries.CategoryBinding>
+							<rad:LineSeries.ValueBinding>
+								<rad:PropertyNameDataPointBinding PropertyName="corrected"/>
+							</rad:LineSeries.ValueBinding>
+						</rad:LineSeries>
+					</rad:RadCartesianChart>
+				</StackPanel>
+			</ScrollViewer>
+			<TextBlock VerticalAlignment="Bottom" Grid.Row="5">
+				<Run Text="Green color line = Corrected choice"/><LineBreak/>
+				<Run Text="Accent color line = Selected choice"/>
+			</TextBlock>
+		</Grid>
+		<Grid Grid.Row="2">
+			<TextBlock Text="You can view this stat later in setting, If you save it"/>
+		</Grid>
+	</Grid>
+</Page>

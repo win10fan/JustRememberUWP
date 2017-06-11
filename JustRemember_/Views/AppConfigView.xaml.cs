@@ -39,11 +39,6 @@ namespace JustRemember.Views
 			base.OnNavigatedTo(e);
 		}
 
-		public Visibility isSelected
-		{
-			get => statList.SelectedIndex == -1 ? Visibility.Collapsed : Visibility.Visible;
-		}
-
 		private async void changePage(Pivot sender, PivotItemEventArgs args)
 		{
 			switch (sender.SelectedIndex)
@@ -74,6 +69,11 @@ namespace JustRemember.Views
 		private void TimePicker_Loaded(object sender, RoutedEventArgs e)
 		{
 			((TimePicker)sender).Time = config.timeLimit;
+		}
+
+		private void DeSelect(object sender, RoutedEventArgs e)
+		{
+			config.IselectedStat = -1;
 		}
 	}
 }

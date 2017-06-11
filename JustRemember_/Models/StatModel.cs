@@ -22,6 +22,7 @@ namespace JustRemember.Models
 		public TimeSpan totalLimitTime;
 		public matchMode setMode;
 		public string noteTitle;
+		public List<int> correctedChoice;
 
 		public int GetTotalWrong()
 		{
@@ -140,6 +141,7 @@ namespace JustRemember.Models
 			totalLimitTime = TimeSpan.FromMinutes(5);
 			setMode = matchMode.Easy;
 			noteTitle = "Untitled";
+			correctedChoice = new List<int>();
 		}
 
 		public static async Task<ObservableCollection<StatModel>> Get()
@@ -173,141 +175,16 @@ namespace JustRemember.Models
 			if (statFil == null)
 			{
 				statFil = await statFol.CreateFileAsync(set.genName);
-				await FileIO.WriteTextAsync(statFil, await Json.StringifyAsync(statFil));
+				await FileIO.WriteTextAsync(statFil, await Json.StringifyAsync(set));
 			}
 			else
 			{
 				await statFil.DeleteAsync();
 				statFil = await statFol.CreateFileAsync(set.genName);
-				await FileIO.WriteTextAsync(statFil, await Json.StringifyAsync(statFil));
+				await FileIO.WriteTextAsync(statFil, await Json.StringifyAsync(set));
 			}
+			App.Stats.Add(set);
 		}
-		/*public class statInfo
-    {
-        public string dateandTime;
-        public int totalWords;
-        public int totalChoice;
-        public List<int> wrongPerchoice = new List<int>();
-        public bool useTimeLimit;
-        public float totalTime;
-        public float totalLimitTime;
-        public challageMode currentMode;
-        public string noteTitle;
-
-        public static string Serialize(statInfo info)
-        {
-            string content = "";
-            content += $"{nameof(dateandTime)}={info.dateandTime}{Environment.NewLine}";
-            content += $"{nameof(totalWords)}={info.totalWords}{Environment.NewLine}";
-            content += $"{nameof(totalChoice)}={info.totalChoice}{Environment.NewLine}";
-            content += $"{nameof(wrongPerchoice)}={StringSerializeHelper.ListOfIntToString(info.wrongPerchoice)}{Environment.NewLine}";
-            content += $"{nameof(useTimeLimit)}={StringSerializeHelper.BoolToString(info.useTimeLimit)}{Environment.NewLine}";
-            content += $"{nameof(totalTime)}={info.totalTime}{Environment.NewLine}";
-            content += $"{nameof(totalLimitTime)}={info.totalLimitTime}{Environment.NewLine}";
-            content += $"{nameof(currentMode)}={info.currentMode.ToString()}{Environment.NewLine}";
-            content += $"{nameof(noteTitle)}={info.noteTitle}";
-            return content;
-        }
-
-        public static statInfo DeSerialize(string info)
-        {
-            statInfo value = new statInfo();
-            string line;
-
-            StringReader file = new StringReader(info);
-            while ((line = file.ReadLine()) != null)
-            {
-                if (line.StartsWith(nameof(dateandTime)))
-                {
-                    value.dateandTime = StringSerializeHelper.GetString(line, nameof(dateandTime));
-                }
-                else if (line.StartsWith(nameof(totalWords)))
-                {
-                    value.totalWords = StringSerializeHelper.GetInt(line, nameof(totalWords));
-                }
-                else if (line.StartsWith(nameof(totalChoice)))
-                {
-                    value.totalChoice = StringSerializeHelper.GetInt(line, nameof(totalChoice));
-                }
-                else if (line.StartsWith(nameof(wrongPerchoice)))
-                {
-                    value.wrongPerchoice = StringSerializeHelper.GetListOfInt(line, nameof(wrongPerchoice));
-                }
-                else if (line.StartsWith(nameof(useTimeLimit)))
-                {
-                    value.useTimeLimit = StringSerializeHelper.GetBool(line, nameof(useTimeLimit));
-                }
-                else if (line.StartsWith(nameof(totalTime)))
-                {
-                    value.totalTime = StringSerializeHelper.GetFloat(line, nameof(totalTime));
-                }
-                else if (line.StartsWith(nameof(totalLimitTime)))
-                {
-                    value.totalLimitTime = StringSerializeHelper.GetFloat(line, nameof(totalLimitTime));
-                }
-                else if (line.StartsWith(nameof(currentMode)))
-                {
-                    value.currentMode = StringSerializeHelper.GetEnum<challageMode>(line, nameof(currentMode));
-                }
-                else if (line.StartsWith(nameof(noteTitle)))
-                {
-                    value.noteTitle = StringSerializeHelper.GetString(line, nameof(noteTitle));
-                }
-            }
-            return value;
-        }
-
-        //Read-only values
-        public string timeProgress
-        {
-            get
-            {
-                if (useTimeLimit)
-                {
-                    return $"{Utilities.ToStringAsTime(totalTime)}/{Utilities.ToStringAsTime(totalLimitTime)}";
-                }
-                return "N/A";
-            }
-        }
-        public int timeInPercent
-        {
-            get
-            {
-                if (useTimeLimit)
-                {
-                    float cache = (totalTime / totalLimitTime) * 100;
-                    return Convert.ToInt32(cache);
-                }
-                return 0;
-            }
-        }
-        public string choiceInfo
-        {
-            get
-            {
-                return $"{totalWrong} wrong choice out of {totalWords}. Average wrong {wrongPerchoice.Average().ToString("0.00")}";
-            }
-        }
-        public string titleInfo
-        {
-            get
-            {
-                return $"{noteTitle} - {dateandTime}";
-            }
-        }
-        public int totalWrong
-        {
-            get
-            {
-                int value = 0;
-                foreach (int i in wrongPerchoice)
-                {
-                    value += i;
-                }
-                return value;
-            }
-        }
-    }*/
 	}
 
 	public class choiceInfoUnDic
@@ -319,6 +196,7 @@ namespace JustRemember.Models
 		public bool choice3 { get; set; }
 		public bool choice4 { get; set; }
 		public bool choice5 { get; set; }
+		public List<bool> origin { get; set; }
 		
 		public GridLength showChoice4Grid { get => new GridLength(limit >= 4 ? 1 : 0, GridUnitType.Star); }
 		
@@ -330,17 +208,23 @@ namespace JustRemember.Models
 			limit = 3;
 			choice1 = true;
 			choice2 = choice3 = choice4 = choice5 = false;
+			origin = new List<bool>();
+			origin.Add(false);
+			origin.Add(false);
+			origin.Add(false);
 		}
 
 		public choiceInfoUnDic(KeyValuePair<int,List<bool>> info)
 		{
 			choice = info.Key;
-			limit = info.Value.Count;
+			limit = info.Value.Count - 1;
 			choice1 = info.Value[0];
 			choice2 = info.Value[1];
 			choice3 = info.Value[2];
-			choice4 = limit >= 3 ? info.Value[4] : false;
-			choice5 = limit >= 4 ? info.Value[5] : false;
+			choice4 = limit >= 3 ? info.Value[3] : false;
+			choice5 = limit >= 4 ? info.Value[4] : false;
+			origin = new List<bool>();
+			origin = info.Value;
 		}
 	}
 

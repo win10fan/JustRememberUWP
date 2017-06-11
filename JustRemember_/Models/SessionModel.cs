@@ -279,6 +279,11 @@ namespace JustRemember.Models
 				isTimeLimited = Config.isLimitTime,
 				totalLimitTime = Config.isLimitTime ? TimeSpan.FromSeconds(Config.limitTime) : TimeSpan.MinValue
 			};
+			StatInfo.correctedChoice = new List<int>();
+			foreach (var item in current.choices)
+			{
+				current.StatInfo.correctedChoice.Add(item.corrected);
+			}
 			for (int i = 0; i < current.texts.Count; i++)
 			{
 				List<bool> wrongIfo = new List<bool>();

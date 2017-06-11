@@ -8,6 +8,7 @@
 	xmlns:mod="using:JustRemember.Models"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:rad="using:Telerik.UI.Xaml.Controls.Chart"
     mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
@@ -223,7 +224,7 @@
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 					<TextBlock Margin="0,5" Grid.Row="0" x:Name="noStatNotif" Text="{x:Bind config.statCount, Mode=OneWay}"/>
-					<ListView Grid.Row="1" ItemsSource="{x:Bind config.stats, Mode=OneWay}" x:Name="statList">
+					<ListView Grid.Row="1" SelectedIndex="{x:Bind config.IselectedStat, Mode=TwoWay}" ItemsSource="{x:Bind config.stats, Mode=OneWay}" x:Name="statList">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -264,15 +265,18 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
-					<Grid Visibility="{x:Bind isSelected, Mode=OneWay}" Grid.Row="2">
+					<Grid Visibility="{x:Bind config.isSelected, Mode=OneWay}" Grid.Row="2">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto" MaxHeight="300"/>
+							<RowDefinition Height="Auto" MaxHeight="400"/>
 						</Grid.RowDefinitions>
 						<TextBlock FontWeight="Bold" Grid.Row="0" Text="{x:Bind config.selectedStat.noteTitle, Mode=OneWay}" TextWrapping="WrapWholeWords" Style="{ThemeResource settingTitleLabel}"/>
+						<Button Click="DeSelect" Grid.Row="0" HorizontalAlignment="Right">
+							<SymbolIcon Symbol="Cancel"/>
+						</Button>
 						<TextBlock Grid.Row="1" Style="{ThemeResource settingTitleLabel}">
 							<Run Text="Started on "/>
 							<Run Text="{x:Bind config.selectedStat.begintimeSTR,Mode=OneWay}"/>
@@ -286,35 +290,34 @@
 							<Run Text="{x:Bind config.timeLimit,Mode=OneWay}"/>
 							<Run Text=" limit"/>
 						</TextBlock>
-						<TextBlock Grid.Row="3" Text="{x:Bind config.selectedStat.modeTXT, Mode=OneWay}" Style="{ThemeResource settingTitleLabel}"/>
-						<ScrollViewer Grid.Row="4">
-							<ListView ItemsSource="{x:Bind config.selectedStat.choiceInfo2, Mode=OneWay}">
-								<ListView.ItemContainerStyle>
-									<Style TargetType="ListViewItem">
-										<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
-									<DataTemplate x:DataType="mod:choiceInfoUnDic">
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="*"/>
-												<ColumnDefinition Width="*"/>
-												<ColumnDefinition Width="*"/>
-												<ColumnDefinition Width="*"/>
-												<ColumnDefinition Width="{x:Bind showChoice4Grid}"/>
-												<ColumnDefinition Width="{x:Bind showChoice5Grid}"/>
-											</Grid.ColumnDefinitions>
-											<TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{x:Bind choice}"/>
-											<RadioButton Grid.Column="1" IsChecked="{x:Bind choice1}"/>
-											<RadioButton Grid.Column="2" IsChecked="{x:Bind choice2}"/>
-											<RadioButton Grid.Column="3" IsChecked="{x:Bind choice3}"/>
-											<RadioButton Grid.Column="4" IsChecked="{x:Bind choice4}"/>
-											<RadioButton Grid.Column="5" IsChecked="{x:Bind choice5}"/>
-										</Grid>
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
+						<TextBlock Grid.Row="3" Text="{x:Bind config.selectedStat.modeTXT, Mode=OneWay}" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords"/>
+						<ScrollViewer VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Visible" Grid.Row="4" Height="150" VerticalScrollMode="Disabled" HorizontalScrollMode="Enabled">
+							<StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="{x:Bind config.width, Mode=OneWay}" Height="150">
+								<rad:RadCartesianChart HorizontalAlignment="Left" Height="150" Width="{x:Bind config.width, Mode=OneWay}">
+									<rad:RadCartesianChart.HorizontalAxis>
+										<rad:CategoricalAxis/>
+									</rad:RadCartesianChart.HorizontalAxis>
+									<rad:RadCartesianChart.VerticalAxis>
+										<rad:LinearAxis/>
+									</rad:RadCartesianChart.VerticalAxis>
+									<rad:LineSeries ItemsSource="{x:Bind config.choices, Mode=OneWay}" Stroke="{ThemeResource AccentButtonBackground}" StrokeThickness="2">
+										<rad:LineSeries.CategoryBinding>
+											<rad:PropertyNameDataPointBinding PropertyName="catagory"/>
+										</rad:LineSeries.CategoryBinding>
+										<rad:LineSeries.ValueBinding>
+											<rad:PropertyNameDataPointBinding PropertyName="corrected"/>
+										</rad:LineSeries.ValueBinding>
+									</rad:LineSeries>
+									<rad:LineSeries ItemsSource="{x:Bind config.corrected, Mode=OneWay}" Stroke="#FF008F00" StrokeThickness="2">
+										<rad:LineSeries.CategoryBinding>
+											<rad:PropertyNameDataPointBinding PropertyName="catagory"/>
+										</rad:LineSeries.CategoryBinding>
+										<rad:LineSeries.ValueBinding>
+											<rad:PropertyNameDataPointBinding PropertyName="corrected"/>
+										</rad:LineSeries.ValueBinding>
+									</rad:LineSeries>
+								</rad:RadCartesianChart>
+							</StackPanel>
 						</ScrollViewer>
 					</Grid>
 				</Grid>
