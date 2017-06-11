@@ -40,14 +40,6 @@
 			</i:Interaction.Behaviors>
 		</RichEditBox>
 		<CommandBar Grid.Row="2" Style="{StaticResource EditorCMD}">
-			<AppBarButton Label="Leave" Icon="Back">
-				<i:Interaction.Behaviors>
-					<ic:EventTriggerBehavior EventName="Click">
-						<ic:NavigateToPageAction TargetPage="JustRemember_.Views.MainPage"/>
-					</ic:EventTriggerBehavior>
-				</i:Interaction.Behaviors>
-			</AppBarButton>
-			<AppBarSeparator/>
 			<AppBarButton IsEnabled="{x:Bind editor.canUndo, Mode=OneWay}" Label="Undo" Icon="Undo">
 				<i:Interaction.Behaviors>
 					<ic:EventTriggerBehavior EventName="Click">

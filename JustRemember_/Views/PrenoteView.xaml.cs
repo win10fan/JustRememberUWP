@@ -55,5 +55,20 @@ namespace JustRemember.Views
 				//view?.displayTexts?.ChangeView(view.displayTexts.HorizontalOffset, view.displayTexts.ExtentHeight, view.displayTexts.ZoomFactor);
 			}
 		}
+
+		private void RefreshList(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			vm.Refresh();
+		}
+
+		private void CopyNEdit(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			vm.Edit();
+		}
+
+		private void Open(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			vm.navTo.Execute(null);
+		}
 	}
 }

@@ -79,7 +79,7 @@ namespace JustRemember.Models
 			if (folder != null)
 			{
 				//Folder exist
-				var nf = await folder.GetFileAsync(note.Title);
+				var nf = (StorageFile)await folder.TryGetItemAsync(note.Title);
 				if (nf == null)
 				{
 					//No file

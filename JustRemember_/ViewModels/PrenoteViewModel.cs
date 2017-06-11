@@ -53,6 +53,9 @@ namespace JustRemember.ViewModels
 			}
 		}
 
+		int _mon = -1;
+		public int selectMon { get => _mon; set { Set(ref _mon, value); OnPropertyChanged(nameof(isFileSelected)); OnPropertyChanged(nameof(isOpenAbleSelected)); } }
+
 		public ObservableCollection<PathDir> PathsSplit
 		{
 			get
@@ -121,10 +124,35 @@ namespace JustRemember.ViewModels
 				if (!notes[v.FileList.SelectedIndex].isFile)
 					Navigate(notes[v.FileList.SelectedIndex].Fullpath);
 				else
-					SessionModel.generate(await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath));
+					NavigationService.Navigate<Match>(SessionModel.generate(await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath)));
 			}
 		}
 
-		
+		public Visibility isOpenAbleSelected
+		{
+			get
+			{
+				return v.FileList.SelectedIndex > -1 ? Visibility.Visible : Visibility.Collapsed;
+			}
+		}
+
+		public Visibility isFileSelected
+		{
+			get
+			{
+				return v.FileList.SelectedIndex > -1 ? (notes[v.FileList.SelectedIndex].isFile ? Visibility.Visible : Visibility.Collapsed) : Visibility.Collapsed;
+			}
+		}
+
+		public void Refresh()
+		{
+			Navigate(basePath.Path);
+		}
+
+		public async void Edit()
+		{
+			NoteModel note = await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath);
+			NavigationService.Navigate<NoteEditorView>(note);
+		}
 	}
 }

@@ -19,6 +19,7 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="50"/>
 						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -27,7 +28,7 @@
 						</Grid.ColumnDefinitions>
 						<CommandBar Style="{StaticResource EditorCMD}" Grid.Row="0" Background="{ThemeResource AccentButtonBackground}">
 							<CommandBar.Content>
-								<ScrollViewer x:Name="scItem" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled">
+								<ScrollViewer x:Name="scItem" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
 									<ListView x:Name="pathItem" ItemsSource="{x:Bind vm.PathsSplit, Mode=OneWay}" SelectionChanged="navigateToDat">
 										<ListView.ItemsPanel>
 											<ItemsPanelTemplate>
@@ -54,10 +55,8 @@
 							<AppBarButton Icon="Up" Label="Up" Click="NavUp"/>
 						</CommandBar>
 					</Grid>
-					
-					
 
-					<ListView x:Name="fl" Grid.Row="1" ItemsSource="{x:Bind vm.notes, Mode=OneWay}" DoubleTapped="NavTo" >
+					<ListView x:Name="fl" Grid.Row="1" SelectedIndex="{x:Bind vm.selectMon, Mode=TwoWay}" ItemsSource="{x:Bind vm.notes, Mode=OneWay}" DoubleTapped="NavTo" >
 						<ListView.ItemTemplate>
 							<DataTemplate x:DataType="mod:PrenoteModel">
 								<Grid>
@@ -72,6 +71,12 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
+
+					<CommandBar Grid.Row="2">
+						<AppBarButton Click="RefreshList" Label="Refresh" Icon="Refresh"/>
+						<AppBarButton Visibility="{x:Bind vm.isFileSelected, Mode=OneWay}" Click="CopyNEdit" Label="Copy &amp; Edit" Icon="Edit"/>
+						<AppBarButton Visibility="{x:Bind vm.isOpenAbleSelected, Mode=OneWay}" Click="Open" Label="Open" Icon="OpenLocal"/>
+					</CommandBar>
 				</Grid>
 			</SplitView.Content>
 		</SplitView>
