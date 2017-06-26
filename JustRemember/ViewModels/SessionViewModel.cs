@@ -96,14 +96,41 @@ namespace JustRemember.ViewModels
 		#endregion
 
 		#region Binding Property
-		string _write;
 		public string writeUp
 		{
-			get => _write;
+			get => "";
 			set
 			{
-				Set(ref _write, value);
+				if (value.Length == current.choices[currentChoice].choices[current.choices[currentChoice].corrected].Length)
+				{
+					if (value == current.choices[currentChoice].choices[current.choices[currentChoice].corrected])
+					{
+						Choose(current.choices[currentChoice].corrected);
+					}
+					else
+					{
+						Choose(GetNonCorrect());
+					}
+					value = "";
+					view.writebx.Focus(FocusState.Keyboard);
+					view.writebx.Text = "";
+				}
+				else
+				{
+					Choose(GetNonCorrect());
+				}
 			}
+		}
+
+		public int GetNonCorrect()
+		{
+			Random r = new Random();
+			int i = r.Next(0, current.maxChoice);
+			while (i == current.choices[currentChoice].corrected)
+			{
+				i = r.Next(0, current.maxChoice);
+			}
+			return i;
 		}
 
 		public string beginTimeSTR

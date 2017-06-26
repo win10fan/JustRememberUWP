@@ -350,8 +350,8 @@
 				</Grid>
 			</Grid>
 			<StackPanel Visibility="{x:Bind ViewModel.isItWriteMode}" VerticalAlignment="Center">
-				<TextBox Text="{x:Bind ViewModel.writeUp, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250" FontSize="24"/>
-				<Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Margin="0,10,0,0" Content="&#xE10B;" FontSize="26" Height="40" FontFamily="Segoe MDL2 Assets"/>
+				<TextBox KeyDown="Writing" x:Name="writeBox" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250" FontSize="24"/>
+				<Button Margin="0,5" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Submit" FontSize="20" Click="SubmitText"/>
 				<TextBlock Visibility="Collapsed" x:Name="debugInfo" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
 			</StackPanel>
 		</Grid>

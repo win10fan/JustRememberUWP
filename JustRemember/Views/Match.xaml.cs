@@ -54,7 +54,20 @@ namespace JustRemember.Views
 			}
 			base.OnNavigatedTo(e);
 		}
-		
+
+		private void Writing(object sender, KeyRoutedEventArgs e)
+		{
+			if (e.Key == Windows.System.VirtualKey.Space)
+			{
+				ViewModel.writeUp = writeBox.Text.Trim();
+			}
+		}
+
+		private void SubmitText(object sender, RoutedEventArgs e)
+		{
+			ViewModel.writeUp = writeBox.Text.Trim();
+		}
+
 		/// <summary>
 		/// The scroll area that use to place display textblock selected choice
 		/// </summary>
@@ -88,6 +101,12 @@ namespace JustRemember.Views
 		{
 			get { return stopPause; }
 			set { stopPause = value; }
+		}
+
+		public TextBox writebx
+		{
+			get => writeBox;
+			set => writeBox = value;
 		}
 
 		Visibility dbg;

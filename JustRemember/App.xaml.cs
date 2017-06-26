@@ -10,6 +10,7 @@ using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace JustRemember
 {
@@ -52,8 +53,9 @@ namespace JustRemember
 				await ActivationService.ActivateAsync(e);
 			}
 			AnnoyPlayer.Initialize();
+			await Task.Run(async () => { while (true) { await Config.Save(); await Task.Delay(TimeSpan.FromSeconds(3)); } });
 		}
-
+		
 		/// <summary>
 		/// Invoked when the application is activated by some means other than normal launching.
 		/// </summary>

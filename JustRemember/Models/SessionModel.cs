@@ -261,7 +261,7 @@ namespace JustRemember.Models
 				//Put choice in choice list
 				choices.Add(c);
 			}
-			if (App.Config.hintAtFirstchoice)
+			if (App.Config.hintAtFirstchoice && App.Config.choiceStyle != choiceDisplayMode.Write)
 			{
 				choices[0].choices[choices[0].corrected] = $">>{choices[0].choices[choices[0].corrected]}<<";
 			}

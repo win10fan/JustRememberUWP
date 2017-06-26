@@ -91,16 +91,8 @@ namespace JustRemember.Models
 			}
 			else
 			{
-				string oldset = await FileIO.ReadTextAsync((StorageFile)tfile);
-				if (oldset == settings)
-				{
-					return;
-				}
-				else
-				{
-					await tfile.DeleteAsync();
-					file = await ApplicationData.Current.LocalFolder.CreateFileAsync("appconfig");
-				}
+				await tfile.DeleteAsync();
+				file = await ApplicationData.Current.LocalFolder.CreateFileAsync("appconfig");
 			}
 			await FileIO.WriteTextAsync(file, settings);
 			isSaving = false;
