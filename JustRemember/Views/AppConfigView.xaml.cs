@@ -29,7 +29,11 @@ namespace JustRemember.Views
 		public AppConfigView()
 		{
 			this.InitializeComponent();
-			config.UpdateUI();
+		}
+
+		private async void afterEndCH(object sender, SelectionChangedEventArgs e)
+		{
+			await config.config.Save();
 		}
 
 		public AppConfigViewModel config { get; } = new AppConfigViewModel();
@@ -42,7 +46,7 @@ namespace JustRemember.Views
 
 		protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
 		{
-			await config.config.Save();
+			await App.Config.Save();
 			base.OnNavigatingFrom(e);
 		}
 
@@ -51,15 +55,19 @@ namespace JustRemember.Views
 			switch (sender.SelectedIndex)
 			{
 				case 0:
-					await MobileTitlebarService.Refresh("General setting");
+					NavigationService.Navigate<MainPage>();
 					return;
 				case 1:
-					await MobileTitlebarService.Refresh("Session setting");
+					await MobileTitlebarService.Refresh("General setting");
+					showNE.Visibility = config.showNotEndPage;
 					return;
 				case 2:
-					await MobileTitlebarService.Refresh("Stat list");
+					await MobileTitlebarService.Refresh("Session setting");
 					return;
 				case 3:
+					await MobileTitlebarService.Refresh("Stat list");
+					return;
+				case 4:
 					await MobileTitlebarService.Refresh("About & Reset");
 					return;
 			}

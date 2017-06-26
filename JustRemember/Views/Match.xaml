@@ -230,14 +230,14 @@
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</Button>
-						<!--<Button Width="50" Background="Transparent" Height="32">
+						<Button Visibility="{x:Bind debugShow, Mode=OneTime}" Width="50" Background="Transparent" Height="32">
 							<SymbolIcon Symbol="Refresh"/>
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DebugChoose}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
-						</Button>-->
+						</Button>
 					</StackPanel>
 					<TextBlock Grid.Column="1" VerticalAlignment="Center">
                         <Run Text="{x:Bind ViewModel.currentDisplayChoice,Mode=OneWay}"/>

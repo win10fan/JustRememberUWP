@@ -18,6 +18,7 @@ namespace JustRemember.Models
 		public double limitTime { get; set; }
 		public int totalChoice { get; set; }
 		public int displayTextSize { get; set; }
+		public bool useSeed { get; set; }
 		public int defaultSeed { get; set; }
 		public bool autoScrollContent { get; set; }
 		public whenFinalChoice AfterFinalChoice { get; set; }
@@ -116,6 +117,7 @@ namespace JustRemember.Models
 			limitTime = TimeSpan.FromMinutes(5).TotalSeconds;
 			totalChoice = 3;
 			displayTextSize = 18;
+			useSeed = false;
 			defaultSeed = -1;
 			autoScrollContent = true;
 			AfterFinalChoice = whenFinalChoice.EndPage;

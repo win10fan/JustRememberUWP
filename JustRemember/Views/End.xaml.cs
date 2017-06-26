@@ -85,11 +85,6 @@ namespace JustRemember.Views
 			for (int i = 0; i < totalWork; i++)
 			{
 				choices.Add(new ChoicesCorrected(current.choiceInfo2[i], current.correctedChoice[i]));
-				await Task.Delay(50);
-				RefreshGraph(null, null);
-			}
-			for (int i = 0; i < totalWork; i++)
-			{
 				corrected.Add(new ChoicesCorrected(i + 1, current.correctedChoice[i]));
 				await Task.Delay(50);
 				RefreshGraph(null, null);
@@ -112,6 +107,11 @@ namespace JustRemember.Views
 			OnPropertyChanged(nameof(choices));
 			OnPropertyChanged(nameof(corrected));
 			OnPropertyChanged(nameof(width));
+		}
+
+		public bool saveable
+		{
+			get => App.Config.defaultSeed != -1;
 		}
 	}
 	public class ChoicesCorrected

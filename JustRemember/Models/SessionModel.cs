@@ -141,7 +141,7 @@ namespace JustRemember.Models
 			return current;
 		}
 
-		private static ObservableCollection<ChoiceSet> generateChoice(ObservableCollection<TextList> texts,int maxChoice)
+		private static ObservableCollection<ChoiceSet> generateChoice(ObservableCollection<TextList> texts, int maxChoice)
 		{
 			HashSet<string> hashed = new HashSet<string>();
 			ObservableCollection<string> chooseAble = new ObservableCollection<string>();
@@ -205,17 +205,17 @@ namespace JustRemember.Models
 							{
 								continue;
 							}
-							if ((chooseAble.Count - 1) < 20)
+							if ((chooseAble.Count - 1) < 30)
 							{
 								int range = choiceTexts.Next(0, chooseAble.Count - 1);
 								c.choices[num] = chooseAble[range];
 							}
 							else
 							{
-								int quater = chooseAble.Count - 1;
-								int half = chooseAble.Count - 1;
+								int half = (chooseAble.Count - 1) / 2;
+								int quater = half / 2;
 								int quaterPastHalf = half + quater;
-								if (i < quater)
+								if (i <= quater)
 								{
 									int range = choiceTexts.Next(0, half);
 									cache = new List<string>(chooseAble);
@@ -229,7 +229,7 @@ namespace JustRemember.Models
 									cache.Remove(texts[i].actualText);
 									c.choices[num] = cache[range];
 								}
-								else if (i > quaterPastHalf)
+								else if (i >= quaterPastHalf)
 								{
 									int range = choiceTexts.Next(half, chooseAble.Count - 1);
 									cache = new List<string>(chooseAble);
@@ -260,6 +260,10 @@ namespace JustRemember.Models
 				}
 				//Put choice in choice list
 				choices.Add(c);
+			}
+			if (App.Config.hintAtFirstchoice)
+			{
+				choices[0].choices[choices[0].corrected] = $">>{choices[0].choices[choices[0].corrected]}<<";
 			}
 			return choices;
 		}

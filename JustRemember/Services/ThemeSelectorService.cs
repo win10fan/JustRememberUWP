@@ -43,13 +43,12 @@ namespace JustRemember.Services
 
         public static void SetRequestedTheme()
         {
-            var frameworkElement = Window.Current.Content as FrameworkElement;
-            if (frameworkElement != null)
-            {
-                frameworkElement.RequestedTheme = Theme;
-                OnThemeChanged(null, Theme);
-            }
-        }
+			if (Window.Current.Content is FrameworkElement frameworkElement)
+			{
+				frameworkElement.RequestedTheme = Theme;
+				OnThemeChanged(null, Theme);
+			}
+		}
 
         private static async Task<ElementTheme> LoadThemeFromSettingsAsync()
         {

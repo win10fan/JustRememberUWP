@@ -40,7 +40,7 @@ namespace JustRemember.ViewModels
 		}
 
 		public StorageFolder basePath = ApplicationData.Current.LocalFolder;
-		public AppConfigModel config;
+		public AppConfigModel config { get => App.Config; }
 
 		string _pt;
 		public string Path
@@ -88,7 +88,6 @@ namespace JustRemember.ViewModels
 				basePath = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Prenote");
 			}
 			Navigate(basePath.Path);
-			config = await AppConfigModel.Load2();
 			//Command
 			navTo = new RelayCommand<RoutedEventArgs>(NAVTO);
 			navUp = new RelayCommand<RoutedEventArgs>(NAVUP);

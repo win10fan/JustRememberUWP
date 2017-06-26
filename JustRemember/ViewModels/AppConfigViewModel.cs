@@ -36,15 +36,10 @@ namespace JustRemember.ViewModels
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
-
-		AppConfigModel cf;
+		
 		public AppConfigModel config
 		{
-			get => cf;
-			set
-			{
-				Set(ref cf, value);
-			}
+			get => App.Config;
 		}
 
 		public ICommand ResetConfig;
@@ -52,22 +47,22 @@ namespace JustRemember.ViewModels
 		public ICommand ResetSessions;
 		public ICommand ResetNotes;
 		public ICommand ResetAll;
+		public ICommand ToggleAntiSpam;
 
 		public void Initialie()
 		{
-			config = App.Config;
 			stats = App.Stats;
 			ResetConfig = new RelayCommand<RoutedEventArgs>(RESETCONFIG);
 			ResetStat = new RelayCommand<RoutedEventArgs>(RESETSTAT);
 			ResetSessions = new RelayCommand<RoutedEventArgs>(RESETSESSIONS);
 			ResetNotes = new RelayCommand<RoutedEventArgs>(RESETNOTES);
 			ResetAll = new RelayCommand<RoutedEventArgs>(RESETALL);
+			ToggleAntiSpam = new RelayCommand<RoutedEventArgs>(TOGGLEANTISPAM);
 		}
 
-		public void UpdateUI()
+		private void TOGGLEANTISPAM(RoutedEventArgs obj)
 		{
-			OnPropertyChanged(nameof(saveAllStat));
-			OnPropertyChanged(nameof(deleteAllStat));
+			config.antiSpamChoice = !config.antiSpamChoice;
 		}
 
 		public async void RESETCONFIG(RoutedEventArgs obj)
@@ -127,32 +122,32 @@ namespace JustRemember.ViewModels
 
 		public int choiceMode
 		{
-			get => (int)cf.choiceStyle;
+			get => (int)config.choiceStyle;
 			set
 			{
-				cf.choiceStyle = (choiceDisplayMode)value;
+				config.choiceStyle = (choiceDisplayMode)value;
 				OnPropertyChanged(nameof(choiceMode));
 			}
 		}
 
 		public int FontSize
 		{
-			get => cf.displayTextSize;
+			get => config.displayTextSize;
 			set
 			{
-				cf.displayTextSize = value;
+				config.displayTextSize = value;
 				OnPropertyChanged(nameof(FontSize));
 			}
 		}
 
 		public bool useSeed
 		{
-			get => cf.defaultSeed != -1;
+			get => config.useSeed;
 			set
 			{
-				cf.defaultSeed = value ? (cf.defaultSeed == -1 ? 0 : cf.defaultSeed) : -1;
-				OnPropertyChanged(nameof(useSeed));
+				config.useSeed = value;
 				OnPropertyChanged(nameof(seedUI));
+				OnPropertyChanged(nameof(useSeed));
 			}
 		}
 
@@ -163,10 +158,10 @@ namespace JustRemember.ViewModels
 
 		public bool useLight
 		{
-			get => cf.isItLightTheme;
+			get => config.isItLightTheme;
 			set
 			{
-				cf.isItLightTheme = value;
+				config.isItLightTheme = value;
 				UpdateTheme(value);
 				OnPropertyChanged(nameof(useLight));
 			}
@@ -179,34 +174,33 @@ namespace JustRemember.ViewModels
 
 		public bool autoScroll
 		{
-			get => cf.autoScrollContent;
+			get => config.autoScrollContent;
 			set
 			{
-				cf.autoScrollContent = value;
+				config.autoScrollContent = value;
 				OnPropertyChanged(nameof(autoScroll));
 			}
 		}
 
-		public bool afterEndIsIt1 { get => cf.AfterFinalChoice == whenFinalChoice.EndPage; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.EndPage; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage));} } }
-		public bool afterEndIsIt2 { get => cf.AfterFinalChoice == whenFinalChoice.Restart; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.Restart; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage)); OnPropertyChanged(nameof(saveAllStat)); OnPropertyChanged(nameof(deleteAllStat)); } } }
-		public bool afterEndIsIt3 { get => cf.AfterFinalChoice == whenFinalChoice.BackHome; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.BackHome; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage)); OnPropertyChanged(nameof(saveAllStat)); OnPropertyChanged(nameof(deleteAllStat)); } } }
+		public int afterEnd { get => (int)config.AfterFinalChoice; set { config.AfterFinalChoice = (whenFinalChoice)value; OnPropertyChanged(nameof(showNotEndPage)); } }
+		
+		public bool saveAllStat { get => config.saveStatAfterEnd; set { config.saveStatAfterEnd = value; OnPropertyChanged(nameof(saveAllStat)); OnPropertyChanged(nameof(saveAllString)); } }
 
-		public bool saveAllStat { get => cf.saveStatAfterEnd; set { cf.saveStatAfterEnd = value; OnPropertyChanged(nameof(saveAllStat)); } }
-		public bool deleteAllStat { get => !cf.saveStatAfterEnd; set { cf.saveStatAfterEnd = !value; OnPropertyChanged(nameof(deleteAllStat)); } }
+		public string saveAllString { get => config.saveStatAfterEnd ? "Save all stat" : "Delete all stat"; }
 
 		public Visibility showNotEndPage
 		{
-			get => cf.AfterFinalChoice != whenFinalChoice.EndPage ? Visibility.Visible : Visibility.Collapsed;
+			get => config.AfterFinalChoice != whenFinalChoice.EndPage ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		public int totalChoice
 		{
-			get => cf.totalChoice; set { cf.totalChoice = value; OnPropertyChanged(nameof(totalChoice)); }
+			get => config.totalChoice; set { config.totalChoice = value; OnPropertyChanged(nameof(totalChoice)); }
 		}
 
 		public bool useTimeLimit
 		{
-			get => cf.isLimitTime; set { cf.isLimitTime = value; OnPropertyChanged(nameof(useTimeLimit)); OnPropertyChanged(nameof(showTimePicker)); }
+			get => config.isLimitTime; set { config.isLimitTime = value; OnPropertyChanged(nameof(useTimeLimit)); OnPropertyChanged(nameof(showTimePicker)); }
 		}
 
 		public Visibility showTimePicker
@@ -214,33 +208,23 @@ namespace JustRemember.ViewModels
 			get => useTimeLimit ? Visibility.Visible : Visibility.Collapsed;
 		}
 
-		public bool isItEasy { get => cf.defaultMode == matchMode.Easy; set { if (value) { cf.defaultMode = matchMode.Easy; UpdateDifficultProperty(); } } }
-		public bool isItNormal { get => cf.defaultMode == matchMode.Normal; set { if (value) { cf.defaultMode = matchMode.Normal; UpdateDifficultProperty(); } } }
-		public bool isItHard { get => cf.defaultMode == matchMode.Hard; set { if (value) { cf.defaultMode = matchMode.Hard; UpdateDifficultProperty(); } } }
-
-		public bool hintOnFirst { get => cf.hintAtFirstchoice; set { cf.hintAtFirstchoice = value; OnPropertyChanged(nameof(hintOnFirst)); } }
-		public bool showWrongContent { get => cf.obfuscateWrongText; set { cf.obfuscateWrongText = value; OnPropertyChanged(nameof(showWrongContent)); } }
-		public Visibility isEasySelected { get { return isItEasy ? Visibility.Visible : Visibility.Collapsed; } }
-
-		void UpdateDifficultProperty()
-		{
-			OnPropertyChanged(nameof(isItEasy));
-			OnPropertyChanged(nameof(isItNormal));
-			OnPropertyChanged(nameof(isItHard));
-			OnPropertyChanged(nameof(isEasySelected));
-		}
-
+		public int difficultSet { get => (int)config.defaultMode; set { config.defaultMode = (matchMode)value; OnPropertyChanged(nameof(isEasySelected)); } }
+		
+		public bool hintOnFirst { get => config.hintAtFirstchoice; set { config.hintAtFirstchoice = value; OnPropertyChanged(nameof(hintOnFirst)); } }
+		public bool showWrongContent { get => config.obfuscateWrongText; set { config.obfuscateWrongText = value; OnPropertyChanged(nameof(showWrongContent)); } }
+		public Visibility isEasySelected { get { return config.defaultMode == matchMode.Easy ? Visibility.Visible : Visibility.Collapsed; } }
+		
 		TimeSpan _lim;
 		public TimeSpan timeLimit
 		{
 			get
 			{
-				return TimeSpan.FromMinutes(cf.limitTime);
+				return TimeSpan.FromMinutes(config.limitTime);
 			}
 			set
 			{
 				Set(ref _lim, value);
-				cf.limitTime =_lim.TotalMinutes;
+				config.limitTime =_lim.TotalMinutes;
 			}
 		}
 
@@ -303,7 +287,7 @@ namespace JustRemember.ViewModels
 		string tmp;
 		public string seedValue
 		{
-			get => applying ? tmp : cf.defaultSeed.ToString();
+			get => applying ? tmp : config.defaultSeed.ToString();
 			set
 			{
 				applying = true;
@@ -311,6 +295,13 @@ namespace JustRemember.ViewModels
 				for (int i = tmp.Length - 1; i > -1; i--)
 				{
 					if (i == -1) { break; }
+					if (i == 0)
+					{
+						if (value[i] == '-')
+						{
+							break;
+						}
+					}
 					if (!char.IsNumber(value[i]))
 					{
 						tmp = tmp.Remove(i, 1);
@@ -319,7 +310,8 @@ namespace JustRemember.ViewModels
 				}
 				applying = false;
 				value = tmp;
-				cf.defaultSeed = int.Parse(value);
+				config.defaultSeed = int.Parse(value);
+				OnPropertyChanged(nameof(seedValue));
 			}
 		}
 		
@@ -344,13 +336,6 @@ namespace JustRemember.ViewModels
 			for (int i = 0; i < totalWork; i++)
 			{
 				choices.Add(new ChoicesCorrected(info.choiceInfo2[i], info.correctedChoice[i]));
-				await Task.Delay(50);
-				OnPropertyChanged(nameof(choices));
-				OnPropertyChanged(nameof(corrected));
-				OnPropertyChanged(nameof(width));
-			}
-			for (int i = 0; i < totalWork; i++)
-			{
 				corrected.Add(new ChoicesCorrected(i + 1, info.correctedChoice[i]));
 				await Task.Delay(50);
 				OnPropertyChanged(nameof(choices));

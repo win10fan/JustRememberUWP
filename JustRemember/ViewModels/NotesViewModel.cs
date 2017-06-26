@@ -101,7 +101,6 @@ namespace JustRemember.ViewModels
 			if (config == null)
 			{
 				App.Config = await SettingsStorageExtensions.ReadAsync<AppConfigModel>(ApplicationData.Current.LocalFolder, "appconfig");
-				config = App.Config;
 				return;
 			}
 			OnPropertyChanged(nameof(isReady));
@@ -198,11 +197,13 @@ namespace JustRemember.ViewModels
             }
         }
 
-        AppConfigModel config;
+        AppConfigModel config
+		{
+			get => App.Config;
+		}
         public async void Initialize()
         {
             Notes = await NoteModel.GetNotesAsync();
-            config = await SettingsStorageExtensions.ReadAsync<AppConfigModel>(ApplicationData.Current.LocalFolder, "appconfig");
         }
 
         public string NoteCount

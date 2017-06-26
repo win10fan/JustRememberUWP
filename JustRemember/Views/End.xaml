@@ -48,7 +48,7 @@
 				</CommandBar.Content>
 			</CommandBar>
 			<CommandBar Grid.Column="1" Style="{StaticResource EditorCMD}">
-				<AppBarButton Icon="Save" Label="Save" Click="Save"/>
+				<AppBarButton IsEnabled="{x:Bind saveable, Mode=OneTime}" Icon="Save" Label="Save" Click="Save"/>
 				<AppBarButton Icon="Delete" Label="Delete" Click="Delete"/>
 				<AppBarButton Icon="Refresh" Label="Refresh" Click="RefreshGraph"/>
 			</CommandBar>

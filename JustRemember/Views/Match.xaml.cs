@@ -31,6 +31,10 @@ namespace JustRemember.Views
 		public static SessionModel transfer;
 		public Match()
 		{
+			dbg = Visibility.Collapsed;
+#if DEBUG
+			dbg = Visibility.Visible;
+#endif
 			this.InitializeComponent();
 		}
 		public SessionViewModel ViewModel { get; } = new SessionViewModel();
@@ -39,7 +43,6 @@ namespace JustRemember.Views
 			ViewModel.current = (SessionModel)e.Parameter;
 			ViewModel.view = this;
 			ViewModel.RestoreSession();
-
 			//ViewModel.isPausing = false;
 			if (MobileTitlebarService.isMobile)
 			{
@@ -85,6 +88,13 @@ namespace JustRemember.Views
 		{
 			get { return stopPause; }
 			set { stopPause = value; }
+		}
+
+		Visibility dbg;
+		public Visibility debugShow
+		{
+			get => dbg;
+			set => dbg = value;
 		}
 	}
 }

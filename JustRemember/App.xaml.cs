@@ -43,9 +43,9 @@ namespace JustRemember
 		/// <param name="e">Details about the launch request and process.</param>
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			await MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
-			await ThemeSelectorService.SetThemeAsync(ElementTheme.Dark);
 			Config = await AppConfigModel.Load2();
+			await ThemeSelectorService.SetThemeAsync(Config.isItLightTheme ? ElementTheme.Light : ElementTheme.Dark);
+			await MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
 			Stats = await StatModel.Get();
 			if (!e.PrelaunchActivated)
 			{

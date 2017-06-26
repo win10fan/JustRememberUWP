@@ -85,6 +85,13 @@ namespace JustRemember.ViewModels
 				lastChoose = DateTime.Now;
 				timerUI.Start();
 			}
+			if (current.StatInfo.correctedChoice.Count < 1)
+			{
+				foreach (var c in current.choices)
+				{
+					current.StatInfo.correctedChoice.Add(c.corrected);
+				}
+			}
 		}
 		#endregion
 
@@ -362,6 +369,7 @@ namespace JustRemember.ViewModels
 		
 		private async void DEBUGCHOOSE(RoutedEventArgs obj)
 		{
+			Config.antiSpamChoice = false;
 			Random rnd = new Random();
 			while (currentChoice < totalChoice - 4)
 			{
@@ -372,6 +380,7 @@ namespace JustRemember.ViewModels
 				Choose(rnd.Next(0, current.maxChoice));
 				await Task.Delay(50);
 			}
+			Config.antiSpamChoice = true;
 		}
 
 		private void TOGGLEDETAILSTATUS(RoutedEventArgs obj)
@@ -504,19 +513,19 @@ namespace JustRemember.ViewModels
 		}
 		
 		public DateTime lastChoose;
+		public bool allowNext;
 		public void Choose(int choice)
 		{
 			if (Config.antiSpamChoice)
 			{ 
-				if (DateTime.Now - lastChoose < TimeSpan.FromMilliseconds(50))
+				if (DateTime.Now - lastChoose < TimeSpan.FromMilliseconds(150))
 				{
 					//Snooze
 					AnnoyPlayer.Play();
 					OnPropertyChanged(nameof(BlindThePage));
 				}
 				lastChoose = DateTime.Now;
-			}
-			//Normal choice			
+			}		
 			if (choice != current.choices[currentChoice].corrected)
 			{
 				//Wrong choice
@@ -535,6 +544,7 @@ namespace JustRemember.ViewModels
 						current.StatInfo.choiceInfo[currentChoice][choice] = true;
 						//Advance time up little bit as wrong choice has been selected
 						spendTime.Add(TimeSpan.FromSeconds(3));
+						allowNext = false;
 						break;
 					case matchMode.Hard:
 						//Reset round
@@ -544,6 +554,10 @@ namespace JustRemember.ViewModels
 			}
 			else if (choice == current.choices[currentChoice].corrected)
 			{
+				if (current.StatInfo.setMode == matchMode.Normal)
+				{
+					allowNext = true;
+				}
 				//Corrent choice
 				//Update display text
 				UpdateText(true);
@@ -558,17 +572,40 @@ namespace JustRemember.ViewModels
 						EndMatch();
 						break;
 					case whenFinalChoice.Restart:
+						if (App.Config.saveStatAfterEnd)
+						{
+							if (App.Config.defaultSeed != -1)
+							{
+								StatModel.Set(current.StatInfo);
+							}
+						}						
 						Restart();
 						break;
 					case whenFinalChoice.BackHome:
-						StatModel.Set(current.StatInfo);
+						if (App.Config.saveStatAfterEnd)
+						{
+							if (App.Config.defaultSeed != -1)
+							{
+								StatModel.Set(current.StatInfo);
+							}
+						}
 						NavigationService.Navigate<MainPage>();
 						break;
 				}
 			}
 			else
 			{
-				currentChoice += 1;
+				if (current.StatInfo.setMode == matchMode.Normal)
+				{
+					if (allowNext)
+					{
+						currentChoice += 1;
+					}
+				}
+				else
+				{
+					currentChoice += 1;
+				}
 			}
 			totalWrong = current.StatInfo.GetTotalWrong();
 			//Update choice text
