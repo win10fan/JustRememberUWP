@@ -131,8 +131,6 @@
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\AnnoyPlayer.cs" />
-    <Compile Include="Services\LiveTileService.cs" />
-    <Compile Include="Services\LiveTileService.Samples.cs" />
     <Compile Include="Services\MobileTitlebarService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\PrenoteService.cs" />
@@ -145,7 +143,6 @@
     <Compile Include="ViewModels\PrenoteViewModel.cs" />
     <Compile Include="ViewModels\SavedSessionViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\AppConfigView.xaml.cs">
       <DependentUpon>AppConfigView.xaml</DependentUpon>
     </Compile>
