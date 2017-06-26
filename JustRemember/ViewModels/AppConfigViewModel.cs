@@ -64,6 +64,12 @@ namespace JustRemember.ViewModels
 			ResetAll = new RelayCommand<RoutedEventArgs>(RESETALL);
 		}
 
+		public void UpdateUI()
+		{
+			OnPropertyChanged(nameof(saveAllStat));
+			OnPropertyChanged(nameof(deleteAllStat));
+		}
+
 		public async void RESETCONFIG(RoutedEventArgs obj)
 		{
 			AppConfigModel res = new AppConfigModel();
@@ -181,9 +187,9 @@ namespace JustRemember.ViewModels
 			}
 		}
 
-		public bool afterEndIsIt1 { get => cf.AfterFinalChoice == whenFinalChoice.EndPage; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.EndPage; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage)); } } }
-		public bool afterEndIsIt2 { get => cf.AfterFinalChoice == whenFinalChoice.Restart; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.Restart; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage)); } } }
-		public bool afterEndIsIt3 { get => cf.AfterFinalChoice == whenFinalChoice.BackHome; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.BackHome; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage)); } } }
+		public bool afterEndIsIt1 { get => cf.AfterFinalChoice == whenFinalChoice.EndPage; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.EndPage; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage));} } }
+		public bool afterEndIsIt2 { get => cf.AfterFinalChoice == whenFinalChoice.Restart; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.Restart; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage)); OnPropertyChanged(nameof(saveAllStat)); OnPropertyChanged(nameof(deleteAllStat)); } } }
+		public bool afterEndIsIt3 { get => cf.AfterFinalChoice == whenFinalChoice.BackHome; set { if (value) { cf.AfterFinalChoice = whenFinalChoice.BackHome; OnPropertyChanged("afterEndIsIt1"); OnPropertyChanged("afterEndIsIt2"); OnPropertyChanged("afterEndIsIt3"); OnPropertyChanged(nameof(showNotEndPage)); OnPropertyChanged(nameof(saveAllStat)); OnPropertyChanged(nameof(deleteAllStat)); } } }
 
 		public bool saveAllStat { get => cf.saveStatAfterEnd; set { cf.saveStatAfterEnd = value; OnPropertyChanged(nameof(saveAllStat)); } }
 		public bool deleteAllStat { get => !cf.saveStatAfterEnd; set { cf.saveStatAfterEnd = !value; OnPropertyChanged(nameof(deleteAllStat)); } }
@@ -293,10 +299,28 @@ namespace JustRemember.ViewModels
 		public string AppRunOn { get => app.Architecture.ToString(); }
 		public string AppVersion { get => $"{app.Version.Major}.{app.Version.Minor}.{app.Version.Revision}{app.Version.Build}"; }
 
+		bool applying;
+		string tmp;
 		public string seedValue
 		{
-			get => cf.defaultSeed.ToString();
-			set => int.Parse(value);
+			get => applying ? tmp : cf.defaultSeed.ToString();
+			set
+			{
+				applying = true;
+				tmp = value;
+				for (int i = tmp.Length - 1; i > -1; i--)
+				{
+					if (i == -1) { break; }
+					if (!char.IsNumber(value[i]))
+					{
+						tmp = tmp.Remove(i, 1);
+						OnPropertyChanged(nameof(seedValue));
+					}
+				}
+				applying = false;
+				value = tmp;
+				cf.defaultSeed = int.Parse(value);
+			}
 		}
 		
 		ObservableCollection<ChoicesCorrected> _c, _co;

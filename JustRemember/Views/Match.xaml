@@ -230,14 +230,14 @@
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</Button>
-						<Button Width="50" Background="Transparent" Height="32">
+						<!--<Button Width="50" Background="Transparent" Height="32">
 							<SymbolIcon Symbol="Refresh"/>
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DebugChoose}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
-						</Button>
+						</Button>-->
 					</StackPanel>
 					<TextBlock Grid.Column="1" VerticalAlignment="Center">
                         <Run Text="{x:Bind ViewModel.currentDisplayChoice,Mode=OneWay}"/>
@@ -354,6 +354,9 @@
 				<Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Margin="0,10,0,0" Content="&#xE10B;" FontSize="26" Height="40" FontFamily="Segoe MDL2 Assets"/>
 				<TextBlock Visibility="Collapsed" x:Name="debugInfo" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
 			</StackPanel>
+		</Grid>
+		<Grid Visibility="{x:Bind ViewModel.BlindThePage, Mode=OneWay}" Background="Black" Grid.Row="0" Grid.RowSpan="3">
+			<TextBlock Text="NO NEED TO HURRY!" FontSize="48" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 		</Grid>
 	</Grid>
 </Page>

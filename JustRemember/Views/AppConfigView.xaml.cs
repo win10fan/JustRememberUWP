@@ -29,6 +29,7 @@ namespace JustRemember.Views
 		public AppConfigView()
 		{
 			this.InitializeComponent();
+			config.UpdateUI();
 		}
 
 		public AppConfigViewModel config { get; } = new AppConfigViewModel();
@@ -37,6 +38,12 @@ namespace JustRemember.Views
 			await MobileTitlebarService.Refresh("General settings");
 			config.Initialie();
 			base.OnNavigatedTo(e);
+		}
+
+		protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
+		{
+			await config.config.Save();
+			base.OnNavigatingFrom(e);
 		}
 
 		private async void changePage(Pivot sender, PivotItemEventArgs args)

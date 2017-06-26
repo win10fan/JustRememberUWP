@@ -27,6 +27,7 @@ namespace JustRemember.Models
 		public bool saveStatAfterEnd { get; set; }
 		public bool hintAtFirstchoice { get; set; }
 		public choiceDisplayMode choiceStyle { get; set; }
+		public bool antiSpamChoice { get; set; }
 
 		public static async Task<AppConfigModel> Load2()
 		{
@@ -103,7 +104,7 @@ namespace JustRemember.Models
 			await FileIO.WriteTextAsync(file, settings);
 			isSaving = false;
 		}
-
+		
 		public AppConfigModel()
 		{
 			//Provide default setting
@@ -120,6 +121,7 @@ namespace JustRemember.Models
 			AfterFinalChoice = whenFinalChoice.EndPage;
 			saveStatAfterEnd = true;
 			hintAtFirstchoice = true;
+			antiSpamChoice = true;
 		}
 	}
 

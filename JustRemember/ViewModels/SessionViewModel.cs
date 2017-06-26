@@ -77,10 +77,15 @@ namespace JustRemember.ViewModels
 			isPausing = false;
 			UNPAUSEFUNC(null);
 			InitializeCommands();
-			timerUI.Start();
 			UpdateUI(1, 0);
+			if (current.StatInfo.isTimeLimited)
+				timerUI.Start();
+			if (Config.antiSpamChoice)
+			{
+				lastChoose = DateTime.Now;
+				timerUI.Start();
+			}
 		}
-
 		#endregion
 
 		#region Binding Property
@@ -354,7 +359,7 @@ namespace JustRemember.ViewModels
 				Label = "OK"
 			});
 		}
-
+		
 		private async void DEBUGCHOOSE(RoutedEventArgs obj)
 		{
 			Random rnd = new Random();
@@ -459,32 +464,58 @@ namespace JustRemember.ViewModels
 		DispatcherTimer timerUI;
 		void SetTimer()
 		{
-			if (current.StatInfo.isTimeLimited)
+			timerUI = new DispatcherTimer()
 			{
-				timerUI = new DispatcherTimer()
-				{
-					Interval = TimeSpan.FromSeconds(1)
-				};
-				timerUI.Tick += TimerUI_Tick;
-			}
-			else
-			{
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
-			}
+				Interval = TimeSpan.FromSeconds(1)
+			};
+			timerUI.Tick += TimerUI_Tick;
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
 		}
 
 		private async void TimerUI_Tick(object sender, object e)
 		{
-			spendTime = spendTime.Add(TimeSpan.FromSeconds(1));
-			if (spendTime > current.StatInfo.totalLimitTime)
+			if (current.StatInfo.isTimeLimited)
 			{
-				timerUI.Stop();
-				await timeup.ShowAsync();
+				spendTime = spendTime.Add(TimeSpan.FromSeconds(1));
+				if (spendTime > current.StatInfo.totalLimitTime)
+				{
+					timerUI.Stop();
+					await timeup.ShowAsync();
+				}
+			}
+			if (Config.antiSpamChoice)
+				OnPropertyChanged(nameof(BlindThePage));
+			if (BlindThePage == Visibility.Visible)
+			{
+				Restart();
 			}
 		}
 
+		public Visibility BlindThePage
+		{
+			get
+			{
+				if (AnnoyPlayer.isPlaying)
+				{
+					return Visibility.Visible;
+				}
+				return Visibility.Collapsed;
+			}
+		}
+		
+		public DateTime lastChoose;
 		public void Choose(int choice)
 		{
+			if (Config.antiSpamChoice)
+			{ 
+				if (DateTime.Now - lastChoose < TimeSpan.FromMilliseconds(50))
+				{
+					//Snooze
+					AnnoyPlayer.Play();
+					OnPropertyChanged(nameof(BlindThePage));
+				}
+				lastChoose = DateTime.Now;
+			}
 			//Normal choice			
 			if (choice != current.choices[currentChoice].corrected)
 			{

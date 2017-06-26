@@ -130,6 +130,7 @@
     <Compile Include="Models\StatModel.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
+    <Compile Include="Services\AnnoyPlayer.cs" />
     <Compile Include="Services\LiveTileService.cs" />
     <Compile Include="Services\LiveTileService.Samples.cs" />
     <Compile Include="Services\MobileTitlebarService.cs" />
@@ -213,6 +214,13 @@
     <Content Include="Assets\AppList\AppList.targetsize-80_altform-unplated.png" />
     <Content Include="Assets\AppList\AppList.targetsize-96.png" />
     <Content Include="Assets\AppList\AppList.targetsize-96_altform-unplated.png" />
+    <Content Include="Assets\Beep\annoy1.mp3" />
+    <Content Include="Assets\Beep\annoy2.mp3" />
+    <Content Include="Assets\Beep\annoy3.mp3" />
+    <Content Include="Assets\Beep\annoy4.mp3" />
+    <Content Include="Assets\Beep\annoy5.mp3" />
+    <Content Include="Assets\Beep\annoy6.mp3" />
+    <Content Include="Assets\Beep\annoy7.mp3" />
     <Content Include="Assets\Large\Large310x310Logo.scale-100.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-125.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-150.png" />
@@ -258,6 +266,10 @@
     <Content Include="Prenote\TH-ทำบุญร้อยวัน-3ธัมมนิยามสุตตัง.txt" />
     <Content Include="Prenote\TH-ทำบุญร้อยวัน-4ติลักขณาทิคาถา.txt" />
     <Content Include="Prenote\TH-ทำบุญร้อยวัน-5ภัทเทกรัตตคาถา.txt" />
+    <Content Include="Prenote\TH-บทสวดอื่นๆ-คำสมมติติจีวราวิปปวาส.txt" />
+    <Content Include="Prenote\TH-บทสวดอื่นๆ-คำสมมติสมานสังวาสสีมา.txt" />
+    <Content Include="Prenote\TH-บทสวดอื่นๆ-คำสวดถอนติจีวราวิปปวาส.txt" />
+    <Content Include="Prenote\TH-บทสวดอื่นๆ-คำสวดถอนสมานสังวาสสีมา.txt" />
     <Content Include="Prenote\TH-บทสวดอื่นๆ-ธัมมจักรกัปปวัตนสุตตัง.txt" />
     <Content Include="Prenote\TH-บทสวดอื่นๆ-มหาสมัยสูตร.txt" />
     <Content Include="Prenote\TH-สวดศพกลางคืน-1พระสังคิณี.txt" />

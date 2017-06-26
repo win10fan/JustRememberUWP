@@ -51,6 +51,7 @@ namespace JustRemember
 			{
 				await ActivationService.ActivateAsync(e);
 			}
+			AnnoyPlayer.Initialize();
 		}
 
 		/// <summary>

@@ -51,7 +51,7 @@ namespace JustRemember.Views
 			}
 			base.OnNavigatedTo(e);
 		}
-
+		
 		/// <summary>
 		/// The scroll area that use to place display textblock selected choice
 		/// </summary>
