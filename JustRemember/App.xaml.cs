@@ -59,7 +59,6 @@ namespace JustRemember
 				await ActivationService.ActivateAsync(e);
 			}
 			AnnoyPlayer.Initialize();
-			await Task.Run(async () => { while (true) { if (AppConfigModel.isDirty) { await Config.Save(); AppConfigModel.isDirty = false; } } });
 		}
 		
 		/// <summary>

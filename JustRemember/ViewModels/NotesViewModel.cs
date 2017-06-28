@@ -73,8 +73,7 @@ namespace JustRemember.ViewModels
         public ICommand DeleteSelected { get; private set; }
         public ICommand DeSelect { get; private set; }
         public ICommand SendToMatch { get; private set; }
-
-		DispatcherTimer tck;
+		
 		public NotesViewModel()
         {
             OpenNote = new RelayCommand<DoubleTappedRoutedEventArgs>(OnItemDoubleClick);
@@ -86,39 +85,20 @@ namespace JustRemember.ViewModels
             DeSelect = new RelayCommand<RoutedEventArgs>(DeSelectNote);
             SendToMatch = new RelayCommand<RoutedEventArgs>(NavigateToMatchWithNote);
 			//Other
-			tck = new DispatcherTimer()
+			saver = new DispatcherTimer()
 			{
-				Interval = TimeSpan.FromMilliseconds(500),
+				Interval = TimeSpan.FromSeconds(5)
 			};
-			tck.Tick += Tck_TickAsync;
-			tck.Start();
-        }
-
-		DateTime tilStop;
-		bool getStop;
-		private async void Tck_TickAsync(object sender, object e)
-		{
-			if (config == null)
-			{
-				App.Config = await SettingsStorageExtensions.ReadAsync<AppConfigModel>(ApplicationData.Current.LocalFolder, "appconfig");
-				return;
-			}
-			OnPropertyChanged(nameof(isReady));
-			if (config != null)
-			{
-				if (!getStop)
-				{
-					tilStop = DateTime.Now + TimeSpan.FromSeconds(1);
-					getStop = true;
-					return;
-				}
-				if (DateTime.Now > tilStop)
-				{
-					OnPropertyChanged(nameof(isReady));
-					tck.Stop();
-				}
-			}
+			saver.Tick += Saver_Tick;
+			saver.Start();
 		}
+
+		private async void Saver_Tick(object sender, object e)
+		{
+			if (AppConfigModel.isDirty)
+				await config.Save();
+		}
+		DispatcherTimer saver;
 
 		private void NavigateToMatchWithNote(RoutedEventArgs obj)
         {

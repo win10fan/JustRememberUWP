@@ -154,7 +154,7 @@ namespace JustRemember.Models
 			//--Generate choice
 			Random validChoice = new Random();
 			Random choiceTexts = new Random();
-			if (App.Config.defaultSeed != -1)
+			if (App.Config.useSeed)
 			{
 				validChoice = new Random(App.Config.defaultSeed);
 				choiceTexts = new Random(App.Config.defaultSeed);

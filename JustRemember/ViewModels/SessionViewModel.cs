@@ -93,7 +93,21 @@ namespace JustRemember.ViewModels
 					current.StatInfo.correctedChoice.Add(c.corrected);
 				}
 			}
+			saver = new DispatcherTimer()
+			{
+				Interval = TimeSpan.FromSeconds(5)
+			};
+			saver.Tick += Saver_Tick;
+			saver.Start();
 		}
+
+		private async void Saver_Tick(object sender, object e)
+		{
+			if (AppConfigModel.isDirty)
+				await Config.Save();
+		}
+		DispatcherTimer saver;
+
 		#endregion
 
 		#region Binding Property
@@ -613,7 +627,7 @@ namespace JustRemember.ViewModels
 					case whenFinalChoice.Restart:
 						if (App.Config.saveStatAfterEnd)
 						{
-							if (App.Config.defaultSeed != -1)
+							if (!App.Config.useSeed)
 							{
 								StatModel.Set(current.StatInfo);
 							}
@@ -623,7 +637,7 @@ namespace JustRemember.ViewModels
 					case whenFinalChoice.BackHome:
 						if (App.Config.saveStatAfterEnd)
 						{
-							if (App.Config.defaultSeed != -1)
+							if (!App.Config.useSeed)
 							{
 								StatModel.Set(current.StatInfo);
 							}

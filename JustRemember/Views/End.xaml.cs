@@ -111,7 +111,7 @@ namespace JustRemember.Views
 
 		public bool saveable
 		{
-			get => App.Config.defaultSeed != -1;
+			get => !App.Config.useSeed;
 		}
 	}
 	public class ChoicesCorrected

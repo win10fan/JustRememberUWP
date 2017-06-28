@@ -40,8 +40,7 @@ namespace JustRemember.ViewModels
 		}
 
 		public StorageFolder basePath = ApplicationData.Current.LocalFolder;
-		public AppConfigModel config { get => App.Config; }
-
+		
 		string _pt;
 		public string Path
 		{
