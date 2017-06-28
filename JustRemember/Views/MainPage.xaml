@@ -53,31 +53,31 @@
 						</ListView.ItemTemplate>
 					</ListView>
 					<TextBlock Visibility="{x:Bind ViewModel.noNoteSuggestion, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="30" FontSize="30" TextWrapping="Wrap" TextAlignment="Right">
-                    <Run>You don't have any note</Run>
+                    <Run x:Uid="Home_NoNote1" Text="You don't have any note"/>
                     <LineBreak/>
-                    <Run>You can add note by Write new note</Run>
+                    <Run x:Uid="Home_NoNote2" Text="You can add note by Write new note"/>
                     <LineBreak/>
-                    <Run>Or import text file</Run>
+                    <Run x:Uid="Home_NoNote3" Text="Or import text file"/>
                     <LineBreak/>
-                    <Run>By click at menu below</Run>
+                    <Run x:Uid="Home_Nonote4" Text="By click at menu below"/>
 					</TextBlock>
 					<CommandBar Grid.Row="2">
 						<CommandBar.Content>
 							<AppBarButton Icon="Setting" Click="GotoSettings"/>
 						</CommandBar.Content>
 						<CommandBar.SecondaryCommands>
-							<AppBarButton Icon="AllApps" Label="Prenote" Click="GoToPrenote"/>
+							<AppBarButton x:Uid="Home_prenoteMenu" Icon="AllApps" Label="Prenote" Click="GoToPrenote"/>
 						</CommandBar.SecondaryCommands>
 
-						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" Label="Add" Click="GoToNoteEditor"/>
-						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="OpenFile" Label="Import">
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" x:Uid="Home_add" Label="Add" Click="GoToNoteEditor"/>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="OpenFile" x:Uid="Home_import" Label="Import">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.ImportNote}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</AppBarButton>
-						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Refresh" Label="Reload">
+						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Refresh" x:Uid="Home_reload" Label="Reload">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.ReloadList}"/>
@@ -85,28 +85,28 @@
 							</i:Interaction.Behaviors>
 						</AppBarButton>
 
-						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open">
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open" x:Uid="Home_open">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.SendToMatch}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</AppBarButton>
-						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Edit" Label="Edit">
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Edit" Label="Edit" x:Uid="Home_edit">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.EditSelected}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</AppBarButton>
-						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Delete" Label="Delete">
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Delete" x:Uid="Home_delete" Label="Delete">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</AppBarButton>
-						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select">
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select" x:Uid="Home_deselect">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeSelect}"/>
@@ -188,13 +188,13 @@
 							<AppBarButton Icon="Setting" Click="GotoSettings"/>
 						</CommandBar.Content>
 						<CommandBar.SecondaryCommands>
-							<AppBarButton Icon="AllApps" Label="Prenote" Click="GoToPrenote"/>
+							<AppBarButton Icon="AllApps" x:Uid="Home_prenoteMenu" Label="Prenote" Click="GoToPrenote"/>
 						</CommandBar.SecondaryCommands>
 
-						<AppBarButton Visibility="Visible" Icon="Refresh" Label="Reload" Click="RefreshSession"/>
-						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open" Click="OpenSession"/>
-						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="Delete" Label="Delete" Click="DeleteSelectedSesion"/>
-						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="Cancel" Label="De-Select" Click="DeSelectSession"/>
+						<AppBarButton Visibility="Visible" Icon="Refresh" Label="Reload" Click="RefreshSession" x:Uid="Home_reload"/>
+						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="OpenLocal" x:Uid="Home_open" Label="Open" Click="OpenSession"/>
+						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="Delete" x:Uid="Home_delete" Label="Delete" Click="DeleteSelectedSesion"/>
+						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="Cancel" x:Uid="Home_deselect" Label="De-Select" Click="DeSelectSession"/>
 					</CommandBar>
 				</Grid>
 			</PivotItem>
@@ -203,7 +203,7 @@
 		<Grid Visibility="{x:Bind ViewModel.isReady, Mode=OneWay}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
 				<ProgressRing Width="80" Height="80" Margin="5" IsActive="True"/>
-				<TextBlock Text="Initializing settings" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" FontSize="30"/>
+				<TextBlock x:Uid="Home_initializeSetting" Text="Initializing settings" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" FontSize="30"/>
 			</StackPanel>
 		</Grid>
 	</Grid>

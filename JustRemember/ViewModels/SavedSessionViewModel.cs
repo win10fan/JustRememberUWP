@@ -110,10 +110,12 @@ namespace JustRemember.ViewModels
 			{
 				if (SavedSessions?.Count < 1)
 				{
-					return "No session saved";
+					return App.language.GetString("Home_session_no");
 				}
-				string s = SavedSessions?.Count > 1 ? "s" : "";
-				return $"{SavedSessions?.Count} saved session{s}";
+				return string.Format(
+					App.language.GetString("Home_session_count_format"),
+					SavedSessions?.Count,
+					SavedSessions?.Count == 1 ? App.language.GetString("Home_session_single") : App.language.GetString("Home_note_prural"));
 			}
 		}
 

@@ -30,55 +30,32 @@ namespace JustRemember.Views
 		{
 			this.InitializeComponent();
 		}
-
-		private async void afterEndCH(object sender, SelectionChangedEventArgs e)
-		{
-			await config.config.Save();
-		}
-
+		
 		public AppConfigViewModel config { get; } = new AppConfigViewModel();
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
-			await MobileTitlebarService.Refresh("General settings");
+			await MobileTitlebarService.Refresh(App.language.GetString("Config_general"));
 			config.Initialie();
 			base.OnNavigatedTo(e);
 		}
 
-		protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
-		{
-			await App.Config.Save();
-			base.OnNavigatingFrom(e);
-		}
-
 		private async void changePage(Pivot sender, PivotItemEventArgs args)
 		{
-			switch (sender.SelectedIndex)
-			{
-				case 0:
-					NavigationService.Navigate<MainPage>();
-					return;
-				case 1:
-					await MobileTitlebarService.Refresh("General setting");
-					showNE.Visibility = config.showNotEndPage;
-					return;
-				case 2:
-					await MobileTitlebarService.Refresh("Session setting");
-					return;
-				case 3:
-					await MobileTitlebarService.Refresh("Stat list");
-					return;
-				case 4:
-					await MobileTitlebarService.Refresh("About & Reset");
-					return;
-			}
-			await config.config.Save();
-			App.Config = config.config;
+			if (sender.SelectedIndex == 0)
+				NavigationService.Navigate<MainPage>();
+			if (sender.SelectedIndex == 1)
+				await MobileTitlebarService.Refresh(App.language.GetString("Config_general"));
+			if (sender.SelectedIndex == 2)
+				await MobileTitlebarService.Refresh(App.language.GetString("Config_session"));
+			if (sender.SelectedIndex == 3)
+				await MobileTitlebarService.Refresh(App.language.GetString("Config_stat"));
+			if (sender.SelectedIndex == 4)
+				await MobileTitlebarService.Refresh(App.language.GetString("Config_about"));
 		}
 
-		private async void timeChanged(object sender, TimePickerValueChangedEventArgs e)
+		private void timeChanged(object sender, TimePickerValueChangedEventArgs e)
 		{
 			config.timeLimit = e.NewTime;
-			await config.config.Save();
 		}
 
 		private void TimePicker_Loaded(object sender, RoutedEventArgs e)

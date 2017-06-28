@@ -48,7 +48,9 @@
 				</CommandBar.Content>
 			</CommandBar>
 			<CommandBar Grid.Column="1" Style="{StaticResource EditorCMD}">
-				<AppBarButton IsEnabled="{x:Bind saveable, Mode=OneTime}" Icon="Save" Label="Save" Click="Save"/>
+				<AppBarButton IsEnabled="{x:Bind saveable, Mode=OneTime}" Icon="Save" Click="Save">
+					<TextBlock x:Uid="Edit_save" Text="Save"/>
+				</AppBarButton>
 				<AppBarButton Icon="Delete" Label="Delete" Click="Delete"/>
 				<AppBarButton Icon="Refresh" Label="Refresh" Click="RefreshGraph"/>
 			</CommandBar>
@@ -105,10 +107,16 @@
 					</rad:RadCartesianChart>
 				</StackPanel>
 			</ScrollViewer>
-			<TextBlock VerticalAlignment="Bottom" Grid.Row="5">
-				<Run Text="Green color line = Corrected choice"/><LineBreak/>
-				<Run Text="Accent color line = Selected choice"/>
-			</TextBlock>
+			<StackPanel Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Vertical">
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Fill="{ThemeResource AccentButtonBackground}" Width="15" Height="15"/>
+					<TextBlock x:Uid="Config_stat_selected" Text="Selected choice" Margin="5,0"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Fill="#FF008F00" Width="15" Height="15"/>
+					<TextBlock x:Uid="Config_stat_corrected" Text="Corrected choice" Margin="5,0"/>
+				</StackPanel>
+			</StackPanel>
 		</Grid>
 		<Grid Grid.Row="2">
 			<TextBlock Text="You can view this stat later in setting, If you save it"/>

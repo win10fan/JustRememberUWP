@@ -64,7 +64,16 @@ namespace JustRemember.Models
 
 		public PathDir(string p)
 		{
-			Name = new DirectoryInfo(p).Name;
+			DirectoryInfo dir = new DirectoryInfo(p);
+			int order = 0;
+			if (char.IsNumber(dir.Name[0]))
+			{
+				if (char.IsNumber(dir.Name[1]))
+					order = int.Parse($"{dir.Name[0]}{dir.Name[1]}");
+				else
+					order = int.Parse($"{dir.Name[0]}");
+			}
+			Name = dir.Name.Replace(order.ToString(), "");
 			FullPath = p;
 		}
 	}

@@ -212,10 +212,12 @@ namespace JustRemember.ViewModels
             {
                 if (Notes?.Count < 1)
                 {
-                    return "Note empty";
+					return App.language.GetString("Home_NoNote1");
                 }
-                string s = Notes?.Count > 1 ? "s" : "";
-                return $"{Notes?.Count} note{s}";
+				return string.Format(
+					App.language.GetString("Home_note_count_format"),
+					Notes?.Count, 
+					Notes?.Count == 1 ? App.language.GetString("Home_note_single") : App.language.GetString("Home_note_prupal"));
             }
         }
 

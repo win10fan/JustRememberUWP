@@ -172,7 +172,7 @@ namespace JustRemember.ViewModels
 			loadInput = new RelayCommand<RoutedEventArgs>(LOADINPUT);
 			//Load
 			//
-			splitUndo = new RelayCommand<Windows.UI.Xaml.Input.KeyRoutedEventArgs>(SPLITUNDO);
+			splitUndo = new RelayCommand<KeyRoutedEventArgs>(SPLITUNDO);
 			//
 			saveFilename = new RelayCommand<TextChangedEventArgs>(SAVEFILENAME);
 		}

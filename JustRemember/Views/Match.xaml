@@ -101,7 +101,7 @@
 					</Grid.ColumnDefinitions>
 					<Grid Grid.Row="0" Grid.Column="0" Style="{StaticResource recTan}">
 						<TextBlock Text="&#xE112;" Margin="0,-10,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" FontFamily="Segoe MDL2 Assets"/>
-						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Leave"/>
+						<TextBlock x:Uid="Match_leave" Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Leave"/>
 						<Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
@@ -112,7 +112,7 @@
 					</Grid>
 					<Grid Grid.Row="0" Grid.Column="1" Style="{StaticResource recTan}">
 						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE0E5;" FontFamily="Segoe MDL2 Assets"/>
-						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Continue"/>
+						<TextBlock x:Uid="Match_continue" Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Continue"/>
 						<Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
@@ -123,7 +123,7 @@
 					</Grid>
 					<Grid Grid.Row="0" Grid.Column="2" Style="{StaticResource recTan}">
 						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE105;" FontFamily="Segoe MDL2 Assets"/>
-						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Save session"/>
+						<TextBlock x:Uid="Match_save" Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Save session"/>
 						<Button IsEnabled="{x:Bind ViewModel.isStillNotSaveSession, Mode=OneWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
@@ -134,7 +134,7 @@
 					</Grid>
 					<Grid Grid.Row="1" Grid.Column="0" Style="{StaticResource recTan}">
 						<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE117;" FontFamily="Segoe MDL2 Assets"/>
-						<TextBlock Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Restart"/>
+						<TextBlock x:Uid="Match_restart" Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Restart"/>
 						<Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
@@ -145,15 +145,15 @@
 					</Grid>
 					<Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource recTan}">
 						<TextBlock Margin="5,2" Foreground="{ThemeResource AccentButtonForeground}">
-                            <Run Text="Progress: "/>
+                            <Run x:Uid="Match_detail_progress" Text="Progress: "/>
                             <Run Text="{x:Bind ViewModel.currentChoice,Mode=OneWay}"/>
                             <Run Text="/"/>
                             <Run Text="{x:Bind ViewModel.totalChoice, Mode=OneTime}"/>
                             <LineBreak/>
-                            <Run Text="Wrong: "/>
+                            <Run x:Uid="Match_detail_wrong" Text="Wrong: "/>
                             <Run Text="{x:Bind ViewModel.totalWrong,Mode=OneWay}"/>
                             <LineBreak/>
-                            <Run Text="Time: "/>  
+                            <Run x:Uid="Match_detail_time" Text="Time: "/>  
                             <Run Text="{x:Bind ViewModel.spendedTime,Mode=OneWay}"/>
                             <Run Text="/"/>
                             <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneTime}"/>
@@ -170,10 +170,10 @@
 						<Rectangle Fill="{ThemeResource AccentButtonBackground}"/>
 						<ScrollViewer>
 							<TextBlock FontSize="24" Margin="5">								
-								<Run Text="Started on: "/><Run Text="{x:Bind ViewModel.beginTimeSTR, Mode=OneWay}"/><LineBreak/>
-								<Run Text="Progress: "/><Run Text="{x:Bind ViewModel.currentChoice, Mode=OneWay}"/><Run Text="/"/><Run Text="{x:Bind ViewModel.totalChoice, Mode=OneTime}"/><LineBreak/>
-								<Run Text="Time: "/><Run Text="{x:Bind ViewModel.spendedTime,Mode=OneWay}"/><Run Text="/"/><Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneTime}"/><LineBreak/>
-								<Run Text="Wrong: "/><Run Text="{x:Bind ViewModel.totalWrong,Mode=OneWay}"/><LineBreak/>
+								<Run x:Uid="Config_stat_started" Text="Started on: "/><Run Text="{x:Bind ViewModel.beginTimeSTR, Mode=OneWay}"/><LineBreak/>
+								<Run x:Uid="Match_detail_progress" Text="Progress: "/><Run Text="{x:Bind ViewModel.currentChoice, Mode=OneWay}"/><Run Text="/"/><Run Text="{x:Bind ViewModel.totalChoice, Mode=OneTime}"/><LineBreak/>
+								<Run x:Uid="Match_detail_time" Text="Time: "/><Run Text="{x:Bind ViewModel.spendedTime,Mode=OneWay}"/><Run Text="/"/><Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneTime}"/><LineBreak/>
+								<Run x:Uid="Match_detail_wrong"  Text="Wrong: "/><Run Text="{x:Bind ViewModel.totalWrong,Mode=OneWay}"/><LineBreak/>
 							</TextBlock>
 						</ScrollViewer>
 						<Button Width="40" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right">
@@ -189,9 +189,9 @@
 				<Slider Minimum="8" Maximum="72" Grid.Row="1" Margin="5" Value="{x:Bind ViewModel.FontSize, Mode=TwoWay}">
 					<Slider.Header>
 						<TextBlock>
-                            <Run Text="Display text size ("/>
+                            <Run x:Uid="Edit_size_a" Text="Display text size ("/>
                             <Run Text="{x:Bind ViewModel.FontSize, Mode=OneWay}"/>
-                            <Run Text="):"/>
+                            <Run x:Uid="Edit_size_b" Text=")"/>
 						</TextBlock>
 					</Slider.Header>
 				</Slider>
@@ -340,12 +340,12 @@
 			</Grid>
 			<StackPanel Visibility="{x:Bind ViewModel.isItWriteMode}" VerticalAlignment="Center">
 				<TextBox KeyDown="Writing" x:Name="writeBox" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250" FontSize="24"/>
-				<Button Margin="0,5" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Submit" FontSize="20" Click="SubmitText"/>
+				<Button x:Uid="Config_submit" Margin="0,5" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Submit" FontSize="20" Click="SubmitText"/>
 				<TextBlock Visibility="Collapsed" x:Name="debugInfo" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18"/>
 			</StackPanel>
 		</Grid>
 		<Grid Visibility="{x:Bind ViewModel.BlindThePage, Mode=OneWay}" Background="Black" Grid.Row="0" Grid.RowSpan="3">
-			<TextBlock Text="NO NEED TO HURRY!" FontSize="48" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			<TextBlock x:Uid="Match_calmdown" Text="NO NEED TO HURRY!" FontSize="48" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 		</Grid>
 	</Grid>
 </Page>

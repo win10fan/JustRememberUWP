@@ -1,6 +1,8 @@
 ﻿using JustRemember.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,25 +12,140 @@ namespace JustRemember.Models
 {
 	public class AppConfigModel
 	{
-		public int language { get; set; }
-		public bool isItLightTheme { get; set; }
-		public bool isLimitTime { get; set; }
-		public bool obfuscateWrongText { get; set; }
-		public matchMode defaultMode { get; set; }
-		public double limitTime { get; set; }
-		public int totalChoice { get; set; }
-		public int displayTextSize { get; set; }
-		public bool useSeed { get; set; }
-		public int defaultSeed { get; set; }
-		public bool autoScrollContent { get; set; }
-		public whenFinalChoice AfterFinalChoice { get; set; }
+		public void Set<T>(ref T container, T value)
+		{
+			if (!Equals(container, value))
+			{
+				isDirty = true;
+				container = value;
+			}
+		}
+		
+		int lang;
+		public int language
+		{
+			get => lang;
+			set => Set(ref lang, value);
+		}
+
+		bool light;
+		public bool isItLightTheme
+		{
+			get => light;
+			set => Set(ref light, value);
+		}
+
+
+		bool limittime;
+		public bool isLimitTime
+		{
+			get => limittime;
+			set => Set(ref limittime, value);
+		}
+
+		bool hidewrong;
+		public bool obfuscateWrongText
+		{
+			get => hidewrong;
+			set => Set(ref hidewrong, value);
+		}
+
+		matchMode mode;
+		public matchMode defaultMode
+		{
+			get => mode;
+			set => Set(ref mode, value);
+		}
+
+		double limits;
+		public double limitTime
+		{
+			get => limits;
+			set => Set(ref limits, value);
+		}
+
+		int choices;
+		public int totalChoice
+		{
+			get => choices;
+			set => Set(ref choices, value);
+		}
+
+		int size;
+		public int displayTextSize
+		{
+			get => size;
+			set => Set(ref size, value);
+		}
+
+		bool seed;
+		public bool useSeed
+		{
+			get => seed;
+			set => Set(ref seed, value);
+		}
+
+		int seedi;
+		public int defaultSeed
+		{
+			get => seedi;
+			set => Set(ref seedi, value);
+		}
+
+		bool scroll;
+		public bool autoScrollContent
+		{
+			get => scroll;
+			set => Set(ref scroll, value);
+		}
+
+		whenFinalChoice end;
+		public whenFinalChoice AfterFinalChoice
+		{
+			get => end;
+			set => Set(ref end, value);
+		}
+
+		bool savestat;
 		/// <summary>
 		/// If "AfterFinalChoice" is not "EndPage" always save stat or discard
 		/// </summary>
-		public bool saveStatAfterEnd { get; set; }
-		public bool hintAtFirstchoice { get; set; }
-		public choiceDisplayMode choiceStyle { get; set; }
-		public bool antiSpamChoice { get; set; }
+		public bool saveStatAfterEnd
+		{
+			get => savestat;
+			set => Set(ref savestat, value);
+		}
+
+		bool hint;
+		public bool hintAtFirstchoice
+		{
+			get => hint;
+			set => Set(ref hint, value);
+		}
+
+		choiceDisplayMode style;
+		public choiceDisplayMode choiceStyle
+		{
+			get => style;
+			set => Set(ref style, value);
+		}
+
+		bool nospam;
+		public bool antiSpamChoice
+		{
+			get => nospam;
+			set => Set(ref nospam, value);
+		}
+
+		[JsonIgnore]
+		public static List<string> languages = new List<string>()
+		{
+			"en-US",
+			"th-TH"
+		};
+
+		[JsonIgnore]
+		public static bool isDirty;
 
 		public static async Task<AppConfigModel> Load2()
 		{
@@ -77,6 +194,7 @@ namespace JustRemember.Models
 			return await Json.ToObjectAsync<AppConfigModel>(jsonConfig);
 		}
 
+		[JsonIgnore]
 		bool isSaving;
 		public async Task Save()
 		{
@@ -97,7 +215,7 @@ namespace JustRemember.Models
 			await FileIO.WriteTextAsync(file, settings);
 			isSaving = false;
 		}
-		
+
 		public AppConfigModel()
 		{
 			//Provide default setting
@@ -116,6 +234,45 @@ namespace JustRemember.Models
 			saveStatAfterEnd = true;
 			hintAtFirstchoice = true;
 			antiSpamChoice = true;
+		}
+
+		public static async void SetLanguage(int selected)
+		{
+			var folder = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("lang");
+			if (folder == null)
+			{
+				folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("lang");
+			}
+			else
+			{
+				if (GetLanguage() == languages[App.Config.language])
+				{
+					return;
+				}
+				else
+				{
+					var files = await folder.GetFilesAsync();
+					foreach (var file in files)
+					{
+						await file.DeleteAsync();
+					}
+					await folder.DeleteAsync(StorageDeleteOption.PermanentDelete);
+					SetLanguage(selected);
+				}
+			}
+			await folder.CreateFileAsync(languages[selected]);
+		}
+
+		public static string GetLanguage()
+		{
+			foreach (var lang in languages)
+			{
+				if (File.Exists($"{ApplicationData.Current.LocalFolder.Path}\\lang\\{lang}"))
+				{
+					return languages[languages.IndexOf(lang)];
+				}
+			}
+			return languages[0];
 		}
 	}
 

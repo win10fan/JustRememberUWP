@@ -11,6 +11,10 @@ using Windows.UI;
 using Windows.UI.Xaml.Media;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.Globalization;
+using Windows.System.UserProfile;
+using System.Diagnostics;
+using Windows.ApplicationModel.Resources;
 
 namespace JustRemember
 {
@@ -29,13 +33,15 @@ namespace JustRemember
 		public App()
 		{
 			InitializeComponent();
-
+			ApplicationLanguages.PrimaryLanguageOverride = AppConfigModel.GetLanguage();
+			language = ResourceLoader.GetForViewIndependentUse();
 			//Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
 			_activationService = new Lazy<ActivationService>(CreateActivationService);
 		}
 
 		public static AppConfigModel Config;
 		public static ObservableCollection<StatModel> Stats;
+		public static ResourceLoader language;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
@@ -53,7 +59,7 @@ namespace JustRemember
 				await ActivationService.ActivateAsync(e);
 			}
 			AnnoyPlayer.Initialize();
-			await Task.Run(async () => { while (true) { await Config.Save(); await Task.Delay(TimeSpan.FromSeconds(3)); } });
+			await Task.Run(async () => { while (true) { if (AppConfigModel.isDirty) { await Config.Save(); AppConfigModel.isDirty = false; } } });
 		}
 		
 		/// <summary>

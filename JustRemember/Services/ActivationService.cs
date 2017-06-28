@@ -79,22 +79,18 @@ namespace JustRemember.Services
 
         private async Task InitializeAsync()
         {
-            await Singleton<LiveTileService>.Instance.EnableQueueAsync();
             await ThemeSelectorService.InitializeAsync();
             await Task.CompletedTask;
         }
 
         private async Task StartupAsync()
         {
-            Singleton<LiveTileService>.Instance.SampleUpdate();
             Services.ThemeSelectorService.SetRequestedTheme();
             await Task.CompletedTask;
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
-            yield return Singleton<LiveTileService>.Instance;
-
             yield break;
         }
 

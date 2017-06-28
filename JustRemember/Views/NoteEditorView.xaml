@@ -7,6 +7,15 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
+	<Page.Resources>
+		<ResourceDictionary>
+			<Style x:Key="txtWarn" TargetType="TextBlock">
+				<Setter Property="FontSize" Value="20"/>
+				<Setter Property="Margin" Value="10,0"/>
+				<Setter Property="Foreground" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+			</Style>
+		</ResourceDictionary>
+	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Grid.Resources>
 			<Storyboard x:Name="showMenu">
@@ -29,7 +38,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="0"/>
 			<RowDefinition Height="*"/>
-			<RowDefinition Height="50"/>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*" x:Name="menuPane"/>
 		</Grid.RowDefinitions>
 		<RichEditBox x:Name="mainEdit" Grid.Row="1" FontFamily="{x:Bind editor.FontName, Mode=OneWay}">
@@ -40,14 +49,14 @@
 			</i:Interaction.Behaviors>
 		</RichEditBox>
 		<CommandBar Grid.Row="2" Style="{StaticResource EditorCMD}">
-			<AppBarButton IsEnabled="{x:Bind editor.canUndo, Mode=OneWay}" Label="Undo" Icon="Undo">
+			<AppBarButton IsEnabled="{x:Bind editor.canUndo, Mode=OneWay}" x:Uid="Edit_undo" Label="Undo" Icon="Undo">
 				<i:Interaction.Behaviors>
 					<ic:EventTriggerBehavior EventName="Click">
 						<ic:InvokeCommandAction Command="{x:Bind editor.Undo}"/>
 					</ic:EventTriggerBehavior>
 				</i:Interaction.Behaviors>
 			</AppBarButton>
-			<AppBarButton IsEnabled="{x:Bind editor.canRedo, Mode=OneWay}" Label="Redo" Icon="Redo">
+			<AppBarButton IsEnabled="{x:Bind editor.canRedo, Mode=OneWay}" x:Uid="Edit_redo" Label="Redo" Icon="Redo">
 				<i:Interaction.Behaviors>
 					<ic:EventTriggerBehavior EventName="Click">
 						<ic:InvokeCommandAction Command="{x:Bind editor.Redo}"/>
@@ -68,14 +77,14 @@
 		<ScrollViewer Grid.Row="3">
 			<Grid Margin="5">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="50"/>
+					<RowDefinition Height="55"/>
 					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="50"/>
-					<RowDefinition Height="50"/>
-					<RowDefinition Height="50"/>
-					<RowDefinition Height="50"/>
-					<RowDefinition Height="50"/>
-					<RowDefinition Height="50"/>
+					<RowDefinition Height="55"/>
+					<RowDefinition Height="55"/>
+					<RowDefinition Height="55"/>
+					<RowDefinition Height="55"/>
+					<RowDefinition Height="55"/>
+					<RowDefinition Height="55"/>
 				</Grid.RowDefinitions>
 				<StackPanel Grid.Row="0" Orientation="Horizontal">
 					<SymbolIcon Margin="15" Symbol="Page2" RenderTransformOrigin="0.5,0.5">
@@ -83,7 +92,7 @@
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>
 					</SymbolIcon>
-					<TextBlock Text="New" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+					<TextBlock x:Uid="Edit_new" Text="New" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
 				</StackPanel>
 				<Button Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" Height="50">
 					<i:Interaction.Behaviors>
@@ -108,9 +117,21 @@
 							</i:Interaction.Behaviors>
 						</TextBox>
 					</StackPanel>
-					<TextBlock Visibility="{x:Bind editor.isEmpty, Mode=OneWay}" FontSize="20" Margin="10,0" Text="Name can't be empty" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-					<TextBlock Visibility="{x:Bind editor.isContainIlegalName, Mode=OneWay}" FontSize="20" Margin="10,0" Text="Name can't contains: \ / : * ? &quot; &lt; &gt; |" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-					<TextBlock Visibility="{x:Bind editor.isAlreadyExist, Mode=OneWay}" FontSize="20" Margin="10,0" Text="Name already exist" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+					<TextBlock 
+						Visibility="{x:Bind editor.isEmpty, Mode=OneWay}" 
+						Style="{StaticResource txtWarn}"
+						Text="Name can't be empty"
+						x:Uid="Edit_name_empty"/>
+					<TextBlock 
+						Visibility="{x:Bind editor.isContainIlegalName, Mode=OneWay}" 
+						Style="{StaticResource txtWarn}"
+						Text="Name can't contains: \ / : * ? &quot; &lt; &gt; |"
+						x:Uid="Edit_name_illegal"/>
+					<TextBlock 
+						Visibility="{x:Bind editor.isAlreadyExist, Mode=OneWay}" 
+						Style="{StaticResource txtWarn}"
+						Text="Name already exist"
+						x:Uid="Edit_name_exist"/>
 				</StackPanel>
 				
 				<StackPanel Grid.Row="2" Orientation="Horizontal">
@@ -119,7 +140,7 @@
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>
 					</SymbolIcon>
-					<TextBlock Text="Save" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+					<TextBlock x:Uid="Edit_save" Text="Save" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
 				</StackPanel>
 				<Button Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" Height="50">
 					<i:Interaction.Behaviors>
@@ -135,7 +156,7 @@
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>
 					</SymbolIcon>
-					<TextBlock Text="Load" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+					<TextBlock x:Uid="Edit_load" Text="Load" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
 				</StackPanel>
 				<Button Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" Height="50">
 					<i:Interaction.Behaviors>
@@ -151,7 +172,7 @@
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>
 					</SymbolIcon>
-					<TextBlock Text="Bold" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+					<TextBlock x:Uid="Edit_bold" Text="Bold" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
 				</StackPanel>
 				<ToggleButton Opacity="0.5" Grid.Row="4" IsChecked="{x:Bind editor.isBold, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
@@ -161,7 +182,7 @@
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>
 					</SymbolIcon>
-					<TextBlock Text="Italic" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
+					<TextBlock x:Uid="Edit_italic" Text="Italic" VerticalAlignment="Center" Margin="10,0" FontSize="23"/>
 				</StackPanel>
 				<ToggleButton Opacity="0.5" Grid.Row="5" IsChecked="{x:Bind editor.isItalic, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
@@ -177,15 +198,15 @@
 							</SymbolIcon.RenderTransform>
 						</SymbolIcon>
 						<TextBlock VerticalAlignment="Center" Margin="10,0" FontSize="23">
-						<Run Text="Size ("/>
+						<Run x:Uid="Edit_size_a" Text="Size ("/>
 						<Run Text="{x:Bind editor.FontSize, Mode=OneWay}"/>
-						<Run Text=")"/>
+						<Run x:Uid="Edit_size_b" Text=")"/>
 						</TextBlock>
 					</StackPanel>
 					<Slider Grid.Column="1" VerticalAlignment="Bottom" Margin="10,0,30,0" Minimum="8" Maximum="72" Value="{x:Bind editor.FontSize, Mode=TwoWay}"/>
 				</Grid>
 
-				<TextBlock Text="Note editor 1.0.0.2" Grid.Row="7" FontSize="18"/>
+				<TextBlock x:Uid="Edit_version" Text="Note editor 1.0.0.2" Grid.Row="7" FontSize="18"/>
 			</Grid>
 		</ScrollViewer>
 	</Grid>

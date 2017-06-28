@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,7 +70,8 @@ namespace JustRemember.Models
 			get
 			{
 				if (this == null) { return ""; }
-				return $"{beginTime.Day}/{beginTime.Month}/{beginTime.Year} {beginTime.Hour}:{beginTime.Minute}:{beginTime.Second}";
+				CultureInfo culture = CultureInfo.CurrentCulture;
+				return beginTime.ToString("G", culture);
 			}
 		}
 
@@ -99,13 +101,13 @@ namespace JustRemember.Models
 				switch (setMode)
 				{
 					case matchMode.Easy:
-						return "User choose to skip to next choice. When choose wrong choice";
+						return App.language.GetString("Stat_easy");
 					case matchMode.Normal:
-						return "User choose to stay on the wrong choice, until correct";
+						return App.language.GetString("Stat_normal");
 					case matchMode.Hard:
-						return "User choose to restart. When choose wrong choice";
+						return App.language.GetString("Stat_hard");
 					default:
-						return "Undefined mode";
+						return App.language.GetString("Stat_unknow");
 				}
 			}
 		}
@@ -140,7 +142,7 @@ namespace JustRemember.Models
 			totalTimespend = TimeSpan.FromMilliseconds(0);
 			totalLimitTime = TimeSpan.FromMinutes(5);
 			setMode = matchMode.Easy;
-			noteTitle = "Untitled";
+			noteTitle = App.language.GetString("Note_Untitled");
 			correctedChoice = new List<int>();
 		}
 

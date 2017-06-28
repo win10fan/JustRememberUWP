@@ -87,15 +87,10 @@ namespace JustRemember.Views
 
 		private async void changePage(Pivot sender, PivotItemEventArgs args)
 		{
-			switch (sender.SelectedIndex)
-			{
-				case 0:
-					await MobileTitlebarService.Refresh("Note");
-					return;
-				case 1:
-					await MobileTitlebarService.Refresh("Session");
-					return;
-			}
+			if (sender.SelectedIndex == 0)
+				await MobileTitlebarService.Refresh(App.language.GetString("Home_note"));
+			else if (sender.SelectedIndex == 1)
+				await MobileTitlebarService.Refresh(App.language.GetString("Home_session"));
 		}
 	}
 }

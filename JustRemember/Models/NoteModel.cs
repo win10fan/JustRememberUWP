@@ -97,9 +97,18 @@ namespace JustRemember.Models
 		public static async Task<NoteModel> GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(string path)
 		{
 			StorageFile fol = await StorageFile.GetFileFromPathAsync(path);
+			string displayName = fol.DisplayName;
+			if (displayName.EndsWith(".txt"))
+			{
+				displayName = displayName.Replace(".txt", "");
+			}
+			while (char.IsNumber(displayName[0]))
+			{
+				displayName = displayName.Remove(0, 1);
+			}
 			NoteModel datNote = new NoteModel()
 			{
-				Title = fol.DisplayName,
+				Title = displayName,
 				Content = await FileIO.ReadTextAsync(fol)
 			};
 			return datNote;

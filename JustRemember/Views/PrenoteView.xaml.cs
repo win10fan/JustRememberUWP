@@ -52,7 +52,6 @@ namespace JustRemember.Views
 				vm.NavToAccordingToWhatYouBeenClickOnPathList(pathItem.SelectedIndex);
 				await Task.Delay(500);
 				scItem.ChangeView(0, scItem.HorizontalOffset, scItem.ZoomFactor);
-				//view?.displayTexts?.ChangeView(view.displayTexts.HorizontalOffset, view.displayTexts.ExtentHeight, view.displayTexts.ZoomFactor);
 			}
 		}
 

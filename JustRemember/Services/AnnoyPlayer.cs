@@ -39,6 +39,7 @@ namespace JustRemember.Services
 			var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
 			player.SetSource(stream, file.ContentType);
 			player.Play();
+			player.Volume = 100;
 		}
 
 		public static void Play()

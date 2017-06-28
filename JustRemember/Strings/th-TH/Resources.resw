@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Home_add.Label" xml:space="preserve">
+    <value>เพิ่ม</value>
+  </data>
+  <data name="Home_delete.Label" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="Home_deselect.Label" xml:space="preserve">
+    <value>ไม่เลือก</value>
+  </data>
+  <data name="Home_edit.Label" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="Home_import.Label" xml:space="preserve">
+    <value>นำเข้า</value>
+  </data>
+  <data name="Home_initializeSetting.Text" xml:space="preserve">
+    <value>กำลังเตรียมการตั้งค่า</value>
+  </data>
+  <data name="Home_NoNote1.Text" xml:space="preserve">
+    <value>ไม่พบชีทที่บันทึกไว้</value>
+  </data>
+  <data name="Home_NoNote2.Text" xml:space="preserve">
+    <value>สามารถเพิ่มชีทได้ โดยเขียนชีทใหม่</value>
+  </data>
+  <data name="Home_NoNote3.Text" xml:space="preserve">
+    <value>หรือนำเข้าไฟล์ข้อความ</value>
+  </data>
+  <data name="Home_NoNote4.Text" xml:space="preserve">
+    <value>โดยคลิกเมนูด้านล่าง</value>
+  </data>
+  <data name="Home_open.Label" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="Home_prenoteMenu.Label" xml:space="preserve">
+    <value>ชีทที่มีอยู่</value>
+  </data>
+  <data name="Home_reload.Label" xml:space="preserve">
+    <value>โหลดใหม่</value>
+  </data>
+  <data name="Config_about_made.Text" xml:space="preserve">
+    <value>สร้างโดย</value>
+  </data>
+  <data name="Config_about_runon.Text" xml:space="preserve">
+    <value>สำหรับ Windows 10</value>
+  </data>
+  <data name="Config_autoscroll.Text" xml:space="preserve">
+    <value>เลื่อนข้อความอัตโนมัติ</value>
+  </data>
+  <data name="Config_c1a.Text" xml:space="preserve">
+    <value>๑</value>
+    <comment>..</comment>
+  </data>
+  <data name="Config_c1b.Text" xml:space="preserve">
+    <value>ก</value>
+  </data>
+  <data name="Config_c2a.Text" xml:space="preserve">
+    <value>๒</value>
+  </data>
+  <data name="Config_c2b.Text" xml:space="preserve">
+    <value>ฟ</value>
+  </data>
+  <data name="Config_c3a.Text" xml:space="preserve">
+    <value>๓</value>
+  </data>
+  <data name="Config_c3b.Text" xml:space="preserve">
+    <value>ฆ</value>
+  </data>
+  <data name="Config_choicelook.Text" xml:space="preserve">
+    <value>รูปแบบ</value>
+  </data>
+  <data name="Config_choices.Text" xml:space="preserve">
+    <value>จำนวนข้อ</value>
+  </data>
+  <data name="Config_delall" xml:space="preserve">
+    <value>ลบสถิติ</value>
+  </data>
+  <data name="Config_end.Text" xml:space="preserve">
+    <value>เมื่อหมดตัวเลือก</value>
+  </data>
+  <data name="Config_end_a.Content" xml:space="preserve">
+    <value>รายงานสถิติ</value>
+  </data>
+  <data name="Config_end_and.Text" xml:space="preserve">
+    <value>และ</value>
+  </data>
+  <data name="Config_end_b.Content" xml:space="preserve">
+    <value>เริ่มใหม่</value>
+  </data>
+  <data name="Config_end_c.Content" xml:space="preserve">
+    <value>กลับเมนูหลัก</value>
+  </data>
+  <data name="Config_fontsize.Text" xml:space="preserve">
+    <value>ขนาดตัวหนังสือ</value>
+  </data>
+  <data name="Config_hint.Text" xml:space="preserve">
+    <value>บอกใบ้ข้อแรก</value>
+  </data>
+  <data name="Config_language.Text" xml:space="preserve">
+    <value>ภาษา</value>
+  </data>
+  <data name="Config_reset_a.Content" xml:space="preserve">
+    <value>รีเซทตั้งค่า</value>
+  </data>
+  <data name="Config_reset_b.Content" xml:space="preserve">
+    <value>ล้างสถิติ</value>
+  </data>
+  <data name="Config_reset_c.Content" xml:space="preserve">
+    <value>ลบบันทึกทั้งหมด</value>
+  </data>
+  <data name="Config_reset_d.Content" xml:space="preserve">
+    <value>ลบชีทที่มีอยู่</value>
+  </data>
+  <data name="Config_reset_e.Content" xml:space="preserve">
+    <value>รีเซทค่าทุกอย่าง</value>
+  </data>
+  <data name="Config_saveall" xml:space="preserve">
+    <value>บันทึกสถิติ</value>
+  </data>
+  <data name="Config_stat_corrected.Text" xml:space="preserve">
+    <value>ตัวเลือกที่ถูก</value>
+  </data>
+  <data name="Config_stat_count_format" xml:space="preserve">
+    <value>[{0}] - [{1}]</value>
+    <comment>0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</comment>
+  </data>
+  <data name="Config_stat_no" xml:space="preserve">
+    <value>ไม่มีสถิติบันทึกไว้</value>
+  </data>
+  <data name="Config_stat_prural" xml:space="preserve">
+    <value>สถิติ</value>
+  </data>
+  <data name="Config_stat_selected.Text" xml:space="preserve">
+    <value>ข้อที่เลือก</value>
+  </data>
+  <data name="Config_stat_single" xml:space="preserve">
+    <value>สถิติ</value>
+  </data>
+  <data name="Config_stat_started.Text" xml:space="preserve">
+    <value>เริ่มต้นเมื่อ</value>
+  </data>
+  <data name="Config_stat_time_a.Text" xml:space="preserve">
+    <value>ครั้งนี้ ใช้เวลา </value>
+  </data>
+  <data name="Config_stat_time_b.Text" xml:space="preserve">
+    <value>ด้วย</value>
+  </data>
+  <data name="Config_submit.Content" xml:space="preserve">
+    <value>ส่ง</value>
+  </data>
+  <data name="Config_timelimit.Text" xml:space="preserve">
+    <value>จำกัด (นาที)</value>
+  </data>
+  <data name="Config_timelimit_use.Text" xml:space="preserve">
+    <value>จำกัดเวลา</value>
+  </data>
+  <data name="Config_uselight.Text" xml:space="preserve">
+    <value>ใช้โหมดสว่าง</value>
+  </data>
+  <data name="Config_when_wrong.Text" xml:space="preserve">
+    <value>เมื่อเลือกข้อผิด</value>
+  </data>
+  <data name="Config_wrong_a.Content" xml:space="preserve">
+    <value>ลัดไปข้อถัดไป</value>
+  </data>
+  <data name="Config_wrong_b.Content" xml:space="preserve">
+    <value>อยู่ข้อเดิมจนกว่าจะถูก</value>
+  </data>
+  <data name="Config_wrong_c.Content" xml:space="preserve">
+    <value>เริ่มใหม่</value>
+  </data>
+  <data name="Config_wrong_hide.Text" xml:space="preserve">
+    <value>ซ่อนคำตอบ</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>ช่วยจำ</value>
+  </data>
+  <data name="Home_note" xml:space="preserve">
+    <value>บันทึกย่อ</value>
+  </data>
+  <data name="Home_note_count_format" xml:space="preserve">
+    <value>[{0}] - [{1}]</value>
+    <comment>0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</comment>
+  </data>
+  <data name="Home_note_prural" xml:space="preserve">
+    <value>บันทึกย่อ</value>
+  </data>
+  <data name="Home_note_single" xml:space="preserve">
+    <value>หมายเหตุ</value>
+  </data>
+  <data name="Home_session" xml:space="preserve">
+    <value>เซสชัน</value>
+  </data>
+  <data name="Home_session_count_format" xml:space="preserve">
+    <value>[{0}] - [{1}]</value>
+    <comment>same as note count</comment>
+  </data>
+  <data name="Home_session_no" xml:space="preserve">
+    <value>คุณไม่มีเซฟ</value>
+  </data>
+  <data name="Home_session_prural" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="Home_session_single" xml:space="preserve">
+    <value>เซสชัน</value>
+  </data>
+  <data name="Config_about" xml:space="preserve">
+    <value>อื่นๆ</value>
+  </data>
+  <data name="Config_general" xml:space="preserve">
+    <value>การตั้งค่าทั่วไป:</value>
+  </data>
+  <data name="Config_session" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="Config_stat" xml:space="preserve">
+    <value>สถิติ</value>
+  </data>
+  <data name="Edit_bold.Text" xml:space="preserve">
+    <value>ตัวหนา</value>
+  </data>
+  <data name="Edit_italic.Text" xml:space="preserve">
+    <value>ตัวเอียง</value>
+  </data>
+  <data name="Edit_load.Text" xml:space="preserve">
+    <value>โหลด</value>
+  </data>
+  <data name="Edit_name_empty.Text" xml:space="preserve">
+    <value>ชื่อต้องไม่เว้นว่างไว้</value>
+  </data>
+  <data name="Edit_name_exist.Text" xml:space="preserve">
+    <value>ชื่อนี้มีแล้ว</value>
+  </data>
+  <data name="Edit_name_illegal.Text" xml:space="preserve">
+    <value>ห้ามใส่อักษรเหล่านี้ในชื่อ: \ / : * ? " &lt; &gt; |</value>
+  </data>
+  <data name="Edit_new.Text" xml:space="preserve">
+    <value>สร้าง</value>
+  </data>
+  <data name="Edit_redo.Label" xml:space="preserve">
+    <value>ทําซ้ำ</value>
+  </data>
+  <data name="Edit_size_a.Text" xml:space="preserve">
+    <value>ขนาด</value>
+  </data>
+  <data name="Edit_undo.Label" xml:space="preserve">
+    <value>เลิกทำ</value>
+  </data>
+  <data name="Edit_version.Text" xml:space="preserve">
+    <value>แก้ไขชีท 1.0.0.2</value>
+  </data>
+  <data name="Match_calmdown.Text" xml:space="preserve">
+    <value>ใจเย็นๆ 
+ไม่ต้องรีบ</value>
+  </data>
+  <data name="Match_continue.Text" xml:space="preserve">
+    <value>ดำเนินการต่อ</value>
+  </data>
+  <data name="Match_detail_progress.Text" xml:space="preserve">
+    <value>ความคืบหน้า</value>
+  </data>
+  <data name="Match_detail_time.Text" xml:space="preserve">
+    <value>เวลา</value>
+  </data>
+  <data name="Match_detail_wrong.Text" xml:space="preserve">
+    <value>ผิด:</value>
+  </data>
+  <data name="Match_dialog_confirm_content" xml:space="preserve">
+    <value>คุณแน่ใจแล้วใช่ไหม?</value>
+  </data>
+  <data name="Match_dialog_confirm_title" xml:space="preserve">
+    <value>ยืนยัน</value>
+  </data>
+  <data name="Match_dialog_no" xml:space="preserve">
+    <value>ไม่ใช่</value>
+  </data>
+  <data name="Match_dialog_notyet_content" xml:space="preserve">
+    <value>ไม่ใช่ตอนนี้</value>
+  </data>
+  <data name="Match_dialog_ok" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
+  <data name="Match_dialog_reset_content" xml:space="preserve">
+    <value>แน่ใจแล้วใช่ไหมว่าจะเริ่มใหม่?</value>
+  </data>
+  <data name="Match_dialog_reset_title" xml:space="preserve">
+    <value>คุณแน่ใจหรือไม่</value>
+  </data>
+  <data name="Match_dialog_timeup_content" xml:space="preserve">
+    <value>ครั้งหน้าเร็วๆ หน่อยก็ดี</value>
+  </data>
+  <data name="Match_dialog_timeup_title" xml:space="preserve">
+    <value>หมดเวลา</value>
+  </data>
+  <data name="Match_dialog_yes" xml:space="preserve">
+    <value>ใช่</value>
+  </data>
+  <data name="Match_leave.Text" xml:space="preserve">
+    <value>ออก</value>
+  </data>
+  <data name="Match_restart.Text" xml:space="preserve">
+    <value>เริ่มใหม่</value>
+  </data>
+  <data name="Match_save.Text" xml:space="preserve">
+    <value>บันทึกไว้ภายหลัง</value>
+  </data>
+  <data name="Note_Untitled" xml:space="preserve">
+    <value>ไม่มีชื่อ</value>
+  </data>
+  <data name="PNote_edit.Label" xml:space="preserve">
+    <value>คัดลอกและแก้ไข</value>
+  </data>
+  <data name="PNote_refresh.Label" xml:space="preserve">
+    <value>รีเฟรช</value>
+  </data>
+  <data name="PublisherDisplayName" xml:space="preserve">
+    <value>Toon</value>
+  </data>
+  <data name="Stat_easy" xml:space="preserve">
+    <value>ลัดไปข้อถัดไป เมื่อตอบผิด</value>
+  </data>
+  <data name="Stat_hard" xml:space="preserve">
+    <value>เมื่อเลือกข้อผิด เริ่มใหม่</value>
+  </data>
+  <data name="Stat_normal" xml:space="preserve">
+    <value>อยู่ข้อเดิม จนกว่าจะตอบถูก</value>
+  </data>
+  <data name="Stat_unknow" xml:space="preserve">
+    <value>ไม่ทราบ</value>
+  </data>
+  <data name="Edit_save.Text" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+</root>

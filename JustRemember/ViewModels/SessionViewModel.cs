@@ -15,6 +15,7 @@ using JustRemember.Services;
 using System.Windows.Input;
 using JustRemember.Helpers;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace JustRemember.ViewModels
 {
@@ -135,7 +136,12 @@ namespace JustRemember.ViewModels
 
 		public string beginTimeSTR
 		{
-			get { if (current == null) { return ""; } return current.StatInfo.startedTime; }
+			get
+			{
+				if (current == null) { return ""; }
+				CultureInfo culture = CultureInfo.CurrentCulture;
+				return current.StatInfo.beginTime.ToString("G", culture);
+			}
 		}
 
 		public Visibility detailStat { get; set; } = Visibility.Collapsed;
@@ -302,7 +308,7 @@ namespace JustRemember.ViewModels
 			{
 				if (current == null) { return "--:--"; }
 				if (current?.StatInfo?.isTimeLimited == false) { return "--:--"; }
-				return $"{current?.StatInfo?.totalLimitTime.Minutes:00}:{current.StatInfo?.totalLimitTime.Seconds}";
+				return $"{current?.StatInfo?.totalLimitTime.Minutes:00}:{current.StatInfo?.totalLimitTime.Seconds:00}";
 			}
 		}
 
@@ -364,34 +370,40 @@ namespace JustRemember.ViewModels
 			DebugChoose = new RelayCommand<RoutedEventArgs>(DEBUGCHOOSE);
 
 			//Dialogs
-			confirm = new MessageDialog("Do you want to leave this session?", "Confirm");
+			confirm = new MessageDialog(
+				App.language.GetString("Match_dialog_confirm_content"), 
+				App.language.GetString("Match_dialog_confirm_title"));
 			confirm.Commands.Add(new UICommand()
 			{
 				Invoked = delegate { NavigationService.GoBack(); },
-				Label = "Yes"
+				Label = App.language.GetString("Match_dialog_yes")
 			});
-			confirm.Commands.Add(new UICommand("No"));
+			confirm.Commands.Add(new UICommand(App.language.GetString("Match_dialog_no")));
 
-			resetmatch = new MessageDialog("This will reset current session to start!", "Are you sure?");
+			resetmatch = new MessageDialog(
+				App.language.GetString("Match_dialog_reset_content"),
+				App.language.GetString("Match_dialog_reset_title"));
 			resetmatch.Commands.Add(new UICommand()
 			{
 				Invoked = delegate { Restart(); },
-				Label = "Yes"
+				Label = App.language.GetString("Match_dialog_yes")
 			});
-			resetmatch.Commands.Add(new UICommand("No"));
+			resetmatch.Commands.Add(new UICommand(App.language.GetString("Match_dialog_no")));
 
-			notyet = new MessageDialog("Not now");
-			notyet.Commands.Add(new UICommand("OK"));
+			notyet = new MessageDialog(App.language.GetString("Match_dialog_notyet_content"));
+			notyet.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
 
-			timeup = new MessageDialog("Faster next time", "Times up!");
+			timeup = new MessageDialog(
+				App.language.GetString("Match_dialog_timeup_content"),
+				App.language.GetString("Match_dialog_timeup_title"));
 			timeup.Commands.Add(new UICommand()
 			{
 				Invoked = delegate
 				{
 					Restart();
 				},
-				Label = "OK"
-			});
+				Label = App.language.GetString("Match_dialog_ok")
+		});
 		}
 		
 		private async void DEBUGCHOOSE(RoutedEventArgs obj)
@@ -659,7 +671,7 @@ namespace JustRemember.ViewModels
 			{
 				//No choice made yet
 				current.selectedChoices.Add(new SelectedChoices());
-				OnPropertyChanged("choicesSelected");
+				OnPropertyChanged(nameof(choicesSelected));
 			}
 			//
 			if (IsItRightChoice)
@@ -747,11 +759,11 @@ namespace JustRemember.ViewModels
 			});
 		}
 
-		const string t1 = "1: ";
-		const string t2 = "2: ";
-		const string t3 = "3: ";
-		const string t4 = "4: ";
-		const string t5 = "5: ";
+		string t1 { get => App.language.GetString("Match_choice_1"); }
+		string t2 { get => App.language.GetString("Match_choice_2"); }
+		string t3 { get => App.language.GetString("Match_choice_3"); }
+		string t4 { get => App.language.GetString("Match_choice_4"); }
+		string t5 { get => App.language.GetString("Match_choice_5"); }
 		/// <summary>
 		/// Update the UI including choices visibility etc.
 		/// </summary>

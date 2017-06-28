@@ -66,13 +66,40 @@
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="0">
-							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Use light theme" Style="{ThemeResource settingTitleLabel}"/>
+						<StackPanel Grid.Row="0">
+							<TextBlock 
+								Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+								Text="Use light theme" 
+								Style="{ThemeResource settingTitleLabel}"
+								x:Uid="Config_language"/>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Margin="5,10,0,0" SelectedIndex="{x:Bind config.language, Mode=TwoWay}">
+									<ListBoxItem Content="English"/>
+									<ListBoxItem Content="ภาษาไทย"/>
+								</ListBox>
+							</Grid>
+						</StackPanel>
+						
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="1">
+							<TextBlock 
+								Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+								Text="Use light theme" 
+								Style="{ThemeResource settingTitleLabel}"
+								x:Uid="Config_uselight"/>
 							<ToggleSwitch IsOn="{x:Bind config.useLight, Mode=TwoWay}"/>
 						</StackPanel>
 
-						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="1">
-							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Choice style" Style="{ThemeResource settingTitleLabel}"/>
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="2">
+							<TextBlock 
+								Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+								Text="Choice style" 
+								x:Uid="Config_choicelook"
+								Style="{ThemeResource settingTitleLabel}"/>
 							<ListBox SelectedIndex="{x:Bind config.choiceMode,Mode=TwoWay}" Margin="0,5">
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
@@ -82,13 +109,19 @@
 								<ListBoxItem>
 									<Grid Width="90" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center">
 										<Grid.RowDefinitions>
-											<RowDefinition Height="*"/>
-											<RowDefinition Height="*"/>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="Auto"/>
 											<RowDefinition Height="*"/>
 										</Grid.RowDefinitions>
-										<Button HorizontalAlignment="Center" Content="A" FontSize="8" Grid.Row="0"/>
-										<Button HorizontalAlignment="Center" Content="F" FontSize="8" Grid.Row="1"/>
-										<Button HorizontalAlignment="Center" Content="K" FontSize="8" Grid.Row="2"/>
+										<Button HorizontalAlignment="Center" FontSize="8" Grid.Row="0">
+											<TextBlock x:Uid="Config_c1b" Text="A"/>
+										</Button>
+										<Button HorizontalAlignment="Center" FontSize="8" Grid.Row="1">
+											<TextBlock x:Uid="Config_c2b" Text="F"/>
+										</Button>
+										<Button HorizontalAlignment="Center" FontSize="8" Grid.Row="2">
+											<TextBlock x:Uid="Config_c3b" Text="K"/>
+										</Button>
 									</Grid>
 								</ListBoxItem>
 								<ListBoxItem>
@@ -98,14 +131,20 @@
 											<RowDefinition Height="*"/>
 										</Grid.RowDefinitions>
 										<TextBlock FontSize="10">
-													<Run Text="1.A"/><LineBreak/>
-												<Run Text="2.F"/><LineBreak/>
-												<Run Text="3.K"/>
+											<Run x:Uid="Config_c1a" Text="1"/><Run Text="."/><Run x:Uid="Config_c1b" Text="A"/><LineBreak/>
+											<Run x:Uid="Config_c2a" Text="2"/><Run Text="."/><Run x:Uid="Config_c2b" Text="F"/><LineBreak/>
+											<Run x:Uid="Config_c3a" Text="3"/><Run Text="."/><Run x:Uid="Config_c3b" Text="K"/><LineBreak/>
 										</TextBlock>
 										<StackPanel Margin="0,5,0,0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-											<Button Content="1" FontSize="10"/>
-											<Button Content="2" FontSize="10" Margin="5,0"/>
-											<Button Content="3" FontSize="10"/>
+											<Button FontSize="10">
+												<TextBlock x:Uid="Config_c1a" Text="1"/>
+											</Button>
+											<Button FontSize="10" Margin="5,0">
+												<TextBlock x:Uid="Config_c2a" Text="2"/>
+											</Button>
+											<Button FontSize="10">
+												<TextBlock x:Uid="Config_c3a" Text="3"/>
+											</Button>
 										</StackPanel>
 									</Grid>
 								</ListBoxItem>
@@ -116,14 +155,18 @@
 											<RowDefinition Height="*"/>
 										</Grid.RowDefinitions>
 										<TextBox/>
-										<Button Grid.Row="1" Content="Submit" HorizontalAlignment="Center"/>
+										<Button Grid.Row="1" x:Uid="Config_submit" Content="Submit" HorizontalAlignment="Center"/>
 									</Grid>
 								</ListBoxItem>
 							</ListBox>
 						</StackPanel>
 
-						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="2">
-							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Display font size" Style="{ThemeResource settingTitleLabel}"/>
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="3">
+							<TextBlock 
+								Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+								Text="Display font size" 
+								x:Uid="Config_fontsize"
+								Style="{ThemeResource settingTitleLabel}"/>
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*"/>
@@ -134,28 +177,39 @@
 							</Grid>
 						</StackPanel>
 
-
-						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="3">
-							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Display text auto scroll" Style="{ThemeResource settingTitleLabel}"/>
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="4">
+							<TextBlock 
+								Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+								Text="Display text auto scroll" 
+								x:Uid="Config_autoscroll"
+								Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.autoScroll, Mode=TwoWay}"/>
 						</StackPanel>
 
-						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="4">
-							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="After final choice" Style="{ThemeResource settingTitleLabel}"/>
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="5">
+							<TextBlock 
+								Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+								Text="After final choice" 
+								x:Uid="Config_end"
+								Style="{ThemeResource settingTitleLabel}"/>
 							<Grid>
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="Auto"/>
 									<ColumnDefinition Width="*"/>
 								</Grid.ColumnDefinitions>
-								<ListBox SelectionChanged="afterEndCH" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,10,0,0" SelectedIndex="{x:Bind config.afterEnd, Mode=TwoWay}">
-									<ListBoxItem Content="Go to summary page"/>
-									<ListBoxItem Content="Restart match"/>
-									<ListBoxItem Content="Go back to main page"/>
+								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Margin="5,10,0,0" SelectedIndex="{x:Bind config.afterEnd, Mode=TwoWay}">
+									<ListBoxItem x:Uid="Config_end_a" Content="Go to summary page"/>
+									<ListBoxItem x:Uid="Config_end_b" Content="Restart match"/>
+									<ListBoxItem x:Uid="Config_end_c" Content="Go back to main page"/>
 								</ListBox>
 							</Grid>
 							<StackPanel x:Name="showNE" Margin="5,0" Visibility="{x:Bind config.showNotEndPage, Mode=OneWay}">
-								<TextBlock  Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="And..." Style="{ThemeResource settingTitleLabel}"/>
+								<TextBlock 
+									Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+									Text="And..." 
+									x:Uid="Config_end_and"
+									Style="{ThemeResource settingTitleLabel}"/>
 								<CheckBox IsChecked="{x:Bind config.saveAllStat, Mode=TwoWay}" Content="{x:Bind config.saveAllString, Mode=OneWay}"/>
 							</StackPanel>
 						</StackPanel>
@@ -196,7 +250,7 @@
 						</Grid.RowDefinitions>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="0">
-							<TextBlock Text="Total choices" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock x:Uid="Config_choices" Text="Max choice" Style="{ThemeResource settingTitleLabel}"/>
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*"/>
@@ -208,36 +262,36 @@
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="1">
-							<TextBlock Text="Use time limit" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock x:Uid="Config_timelimit_use" Text="Use time limit" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.useTimeLimit, Mode=TwoWay}"/>
 						</StackPanel>
 
 						<StackPanel Visibility="{x:Bind config.showTimePicker,Mode=OneWay}" Style="{ThemeResource stackSettingItem}" Grid.Row="2">
-							<TextBlock Text="Total limit" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock x:Uid="Config_timelimit" Text="Total limit" Style="{ThemeResource settingTitleLabel}"/>
 							<TimePicker ClockIdentifier="24HourClock" TimeChanged="timeChanged" Loaded="TimePicker_Loaded"/>
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="3">
-							<TextBlock Text="Hint at first choice" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock x:Uid="Config_hint" Text="Hint at first choice" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.hintOnFirst, Mode=TwoWay}"/>
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="5">
-							<TextBlock Text="After final choice" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock x:Uid="Config_when_wrong" Text="When choose wrong choice" Style="{ThemeResource settingTitleLabel}"/>
 							<Grid>
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="Auto"/>
 									<ColumnDefinition Width="*"/>
 								</Grid.ColumnDefinitions>
 								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Margin="5,10,0,0" SelectedIndex="{x:Bind config.difficultSet, Mode=TwoWay}">
-									<ListBoxItem Content="Skip to next choice"/>
-									<ListBoxItem Content="Stay at same choice"/>
-									<ListBoxItem Content="Reset match"/>
+									<ListBoxItem x:Uid="Config_wrong_a" Content="Skip to next choice"/>
+									<ListBoxItem x:Uid="Config_wrong_b" Content="Stay at same choice until correct"/>
+									<ListBoxItem x:Uid="Config_wrong_c" Content="Reset match"/>
 								</ListBox>
 							</Grid>
 							<StackPanel Margin="5,0" Visibility="{x:Bind config.isEasySelected, Mode=OneWay}">
-								<TextBlock Text="Obfuscate wrong choice" Style="{ThemeResource settingTitleLabel}"/>
+								<TextBlock x:Uid="Config_wrong_hide" Text="Obfuscate wrong choice" Style="{ThemeResource settingTitleLabel}"/>
 								<ToggleSwitch IsOn="{x:Bind config.showWrongContent, Mode=TwoWay}"/>
 							</StackPanel>
 						</StackPanel>
@@ -315,17 +369,17 @@
 							<SymbolIcon Symbol="Cancel"/>
 						</Button>
 						<TextBlock Grid.Row="1" Style="{ThemeResource settingTitleLabel}">
-							<Run Text="Started on "/>
+							<Run x:Uid="Config_stat_started" Text="Started on "/>
 							<Run Text="{x:Bind config.selectedStat.begintimeSTR,Mode=OneWay}"/>
 						</TextBlock>
 						<TextBlock Visibility="{x:Bind config.selectedStat.wasTimeLimited, Mode=OneWay}" Grid.Row="2" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords">
-							<Run Text="This session took "/>
+							<Run Text="This session took " x:Uid="Config_stat_time_a"/>
 							<Run Text="{x:Bind config.selectedStat.totalTimespend, Mode=OneWay}"/>
-							<Run Text=" with "/>
+							<Run Text=" with " x:Uid="Config_stat_time_b"/>
 							<Run Text="{x:Bind config.selectedStat.timeLeft, Mode=OneWay}"/>
-							<Run Text=" left before "/>
+							<Run Text=" left before " x:Uid="Config_stat_time_c"/>
 							<Run Text="{x:Bind config.timeLimit,Mode=OneWay}"/>
-							<Run Text=" limit"/>
+							<Run Text=" limit" x:Uid="Config_stat_time_d"/>
 						</TextBlock>
 						<TextBlock Grid.Row="3" Text="{x:Bind config.selectedStat.modeTXT, Mode=OneWay}" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords"/>
 						<ScrollViewer VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Visible" Grid.Row="4" Height="150" VerticalScrollMode="Disabled" HorizontalScrollMode="Enabled">
@@ -356,6 +410,16 @@
 								</rad:RadCartesianChart>
 							</StackPanel>
 						</ScrollViewer>
+						<StackPanel Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Vertical">
+							<StackPanel Orientation="Horizontal">
+								<Rectangle Fill="{ThemeResource AccentButtonBackground}" Width="15" Height="15"/>
+								<TextBlock x:Uid="Config_stat_selected" Text="Selected choice" Margin="5,0"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<Rectangle Fill="#FF008F00" Width="15" Height="15"/>
+								<TextBlock x:Uid="Config_stat_corrected" Text="Corrected choice" Margin="5,0"/>
+							</StackPanel>
+						</StackPanel>
 					</Grid>
 				</Grid>
 			</PivotItem>
@@ -373,38 +437,38 @@
 					<ItemsControl Margin="0,5">
 						<TextBlock Style="{ThemeResource settingTitleLabel}">
 							<Run Text="{x:Bind config.AppName, Mode=OneTime}"/><Run Text=" "/><Run Text="{x:Bind config.AppVersion, Mode=OneTime}"/><LineBreak/>
-							<Run Text="Running on Windows 10 "/><Run Text="{x:Bind config.AppRunOn, Mode=OneTime}"/><LineBreak/>
-							<Run Text="Made by @"/><Run Text="{x:Bind config.AppMaker, Mode=OneTime}"/><LineBreak/>
+							<Run x:Uid="Config_about_runon" Text="Running on Windows 10 "/><Run Text="{x:Bind config.AppRunOn, Mode=OneTime}"/><LineBreak/>
+							<Run x:Uid="Config_about_made" Text="Made by @"/><Run Text="{x:Bind config.AppMaker, Mode=OneTime}"/><LineBreak/>
 						</TextBlock>
-						<Button Content="Reset setting">
+						<Button Content="Reset setting" x:Uid="Config_reset_a">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind config.ResetConfig}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</Button>
-						<Button Margin="0,5,0,0" Content="Reset stat">
+						<Button Margin="0,5,0,0" Content="Reset stat" x:Uid="Config_reset_b">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind config.ResetStat}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</Button>
-						<Button Margin="0,5,0,0" Content="Reset sessions">
+						<Button Margin="0,5,0,0" Content="Reset sessions" x:Uid="Config_reset_c">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind config.ResetSessions}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</Button>
-						<Button Margin="0,5,0,0" Content="Remove all user note">
+						<Button Margin="0,5,0,0" Content="Remove all user note" x:Uid="Config_reset_d">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind config.ResetNotes}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</Button>
-						<Button Margin="0,5,0,0" Content="Reset everything">
+						<Button Margin="0,5,0,0" Content="Reset everything" x:Uid="Config_reset_e">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind config.ResetAll}"/>

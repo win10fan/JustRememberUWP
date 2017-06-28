@@ -95,6 +95,12 @@
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
+  <PropertyGroup Label="MultilingualAppToolkit">
+    <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
+    <MultilingualFallbackLanguage>en-US</MultilingualFallbackLanguage>
+    <TranslationReport Condition="'$(Configuration)' == 'Release'">true</TranslationReport>
+    <SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
+  </PropertyGroup>
   <ItemGroup>
     <!-- Nuget package references -->
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
@@ -136,8 +142,6 @@
     <Compile Include="Services\PrenoteService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="ViewModels\AppConfigViewModel.cs" />
-    <Compile Include="ViewModels\EndViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NoteEditorViewModel.cs" />
     <Compile Include="ViewModels\NotesViewModel.cs" />
     <Compile Include="ViewModels\PrenoteViewModel.cs" />
@@ -314,6 +318,7 @@
     <Content Include="Assets\Fonts\THSarabunNewItalic.ttf" />
     <Content Include="Assets\Fonts\THSarabunNew.ttf" />
     <None Include="JustRemember_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\th-TH\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -352,10 +357,17 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="MultilingualResources\JustRemember.th-TH.xlf" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.PriResources.targets')" />
+  <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets')" Label="MultilingualAppToolkit">
+    <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

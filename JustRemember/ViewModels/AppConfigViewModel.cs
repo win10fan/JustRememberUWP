@@ -67,8 +67,8 @@ namespace JustRemember.ViewModels
 
 		public async void RESETCONFIG(RoutedEventArgs obj)
 		{
-			AppConfigModel res = new AppConfigModel();
-			await res.Save();
+			App.Config = new AppConfigModel();
+			AppConfigModel.isDirty = true;
 			NavigationService.GoBack();
 		}
 		public async void RESETSTAT(RoutedEventArgs obj)
@@ -78,6 +78,7 @@ namespace JustRemember.ViewModels
 			{
 				await fol.DeleteAsync(StorageDeleteOption.PermanentDelete);
 			}
+			App.Stats.Clear();
 			NavigationService.GoBack();
 		}
 		public async void RESETSESSIONS(RoutedEventArgs obj)
@@ -100,8 +101,9 @@ namespace JustRemember.ViewModels
 		}
 		public async void RESETALL(RoutedEventArgs obj)
 		{
-			AppConfigModel res = new AppConfigModel();
-			await res.Save();
+			App.Config = new AppConfigModel();
+			AppConfigModel.isDirty = true;
+			App.Stats.Clear();
 			StorageFolder fol = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Stat");
 			if (fol != null)
 			{
@@ -186,7 +188,7 @@ namespace JustRemember.ViewModels
 		
 		public bool saveAllStat { get => config.saveStatAfterEnd; set { config.saveStatAfterEnd = value; OnPropertyChanged(nameof(saveAllStat)); OnPropertyChanged(nameof(saveAllString)); } }
 
-		public string saveAllString { get => config.saveStatAfterEnd ? "Save all stat" : "Delete all stat"; }
+		public string saveAllString { get => config.saveStatAfterEnd ? App.language.GetString("Config_saveall") : App.language.GetString("Config_delall"); }
 
 		public Visibility showNotEndPage
 		{
@@ -239,11 +241,13 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				if (stats == null) { return "Stat list is empty"; }
-				if (stats.Count == 0) { return "Stat list is empty"; }
-				string s = stats.Count == 1 ? "" : "s";
-				string stat = $"{stats.Count} stat{s}";
-				return stat;
+				if (stats?.Count < 1)
+				{
+					return App.language.GetString("Config_stat_no");
+				}
+				return string.Format(App.language.GetString("Config_stat_count_format"),
+					stats?.Count,
+					stats?.Count == 1 ? App.language.GetString("Config_stat_single") : App.language.GetString("Config_stat_prural"));
 			}
 		}
 
@@ -281,7 +285,7 @@ namespace JustRemember.ViewModels
 		public string AppName { get => Package.Current.DisplayName; }
 		public string AppMaker { get => Package.Current.PublisherDisplayName; }
 		public string AppRunOn { get => app.Architecture.ToString(); }
-		public string AppVersion { get => $"{app.Version.Major}.{app.Version.Minor}.{app.Version.Revision}{app.Version.Build}"; }
+		public string AppVersion { get => $"{app.Version.Major}.{app.Version.Minor}.{app.Version.Revision} build {app.Version.Build}"; }
 
 		bool applying;
 		string tmp;
@@ -342,6 +346,12 @@ namespace JustRemember.ViewModels
 				OnPropertyChanged(nameof(corrected));
 				OnPropertyChanged(nameof(width));
 			}
+		}
+
+		public int language
+		{
+			get => config.language;
+			set { config.language = value; AppConfigModel.SetLanguage(value); }
 		}
 	}
 }

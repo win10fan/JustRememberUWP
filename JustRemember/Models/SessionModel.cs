@@ -505,9 +505,10 @@ namespace JustRemember.Models
 		public static string obfuscateText(this string text)
 		{
 			string res = "";
+			string obc = App.language.GetString("Session_obfuscateChar");
 			for (int i = 0; i < text.Length; i++)
 			{
-				res += "?";
+				res += obc;
 			}
 			return res;
 		}
