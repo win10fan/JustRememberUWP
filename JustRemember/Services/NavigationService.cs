@@ -1,3 +1,4 @@
+using JustRemember.Views;
 using System;
 
 using Windows.UI.Xaml;
@@ -29,7 +30,23 @@ namespace JustRemember.Services
         public static bool CanGoBack => Frame.CanGoBack;
         public static bool CanGoForward => Frame.CanGoForward;
 
-        public static void GoBack() => Frame.GoBack();
+		public static void GoBack()
+		{
+			if (Frame.Content.GetType() == typeof(Match))
+			{
+				if (!((Match)Frame.Content).ViewModel.isPausing)
+				{
+					((Match)Frame.Content).ViewModel.PauseFunc.Execute(null);
+					return;
+				}
+				else
+				{
+					((Match)Frame.Content).ViewModel.BackToMainMenu.Execute(null);
+					return;
+				}
+			}
+			Frame.GoBack();
+		}
         public static void GoForward() => Frame.GoForward();
 
         public static bool Navigate(Type pageType, object parameter = null, NavigationTransitionInfo infoOverride = null)

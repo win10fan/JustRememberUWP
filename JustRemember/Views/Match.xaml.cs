@@ -36,7 +36,26 @@ namespace JustRemember.Views
 			dbg = Visibility.Visible;
 #endif
 			this.InitializeComponent();
+			this.KeyDown += Match_KeyDown;
 		}
+
+		private void Match_KeyDown(object sender, KeyRoutedEventArgs e)
+		{
+			if (App.Config.choiceStyle != choiceDisplayMode.Write && !ViewModel.isPausing)
+			{
+				if (e.Key == Windows.System.VirtualKey.Number1)
+					ViewModel.Choose(0);
+				if (e.Key == Windows.System.VirtualKey.Number2)
+					ViewModel.Choose(1);
+				if (e.Key == Windows.System.VirtualKey.Number3)
+					ViewModel.Choose(2);
+				if (e.Key == Windows.System.VirtualKey.Number4 && ViewModel.totalChoice >= 4)
+					ViewModel.Choose(3);
+				if (e.Key == Windows.System.VirtualKey.Number5 && ViewModel.totalChoice >= 5)
+					ViewModel.Choose(4);
+			}
+		}
+
 		public SessionViewModel ViewModel { get; } = new SessionViewModel();
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{

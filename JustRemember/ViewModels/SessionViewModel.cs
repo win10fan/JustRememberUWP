@@ -389,7 +389,7 @@ namespace JustRemember.ViewModels
 				App.language.GetString("Match_dialog_confirm_title"));
 			confirm.Commands.Add(new UICommand()
 			{
-				Invoked = delegate { NavigationService.GoBack(); },
+				Invoked = delegate { NavigationService.Navigate<MainPage>(); },
 				Label = App.language.GetString("Match_dialog_yes")
 			});
 			confirm.Commands.Add(new UICommand(App.language.GetString("Match_dialog_no")));
