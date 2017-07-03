@@ -24,6 +24,15 @@ namespace JustRemember.Models
 		public matchMode setMode;
 		public string noteTitle;
 		public List<int> correctedChoice;
+		
+		[JsonIgnore]
+		public int totalWrong
+		{
+			get
+			{
+				return GetTotalWrong();
+			}
+		}
 
 		public int GetTotalWrong()
 		{

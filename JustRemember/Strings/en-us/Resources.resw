@@ -159,9 +159,6 @@
   <data name="Config_about_made.Text" xml:space="preserve">
     <value>Made by @</value>
   </data>
-  <data name="Config_about_runon.Text" xml:space="preserve">
-    <value>Running on Windows 10</value>
-  </data>
   <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>Display text auto scroll</value>
   </data>
@@ -296,7 +293,7 @@
   <data name="Config_wrong_hide.Text" xml:space="preserve">
     <value>Obfuscate wrong choice</value>
   </data>
-  <data name="DisplayName" xml:space="preserve">
+  <data name="ms-resource:AppName" xml:space="preserve">
     <value>Just remember</value>
   </data>
   <data name="Home_note" xml:space="preserve">
@@ -474,5 +471,8 @@
   </data>
   <data name="Stat_unknow" xml:space="preserve">
     <value>Undefined mode</value>
+  </data>
+  <data name="End_Notice.Text" xml:space="preserve">
+    <value>You can view this stat later in setting, If you save it</value>
   </data>
 </root>

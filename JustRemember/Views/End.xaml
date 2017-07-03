@@ -66,7 +66,7 @@
 			</Grid.RowDefinitions>
 			
 			<TextBlock Grid.Row="1" Style="{ThemeResource settingTitleLabel}">
-							<Run Text="Started on "/>
+							<Run x:Uid="Config_stat_started" Text="Started on "/>
 							<Run Text="{x:Bind current.begintimeSTR,Mode=OneWay}"/>
 			</TextBlock>
 			<TextBlock Visibility="{x:Bind current.wasTimeLimited, Mode=OneWay}" Grid.Row="2" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords">
@@ -119,7 +119,7 @@
 			</StackPanel>
 		</Grid>
 		<Grid Grid.Row="2">
-			<TextBlock Text="You can view this stat later in setting, If you save it"/>
+			<TextBlock x:Uid="End_Notice" Text="You can view this stat later in setting, If you save it"/>
 		</Grid>
 	</Grid>
 </Page>

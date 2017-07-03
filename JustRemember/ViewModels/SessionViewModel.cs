@@ -78,7 +78,10 @@ namespace JustRemember.ViewModels
 			isPausing = false;
 			UNPAUSEFUNC(null);
 			InitializeCommands();
-			UpdateUI(1, 0);
+			if (current.isNew)
+				UpdateUI(1, 0);
+			else
+				UpdateUI(currentDisplayChoice, currentChoice);
 			if (current.StatInfo.isTimeLimited)
 				timerUI.Start();
 			if (Config.antiSpamChoice)
@@ -100,7 +103,7 @@ namespace JustRemember.ViewModels
 			saver.Tick += Saver_Tick;
 			saver.Start();
 		}
-
+		
 		private async void Saver_Tick(object sender, object e)
 		{
 			if (AppConfigModel.isDirty)
@@ -389,7 +392,7 @@ namespace JustRemember.ViewModels
 				App.language.GetString("Match_dialog_confirm_title"));
 			confirm.Commands.Add(new UICommand()
 			{
-				Invoked = delegate { NavigationService.Navigate<MainPage>(); },
+				Invoked = delegate { NavigationService.GoBack(); },
 				Label = App.language.GetString("Match_dialog_yes")
 			});
 			confirm.Commands.Add(new UICommand(App.language.GetString("Match_dialog_no")));

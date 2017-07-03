@@ -8,7 +8,7 @@
       <group id="JUSTREMEMBER/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="Home_add.Label" translate="yes" xml:space="preserve">
           <source>Add</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">เพิ่ม</target>
+          <target state="translated" state-qualifier="tm-suggestion">เพิ่ม</target>
         </trans-unit>
         <trans-unit id="Home_delete.Label" translate="yes" xml:space="preserve">
           <source>Delete</source>
@@ -60,11 +60,7 @@
         </trans-unit>
         <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
           <source>Made by @</source>
-          <target state="translated">สร้างโดย</target>
-        </trans-unit>
-        <trans-unit id="Config_about_runon.Text" translate="yes" xml:space="preserve">
-          <source>Running on Windows 10</source>
-          <target state="translated">สำหรับ Windows 10</target>
+          <target state="translated">สร้างโดย </target>
         </trans-unit>
         <trans-unit id="Config_autoscroll.Text" translate="yes" xml:space="preserve">
           <source>Display text auto scroll</source>
@@ -169,7 +165,7 @@
         </trans-unit>
         <trans-unit id="Config_stat_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">[{0}] - [{1}]</target>
+          <target state="translated">มี{1}อยู่ {0} อัน</target>
           <note from="MultilingualBuild" annotates="source" priority="2">0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</note>
         </trans-unit>
         <trans-unit id="Config_stat_no" translate="yes" xml:space="preserve">
@@ -202,11 +198,11 @@
         </trans-unit>
         <trans-unit id="Config_stat_time_c.Text" translate="yes" xml:space="preserve">
           <source> left before </source>
-          <target state="new"> left before </target>
+          <target state="translated"> ก่อนหมดหมดเวลาใน</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_d.Text" translate="yes" xml:space="preserve">
           <source> limit</source>
-          <target state="new"> limit</target>
+          <target state="translated"> </target>
         </trans-unit>
         <trans-unit id="Config_submit.Content" translate="yes" xml:space="preserve">
           <source>Submit</source>
@@ -244,17 +240,13 @@
           <source>Obfuscate wrong choice</source>
           <target state="translated">ซ่อนคำตอบ</target>
         </trans-unit>
-        <trans-unit id="DisplayName" translate="yes" xml:space="preserve">
-          <source>Just remember</source>
-          <target state="translated">ช่วยจำ</target>
-        </trans-unit>
         <trans-unit id="Home_note" translate="yes" xml:space="preserve">
           <source>Note</source>
           <target state="needs-review-translation" state-qualifier="tm-suggestion">บันทึกย่อ</target>
         </trans-unit>
         <trans-unit id="Home_note_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">[{0}] - [{1}]</target>
+          <target state="translated">มี{1}อยู่ {0} อัน</target>
           <note from="MultilingualBuild" annotates="source" priority="2">0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</note>
         </trans-unit>
         <trans-unit id="Home_note_prural" translate="yes" xml:space="preserve">
@@ -271,7 +263,7 @@
         </trans-unit>
         <trans-unit id="Home_session_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">[{0}] - [{1}]</target>
+          <target state="translated">มี{1}อยู่ {0} อัน</target>
           <note from="MultilingualBuild" annotates="source" priority="2">same as note count</note>
         </trans-unit>
         <trans-unit id="Home_session_no" translate="yes" xml:space="preserve">
@@ -340,7 +332,7 @@
         </trans-unit>
         <trans-unit id="Edit_size_b.Text" translate="yes" xml:space="preserve">
           <source>)</source>
-          <target state="new">)</target>
+          <target state="translated">)</target>
         </trans-unit>
         <trans-unit id="Edit_undo.Label" translate="yes" xml:space="preserve">
           <source>Undo</source>
@@ -461,27 +453,35 @@
         </trans-unit>
         <trans-unit id="Match_choice_1" translate="yes" xml:space="preserve">
           <source>1: </source>
-          <target state="new">1: </target>
+          <target state="translated">๑: </target>
         </trans-unit>
         <trans-unit id="Match_choice_2" translate="yes" xml:space="preserve">
           <source>2: </source>
-          <target state="new">2: </target>
+          <target state="translated">๒: </target>
         </trans-unit>
         <trans-unit id="Match_choice_3" translate="yes" xml:space="preserve">
           <source>3: </source>
-          <target state="new">3: </target>
+          <target state="translated">๓: </target>
         </trans-unit>
         <trans-unit id="Match_choice_4" translate="yes" xml:space="preserve">
           <source>4: </source>
-          <target state="new">4: </target>
+          <target state="translated">๔: </target>
         </trans-unit>
         <trans-unit id="Match_choice_5" translate="yes" xml:space="preserve">
           <source>5: </source>
-          <target state="new">5: </target>
+          <target state="translated">๕: </target>
         </trans-unit>
         <trans-unit id="Session_obfuscateChar" translate="yes" xml:space="preserve">
           <source>?</source>
-          <target state="new">?</target>
+          <target state="translated">?</target>
+        </trans-unit>
+        <trans-unit id="ms-resource:AppName" translate="yes" xml:space="preserve">
+          <source>Just remember</source>
+          <target state="translated">ช่วยจำ</target>
+        </trans-unit>
+        <trans-unit id="End_Notice.Text" translate="yes" xml:space="preserve">
+          <source>You can view this stat later in setting, If you save it</source>
+          <target state="translated">คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</target>
         </trans-unit>
       </group>
     </body>

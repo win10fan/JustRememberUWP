@@ -52,10 +52,7 @@
     <value>โหลดใหม่</value>
   </data>
   <data name="Config_about_made.Text" xml:space="preserve">
-    <value>สร้างโดย</value>
-  </data>
-  <data name="Config_about_runon.Text" xml:space="preserve">
-    <value>สำหรับ Windows 10</value>
+    <value>สร้างโดย </value>
   </data>
   <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>เลื่อนข้อความอัตโนมัติ</value>
@@ -134,7 +131,7 @@
     <value>ตัวเลือกที่ถูก</value>
   </data>
   <data name="Config_stat_count_format" xml:space="preserve">
-    <value>[{0}] - [{1}]</value>
+    <value>มี{1}อยู่ {0} อัน</value>
     <comment>0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</comment>
   </data>
   <data name="Config_stat_no" xml:space="preserve">
@@ -157,6 +154,12 @@
   </data>
   <data name="Config_stat_time_b.Text" xml:space="preserve">
     <value>ด้วย</value>
+  </data>
+  <data name="Config_stat_time_c.Text" xml:space="preserve">
+    <value> ก่อนหมดหมดเวลาใน</value>
+  </data>
+  <data name="Config_stat_time_d.Text" xml:space="preserve">
+    <value> </value>
   </data>
   <data name="Config_submit.Content" xml:space="preserve">
     <value>ส่ง</value>
@@ -185,14 +188,11 @@
   <data name="Config_wrong_hide.Text" xml:space="preserve">
     <value>ซ่อนคำตอบ</value>
   </data>
-  <data name="DisplayName" xml:space="preserve">
-    <value>ช่วยจำ</value>
-  </data>
   <data name="Home_note" xml:space="preserve">
     <value>บันทึกย่อ</value>
   </data>
   <data name="Home_note_count_format" xml:space="preserve">
-    <value>[{0}] - [{1}]</value>
+    <value>มี{1}อยู่ {0} อัน</value>
     <comment>0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</comment>
   </data>
   <data name="Home_note_prural" xml:space="preserve">
@@ -205,7 +205,7 @@
     <value>เซสชัน</value>
   </data>
   <data name="Home_session_count_format" xml:space="preserve">
-    <value>[{0}] - [{1}]</value>
+    <value>มี{1}อยู่ {0} อัน</value>
     <comment>same as note count</comment>
   </data>
   <data name="Home_session_no" xml:space="preserve">
@@ -255,6 +255,9 @@
   </data>
   <data name="Edit_size_a.Text" xml:space="preserve">
     <value>ขนาด</value>
+  </data>
+  <data name="Edit_size_b.Text" xml:space="preserve">
+    <value>)</value>
   </data>
   <data name="Edit_undo.Label" xml:space="preserve">
     <value>เลิกทำ</value>
@@ -343,5 +346,29 @@
   </data>
   <data name="Edit_save.Text" xml:space="preserve">
     <value>บันทึก</value>
+  </data>
+  <data name="Match_choice_1" xml:space="preserve">
+    <value>๑: </value>
+  </data>
+  <data name="Match_choice_2" xml:space="preserve">
+    <value>๒: </value>
+  </data>
+  <data name="Match_choice_3" xml:space="preserve">
+    <value>๓: </value>
+  </data>
+  <data name="Match_choice_4" xml:space="preserve">
+    <value>๔: </value>
+  </data>
+  <data name="Match_choice_5" xml:space="preserve">
+    <value>๕: </value>
+  </data>
+  <data name="Session_obfuscateChar" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="ms-resource:AppName" xml:space="preserve">
+    <value>ช่วยจำ</value>
+  </data>
+  <data name="End_Notice.Text" xml:space="preserve">
+    <value>คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</value>
   </data>
 </root>

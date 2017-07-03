@@ -154,7 +154,7 @@
 											<RowDefinition Height="Auto"/>
 											<RowDefinition Height="*"/>
 										</Grid.RowDefinitions>
-										<TextBox/>
+										<Rectangle Width="80" Height="25" Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
 										<Button Grid.Row="1" x:Uid="Config_submit" Content="Submit" HorizontalAlignment="Center"/>
 									</Grid>
 								</ListBoxItem>
@@ -329,6 +329,7 @@
 										<RowDefinition Height="Auto"/>
 										<RowDefinition Height="Auto"/>
 										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
 									</Grid.RowDefinitions>
 									<StackPanel Grid.Row="0" Orientation="Horizontal">
 										<TextBlock Text="&#xE121;" FontSize="24" FontFamily="Segoe MDL2 Assets">
@@ -340,7 +341,11 @@
 										</TextBlock>
 										<TextBlock FontSize="24" Margin="5,-3" Text="{x:Bind noteTitle}" TextWrapping="WrapWholeWords"/>
 									</StackPanel>
-									<Grid Margin="0,5" Grid.Row="1">
+									<StackPanel Grid.Row="1" Margin="0,5" Orientation="Horizontal">
+										<SymbolIcon Symbol="Clear"/>
+										<TextBlock FontSize="24" Margin="5,-3" Text="{x:Bind totalWrong}" TextWrapping="WrapWholeWords"/>
+									</StackPanel>
+									<Grid Visibility="{x:Bind wasTimeLimited}" Margin="0,5" Grid.Row="2">
 										<Grid.ColumnDefinitions>
 											<ColumnDefinition Width="Auto"/>
 											<ColumnDefinition Width="*"/>
@@ -437,7 +442,6 @@
 					<ItemsControl Margin="0,5">
 						<TextBlock Style="{ThemeResource settingTitleLabel}">
 							<Run Text="{x:Bind config.AppName, Mode=OneTime}"/><Run Text=" "/><Run Text="{x:Bind config.AppVersion, Mode=OneTime}"/><LineBreak/>
-							<Run x:Uid="Config_about_runon" Text="Running on Windows 10 "/><Run Text="{x:Bind config.AppRunOn, Mode=OneTime}"/><LineBreak/>
 							<Run x:Uid="Config_about_made" Text="Made by @"/><Run Text="{x:Bind config.AppMaker, Mode=OneTime}"/><LineBreak/>
 						</TextBlock>
 						<Button Content="Reset setting" x:Uid="Config_reset_a">

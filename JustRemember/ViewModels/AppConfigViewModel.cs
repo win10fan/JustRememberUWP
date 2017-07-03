@@ -297,7 +297,6 @@ namespace JustRemember.ViewModels
 
 		public string AppName { get => Package.Current.DisplayName; }
 		public string AppMaker { get => Package.Current.PublisherDisplayName; }
-		public string AppRunOn { get => app.Architecture.ToString(); }
 		public string AppVersion { get => $"{app.Version.Major}.{app.Version.Minor}.{app.Version.Revision} build {app.Version.Build}"; }
 
 		bool applying;

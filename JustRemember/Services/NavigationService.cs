@@ -34,14 +34,10 @@ namespace JustRemember.Services
 		{
 			if (Frame.Content.GetType() == typeof(Match))
 			{
-				if (!((Match)Frame.Content).ViewModel.isPausing)
+				Match daPage = Frame.Content as Match;
+				if (!daPage.ViewModel.isPausing)
 				{
-					((Match)Frame.Content).ViewModel.PauseFunc.Execute(null);
-					return;
-				}
-				else
-				{
-					((Match)Frame.Content).ViewModel.BackToMainMenu.Execute(null);
+					daPage.ViewModel.PauseFunc.Execute(null);
 					return;
 				}
 			}
