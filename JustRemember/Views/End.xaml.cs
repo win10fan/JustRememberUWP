@@ -94,12 +94,12 @@ namespace JustRemember.Views
 		private void Save(object sender, RoutedEventArgs e)
 		{
 			StatModel.Set(current);
-			NavigationService.GoBack();
+			NavigationService.Navigate<Match>(App.cachedSession);
 		}
 
 		private void Delete(object sender, RoutedEventArgs e)
 		{
-			NavigationService.GoBack();
+			NavigationService.Navigate<Match>(App.cachedSession);
 		}
 		
 		private void RefreshGraph(object sender, RoutedEventArgs e)

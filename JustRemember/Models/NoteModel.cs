@@ -27,7 +27,6 @@ namespace JustRemember.Models
         {
             get
             {
-                //result = Foo.Split(new String[] { "\r\n" }, StringSplitOptions.None);
                 var pack = Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 return pack[0];
             }

@@ -1,0 +1,63 @@
+﻿#MODE=EXAM
+1. 3 1/2 + 5 1/3 = 
+A) 8
+B) 8 2/5
+C) 8 5/6
+D) 2/5
+
+2. It takes Julia 1/2 hour to wash, comb her hair and put on her clothes, and 1/4 hour to have her breakfast. How much time does it take Julia to be ready for school?
+A) 3/4 hour
+B) 1 hour
+C) 2/4 hour
+D) 1 1/4 hours
+
+3. Which two fractions are equivalent?
+
+A) 5/2 and 2/5
+B) 4/3 and 8/6
+C) 1/4 and 2/4
+D) 2/3 and 1/3
+
+4. 2/3 - 3 1/2 =
+A) 2
+B) 1 2/5
+C) 2 7/6
+D) 2 1/6
+
+5. Billy ate 1 1/4 pizzas and John ate 1 2/3 pizzas. How much more pizza did John eat than Billy? .
+A) 2/3
+B) 5/12
+C) 1/4
+D) 7/12
+
+6. 5/2 ÷ 3/4 =
+A) 10/3
+B) 10/8
+C) 13/4
+D) 1
+
+7.5 ÷ 1/7 =
+A) 5/7
+B) 6/7
+C) 1/35
+D) 35
+
+8.2/5 x 3/7 =
+A) 14/15
+B) 6/35
+C) 35/6
+D) 15/14
+
+9.To have a + 1 3/4 = 2, A must be equal to
+A) 1
+B) 3/4
+C) 1/2
+D) 1/4
+
+10.Tina works 15 hours a week (Monday to Friday). Last week she worked 3 1/2 hours on Monday, 4 hours on Tuesday, 2 1/6 hours on Wednesday and 1 1/2 on Thursday. How many hours did she work on Friday?
+A) 4
+B) 5/6
+C) 3 5/6
+D) 2 5/6
+
+A=CABDBADBDC

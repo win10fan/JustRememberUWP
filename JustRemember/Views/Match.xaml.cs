@@ -3,6 +3,7 @@ using JustRemember.Services;
 using JustRemember.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -34,6 +35,7 @@ namespace JustRemember.Views
 			dbg = Visibility.Collapsed;
 #if DEBUG
 			dbg = Visibility.Visible;
+			App.Config.antiSpamChoice = false;
 #endif
 			this.InitializeComponent();
 			this.KeyDown += Match_KeyDown;
@@ -59,6 +61,11 @@ namespace JustRemember.Views
 		public SessionViewModel ViewModel { get; } = new SessionViewModel();
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
+			while (NavigationService.Frame.BackStack.Last().SourcePageType != typeof(MainPage))
+			{
+				NavigationService.Frame.BackStack.RemoveAt(NavigationService.Frame.BackStack.Count - 1);
+				Debug.Write(NavigationService.Frame.BackStack.Count);
+			}
 			ViewModel.current = (SessionModel)e.Parameter;
 			ViewModel.view = this;
 			ViewModel.RestoreSession();

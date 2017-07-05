@@ -36,6 +36,10 @@ namespace JustRemember.ViewModels
 		protected void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			if (App.Config.autoScrollContent && propertyName == nameof(choicesSelected))
+			{
+				view.displayTexts.ChangeView(view.displayTexts.ViewportWidth, view.displayTexts.ViewportHeight, view.displayTexts.ZoomFactor);
+			}
 		}
 
 		public Match view;
@@ -675,7 +679,7 @@ namespace JustRemember.ViewModels
 		void EndMatch()
 		{
 			var bkp = current.StatInfo;
-			current = SessionModel.generate(current.SelectedNote, current);
+			App.cachedSession = SessionModel.generate(current.SelectedNote, current);
 			NavigationService.Navigate<End>(bkp);
 		}
 
@@ -765,6 +769,7 @@ namespace JustRemember.ViewModels
 				Text = latestChoices.finalText,
 				Foreground = latestChoices.mark
 			});
+			
 		}
 
 		public void AddTextDisplay(int at)
@@ -793,17 +798,17 @@ namespace JustRemember.ViewModels
 				bg -= 1;
 				visual -= 2;
 			}
-			Choice0Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[0] : $"{t1}{current?.choices[bg].choices[0]}";
-			Choice1Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[1] : $"{t2}{current?.choices[bg].choices[1]}";
-			Choice2Content = Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[2] : $"{t3}{current?.choices[bg].choices[2]}";
-			Choice3Content = current.maxChoice < 4 ? "" : Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[3] : $"{t4}{current?.choices[bg].choices[3]}";
-			Choice4Content = current.maxChoice < 5 ? "" : Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[4] : $"{t5}{current?.choices[bg].choices[4]}";
+			Choice0Content = current?.choices[bg].choices.Count >= 1 ? (Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[0] : $"{t1}{current?.choices[bg].choices[0]}") : "";
+			Choice1Content = current?.choices[bg].choices.Count >= 2 ? (Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[1] : $"{t2}{current?.choices[bg].choices[1]}") : "";
+			Choice2Content = current?.choices[bg].choices.Count >= 3 ? (Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[2] : $"{t3}{current?.choices[bg].choices[2]}") : "";
+			Choice3Content = current?.choices[bg].choices.Count >= 4 ? (current.maxChoice < 4 ? "" : Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[3] : $"{t4}{current?.choices[bg].choices[3]}") : "";
+			Choice4Content = current?.choices[bg].choices.Count >= 5 ? (current.maxChoice < 5 ? "" : Config.choiceStyle == choiceDisplayMode.Center ? current?.choices[bg].choices[4] : $"{t5}{current?.choices[bg].choices[4]}") : "";
 			//
-			Choice0Display = current.StatInfo.choiceInfo[bg][0] ? Visibility.Collapsed : Visibility.Visible;
-			Choice1Display = current.StatInfo.choiceInfo[bg][1] ? Visibility.Collapsed : Visibility.Visible;
-			Choice2Display = current.StatInfo.choiceInfo[bg][2] ? Visibility.Collapsed : Visibility.Visible;
-			Choice3Display = current.maxChoice < 4 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][3] ? Visibility.Collapsed : Visibility.Visible);
-			Choice4Display = current.maxChoice < 5 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][4] ? Visibility.Collapsed : Visibility.Visible);
+			Choice0Display = current?.choices[bg].choices.Count >= 1 ? (current.StatInfo.choiceInfo[bg][0] ? Visibility.Collapsed : Visibility.Visible) : Visibility.Collapsed;
+			Choice1Display = current?.choices[bg].choices.Count >= 2 ? (current.StatInfo.choiceInfo[bg][1] ? Visibility.Collapsed : Visibility.Visible) : Visibility.Collapsed;
+			Choice2Display = current?.choices[bg].choices.Count >= 3 ? (current.StatInfo.choiceInfo[bg][2] ? Visibility.Collapsed : Visibility.Visible) : Visibility.Collapsed;
+			Choice3Display = current?.choices[bg].choices.Count >= 4 ? (current.maxChoice < 4 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][3] ? Visibility.Collapsed : Visibility.Visible)) : Visibility.Collapsed;
+			Choice4Display = current?.choices[bg].choices.Count >= 5 ? (current.maxChoice < 5 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][4] ? Visibility.Collapsed : Visibility.Visible)) : Visibility.Collapsed;
 		}
 
 		public void Restart()

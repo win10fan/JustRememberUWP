@@ -89,7 +89,7 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				if (App.isDeploying) { deployCheck.Start(); }
+				if (App.isDeploying) { deployCheck?.Start(); }
 				return App.isDeploying ? Visibility.Visible : Visibility.Collapsed;
 			}
 		}
@@ -156,7 +156,9 @@ namespace JustRemember.ViewModels
 				if (!notes[v.FileList.SelectedIndex].isFile)
 					Navigate(notes[v.FileList.SelectedIndex].Fullpath);
 				else
+				{
 					NavigationService.Navigate<Match>(SessionModel.generate(await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath)));
+				}
 			}
 		}
 

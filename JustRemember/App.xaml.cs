@@ -43,6 +43,7 @@ namespace JustRemember
 		public static ObservableCollection<StatModel> Stats;
 		public static ResourceLoader language;
 		public static bool isDeploying;
+		public static SessionModel cachedSession;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points

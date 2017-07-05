@@ -11,17 +11,19 @@ namespace JustRemember.Views
         public NotesViewModel ViewModel { get; } = new NotesViewModel();
         public SavedSessionViewModel ViewModel2 { get; } = new SavedSessionViewModel();
         public MainPage()
-        {
-            InitializeComponent();
+		{
+			InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+			App.Config.antiSpamChoice = true;
             ViewModel.Initialize();
             ViewModel.wr = this;
             ViewModel2.Initialize();
 			ViewModel2.view = this;
 			MobileTitlebarService.Refresh();
+			NavigationService.Frame.BackStack.Clear();
             base.OnNavigatedTo(e);
         }
 

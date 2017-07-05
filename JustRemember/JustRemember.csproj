@@ -257,10 +257,11 @@
     <Content Include="Assets\Wide\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-400.png" />
-    <Content Include="Prenote\EN-Character-A to Z.txt" />
-    <Content Include="Prenote\EN-Languistic-VoicedAndVoiceless.txt" />
-    <Content Include="Prenote\TH-ตัวอักษร-ก ถึง ฮ.txt" />
-    <Content Include="Prenote\TH-ตัวอักษร-สระ.txt" />
+    <Content Include="Prenote\Basic-English alphabet.txt" />
+    <Content Include="Prenote\Basic-VoicedAndVoiceless.txt" />
+    <Content Include="Prenote\Basic-ภาษาไทย-พยัญชนะ.txt" />
+    <Content Include="Prenote\Basic-ภาษาไทย-สระ.txt" />
+    <Content Include="Prenote\Basic-MathQuestions.txt" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>

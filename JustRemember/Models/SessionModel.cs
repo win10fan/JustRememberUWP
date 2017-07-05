@@ -106,6 +106,9 @@ namespace JustRemember.Models
 			SessionModel current = new SessionModel();
 			if (item is NoteModel)
 			{
+				fromNote = (NoteModel)item;
+				if (fromNote.FirstLine.StartsWith("#MODE=EXAM"))
+					return genEx(fromNote);
 				current = new SessionModel()
 				{
 					selectedChoices = new ObservableCollection<SelectedChoices>(),
@@ -113,8 +116,6 @@ namespace JustRemember.Models
 					maxChoice = Config.totalChoice,
 					currentChoice = 0
 				};
-				//Get new one
-				fromNote = (NoteModel)item;
 				//Initialize Session
 				current.SelectedNote = fromNote;
 				current.texts = TextList.Extract(current.SelectedNote.Content, out bool? nW);
@@ -131,6 +132,9 @@ namespace JustRemember.Models
 			else if (item is List<object>)
 			{
 				current = (SessionModel)((List<object>)item)[0];
+				fromNote = (NoteModel)((List<object>)item)[1];
+				if (fromNote.FirstLine.StartsWith("#MODE=EXAM"))
+					return genEx(fromNote);
 				current.choices.Clear();
 				current.choices = generateChoice(current.texts, current.maxChoice);
 				current.StatInfo = refreshStat(current);
@@ -298,6 +302,148 @@ namespace JustRemember.Models
 				StatInfo.choiceInfo.Add(i, wrongIfo);
 			}
 			return StatInfo;
+		}
+
+		private static SessionModel genEx(NoteModel item)
+		{
+			SessionModel current = new SessionModel();
+
+			current = new SessionModel()
+			{
+				selectedChoices = new ObservableCollection<SelectedChoices>(),
+				isNew = true,
+				maxChoice = 5,
+				currentChoice = 0,
+				noteWhiteSpaceMode = false,
+				SelectedNote = item
+			};
+			//Get new one
+			//Initialize Session
+			List<string> lines2 = item.Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
+			string answerLine = null;
+			if (lines2.Last().StartsWith("A="))
+			{
+				answerLine = lines2.Last().Remove(0, 2);
+				lines2.RemoveAt(lines2.Count - 1);
+			}
+			lines2.RemoveAt(0);
+			var lines = ExamSplit.GetList(lines2, answerLine);
+			current.texts = new ObservableCollection<TextList>();
+			current.choices = new ObservableCollection<ChoiceSet>();
+			current.choices.Add(new ChoiceSet() { choices = new List<string>() { ">>>" }, corrected = 0 });
+
+			for (int i = 0; i < lines.Count; i++)
+			{
+				if (current.texts.Count == 0)
+				{
+					//Add first texts
+					current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i].question}\r\n" });
+					current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
+					continue;
+				}
+				current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i - 1].answers[lines[i - 1].corrected]}\r\n\r\n{lines[i].question}\r\n" });
+				current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
+			}
+			current.StatInfo = refreshStat(current);
+
+			return current;
+		}
+	}
+
+	public class ExamSplit
+	{
+		public string question;
+		public List<string> answers;
+		public int corrected;
+
+		public ExamSplit()
+		{
+			question = "";
+			answers = new List<string>();
+			corrected = 0;
+		}
+
+		public static List<ExamSplit> GetList(List<string> input,string answers)
+		{
+			List<ExamSplit> res = new List<ExamSplit>();
+			ExamSplit es = new ExamSplit();
+			bool question;
+			for (int i = 0; i < input.Count - 1; i++)
+			{
+				question = char.IsNumber(input[i][0]);
+				if (question)
+				{
+					es.question = input[i];
+				}
+				else
+				{
+					es.answers.Add(input[i]);
+				}
+				if ((i + 1) < input.Count - 1)
+				{
+					//Next choice work
+					if (char.IsNumber(input[i + 1][0]))
+					{
+						if (answers != null)
+						{
+							int indq = int.Parse(es.question.Substring(0, es.question.IndexOf('.')));
+							foreach (string s in es.answers)
+							{
+								if (s[0] == answers[indq])
+								{
+									//Correct answer
+									es.corrected = es.answers.IndexOf(s);
+								}
+							}
+						}
+						else
+						{
+							//Find correct choice
+							foreach (string s in es.answers)
+							{
+								if (s[0] == es.question[es.question.Length - 1])
+								{
+									//Correct answer
+									es.corrected = es.answers.IndexOf(s);
+									es.question = es.question.Substring(0, es.question.Length - 4);
+								}
+							}
+						}
+						res.Add(es);
+						es = new ExamSplit();
+					}
+				}
+			}
+			//Final answer
+			es.answers.Add(input[input.Count - 1]);
+			if (answers != null)
+			{
+				int indq = int.Parse(es.question.Substring(0, es.question.IndexOf('.'))) - 1;
+				foreach (string s in es.answers)
+				{
+					if (s[0] == answers[indq])
+					{
+						//Correct answer
+						es.corrected = es.answers.IndexOf(s);
+					}
+				}
+			}
+			else
+			{
+				//Find correct choice
+				foreach (string s in es.answers)
+				{
+					if (s[0] == es.question[es.question.Length - 1])
+					{
+						//Correct answer
+						es.corrected = es.answers.IndexOf(s);
+						es.question = es.question.Substring(0, es.question.Length - 4);
+					}
+				}
+			}
+			res.Add(es);
+			res.Add(new ExamSplit() { question = "", corrected = 0, answers = new List<string>() { ">>>" } });
+			return res;
 		}
 	}
 
