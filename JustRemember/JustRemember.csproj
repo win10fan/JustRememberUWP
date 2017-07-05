@@ -132,6 +132,7 @@
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Models\AppConfigModel.cs" />
+    <Compile Include="Models\ExtensionModel.cs" />
     <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\PrenoteModel.cs" />
     <Compile Include="Models\SavedSessionModel.cs" />

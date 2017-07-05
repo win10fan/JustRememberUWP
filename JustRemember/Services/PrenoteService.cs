@@ -81,6 +81,20 @@ namespace JustRemember.Services
 			}
 			App.isDeploying = false;
 		}
+
+		public static async void RequestRemovePrenoteExtension(string extName)
+		{
+			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Prenote");
+			
+			if (File.Exists($"{prenote.Path}\\{extName}.dep"))
+			{
+				//Delete folder and prenote
+				StorageFile confirm = await prenote.GetFileAsync($"{extName}.dep");
+				StorageFolder notes = await prenote.GetFolderAsync(extName);
+				await confirm.DeleteAsync();
+				await notes.DeleteAsync();
+			}
+		}
 		
 		public static IEnumerable<PathDir> GetBreadcrumbPath(this string path)
 		{

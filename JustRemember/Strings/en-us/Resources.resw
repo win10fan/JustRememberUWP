@@ -479,4 +479,7 @@
     <value>Deploying prenote
 from extension</value>
   </data>
+  <data name="Config_Ext_Uninstall.Text" xml:space="preserve">
+    <value>Uninstall</value>
+  </data>
 </root>

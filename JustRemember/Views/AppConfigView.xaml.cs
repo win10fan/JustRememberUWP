@@ -29,6 +29,7 @@ namespace JustRemember.Views
 		public AppConfigView()
 		{
 			this.InitializeComponent();
+			ext.InitializeDispatch();
 		}
 		
 		public AppConfigViewModel config { get; } = new AppConfigViewModel();
@@ -37,6 +38,7 @@ namespace JustRemember.Views
 		{
 			await MobileTitlebarService.Refresh(App.language.GetString("Config_general"));
 			config.Initialie();
+			ext.Initialize();
 			base.OnNavigatedTo(e);
 		}
 
@@ -67,6 +69,11 @@ namespace JustRemember.Views
 		private void DeSelect(object sender, RoutedEventArgs e)
 		{
 			config.IselectedStat = -1;
+		}
+
+		private void RemoveExt(object sender, RoutedEventArgs e)
+		{
+			ext.RequestUninstallSelected();
 		}
 	}
 }

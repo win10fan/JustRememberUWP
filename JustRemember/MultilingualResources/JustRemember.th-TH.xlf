@@ -489,6 +489,10 @@ from extension</source>
           <target state="translated">กำลังคัดลอกชีท
 จากส่วนขยายอื่น</target>
         </trans-unit>
+        <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
+          <source>Uninstall</source>
+          <target state="new">Uninstall</target>
+        </trans-unit>
       </group>
     </body>
   </file>

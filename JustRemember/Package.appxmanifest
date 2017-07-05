@@ -1,11 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package 
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
-  xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio" 
-  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-  IgnorableNamespaces="uap mp genTemplate">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp genTemplate">
   <Identity Name="RememberIt-B741-48AE-AC03-51F96077DD29" Publisher="CN=rayle" Version="1.4.10.0" />
   <mp:PhoneIdentity PhoneProductId="1A8F0248-B741-48AE-AC03-51F96077DD29" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -21,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="JustRemember.App">
-      <uap:VisualElements DisplayName="JustRemember" Square150x150Logo="assets\Medium\Medium150x150Logo.png" Square44x44Logo="assets\AppList\AppList.png" Description="Just an app" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Remembering helper" Square150x150Logo="assets\Medium\Medium150x150Logo.png" Square44x44Logo="assets\AppList\AppList.png" Description="....." BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="assets\Wide\Wide310x150Logo.png" Square71x71Logo="assets\Small\Small71x71Logo.png" Square310x310Logo="assets\Large\Large310x310Logo.png" ShortName="Just remember">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
