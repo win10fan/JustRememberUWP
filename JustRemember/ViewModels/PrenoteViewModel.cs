@@ -74,11 +74,30 @@ namespace JustRemember.ViewModels
 			OnPropertyChanged(nameof(notes));
 		}
 
-		public ObservableCollection<PrenoteModel> notes;
+		ObservableCollection<PrenoteModel> _n;
+		public ObservableCollection<PrenoteModel> notes
+		{
+			get => _n;
+			set
+			{
+				Set(ref _n, value);
+				OnPropertyChanged(nameof(isDeployingFromExt));
+			}
+		}
+
+		public Visibility isDeployingFromExt
+		{
+			get
+			{
+				if (App.isDeploying) { deployCheck.Start(); }
+				return App.isDeploying ? Visibility.Visible : Visibility.Collapsed;
+			}
+		}
 
 		public ICommand navTo;
 		public ICommand navUp;
 
+		DispatcherTimer deployCheck;
 		public async void Initialize()
 		{
 			basePath = (StorageFolder)await basePath.TryGetItemAsync("Prenote");
@@ -90,6 +109,21 @@ namespace JustRemember.ViewModels
 			//Command
 			navTo = new RelayCommand<RoutedEventArgs>(NAVTO);
 			navUp = new RelayCommand<RoutedEventArgs>(NAVUP);
+			deployCheck = new DispatcherTimer()
+			{
+				Interval = TimeSpan.FromSeconds(3)
+			};
+			deployCheck.Tick += DeployCheck_Tick;
+		}
+
+		private void DeployCheck_Tick(object sender, object e)
+		{
+			if (App.isDeploying)
+			{
+				OnPropertyChanged(nameof(isDeployingFromExt));
+				Refresh();
+			}
+			else { deployCheck.Stop(); }
 		}
 
 		bool _canUp;

@@ -42,6 +42,7 @@ namespace JustRemember
 		public static AppConfigModel Config;
 		public static ObservableCollection<StatModel> Stats;
 		public static ResourceLoader language;
+		public static bool isDeploying;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points

@@ -428,6 +428,130 @@
 					</Grid>
 				</Grid>
 			</PivotItem>
+			<PivotItem x:Name="extPage">
+				<PivotItem.Header>
+					<StackPanel Orientation="Vertical">
+						<TextBlock Text="&#xEA86;" FontSize="30" FontFamily="Segoe MDL2 Assets"/>
+					</StackPanel>
+				</PivotItem.Header>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<ListView Grid.Row="0" SelectedIndex="{x:Bind config.IselectedStat, Mode=TwoWay}" ItemsSource="{x:Bind config.stats, Mode=OneWay}">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate x:DataType="mod:StatModel">
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+									<StackPanel Grid.Row="0" Orientation="Horizontal">
+										<TextBlock Text="&#xE121;" FontSize="24" FontFamily="Segoe MDL2 Assets">
+											<ToolTipService.ToolTip>
+												<ToolTip Placement="Right">
+													<TextBlock Text="{x:Bind begintimeSTR}"/>
+												</ToolTip>
+											</ToolTipService.ToolTip>
+										</TextBlock>
+										<TextBlock FontSize="24" Margin="5,-3" Text="{x:Bind noteTitle}" TextWrapping="WrapWholeWords"/>
+									</StackPanel>
+									<StackPanel Grid.Row="1" Margin="0,5" Orientation="Horizontal">
+										<SymbolIcon Symbol="Clear"/>
+										<TextBlock FontSize="24" Margin="5,-3" Text="{x:Bind totalWrong}" TextWrapping="WrapWholeWords"/>
+									</StackPanel>
+									<Grid Visibility="{x:Bind wasTimeLimited}" Margin="0,5" Grid.Row="2">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+										<TextBlock FontSize="16" Grid.Column="0">
+												<Run Text="{x:Bind totalTimespend}"/>
+												<Run Text="/"/>
+												<Run Text="{x:Bind totalLimitTime}"/>
+										</TextBlock>
+										<ProgressBar Grid.Column="1" Margin="10,0" Value="{x:Bind timeValue}" Minimum="0" Maximum="100" Height="20"/>
+									</Grid>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					<Grid Visibility="{x:Bind config.isSelected, Mode=OneWay}" Grid.Row="1">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto" MaxHeight="400"/>
+						</Grid.RowDefinitions>
+						<TextBlock FontWeight="Bold" Grid.Row="0" Text="{x:Bind config.selectedStat.noteTitle, Mode=OneWay}" TextWrapping="WrapWholeWords" Style="{ThemeResource settingTitleLabel}"/>
+						<Button Click="DeSelect" Grid.Row="0" HorizontalAlignment="Right">
+							<SymbolIcon Symbol="Cancel"/>
+						</Button>
+						<TextBlock Grid.Row="1" Style="{ThemeResource settingTitleLabel}">
+							<Run x:Uid="Config_stat_started" Text="Started on "/>
+							<Run Text="{x:Bind config.selectedStat.begintimeSTR,Mode=OneWay}"/>
+						</TextBlock>
+						<TextBlock Visibility="{x:Bind config.selectedStat.wasTimeLimited, Mode=OneWay}" Grid.Row="2" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords">
+							<Run Text="This session took " x:Uid="Config_stat_time_a"/>
+							<Run Text="{x:Bind config.selectedStat.totalTimespend, Mode=OneWay}"/>
+							<Run Text=" with " x:Uid="Config_stat_time_b"/>
+							<Run Text="{x:Bind config.selectedStat.timeLeft, Mode=OneWay}"/>
+							<Run Text=" left before " x:Uid="Config_stat_time_c"/>
+							<Run Text="{x:Bind config.timeLimit,Mode=OneWay}"/>
+							<Run Text=" limit" x:Uid="Config_stat_time_d"/>
+						</TextBlock>
+						<TextBlock Grid.Row="3" Text="{x:Bind config.selectedStat.modeTXT, Mode=OneWay}" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords"/>
+						<ScrollViewer VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Visible" Grid.Row="4" Height="150" VerticalScrollMode="Disabled" HorizontalScrollMode="Enabled">
+							<StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="{x:Bind config.width, Mode=OneWay}" Height="150">
+								<rad:RadCartesianChart HorizontalAlignment="Left" Height="150" Width="{x:Bind config.width, Mode=OneWay}">
+									<rad:RadCartesianChart.HorizontalAxis>
+										<rad:CategoricalAxis/>
+									</rad:RadCartesianChart.HorizontalAxis>
+									<rad:RadCartesianChart.VerticalAxis>
+										<rad:LinearAxis/>
+									</rad:RadCartesianChart.VerticalAxis>
+									<rad:LineSeries ItemsSource="{x:Bind config.choices, Mode=OneWay}" Stroke="{ThemeResource AccentButtonBackground}" StrokeThickness="2">
+										<rad:LineSeries.CategoryBinding>
+											<rad:PropertyNameDataPointBinding PropertyName="catagory"/>
+										</rad:LineSeries.CategoryBinding>
+										<rad:LineSeries.ValueBinding>
+											<rad:PropertyNameDataPointBinding PropertyName="corrected"/>
+										</rad:LineSeries.ValueBinding>
+									</rad:LineSeries>
+									<rad:LineSeries ItemsSource="{x:Bind config.corrected, Mode=OneWay}" Stroke="#FF008F00" StrokeThickness="2">
+										<rad:LineSeries.CategoryBinding>
+											<rad:PropertyNameDataPointBinding PropertyName="catagory"/>
+										</rad:LineSeries.CategoryBinding>
+										<rad:LineSeries.ValueBinding>
+											<rad:PropertyNameDataPointBinding PropertyName="corrected"/>
+										</rad:LineSeries.ValueBinding>
+									</rad:LineSeries>
+								</rad:RadCartesianChart>
+							</StackPanel>
+						</ScrollViewer>
+						<StackPanel Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Vertical">
+							<StackPanel Orientation="Horizontal">
+								<Rectangle Fill="{ThemeResource AccentButtonBackground}" Width="15" Height="15"/>
+								<TextBlock x:Uid="Config_stat_selected" Text="Selected choice" Margin="5,0"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<Rectangle Fill="#FF008F00" Width="15" Height="15"/>
+								<TextBlock x:Uid="Config_stat_corrected" Text="Corrected choice" Margin="5,0"/>
+							</StackPanel>
+						</StackPanel>
+					</Grid>
+				</Grid>
+			</PivotItem>
 			<PivotItem x:Name="aboutPage" x:Uid="setAbt">
 				<PivotItem.Header>
 					<StackPanel Orientation="Vertical">

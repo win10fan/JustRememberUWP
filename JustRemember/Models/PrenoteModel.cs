@@ -51,6 +51,10 @@ namespace JustRemember.Models
 			}
 			foreach (var s in nts)
 			{
+				if (s.FileType.Contains("dep"))
+				{
+					continue;
+				}
 				notes.Add(GetPrenote(s));
 			}
 			return notes;

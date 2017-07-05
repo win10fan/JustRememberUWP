@@ -475,4 +475,8 @@
   <data name="End_Notice.Text" xml:space="preserve">
     <value>You can view this stat later in setting, If you save it</value>
   </data>
+  <data name="Prenote_LoadExtension.Text" xml:space="preserve">
+    <value>Deploying prenote
+from extension</value>
+  </data>
 </root>

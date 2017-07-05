@@ -1,8 +1,12 @@
 ﻿using JustRemember.Services;
 using JustRemember.ViewModels;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.AppExtensions;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using System;
+using Windows.Storage;
+using System.IO;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,9 +28,35 @@ namespace JustRemember.Views
 			{
 				PrenoteService.DeployPrenote();
 			}
+			//Check prenote from extensions
+			GetNotesFromExtension();
 			vm.Initialize();
 			vm.v = this;
 			base.OnNavigatedTo(e);
+		}
+
+		public async void GetNotesFromExtension()
+		{
+			//Get extensions
+			var moarExt = AppExtensionCatalog.Open("rememberit.notes");
+			var allExts = await moarExt.FindAllAsync();
+			//Try to get notes from extension
+			if (allExts.Count < 1) { return; }
+			foreach (var ext in allExts)
+			{
+				//Verify if this extension note is already deploy
+				var depChk = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Prenote");
+				if (File.Exists($"{depChk.Path}\\{ext.DisplayName}.dep"))
+				{
+					//Extension is already exist
+					continue;
+				}
+				else
+				{
+					//Deploy note
+					PrenoteService.DeployPrenotesExtension(await ext.GetPublicFolderAsync(), ext.DisplayName);
+				}
+			}
 		}
 
 		public ListView FileList

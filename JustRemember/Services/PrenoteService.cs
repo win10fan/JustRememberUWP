@@ -2,6 +2,7 @@
 using JustRemember.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,44 @@ namespace JustRemember.Services
 				}
 				File.Copy(files[i], cachePath);
 			}
+		}
+
+		public static async void DeployPrenotesExtension(StorageFolder extFolder,string extensionName)
+		{
+			App.isDeploying = true;
+			//First get prenote folder
+			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Prenote");
+			//Create confirm file
+			var confirm = await prenote.CreateFileAsync($"{extensionName}.dep");
+			//Create root directory
+			StorageFolder root = await prenote.CreateFolderAsync(extensionName);
+			//Loop through all file in extension public folder
+			//Get file first
+			var notes = await extFolder.GetFilesAsync();
+			foreach (var note in notes)
+			{
+				//Create folders according to the note file name
+				string[] paths = note.Name.Split('-');
+				//Loop through paths to create directories
+				//But first get root folder start from \\Prenote\\[extension name]
+				StorageFolder root2 = root;
+				for (int i = 0; i < paths.Length - 1; i++)
+				{
+					if (paths[i].Contains(".txt")) { continue; }
+					try
+					{
+						root2 = await root2.CreateFolderAsync(paths[i]);
+					}
+					catch (Exception ex)
+					{
+						Debug.Write(ex.Message);
+						root2 = await root2.GetFolderAsync(paths[i]);
+					}
+				}
+				//Then copy that note from extension folder
+				await note.CopyAsync(root2,paths[paths.Length - 1]);
+			}
+			App.isDeploying = false;
 		}
 		
 		public static IEnumerable<PathDir> GetBreadcrumbPath(this string path)

@@ -73,6 +73,18 @@
 					</ListView>
 
 					<CommandBar Grid.Row="2">
+						<CommandBar.Content>
+							<StackPanel Height="50" Orientation="Horizontal" Visibility="{x:Bind vm.isDeployingFromExt, Mode=OneWay}">
+								<SymbolIcon Symbol="Sync" RenderTransformOrigin="0.5,0.5">
+									<SymbolIcon.RenderTransform>
+										<CompositeTransform x:Name="syncRotate" Rotation="0"/>
+									</SymbolIcon.RenderTransform>
+								</SymbolIcon>
+								<TextBlock Margin="10" VerticalAlignment="Center" x:Uid="Prenote_LoadExtension">
+									Deploying prenote<LineBreak/>from extension
+								</TextBlock>
+							</StackPanel>
+						</CommandBar.Content>
 						<AppBarButton Click="RefreshList" Label="Refresh" Icon="Refresh" x:Uid="PNote_refresh"/>
 						<AppBarButton Visibility="{x:Bind vm.isFileSelected, Mode=OneWay}" x:Uid="PNote_edit" Click="CopyNEdit" Label="Copy &amp; Edit" Icon="Edit"/>
 						<AppBarButton Visibility="{x:Bind vm.isOpenAbleSelected, Mode=OneWay}" x:Uid="Home_open" Click="Open" Label="Open" Icon="OpenLocal"/>

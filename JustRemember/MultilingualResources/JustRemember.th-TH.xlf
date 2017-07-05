@@ -483,6 +483,12 @@
           <source>You can view this stat later in setting, If you save it</source>
           <target state="translated">คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</target>
         </trans-unit>
+        <trans-unit id="Prenote_LoadExtension.Text" translate="yes" xml:space="preserve">
+          <source>Deploying prenote
+from extension</source>
+          <target state="translated">กำลังคัดลอกชีท
+จากส่วนขยายอื่น</target>
+        </trans-unit>
       </group>
     </body>
   </file>

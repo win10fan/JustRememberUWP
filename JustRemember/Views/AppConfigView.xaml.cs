@@ -32,6 +32,7 @@ namespace JustRemember.Views
 		}
 		
 		public AppConfigViewModel config { get; } = new AppConfigViewModel();
+		public ExtensionViewModel ext { get; } = new ExtensionViewModel();
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			await MobileTitlebarService.Refresh(App.language.GetString("Config_general"));

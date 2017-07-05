@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustRemember", "JustRemember\JustRemember.csproj", "{D827775F-C94E-4572-BD75-BA47709D1DF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bcnotes", "bcnotes\bcnotes.csproj", "{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,26 @@ Global
 		{D827775F-C94E-4572-BD75-BA47709D1DF0}.Release|x86.ActiveCfg = Release|x86
 		{D827775F-C94E-4572-BD75-BA47709D1DF0}.Release|x86.Build.0 = Release|x86
 		{D827775F-C94E-4572-BD75-BA47709D1DF0}.Release|x86.Deploy.0 = Release|x86
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|ARM.ActiveCfg = Debug|ARM
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|ARM.Build.0 = Debug|ARM
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|ARM.Deploy.0 = Debug|ARM
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|x64.ActiveCfg = Debug|x64
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|x64.Build.0 = Debug|x64
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|x64.Deploy.0 = Debug|x64
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|x86.ActiveCfg = Debug|x86
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|x86.Build.0 = Debug|x86
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Debug|x86.Deploy.0 = Debug|x86
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|Any CPU.ActiveCfg = Release|x86
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|ARM.ActiveCfg = Release|ARM
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|ARM.Build.0 = Release|ARM
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|ARM.Deploy.0 = Release|ARM
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|x64.ActiveCfg = Release|x64
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|x64.Build.0 = Release|x64
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|x64.Deploy.0 = Release|x64
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|x86.ActiveCfg = Release|x86
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|x86.Build.0 = Release|x86
+		{0FAC65CA-5DD8-4A39-8BA8-69ED5C243FD9}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

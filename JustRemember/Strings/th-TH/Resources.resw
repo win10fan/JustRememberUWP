@@ -371,4 +371,8 @@
   <data name="End_Notice.Text" xml:space="preserve">
     <value>คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</value>
   </data>
+  <data name="Prenote_LoadExtension.Text" xml:space="preserve">
+    <value>กำลังคัดลอกชีท
+จากส่วนขยายอื่น</value>
+  </data>
 </root>
