@@ -107,7 +107,7 @@ namespace JustRemember.Models
 			if (item is NoteModel)
 			{
 				fromNote = (NoteModel)item;
-				if (fromNote.FirstLine.StartsWith("#MODE=EXAM"))
+				if (fromNote.Mode == noteMode.qa)
 					return genEx(fromNote);
 				current = new SessionModel()
 				{
@@ -133,7 +133,7 @@ namespace JustRemember.Models
 			{
 				current = (SessionModel)((List<object>)item)[0];
 				fromNote = (NoteModel)((List<object>)item)[1];
-				if (fromNote.FirstLine.StartsWith("#MODE=EXAM"))
+				if (fromNote.Mode == noteMode.qa)
 					return genEx(fromNote);
 				current.choices.Clear();
 				current.choices = generateChoice(current.texts, current.maxChoice);
@@ -329,9 +329,10 @@ namespace JustRemember.Models
 			lines2.RemoveAt(0);
 			var lines = ExamSplit.GetList(lines2, answerLine);
 			current.texts = new ObservableCollection<TextList>();
-			current.choices = new ObservableCollection<ChoiceSet>();
-			current.choices.Add(new ChoiceSet() { choices = new List<string>() { ">>>" }, corrected = 0 });
-
+			current.choices = new ObservableCollection<ChoiceSet>
+			{
+				new ChoiceSet() { choices = new List<string>() { ">>>" }, corrected = 0 }
+			};
 			for (int i = 0; i < lines.Count; i++)
 			{
 				if (current.texts.Count == 0)

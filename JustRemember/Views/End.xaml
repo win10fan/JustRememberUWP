@@ -52,7 +52,6 @@
 					<TextBlock x:Uid="Edit_save" Text="Save"/>
 				</AppBarButton>
 				<AppBarButton Icon="Delete" Label="Delete" Click="Delete"/>
-				<AppBarButton Icon="Refresh" Label="Refresh" Click="RefreshGraph"/>
 			</CommandBar>
 		</Grid>
 		<Grid Margin="5" Grid.Row="1">

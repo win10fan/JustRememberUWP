@@ -12,7 +12,7 @@
 		<Pivot PivotItemLoaded="changePage" x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource SettingsPivot}">
 			<PivotItem Margin="0" Foreground="{ThemeResource AccentButtonForeground}">
 				<PivotItem.Header>
-					<SymbolIcon Foreground="{ThemeResource AccentButtonForeground}" Symbol="Page2" RenderTransformOrigin="0.5,0.5">
+					<SymbolIcon Symbol="Page2" RenderTransformOrigin="0.5,0.5">
 						<SymbolIcon.RenderTransform>
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>
@@ -118,7 +118,7 @@
 			</PivotItem>
 			<PivotItem Foreground="{ThemeResource AccentButtonForeground}" Margin="0">
 				<PivotItem.Header>
-					<SymbolIcon Foreground="{ThemeResource AccentButtonForeground}" Symbol="Clock" RenderTransformOrigin="0.5,0.5">
+					<SymbolIcon Symbol="Clock" RenderTransformOrigin="0.5,0.5">
 						<SymbolIcon.RenderTransform>
 							<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
 						</SymbolIcon.RenderTransform>
@@ -199,12 +199,5 @@
 				</Grid>
 			</PivotItem>
 		</Pivot>
-		<!--"{x:Bind ViewModel.isReady, Mode=OneWay}"-->
-		<Grid Visibility="{x:Bind ViewModel.isReady, Mode=OneWay}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
-				<ProgressRing Width="80" Height="80" Margin="5" IsActive="True"/>
-				<TextBlock x:Uid="Home_initializeSetting" Text="Initializing settings" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" FontSize="30"/>
-			</StackPanel>
-		</Grid>
 	</Grid>
 </Page>

@@ -39,21 +39,8 @@ namespace JustRemember.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(noNoteSuggestion)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsNotSelected)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isReady)));
         }
-
-		public Visibility isReady
-		{
-			get
-			{
-				if (config == null)
-				{
-					return Visibility.Visible;
-				}
-				return Visibility.Collapsed;
-			}
-		}
-
+		
         ObservableCollection<NoteModel> _notes;
 
         public ObservableCollection<NoteModel> Notes

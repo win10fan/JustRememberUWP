@@ -37,18 +37,9 @@ namespace JustRemember.Views
 		{
 			if (e.Parameter is NoteModel note)
 			{
-				if (note.Title == NoteModel.empty.Title && note.Content == NoteModel.empty.Content)
-				{
-					editor.editedNote = new NoteModel();
-					editor.NoteName = "Untitled";
-					editor.NoteContent = "";
-				}
-				else
-				{
-					editor.editedNote = note;
-					editor.NoteName = note.Title;
-					editor.NoteContent = note.Content;
-				}
+				editor.editedNote = note;
+				editor.NoteName = note.Title;
+				editor.NoteContent = note.Content;
 			}
 			else
 			{
@@ -71,6 +62,7 @@ namespace JustRemember.Views
 					editor.fileList.Add(n.Title);
 				}
 			}
+			editor.saveFilename.Execute(null);
 			await MobileTitlebarService.Refresh(editor.NoteName);
 			base.OnNavigatedTo(e);
 		}
@@ -109,6 +101,11 @@ namespace JustRemember.Views
 		public TextBox fileInput
 		{
 			get => fileDefine;
+		}
+
+		private void EditedName(object sender, TextChangedEventArgs e)
+		{
+			editor.saveFilename.Execute(null);
 		}
 	}
 }

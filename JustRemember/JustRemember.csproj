@@ -158,6 +158,9 @@
     <Compile Include="Views\End.xaml.cs">
       <DependentUpon>End.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExamEdit.xaml.cs">
+      <DependentUpon>ExamEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -285,6 +288,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\End.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExamEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
