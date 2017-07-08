@@ -33,14 +33,7 @@ namespace JustRemember.ViewModels
 			OnPropertyChanged(propertyName);
 		}
 
-		protected void OnPropertyChanged(string propertyName)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-			if (App.Config.autoScrollContent && propertyName == nameof(choicesSelected))
-			{
-				view.displayTexts.ChangeView(view.displayTexts.ViewportWidth, view.displayTexts.ViewportHeight, view.displayTexts.ZoomFactor);
-			}
-		}
+		protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 		public Match view;
 
@@ -769,7 +762,10 @@ namespace JustRemember.ViewModels
 				Text = latestChoices.finalText,
 				Foreground = latestChoices.mark
 			});
-			
+			if (App.Config.autoScrollContent)
+			{
+				view.displayTexts.ChangeView(view.displayTexts.ViewportWidth, view.displayTexts.ViewportHeight, view.displayTexts.ZoomFactor);
+			}
 		}
 
 		public void AddTextDisplay(int at)
@@ -779,6 +775,10 @@ namespace JustRemember.ViewModels
 				Text = current.selectedChoices[at].finalText,
 				Foreground = current.selectedChoices[at].mark
 			});
+			if (App.Config.autoScrollContent)
+			{
+				view.displayTexts.ChangeView(view.displayTexts.ViewportWidth, view.displayTexts.ViewportHeight, view.displayTexts.ZoomFactor);
+			}
 		}
 
 		string t1 { get => App.language.GetString("Match_choice_1"); }

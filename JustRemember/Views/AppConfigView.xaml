@@ -247,6 +247,9 @@
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="0">
@@ -293,6 +296,57 @@
 							<StackPanel Margin="5,0" Visibility="{x:Bind config.isEasySelected, Mode=OneWay}">
 								<TextBlock x:Uid="Config_wrong_hide" Text="Obfuscate wrong choice" Style="{ThemeResource settingTitleLabel}"/>
 								<ToggleSwitch IsOn="{x:Bind config.showWrongContent, Mode=TwoWay}"/>
+							</StackPanel>
+						</StackPanel>
+
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="6">
+							<TextBlock x:Uid="Config_RandomQA" Text="Randomize question &amp; answer" Style="{ThemeResource settingTitleLabel}"/>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Margin="5,10,0,0" SelectedIndex="{x:Bind config.config.randomizeQAInt, Mode=TwoWay}">
+									<ListBoxItem x:Uid="Config_Rand_a" Content="No randomize"/>
+									<ListBoxItem x:Uid="Config_Rand_b" Content="Randomize question order"/>
+									<ListBoxItem x:Uid="Config_Rand_c" Content="Randomize question &amp; answer order"/>
+								</ListBox>
+							</Grid>
+							<StackPanel Margin="5,10,0,5" Orientation="Horizontal">
+								<TextBlock Style="{ThemeResource settingNotifyLabel}" x:Uid="Config_Info_Apply" VerticalAlignment="Center">
+								this option apply to
+								</TextBlock>
+								<Border BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
+									<TextBlock Margin="3" x:Uid="Config_Info_Apply_QA" Style="{ThemeResource settingNotifyLabel}" Text="Q &amp; A">
+										<ToolTipService.ToolTip>
+											<TextBlock x:Uid="Config_Info_Apply_QA_Desc" Text="If note define with MODE=EXAM this option apply on that mode" TextWrapping="Wrap"/>
+										</ToolTipService.ToolTip>
+									</TextBlock>
+								</Border>
+								<Border Margin="5,0" BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
+									<TextBlock Margin="3" x:Uid="Config_Info_Apply_Dic" Style="{ThemeResource settingNotifyLabel}" Text="Dictionary">
+										<ToolTipService.ToolTip>
+											<TextBlock x:Uid="Config_Info_Apply_Dic_Desc" Text="If note define with MODE=VOLC this option apply on that mode"/>
+										</ToolTipService.ToolTip>
+									</TextBlock>
+								</Border>
+							</StackPanel>
+						</StackPanel>
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="7">
+							<TextBlock x:Uid="Config_Reverse_Dictionary" Text="Reverse dictionary Q&amp;A" Style="{ThemeResource settingTitleLabel}"/>
+							<ToggleSwitch IsOn="{x:Bind config.config.reverseDictionary, Mode=TwoWay}"/>
+							<StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+								<TextBlock Style="{ThemeResource settingNotifyLabel}" VerticalAlignment="Center">
+								this option apply to
+								</TextBlock>
+								<Border Margin="5,0" BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
+									<TextBlock Margin="3" x:Uid="Config_Info_Apply_Dic" Style="{ThemeResource settingNotifyLabel}" Text="Dictionary">
+										<ToolTipService.ToolTip>
+											<TextBlock x:Uid="Config_Info_Apply_Dic_Desc" Text="If note define with MODE=VOLC this option apply on that mode"/>
+										</ToolTipService.ToolTip>
+									</TextBlock>
+								</Border>
 							</StackPanel>
 						</StackPanel>
 					</Grid>

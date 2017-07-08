@@ -1,4 +1,5 @@
 ﻿using JustRemember.Services;
+using JustRemember.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -307,7 +308,6 @@ namespace JustRemember.Models
 		private static SessionModel genEx(NoteModel item)
 		{
 			SessionModel current = new SessionModel();
-
 			current = new SessionModel()
 			{
 				selectedChoices = new ObservableCollection<SelectedChoices>(),
@@ -345,6 +345,50 @@ namespace JustRemember.Models
 				current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i - 1].answers[lines[i - 1].corrected]}\r\n\r\n{lines[i].question}\r\n" });
 				current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
 			}
+			current.StatInfo = refreshStat(current);
+			return current;
+		}
+
+		private static SessionModel genVo(NoteModel item)
+		{
+			SessionModel current = new SessionModel();
+			//current = new SessionModel()
+			//{
+			//	selectedChoices = new ObservableCollection<SelectedChoices>(),
+			//	isNew = true,
+			//	maxChoice = 5,
+			//	currentChoice = 0,
+			//	noteWhiteSpaceMode = false,
+			//	SelectedNote = item
+			//};
+			////Get new one
+			////Initialize Session
+			//List<string> lines2 = item.Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
+			//string answerLine = null;
+			//if (lines2.Last().StartsWith("A="))
+			//{
+			//	answerLine = lines2.Last().Remove(0, 2);
+			//	lines2.RemoveAt(lines2.Count - 1);
+			//}
+			//lines2.RemoveAt(0);
+			//var lines = ExamSplit.GetList(lines2, answerLine);
+			//current.texts = new ObservableCollection<TextList>();
+			//current.choices = new ObservableCollection<ChoiceSet>
+			//{
+			//	new ChoiceSet() { choices = new List<string>() { ">>>" }, corrected = 0 }
+			//};
+			//for (int i = 0; i < lines.Count; i++)
+			//{
+			//	if (current.texts.Count == 0)
+			//	{
+			//		//Add first texts
+			//		current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i].question}\r\n" });
+			//		current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
+			//		continue;
+			//	}
+			//	current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i - 1].answers[lines[i - 1].corrected]}\r\n\r\n{lines[i].question}\r\n" });
+			//	current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
+			//}
 			current.StatInfo = refreshStat(current);
 
 			return current;
@@ -443,10 +487,48 @@ namespace JustRemember.Models
 				}
 			}
 			res.Add(es);
+			//Random qa check
+			int qs = 1;
+			switch (App.Config.randomizeQA)
+			{
+				case randomQA.OnlyQuestion:
+					res.Shuffle();
+					foreach (var r in res)
+					{
+						r.question = r.question.Remove(0, r.question.IndexOf('.') + 1).Trim();
+						r.question = $"{qs}. {r.question}";
+						qs += 1;
+					}
+					break;
+				case randomQA.All:
+					res.Shuffle();
+					foreach (var r in res)
+					{
+						r.question = r.question.Remove(0, r.question.IndexOf('.') + 1).Trim();
+						r.question = $"{qs}. {r.question}";
+						qs += 1;
+						r.answers[r.corrected] += "<<";
+						r.answers.Shuffle();
+						for (int c = 0; c < r.answers.Count; c++)
+						{
+							if (r.answers[c].EndsWith("<<"))
+							{
+								r.corrected = c;
+								r.answers[c] = r.answers[c].Replace("<<", "");
+							}
+							r.answers[c] = r.answers[c].Remove(0, r.answers[c].IndexOf('.') + 1).Trim();
+							r.answers[c] = $"{ExamEdit.ansSymbol[c]}. {r.answers[c]}";
+						}
+					}
+					break;
+			}
+			//
 			res.Add(new ExamSplit() { question = "", corrected = 0, answers = new List<string>() { ">>>" } });
 			return res;
 		}
 	}
+
+
 
 	/// <summary>
 	/// Contain snip of text from note content | whice later use to generate choice
@@ -665,6 +747,21 @@ namespace JustRemember.Models
 			if (value < min) { return min; }
 			if (value > max) { return max; }
 			return value;
+		}
+
+		private static Random rng = new Random();
+
+		public static void Shuffle<T>(this IList<T> list)
+		{
+			int n = list.Count;
+			while (n > 1)
+			{
+				n--;
+				int k = rng.Next(n + 1);
+				T value = list[k];
+				list[k] = list[n];
+				list[n] = value;
+			}
 		}
 	}
 }

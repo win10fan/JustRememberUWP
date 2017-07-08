@@ -137,6 +137,27 @@ namespace JustRemember.Models
 			set => Set(ref nospam, value);
 		}
 
+		randomQA _randQA;
+		public randomQA randomizeQA
+		{
+			get => _randQA;
+			set => Set(ref _randQA, value);
+		}
+
+		bool _frontback;
+		public bool reverseDictionary
+		{
+			get => _frontback;
+			set => Set(ref _frontback, value);
+		}
+
+		[JsonIgnore]
+		public int randomizeQAInt
+		{
+			get => (int)_randQA;
+			set => Set(ref _randQA, (randomQA)value);
+		}
+
 		[JsonIgnore]
 		public static List<string> languages = new List<string>()
 		{
@@ -234,6 +255,8 @@ namespace JustRemember.Models
 			saveStatAfterEnd = true;
 			hintAtFirstchoice = true;
 			antiSpamChoice = true;
+			randomizeQA = randomQA.No;
+			reverseDictionary = false;
 		}
 
 		public static async void SetLanguage(int selected)
@@ -288,5 +311,12 @@ namespace JustRemember.Models
 		Center,
 		Bottom,
 		Write
+	}
+
+	public enum randomQA
+	{
+		No,
+		OnlyQuestion,
+		All
 	}
 }

@@ -494,4 +494,34 @@ from extension</value>
   <data name="Config_Extensions" xml:space="preserve">
     <value>Extensions</value>
   </data>
+  <data name="Config_Info_Apply.Text" xml:space="preserve">
+    <value>This option apply to </value>
+  </data>
+  <data name="Config_Info_Apply_Dic.Text" xml:space="preserve">
+    <value>Dictionary</value>
+  </data>
+  <data name="Config_Info_Apply_Dic_Desc.Text" xml:space="preserve">
+    <value>If note define with MODE=VOLC this option apply on that mode</value>
+  </data>
+  <data name="Config_Info_Apply_QA.Text" xml:space="preserve">
+    <value>Q &amp; A</value>
+  </data>
+  <data name="Config_Info_Apply_QA_Desc.Text" xml:space="preserve">
+    <value>If note define with MODE=EXAM this option apply on that mode</value>
+  </data>
+  <data name="Config_RandomQA.Text" xml:space="preserve">
+    <value>Randomize question &amp; answer</value>
+  </data>
+  <data name="Config_Rand_a.Content" xml:space="preserve">
+    <value>No randomize</value>
+  </data>
+  <data name="Config_Rand_b.Content" xml:space="preserve">
+    <value>Randomize question order</value>
+  </data>
+  <data name="Config_Rand_c.Content" xml:space="preserve">
+    <value>Randomize question &amp; answer order</value>
+  </data>
+  <data name="Config_Reverse_Dictionary.Text" xml:space="preserve">
+    <value>Reverse dictionary Q&amp;A</value>
+  </data>
 </root>
