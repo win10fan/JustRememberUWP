@@ -274,6 +274,7 @@
     <Content Include="Assets\Fonts\THSarabunNewItalic.ttf" />
     <Content Include="Assets\Fonts\THSarabunNew.ttf" />
     <None Include="JustRemember_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\en\Resources.resw" />
     <PRIResource Include="Strings\th-TH\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
@@ -318,6 +319,7 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <XliffResource Include="MultilingualResources\JustRemember.en.xlf" />
     <XliffResource Include="MultilingualResources\JustRemember.th-TH.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
