@@ -132,6 +132,9 @@
   <data name="Home_import.Label" xml:space="preserve">
     <value>Import</value>
   </data>
+  <data name="Home_initializeSetting.Text" xml:space="preserve">
+    <value>Initializing settings</value>
+  </data>
   <data name="Home_NoNote1.Text" xml:space="preserve">
     <value>You don't have any note</value>
   </data>
@@ -370,6 +373,9 @@
   <data name="Edit_undo.Label" xml:space="preserve">
     <value>Undo</value>
   </data>
+  <data name="Edit_version.Text" xml:space="preserve">
+    <value>Note editor 1.0.0.2</value>
+  </data>
   <data name="Match_calmdown.Text" xml:space="preserve">
     <value>NO NEED TO HURRY!</value>
   </data>
@@ -398,7 +404,7 @@
     <value>Time:</value>
   </data>
   <data name="Match_detail_wrong.Text" xml:space="preserve">
-    <value>Wrong: </value>
+    <value>Wrong:</value>
   </data>
   <data name="Match_dialog_confirm_content" xml:space="preserve">
     <value>Do you want to leave this session?</value>
@@ -475,53 +481,5 @@ from extension</value>
   </data>
   <data name="Config_Ext_Uninstall.Text" xml:space="preserve">
     <value>Uninstall</value>
-  </data>
-  <data name="Config_No_Ext" xml:space="preserve">
-    <value>No extension</value>
-  </data>
-  <data name="Exam_Editor_Edit.Label" xml:space="preserve">
-    <value>Open in note editor</value>
-  </data>
-  <data name="Exam_Editor_New.Label" xml:space="preserve">
-    <value>New question</value>
-  </data>
-  <data name="Exam_Editor_Quit.Label" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="Exam_Editor_Under.Label" xml:space="preserve">
-    <value>Save answer at the bottom</value>
-  </data>
-  <data name="Config_Extensions" xml:space="preserve">
-    <value>Extensions</value>
-  </data>
-  <data name="Config_Info_Apply.Text" xml:space="preserve">
-    <value>This option apply to </value>
-  </data>
-  <data name="Config_Info_Apply_Dic.Text" xml:space="preserve">
-    <value>Dictionary</value>
-  </data>
-  <data name="Config_Info_Apply_Dic_Desc.Text" xml:space="preserve">
-    <value>If note define with MODE=VOLC this option apply on that mode</value>
-  </data>
-  <data name="Config_Info_Apply_QA.Text" xml:space="preserve">
-    <value>Q &amp; A</value>
-  </data>
-  <data name="Config_Info_Apply_QA_Desc.Text" xml:space="preserve">
-    <value>If note define with MODE=EXAM this option apply on that mode</value>
-  </data>
-  <data name="Config_RandomQA.Text" xml:space="preserve">
-    <value>Randomize question &amp; answer</value>
-  </data>
-  <data name="Config_Rand_a.Content" xml:space="preserve">
-    <value>No randomize</value>
-  </data>
-  <data name="Config_Rand_b.Content" xml:space="preserve">
-    <value>Randomize question order</value>
-  </data>
-  <data name="Config_Rand_c.Content" xml:space="preserve">
-    <value>Randomize question &amp; answer order</value>
-  </data>
-  <data name="Config_Reverse_Dictionary.Text" xml:space="preserve">
-    <value>Reverse dictionary Q&amp;A</value>
   </data>
 </root>

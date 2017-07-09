@@ -13,10 +13,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Home_add.Label" xml:space="preserve">
-    <value>สร้างชีทใหม่</value>
+    <value>เพิ่ม</value>
   </data>
   <data name="Home_delete.Label" xml:space="preserve">
-    <value>ลบชีท</value>
+    <value>ลบ</value>
   </data>
   <data name="Home_deselect.Label" xml:space="preserve">
     <value>ไม่เลือก</value>
@@ -25,16 +25,19 @@
     <value>แก้ไข</value>
   </data>
   <data name="Home_import.Label" xml:space="preserve">
-    <value>เพิ่มชีทจากไฟล์</value>
+    <value>นำเข้า</value>
+  </data>
+  <data name="Home_initializeSetting.Text" xml:space="preserve">
+    <value>กำลังเตรียมการตั้งค่า</value>
   </data>
   <data name="Home_NoNote1.Text" xml:space="preserve">
-    <value>ไม่มีชีทบันทึกไว้</value>
+    <value>ไม่พบชีทที่บันทึกไว้</value>
   </data>
   <data name="Home_NoNote2.Text" xml:space="preserve">
-    <value>คลิก "เพิ่มชีท"</value>
+    <value>สามารถเพิ่มชีทได้ โดยเขียนชีทใหม่</value>
   </data>
   <data name="Home_NoNote3.Text" xml:space="preserve">
-    <value>หรือคลิก "เพิ่มชีทจากไฟล์"</value>
+    <value>หรือนำเข้าไฟล์ข้อความ</value>
   </data>
   <data name="Home_NoNote4.Text" xml:space="preserve">
     <value>โดยคลิกเมนูด้านล่าง</value>
@@ -46,7 +49,7 @@
     <value>ชีทที่มีอยู่</value>
   </data>
   <data name="Home_reload.Label" xml:space="preserve">
-    <value>เช็ครายการใหม่</value>
+    <value>โหลดใหม่</value>
   </data>
   <data name="Config_about_made.Text" xml:space="preserve">
     <value>สร้างโดย </value>
@@ -74,16 +77,16 @@
     <value>ฆ</value>
   </data>
   <data name="Config_choicelook.Text" xml:space="preserve">
-    <value>รูปแบบตัวเลือก</value>
+    <value>รูปแบบ</value>
   </data>
   <data name="Config_choices.Text" xml:space="preserve">
-    <value>จำนวนตัวเลือก</value>
+    <value>จำนวนข้อ</value>
   </data>
   <data name="Config_delall" xml:space="preserve">
-    <value>ลบสถิติทั้งหมด</value>
+    <value>ลบสถิติ</value>
   </data>
   <data name="Config_end.Text" xml:space="preserve">
-    <value>เมื่อจบตัวเลือกสุดท้่่าย</value>
+    <value>เมื่อหมดตัวเลือก</value>
   </data>
   <data name="Config_end_a.Content" xml:space="preserve">
     <value>รายงานสถิติ</value>
@@ -98,7 +101,7 @@
     <value>กลับเมนูหลัก</value>
   </data>
   <data name="Config_fontsize.Text" xml:space="preserve">
-    <value>ขนาดข้อความตัวเลือก</value>
+    <value>ขนาดตัวหนังสือ</value>
   </data>
   <data name="Config_hint.Text" xml:space="preserve">
     <value>บอกใบ้ข้อแรก</value>
@@ -107,25 +110,25 @@
     <value>ภาษา</value>
   </data>
   <data name="Config_reset_a.Content" xml:space="preserve">
-    <value>ลบการตั้งค่า</value>
+    <value>รีเซทตั้งค่า</value>
   </data>
   <data name="Config_reset_b.Content" xml:space="preserve">
-    <value>ลบสถิติทั้งหมด</value>
+    <value>ล้างสถิติ</value>
   </data>
   <data name="Config_reset_c.Content" xml:space="preserve">
     <value>ลบบันทึกทั้งหมด</value>
   </data>
   <data name="Config_reset_d.Content" xml:space="preserve">
-    <value>ลบชีททั้งหมด</value>
+    <value>ลบชีทที่มีอยู่</value>
   </data>
   <data name="Config_reset_e.Content" xml:space="preserve">
-    <value>ลบทุกอย่าง</value>
+    <value>รีเซทค่าทุกอย่าง</value>
   </data>
   <data name="Config_saveall" xml:space="preserve">
     <value>บันทึกสถิติ</value>
   </data>
   <data name="Config_stat_corrected.Text" xml:space="preserve">
-    <value>ข้อที่ถูก</value>
+    <value>ตัวเลือกที่ถูก</value>
   </data>
   <data name="Config_stat_count_format" xml:space="preserve">
     <value>มี{1}อยู่ {0} อัน</value>
@@ -144,7 +147,7 @@
     <value>สถิติ</value>
   </data>
   <data name="Config_stat_started.Text" xml:space="preserve">
-    <value>เริ่มต้นเมื่อ: </value>
+    <value>เริ่มต้นเมื่อ</value>
   </data>
   <data name="Config_stat_time_a.Text" xml:space="preserve">
     <value>ครั้งนี้ ใช้เวลา </value>
@@ -153,13 +156,13 @@
     <value>ด้วย</value>
   </data>
   <data name="Config_stat_time_c.Text" xml:space="preserve">
-    <value> ก่อนหมดหมดเวลาใน </value>
+    <value> ก่อนหมดหมดเวลาใน</value>
   </data>
   <data name="Config_stat_time_d.Text" xml:space="preserve">
     <value> </value>
   </data>
   <data name="Config_submit.Content" xml:space="preserve">
-    <value>ยืนยัน</value>
+    <value>ส่ง</value>
   </data>
   <data name="Config_timelimit.Text" xml:space="preserve">
     <value>จำกัด (นาที)</value>
@@ -183,36 +186,36 @@
     <value>เริ่มใหม่</value>
   </data>
   <data name="Config_wrong_hide.Text" xml:space="preserve">
-    <value>ซ่อนคำตอบเมื่อตอบผิด</value>
+    <value>ซ่อนคำตอบ</value>
   </data>
   <data name="Home_note" xml:space="preserve">
-    <value>ชีท</value>
+    <value>บันทึกย่อ</value>
   </data>
   <data name="Home_note_count_format" xml:space="preserve">
     <value>มี{1}อยู่ {0} อัน</value>
     <comment>0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</comment>
   </data>
   <data name="Home_note_prural" xml:space="preserve">
-    <value>ชีท</value>
+    <value>บันทึกย่อ</value>
   </data>
   <data name="Home_note_single" xml:space="preserve">
-    <value>ชีท</value>
+    <value>หมายเหตุ</value>
   </data>
   <data name="Home_session" xml:space="preserve">
-    <value>บันทึก</value>
+    <value>เซสชัน</value>
   </data>
   <data name="Home_session_count_format" xml:space="preserve">
     <value>มี{1}อยู่ {0} อัน</value>
     <comment>same as note count</comment>
   </data>
   <data name="Home_session_no" xml:space="preserve">
-    <value>ไม่พบบันทึก</value>
+    <value>คุณไม่มีเซฟ</value>
   </data>
   <data name="Home_session_prural" xml:space="preserve">
     <value>บันทึก</value>
   </data>
   <data name="Home_session_single" xml:space="preserve">
-    <value>บันทึก</value>
+    <value>เซสชัน</value>
   </data>
   <data name="Config_about" xml:space="preserve">
     <value>อื่นๆ</value>
@@ -221,7 +224,7 @@
     <value>การตั้งค่าทั่วไป:</value>
   </data>
   <data name="Config_session" xml:space="preserve">
-    <value>ตัวเลือก</value>
+    <value>บันทึก</value>
   </data>
   <data name="Config_stat" xml:space="preserve">
     <value>สถิติ</value>
@@ -259,6 +262,9 @@
   <data name="Edit_undo.Label" xml:space="preserve">
     <value>เลิกทำ</value>
   </data>
+  <data name="Edit_version.Text" xml:space="preserve">
+    <value>แก้ไขชีท 1.0.0.2</value>
+  </data>
   <data name="Match_calmdown.Text" xml:space="preserve">
     <value>ใจเย็นๆ 
 ไม่ต้องรีบ</value>
@@ -267,13 +273,13 @@
     <value>ดำเนินการต่อ</value>
   </data>
   <data name="Match_detail_progress.Text" xml:space="preserve">
-    <value>ความคืบหน้า: </value>
+    <value>ความคืบหน้า</value>
   </data>
   <data name="Match_detail_time.Text" xml:space="preserve">
-    <value>เวลา: </value>
+    <value>เวลา</value>
   </data>
   <data name="Match_detail_wrong.Text" xml:space="preserve">
-    <value>ผิด: </value>
+    <value>ผิด:</value>
   </data>
   <data name="Match_dialog_confirm_content" xml:space="preserve">
     <value>คุณแน่ใจแล้วใช่ไหม?</value>
@@ -367,24 +373,6 @@
   </data>
   <data name="Prenote_LoadExtension.Text" xml:space="preserve">
     <value>กำลังคัดลอกชีท
-จากส่วนขยาย</value>
-  </data>
-  <data name="Config_Ext_Uninstall.Text" xml:space="preserve">
-    <value>ถอนการติดตั้ง</value>
-  </data>
-  <data name="Config_No_Ext" xml:space="preserve">
-    <value>ไม่พบส่วนขยาย</value>
-  </data>
-  <data name="Exam_Editor_Edit.Label" xml:space="preserve">
-    <value>เปิดด้วยตัวแก้ไขชีท</value>
-  </data>
-  <data name="Exam_Editor_New.Label" xml:space="preserve">
-    <value>ตั้งคำถามใหม่</value>
-  </data>
-  <data name="Exam_Editor_Quit.Label" xml:space="preserve">
-    <value>ออก</value>
-  </data>
-  <data name="Exam_Editor_Under.Label" xml:space="preserve">
-    <value>บันทึกคำตอบไว้ด้านล่าง</value>
+จากส่วนขยายอื่น</value>
   </data>
 </root>

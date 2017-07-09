@@ -539,7 +539,6 @@
 							</StackPanel>
 						</Button>
 					</Grid>
-					<TextBlock Text="No extension" FontSize="20" x:Uid="Config_No_Ext" Visibility="{x:Bind ext.noExt, Mode=OneWay}"/>
 				</Grid>
 			</PivotItem>
 			<PivotItem x:Name="aboutPage" x:Uid="setAbt">

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
 
 namespace JustRemember.Models
 {
@@ -16,22 +13,8 @@ namespace JustRemember.Models
 	{
 		public string Fullpath { get; set; } = "";
 		public string Name { get; set; } = "";
+		public string Icon { get; set; } = "?";
 		public bool isFile { get; set; } = false;
-
-		[JsonIgnore]
-		public SolidColorBrush iconColor
-		{
-			get => isFile ? new SolidColorBrush(Colors.WhiteSmoke) : new SolidColorBrush(Colors.Yellow);
-		}
-		[JsonIgnore]
-		public SolidColorBrush iconColor2
-		{
-			get => isFile ? new SolidColorBrush(Colors.Gray) : new SolidColorBrush(Colors.Yellow);
-		}
-		[JsonIgnore]
-		public string Icon { get => isFile ? "" : ""; }
-		[JsonIgnore]
-		public string Icon2 { get => isFile ? "" : ""; }
 
 		private PrenoteModel() { }
 
@@ -41,6 +24,7 @@ namespace JustRemember.Models
 			{
 				Fullpath = path,
 				Name = Path.GetFileNameWithoutExtension(path),
+				Icon = path.EndsWith(".txt") ? "" : "",
 				isFile = path.EndsWith(".txt")
 			};
 			return pn;

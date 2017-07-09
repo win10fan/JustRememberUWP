@@ -53,8 +53,6 @@ namespace JustRemember.Views
 			if (sender.SelectedIndex == 3)
 				await MobileTitlebarService.Refresh(App.language.GetString("Config_stat"));
 			if (sender.SelectedIndex == 4)
-				await MobileTitlebarService.Refresh(App.language.GetString("Config_Extensions"));
-			if (sender.SelectedIndex == 5)
 				await MobileTitlebarService.Refresh(App.language.GetString("Config_about"));
 		}
 

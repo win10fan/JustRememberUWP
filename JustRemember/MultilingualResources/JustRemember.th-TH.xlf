@@ -8,11 +8,11 @@
       <group id="JUSTREMEMBER/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="Home_add.Label" translate="yes" xml:space="preserve">
           <source>Add</source>
-          <target state="translated">สร้างชีทใหม่</target>
+          <target state="translated" state-qualifier="tm-suggestion">เพิ่ม</target>
         </trans-unit>
         <trans-unit id="Home_delete.Label" translate="yes" xml:space="preserve">
           <source>Delete</source>
-          <target state="translated">ลบชีท</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">ลบ</target>
         </trans-unit>
         <trans-unit id="Home_deselect.Label" translate="yes" xml:space="preserve">
           <source>De select</source>
@@ -20,23 +20,27 @@
         </trans-unit>
         <trans-unit id="Home_edit.Label" translate="yes" xml:space="preserve">
           <source>Edit</source>
-          <target state="translated">แก้ไข</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">แก้ไข</target>
         </trans-unit>
         <trans-unit id="Home_import.Label" translate="yes" xml:space="preserve">
           <source>Import</source>
-          <target state="translated">เพิ่มชีทจากไฟล์</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">นำเข้า</target>
+        </trans-unit>
+        <trans-unit id="Home_initializeSetting.Text" translate="yes" xml:space="preserve">
+          <source>Initializing settings</source>
+          <target state="translated">กำลังเตรียมการตั้งค่า</target>
         </trans-unit>
         <trans-unit id="Home_NoNote1.Text" translate="yes" xml:space="preserve">
           <source>You don't have any note</source>
-          <target state="translated">ไม่มีชีทบันทึกไว้</target>
+          <target state="translated">ไม่พบชีทที่บันทึกไว้</target>
         </trans-unit>
         <trans-unit id="Home_NoNote2.Text" translate="yes" xml:space="preserve">
           <source>You can add note by Write new note</source>
-          <target state="translated">คลิก "เพิ่มชีท"</target>
+          <target state="translated">สามารถเพิ่มชีทได้ โดยเขียนชีทใหม่</target>
         </trans-unit>
         <trans-unit id="Home_NoNote3.Text" translate="yes" xml:space="preserve">
           <source>Or import text file</source>
-          <target state="translated">หรือคลิก "เพิ่มชีทจากไฟล์"</target>
+          <target state="translated">หรือนำเข้าไฟล์ข้อความ</target>
         </trans-unit>
         <trans-unit id="Home_NoNote4.Text" translate="yes" xml:space="preserve">
           <source>By click at menu below</source>
@@ -52,7 +56,7 @@
         </trans-unit>
         <trans-unit id="Home_reload.Label" translate="yes" xml:space="preserve">
           <source>Reload</source>
-          <target state="translated">เช็ครายการใหม่</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">โหลดใหม่</target>
         </trans-unit>
         <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
           <source>Made by @</source>
@@ -89,19 +93,19 @@
         </trans-unit>
         <trans-unit id="Config_choicelook.Text" translate="yes" xml:space="preserve">
           <source>Choice style</source>
-          <target state="translated">รูปแบบตัวเลือก</target>
+          <target state="translated">รูปแบบ</target>
         </trans-unit>
         <trans-unit id="Config_choices.Text" translate="yes" xml:space="preserve">
           <source>Max choice</source>
-          <target state="translated">จำนวนตัวเลือก</target>
+          <target state="translated">จำนวนข้อ</target>
         </trans-unit>
         <trans-unit id="Config_delall" translate="yes" xml:space="preserve">
           <source>Delete all stat</source>
-          <target state="translated">ลบสถิติทั้งหมด</target>
+          <target state="translated">ลบสถิติ</target>
         </trans-unit>
         <trans-unit id="Config_end.Text" translate="yes" xml:space="preserve">
           <source>After final choice</source>
-          <target state="translated">เมื่อจบตัวเลือกสุดท้่่าย</target>
+          <target state="translated">เมื่อหมดตัวเลือก</target>
         </trans-unit>
         <trans-unit id="Config_end_a.Content" translate="yes" xml:space="preserve">
           <source>Go to summary page</source>
@@ -109,7 +113,7 @@
         </trans-unit>
         <trans-unit id="Config_end_and.Text" translate="yes" xml:space="preserve">
           <source>And...</source>
-          <target state="translated">และ</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">และ</target>
         </trans-unit>
         <trans-unit id="Config_end_b.Content" translate="yes" xml:space="preserve">
           <source>Restart match</source>
@@ -121,7 +125,7 @@
         </trans-unit>
         <trans-unit id="Config_fontsize.Text" translate="yes" xml:space="preserve">
           <source>Display font size</source>
-          <target state="translated">ขนาดข้อความตัวเลือก</target>
+          <target state="translated">ขนาดตัวหนังสือ</target>
         </trans-unit>
         <trans-unit id="Config_hint.Text" translate="yes" xml:space="preserve">
           <source>Hint at first choice</source>
@@ -129,15 +133,15 @@
         </trans-unit>
         <trans-unit id="Config_language.Text" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="translated">ภาษา</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">ภาษา</target>
         </trans-unit>
         <trans-unit id="Config_reset_a.Content" translate="yes" xml:space="preserve">
           <source>Reset setting</source>
-          <target state="translated">ลบการตั้งค่า</target>
+          <target state="translated">รีเซทตั้งค่า</target>
         </trans-unit>
         <trans-unit id="Config_reset_b.Content" translate="yes" xml:space="preserve">
           <source>Reset stat</source>
-          <target state="translated">ลบสถิติทั้งหมด</target>
+          <target state="translated">ล้างสถิติ</target>
         </trans-unit>
         <trans-unit id="Config_reset_c.Content" translate="yes" xml:space="preserve">
           <source>Reset sessions</source>
@@ -145,11 +149,11 @@
         </trans-unit>
         <trans-unit id="Config_reset_d.Content" translate="yes" xml:space="preserve">
           <source>Reset all user note</source>
-          <target state="translated">ลบชีททั้งหมด</target>
+          <target state="translated">ลบชีทที่มีอยู่</target>
         </trans-unit>
         <trans-unit id="Config_reset_e.Content" translate="yes" xml:space="preserve">
           <source>Reset everything</source>
-          <target state="translated">ลบทุกอย่าง</target>
+          <target state="translated">รีเซทค่าทุกอย่าง</target>
         </trans-unit>
         <trans-unit id="Config_saveall" translate="yes" xml:space="preserve">
           <source>Save all stat</source>
@@ -157,7 +161,7 @@
         </trans-unit>
         <trans-unit id="Config_stat_corrected.Text" translate="yes" xml:space="preserve">
           <source>Corrected choice</source>
-          <target state="translated">ข้อที่ถูก</target>
+          <target state="translated">ตัวเลือกที่ถูก</target>
         </trans-unit>
         <trans-unit id="Config_stat_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
@@ -182,11 +186,11 @@
         </trans-unit>
         <trans-unit id="Config_stat_started.Text" translate="yes" xml:space="preserve">
           <source>Started on:</source>
-          <target state="translated">เริ่มต้นเมื่อ: </target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">เริ่มต้นเมื่อ</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_a.Text" translate="yes" xml:space="preserve">
           <source>This session took </source>
-          <target state="needs-review-translation">ครั้งนี้ ใช้เวลา </target>
+          <target state="translated">ครั้งนี้ ใช้เวลา </target>
         </trans-unit>
         <trans-unit id="Config_stat_time_b.Text" translate="yes" xml:space="preserve">
           <source> with </source>
@@ -194,15 +198,15 @@
         </trans-unit>
         <trans-unit id="Config_stat_time_c.Text" translate="yes" xml:space="preserve">
           <source> left before </source>
-          <target state="translated"> ก่อนหมดหมดเวลาใน </target>
+          <target state="translated"> ก่อนหมดหมดเวลาใน</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_d.Text" translate="yes" xml:space="preserve">
           <source> limit</source>
-          <target state="needs-review-translation"> </target>
+          <target state="translated"> </target>
         </trans-unit>
         <trans-unit id="Config_submit.Content" translate="yes" xml:space="preserve">
           <source>Submit</source>
-          <target state="translated">ยืนยัน</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">ส่ง</target>
         </trans-unit>
         <trans-unit id="Config_timelimit.Text" translate="yes" xml:space="preserve">
           <source>Total limit</source>
@@ -218,11 +222,11 @@
         </trans-unit>
         <trans-unit id="Config_when_wrong.Text" translate="yes" xml:space="preserve">
           <source>When choose wrong choice</source>
-          <target state="needs-review-translation">เมื่อเลือกข้อผิด</target>
+          <target state="translated">เมื่อเลือกข้อผิด</target>
         </trans-unit>
         <trans-unit id="Config_wrong_a.Content" translate="yes" xml:space="preserve">
           <source>Skip to next choice</source>
-          <target state="needs-review-translation">ลัดไปข้อถัดไป</target>
+          <target state="translated">ลัดไปข้อถัดไป</target>
         </trans-unit>
         <trans-unit id="Config_wrong_b.Content" translate="yes" xml:space="preserve">
           <source>Stay at same choice until correct</source>
@@ -234,11 +238,11 @@
         </trans-unit>
         <trans-unit id="Config_wrong_hide.Text" translate="yes" xml:space="preserve">
           <source>Obfuscate wrong choice</source>
-          <target state="translated">ซ่อนคำตอบเมื่อตอบผิด</target>
+          <target state="translated">ซ่อนคำตอบ</target>
         </trans-unit>
         <trans-unit id="Home_note" translate="yes" xml:space="preserve">
           <source>Note</source>
-          <target state="translated">ชีท</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">บันทึกย่อ</target>
         </trans-unit>
         <trans-unit id="Home_note_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
@@ -247,15 +251,15 @@
         </trans-unit>
         <trans-unit id="Home_note_prural" translate="yes" xml:space="preserve">
           <source>notes</source>
-          <target state="translated">ชีท</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">บันทึกย่อ</target>
         </trans-unit>
         <trans-unit id="Home_note_single" translate="yes" xml:space="preserve">
           <source>note</source>
-          <target state="translated">ชีท</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">หมายเหตุ</target>
         </trans-unit>
         <trans-unit id="Home_session" translate="yes" xml:space="preserve">
           <source>Session</source>
-          <target state="translated">บันทึก</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">เซสชัน</target>
         </trans-unit>
         <trans-unit id="Home_session_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
@@ -264,15 +268,15 @@
         </trans-unit>
         <trans-unit id="Home_session_no" translate="yes" xml:space="preserve">
           <source>You don't have any saved session</source>
-          <target state="translated">ไม่พบบันทึก</target>
+          <target state="translated">คุณไม่มีเซฟ</target>
         </trans-unit>
         <trans-unit id="Home_session_prural" translate="yes" xml:space="preserve">
           <source>sessions</source>
-          <target state="needs-review-translation">บันทึก</target>
+          <target state="translated">บันทึก</target>
         </trans-unit>
         <trans-unit id="Home_session_single" translate="yes" xml:space="preserve">
           <source>session</source>
-          <target state="translated">บันทึก</target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">เซสชัน</target>
         </trans-unit>
         <trans-unit id="Config_about" translate="yes" xml:space="preserve">
           <source>About &amp; reset</source>
@@ -284,11 +288,11 @@
         </trans-unit>
         <trans-unit id="Config_session" translate="yes" xml:space="preserve">
           <source>Session setting</source>
-          <target state="translated">ตัวเลือก</target>
+          <target state="translated">บันทึก</target>
         </trans-unit>
         <trans-unit id="Config_stat" translate="yes" xml:space="preserve">
           <source>Stat list</source>
-          <target state="needs-review-translation">สถิติ</target>
+          <target state="translated">สถิติ</target>
         </trans-unit>
         <trans-unit id="Edit_bold.Text" translate="yes" xml:space="preserve">
           <source>Bold</source>
@@ -308,11 +312,11 @@
         </trans-unit>
         <trans-unit id="Edit_name_exist.Text" translate="yes" xml:space="preserve">
           <source>Name already exist</source>
-          <target state="needs-review-translation">ชื่อนี้มีแล้ว</target>
+          <target state="translated">ชื่อนี้มีแล้ว</target>
         </trans-unit>
         <trans-unit id="Edit_name_illegal.Text" translate="yes" xml:space="preserve">
           <source>Name can't contains: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</source>
-          <target state="needs-review-translation">ห้ามใส่อักษรเหล่านี้ในชื่อ: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</target>
+          <target state="translated">ห้ามใส่อักษรเหล่านี้ในชื่อ: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</target>
         </trans-unit>
         <trans-unit id="Edit_new.Text" translate="yes" xml:space="preserve">
           <source>New</source>
@@ -328,15 +332,19 @@
         </trans-unit>
         <trans-unit id="Edit_size_b.Text" translate="yes" xml:space="preserve">
           <source>)</source>
-          <target state="needs-review-translation">)</target>
+          <target state="translated">)</target>
         </trans-unit>
         <trans-unit id="Edit_undo.Label" translate="yes" xml:space="preserve">
           <source>Undo</source>
           <target state="needs-review-translation" state-qualifier="tm-suggestion">เลิกทำ</target>
         </trans-unit>
+        <trans-unit id="Edit_version.Text" translate="yes" xml:space="preserve">
+          <source>Note editor 1.0.0.2</source>
+          <target state="translated">แก้ไขชีท 1.0.0.2</target>
+        </trans-unit>
         <trans-unit id="Match_calmdown.Text" translate="yes" xml:space="preserve">
           <source>NO NEED TO HURRY!</source>
-          <target state="needs-review-translation">ใจเย็นๆ 
+          <target state="translated">ใจเย็นๆ 
 ไม่ต้องรีบ</target>
         </trans-unit>
         <trans-unit id="Match_continue.Text" translate="yes" xml:space="preserve">
@@ -345,19 +353,19 @@
         </trans-unit>
         <trans-unit id="Match_detail_progress.Text" translate="yes" xml:space="preserve">
           <source>Progress: </source>
-          <target state="translated">ความคืบหน้า: </target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">ความคืบหน้า</target>
         </trans-unit>
         <trans-unit id="Match_detail_time.Text" translate="yes" xml:space="preserve">
           <source>Time:</source>
-          <target state="translated">เวลา: </target>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">เวลา</target>
         </trans-unit>
         <trans-unit id="Match_detail_wrong.Text" translate="yes" xml:space="preserve">
-          <source>Wrong: </source>
-          <target state="translated">ผิด: </target>
+          <source>Wrong:</source>
+          <target state="translated">ผิด:</target>
         </trans-unit>
         <trans-unit id="Match_dialog_confirm_content" translate="yes" xml:space="preserve">
           <source>Do you want to leave this session?</source>
-          <target state="needs-review-translation">คุณแน่ใจแล้วใช่ไหม?</target>
+          <target state="translated">คุณแน่ใจแล้วใช่ไหม?</target>
         </trans-unit>
         <trans-unit id="Match_dialog_confirm_title" translate="yes" xml:space="preserve">
           <source>Confirm</source>
@@ -369,7 +377,7 @@
         </trans-unit>
         <trans-unit id="Match_dialog_notyet_content" translate="yes" xml:space="preserve">
           <source>Not yet!</source>
-          <target state="needs-review-translation">ไม่ใช่ตอนนี้</target>
+          <target state="translated">ไม่ใช่ตอนนี้</target>
         </trans-unit>
         <trans-unit id="Match_dialog_ok" translate="yes" xml:space="preserve">
           <source>OK</source>
@@ -377,7 +385,7 @@
         </trans-unit>
         <trans-unit id="Match_dialog_reset_content" translate="yes" xml:space="preserve">
           <source>This will reset current session to start!</source>
-          <target state="needs-review-translation">แน่ใจแล้วใช่ไหมว่าจะเริ่มใหม่?</target>
+          <target state="translated">แน่ใจแล้วใช่ไหมว่าจะเริ่มใหม่?</target>
         </trans-unit>
         <trans-unit id="Match_dialog_reset_title" translate="yes" xml:space="preserve">
           <source>Are you sure?</source>
@@ -385,11 +393,11 @@
         </trans-unit>
         <trans-unit id="Match_dialog_timeup_content" translate="yes" xml:space="preserve">
           <source>Hurry up next time</source>
-          <target state="needs-review-translation">ครั้งหน้าเร็วๆ หน่อยก็ดี</target>
+          <target state="translated">ครั้งหน้าเร็วๆ หน่อยก็ดี</target>
         </trans-unit>
         <trans-unit id="Match_dialog_timeup_title" translate="yes" xml:space="preserve">
           <source>Times up!</source>
-          <target state="needs-review-translation">หมดเวลา</target>
+          <target state="translated">หมดเวลา</target>
         </trans-unit>
         <trans-unit id="Match_dialog_yes" translate="yes" xml:space="preserve">
           <source>Yes</source>
@@ -405,7 +413,7 @@
         </trans-unit>
         <trans-unit id="Match_save.Text" translate="yes" xml:space="preserve">
           <source>Save session</source>
-          <target state="needs-review-translation">บันทึกไว้ภายหลัง</target>
+          <target state="translated">บันทึกไว้ภายหลัง</target>
         </trans-unit>
         <trans-unit id="Note_Untitled" translate="yes" xml:space="preserve">
           <source>Untitled</source>
@@ -413,7 +421,7 @@
         </trans-unit>
         <trans-unit id="PNote_edit.Label" translate="yes" xml:space="preserve">
           <source>Copy &amp; Edit</source>
-          <target state="needs-review-translation">คัดลอกและแก้ไข</target>
+          <target state="translated">คัดลอกและแก้ไข</target>
         </trans-unit>
         <trans-unit id="PNote_refresh.Label" translate="yes" xml:space="preserve">
           <source>Refresh</source>
@@ -421,23 +429,23 @@
         </trans-unit>
         <trans-unit id="PublisherDisplayName" translate="yes" xml:space="preserve">
           <source>ToonWK</source>
-          <target state="needs-review-translation">Toon</target>
+          <target state="translated">Toon</target>
         </trans-unit>
         <trans-unit id="Stat_easy" translate="yes" xml:space="preserve">
           <source>User choose to skip to next choice. When choose wrong choice</source>
-          <target state="needs-review-translation">ลัดไปข้อถัดไป เมื่อตอบผิด</target>
+          <target state="translated">ลัดไปข้อถัดไป เมื่อตอบผิด</target>
         </trans-unit>
         <trans-unit id="Stat_hard" translate="yes" xml:space="preserve">
           <source>User choose to restart. When choose wrong choice</source>
-          <target state="needs-review-translation">เมื่อเลือกข้อผิด เริ่มใหม่</target>
+          <target state="translated">เมื่อเลือกข้อผิด เริ่มใหม่</target>
         </trans-unit>
         <trans-unit id="Stat_normal" translate="yes" xml:space="preserve">
           <source>User choose to stay on the wrong choice, until correct</source>
-          <target state="needs-review-translation">อยู่ข้อเดิม จนกว่าจะตอบถูก</target>
+          <target state="translated">อยู่ข้อเดิม จนกว่าจะตอบถูก</target>
         </trans-unit>
         <trans-unit id="Stat_unknow" translate="yes" xml:space="preserve">
           <source>Undefined mode</source>
-          <target state="needs-review-translation">ไม่ทราบ</target>
+          <target state="translated">ไม่ทราบ</target>
         </trans-unit>
         <trans-unit id="Edit_save.Text" translate="yes" xml:space="preserve">
           <source>Save</source>
@@ -445,69 +453,45 @@
         </trans-unit>
         <trans-unit id="Match_choice_1" translate="yes" xml:space="preserve">
           <source>1: </source>
-          <target state="needs-review-translation">๑: </target>
+          <target state="translated">๑: </target>
         </trans-unit>
         <trans-unit id="Match_choice_2" translate="yes" xml:space="preserve">
           <source>2: </source>
-          <target state="needs-review-translation">๒: </target>
+          <target state="translated">๒: </target>
         </trans-unit>
         <trans-unit id="Match_choice_3" translate="yes" xml:space="preserve">
           <source>3: </source>
-          <target state="needs-review-translation">๓: </target>
+          <target state="translated">๓: </target>
         </trans-unit>
         <trans-unit id="Match_choice_4" translate="yes" xml:space="preserve">
           <source>4: </source>
-          <target state="needs-review-translation">๔: </target>
+          <target state="translated">๔: </target>
         </trans-unit>
         <trans-unit id="Match_choice_5" translate="yes" xml:space="preserve">
           <source>5: </source>
-          <target state="needs-review-translation">๕: </target>
+          <target state="translated">๕: </target>
         </trans-unit>
         <trans-unit id="Session_obfuscateChar" translate="yes" xml:space="preserve">
           <source>?</source>
-          <target state="needs-review-translation">?</target>
+          <target state="translated">?</target>
         </trans-unit>
         <trans-unit id="ms-resource:AppName" translate="yes" xml:space="preserve">
           <source>Just remember</source>
-          <target state="needs-review-translation">ช่วยจำ</target>
+          <target state="translated">ช่วยจำ</target>
         </trans-unit>
         <trans-unit id="End_Notice.Text" translate="yes" xml:space="preserve">
           <source>You can view this stat later in setting, If you save it</source>
-          <target state="needs-review-translation">คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</target>
+          <target state="translated">คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</target>
         </trans-unit>
         <trans-unit id="Prenote_LoadExtension.Text" translate="yes" xml:space="preserve">
           <source>Deploying prenote
 from extension</source>
           <target state="translated">กำลังคัดลอกชีท
-จากส่วนขยาย</target>
+จากส่วนขยายอื่น</target>
         </trans-unit>
         <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
           <source>Uninstall</source>
-          <target state="needs-review-translation">ถอนการติดตั้ง</target>
-        </trans-unit>
-        <trans-unit id="Config_No_Ext" translate="yes" xml:space="preserve">
-          <source>No extension</source>
-          <target state="needs-review-translation">ไม่พบส่วนขยาย</target>
-        </trans-unit>
-        <trans-unit id="Exam_Editor_Edit.Label" translate="yes" xml:space="preserve">
-          <source>Open in note editor</source>
-          <target state="needs-review-translation">เปิดด้วยตัวแก้ไขชีท</target>
-        </trans-unit>
-        <trans-unit id="Exam_Editor_New.Label" translate="yes" xml:space="preserve">
-          <source>New question</source>
-          <target state="needs-review-translation">ตั้งคำถามใหม่</target>
-        </trans-unit>
-        <trans-unit id="Exam_Editor_Quit.Label" translate="yes" xml:space="preserve">
-          <source>Exit</source>
-          <target state="needs-review-translation">ออก</target>
-        </trans-unit>
-        <trans-unit id="Exam_Editor_Under.Label" translate="yes" xml:space="preserve">
-          <source>Save answer at the bottom</source>
-          <target state="needs-review-translation">บันทึกคำตอบไว้ด้านล่าง</target>
-        </trans-unit>
-        <trans-unit id="Config_Extensions" translate="yes" xml:space="preserve">
-          <source>Extensions</source>
-          <target state="new">Extensions</target>
+          <target state="new">Uninstall</target>
         </trans-unit>
         <trans-unit id="Config_Info_Apply.Text" translate="yes" xml:space="preserve">
           <source>This option apply to </source>

@@ -161,8 +161,6 @@ namespace JustRemember.ViewModels
 		public ICommand splitUndo;
 
 		public ICommand saveFilename;
-
-		public ICommand switchToQE;
 		
 		public void ReNew()
 		{
@@ -177,24 +175,6 @@ namespace JustRemember.ViewModels
 			splitUndo = new RelayCommand<KeyRoutedEventArgs>(SPLITUNDO);
 			//
 			saveFilename = new RelayCommand<TextChangedEventArgs>(SAVEFILENAME);
-			//
-			switchToQE = new RelayCommand<RoutedEventArgs>(SWITCHTOQE);
-		}
-
-		private void SWITCHTOQE(RoutedEventArgs obj)
-		{
-			view.MainEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string op);
-			if (op.StartsWith("#MODE=EXAM"))
-			{
-				NoteModel no = new NoteModel()
-				{
-					Title = NoteName,
-					Content = op
-				};
-				NavigationService.Navigate<ExamEdit>(no);
-				return;
-			}
-			NavigationService.Navigate<ExamEdit>();
 		}
 
 		Visibility _emp, _con, _al = Visibility.Collapsed;

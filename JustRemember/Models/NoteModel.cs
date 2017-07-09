@@ -23,49 +23,14 @@ namespace JustRemember.Models
 		}
 
 		[JsonIgnore]
-		public string FirstLine
-		{
-			get
-			{
-				if (Mode == noteMode.qa)
-				{
-					if (lines[lines.Length - 1].StartsWith("A="))
-						return lines[1];
-					return lines[1].Substring(0,lines[1].Length - 3);
-				}
-				else if (Mode == noteMode.volc)
-				{
-					return lines[1];
-				}
-				return lines[0];
-			}
-		}
-
-		[JsonIgnore]
-		string[] lines
-		{
-			get
-			{
-				return Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-			}
-		}
-
-		[JsonIgnore]
-		public noteMode Mode
-		{
-			get
-			{
-				if (lines[0] == "#MODE=EXAM")
-				{
-					return noteMode.qa;
-				}
-				else if (lines[0] == "#MODE=VOLC")
-				{
-					return noteMode.volc;
-				}
-				return noteMode.none;
-			}
-		}
+        public string FirstLine
+        {
+            get
+            {
+                var pack = Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                return pack[0];
+            }
+        }
 
         public static async Task<ObservableCollection<NoteModel>> GetNotesAsync()
         {
@@ -122,14 +87,7 @@ namespace JustRemember.Models
 				else
 				{
 					await nf.DeleteAsync();
-					if (note.Title.EndsWith(".txt"))
-					{
-						nf = await folder.CreateFileAsync(note.Title);
-					}
-					else
-					{
-						nf = await folder.CreateFileAsync($"{note.Title}.txt");
-					}
+					nf = await folder.CreateFileAsync(note.Title);
 				}
 				await FileIO.WriteTextAsync(nf, note.Content);
 			}
@@ -154,12 +112,20 @@ namespace JustRemember.Models
 			};
 			return datNote;
 		}
-	}
 
-	public enum noteMode
-	{
-		none,
-		qa,
-		volc
+		public static NoteModel empty
+		{
+			get
+			{
+				string title = "$Empty";
+				string content = "$%#@^)_(@$^)_@(^@#^$#&*)_@#^@";
+				NoteModel emp = new NoteModel()
+				{
+					Title = title,
+					Content = content
+				};
+				return emp;
+			}
+		}
 	}
 }
