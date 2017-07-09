@@ -379,8 +379,8 @@
           <target state="new">Time:</target>
         </trans-unit>
         <trans-unit id="Match_detail_wrong.Text" translate="yes" xml:space="preserve">
-          <source>Wrong: </source>
-          <target state="new">Wrong: </target>
+          <source>Wrong:</source>
+          <target state="new">Wrong:</target>
         </trans-unit>
         <trans-unit id="Match_dialog_confirm_content" translate="yes" xml:space="preserve">
           <source>Do you want to leave this session?</source>
@@ -484,69 +484,13 @@ from extension</target>
           <source>Uninstall</source>
           <target state="new">Uninstall</target>
         </trans-unit>
-        <trans-unit id="Config_No_Ext" translate="yes" xml:space="preserve">
-          <source>No extension</source>
-          <target state="new">No extension</target>
+        <trans-unit id="Home_initializeSetting.Text" translate="yes" xml:space="preserve">
+          <source>Initializing settings</source>
+          <target state="new">Initializing settings</target>
         </trans-unit>
-        <trans-unit id="Exam_Editor_Edit.Label" translate="yes" xml:space="preserve">
-          <source>Open in note editor</source>
-          <target state="new">Open in note editor</target>
-        </trans-unit>
-        <trans-unit id="Exam_Editor_New.Label" translate="yes" xml:space="preserve">
-          <source>New question</source>
-          <target state="new">New question</target>
-        </trans-unit>
-        <trans-unit id="Exam_Editor_Quit.Label" translate="yes" xml:space="preserve">
-          <source>Exit</source>
-          <target state="new">Exit</target>
-        </trans-unit>
-        <trans-unit id="Exam_Editor_Under.Label" translate="yes" xml:space="preserve">
-          <source>Save answer at the bottom</source>
-          <target state="new">Save answer at the bottom</target>
-        </trans-unit>
-        <trans-unit id="Config_Extensions" translate="yes" xml:space="preserve">
-          <source>Extensions</source>
-          <target state="new">Extensions</target>
-        </trans-unit>
-        <trans-unit id="Config_Info_Apply.Text" translate="yes" xml:space="preserve">
-          <source>This option apply to </source>
-          <target state="new">This option apply to </target>
-        </trans-unit>
-        <trans-unit id="Config_Info_Apply_Dic.Text" translate="yes" xml:space="preserve">
-          <source>Dictionary</source>
-          <target state="new">Dictionary</target>
-        </trans-unit>
-        <trans-unit id="Config_Info_Apply_Dic_Desc.Text" translate="yes" xml:space="preserve">
-          <source>If note define with MODE=VOLC this option apply on that mode</source>
-          <target state="new">If note define with MODE=VOLC this option apply on that mode</target>
-        </trans-unit>
-        <trans-unit id="Config_Info_Apply_QA.Text" translate="yes" xml:space="preserve">
-          <source>Q &amp; A</source>
-          <target state="new">Q &amp; A</target>
-        </trans-unit>
-        <trans-unit id="Config_Info_Apply_QA_Desc.Text" translate="yes" xml:space="preserve">
-          <source>If note define with MODE=EXAM this option apply on that mode</source>
-          <target state="new">If note define with MODE=EXAM this option apply on that mode</target>
-        </trans-unit>
-        <trans-unit id="Config_RandomQA.Text" translate="yes" xml:space="preserve">
-          <source>Randomize question &amp; answer</source>
-          <target state="new">Randomize question &amp; answer</target>
-        </trans-unit>
-        <trans-unit id="Config_Rand_a.Content" translate="yes" xml:space="preserve">
-          <source>No randomize</source>
-          <target state="new">No randomize</target>
-        </trans-unit>
-        <trans-unit id="Config_Rand_b.Content" translate="yes" xml:space="preserve">
-          <source>Randomize question order</source>
-          <target state="new">Randomize question order</target>
-        </trans-unit>
-        <trans-unit id="Config_Rand_c.Content" translate="yes" xml:space="preserve">
-          <source>Randomize question &amp; answer order</source>
-          <target state="new">Randomize question &amp; answer order</target>
-        </trans-unit>
-        <trans-unit id="Config_Reverse_Dictionary.Text" translate="yes" xml:space="preserve">
-          <source>Reverse dictionary Q&amp;A</source>
-          <target state="new">Reverse dictionary Q&amp;A</target>
+        <trans-unit id="Edit_version.Text" translate="yes" xml:space="preserve">
+          <source>Note editor 1.0.0.2</source>
+          <target state="new">Note editor 1.0.0.2</target>
         </trans-unit>
       </group>
     </body>

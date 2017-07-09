@@ -56,6 +56,18 @@ namespace JustRemember.ViewModels
 			});
 		}
 
+		public Visibility noExt
+		{
+			get
+			{
+				if (Extensions?.Count < 1)
+				{
+					return Visibility.Visible;
+				}
+				return Visibility.Collapsed;
+			}
+		}
+
 		public async void GetAllExtensions()
 		{
 			Notecatalog = AppExtensionCatalog.Open("rememberit.notes");

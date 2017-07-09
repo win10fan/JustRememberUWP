@@ -27,10 +27,40 @@ namespace JustRemember.Models
         {
             get
             {
-                var pack = Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                return pack[0];
+                if (Mode == noteMode.None)
+				{
+					return lines[0];
+				}
+				return lines[1];
             }
         }
+
+		[JsonIgnore]
+		string[] lines
+		{
+			get
+			{
+				var pack = Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+				return pack;
+			}
+		}
+
+		[JsonIgnore]
+		public noteMode Mode
+		{
+			get
+			{
+				if (lines[0].StartsWith("#MODE=EXAM"))
+				{
+					return noteMode.Question;
+				}
+				else if (lines[0].StartsWith("#MODE=VOLC"))
+				{
+					return noteMode.Volcabulary;
+				}
+				return noteMode.None;
+			}
+		}
 
         public static async Task<ObservableCollection<NoteModel>> GetNotesAsync()
         {
@@ -127,5 +157,12 @@ namespace JustRemember.Models
 				return emp;
 			}
 		}
+	}
+
+	public enum noteMode
+	{
+		None,
+		Question,
+		Volcabulary
 	}
 }
