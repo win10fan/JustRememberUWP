@@ -23,13 +23,13 @@
 			<AppBarButton x:Uid="Exam_Editor_Edit" Click="SendToEditor" Icon="OpenPane" Label="Open in note editor"/>
 			<AppBarToggleButton x:Uid="Exam_Editor_Under" Icon="Download" IsChecked="{x:Bind answerStoreMode,Mode=TwoWay}" Label="Save answer at the bottom"/>
 		</CommandBar>
-		<GridView x:Name="qsList" Margin="5" VerticalContentAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" SelectionMode="Single" ItemsSource="{x:Bind items, Mode=TwoWay}" SelectionChanged="SelectQuestion">
-			<!--<ListView.ItemContainerStyle>
+		<ListView x:Name="qsList" Margin="5" VerticalContentAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" SelectionMode="Single" ItemsSource="{x:Bind items, Mode=TwoWay}" SelectionChanged="SelectQuestion">
+			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">
 					<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 				</Style>
-			</ListView.ItemContainerStyle>-->
-			<GridView.ItemTemplate>
+			</ListView.ItemContainerStyle>
+			<ListView.ItemTemplate>
 				<DataTemplate x:DataType="local:ExamEditItem">
 					<Grid MinWidth="450" Margin="0,5" Background="{ThemeResource AccentButtonBackgroundDisabled}">
 						<Grid.RowDefinitions>
@@ -93,8 +93,8 @@
 						</Grid>
 					</Grid>
 				</DataTemplate>
-			</GridView.ItemTemplate>
-		</GridView>
+			</ListView.ItemTemplate>
+		</ListView>
 
 		<Grid Grid.Row="2" Background="{ThemeResource AccentButtonBackgroundDisabled}" Visibility="{x:Bind isSelected, Mode=OneWay}">
 			<Grid Margin="10">

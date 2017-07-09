@@ -43,7 +43,7 @@ namespace JustRemember.Views
 		ExamsEdit _item = new ExamsEdit();
 		public ExamsEdit items { get => _item; set => Set(ref _item, value); }
 
-		//ObservableCollection<ExamEditItem> _item;
+		//ObservableCollection<ExamEditItem> _item = new ObservableCollection<ExamEditItem>();
 		//public ObservableCollection<ExamEditItem> items { get => _item; set => Set(ref _item, value); }
 		bool _am;
 		public bool answerStoreMode { get => _am; set => Set(ref _am, value); }
@@ -52,9 +52,6 @@ namespace JustRemember.Views
 		{
 			placeHolder = new ExamEditItem();
 			this.InitializeComponent();
-#if DEBUG
-			ExamEditItem.InitializeRandomness();
-#endif
 			InitializeDispatch();		
 		}
 		public ExamEditItem placeHolder;
@@ -64,6 +61,7 @@ namespace JustRemember.Views
 			{
 				var note = (NoteModel)e.Parameter;
 				if (note.Content.StartsWith("MODE=EXAM"))
+					//items = ExamEditItem.FromString(note.Content);
 					items.AddRange(ExamEditItem.FromString(note.Content));
 				/*List<string> lines = note.Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
 				string answers = null;
@@ -170,9 +168,12 @@ namespace JustRemember.Views
 			ReorderQuestions();
 		}
 
-		public void ReorderQuestions()
+		public async void ReorderQuestions()
 		{
-			OnPropertyChanged(nameof(items));
+			await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+			{
+				OnPropertyChanged(nameof(items));
+			});
 		}
 		
 		private void MoveUp(object sender, RoutedEventArgs e)
@@ -198,7 +199,7 @@ namespace JustRemember.Views
 
 		private void SelectQuestion(object sender, SelectionChangedEventArgs e)
 		{
-			selectedIndex = (sender as GridView).SelectedIndex;
+			selectedIndex = (sender as ListView).SelectedIndex;
 			OnPropertyChanged(nameof(selectedIndex));
 			OnPropertyChanged(nameof(selectedItem));
 			OnPropertyChanged(nameof(isSelected));
@@ -207,6 +208,17 @@ namespace JustRemember.Views
 		public ExamEditItem selectedItem
 		{
 			get => selectedIndex >= 0 ? items[selectedIndex] : placeHolder;
+			set
+			{
+				if (selectedIndex >= 0)
+				{
+					items[selectedIndex] = value;
+				}
+				else
+				{
+					placeHolder = value;
+				}
+			}
 		}
 
 		private void saveChange(object sender, RoutedEventArgs e)
@@ -618,40 +630,6 @@ namespace JustRemember.Views
 		{
 			return (T)Enum.Parse(typeof(T), value, true);
 		}
-
-#if DEBUG
-		private const string words = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-		private static List<string> rands = new List<string>();
-		public static string GetRandomWord()
-		{
-			Random r = new Random();
-			if (rands.Count < 5)
-			{
-				InitializeRandomness();
-			}
-			int len = r.Next(0, rands.Count - 1);
-			string s = rands[len];
-			rands.RemoveAt(len);
-			return s;
-		}
-
-		public static void InitializeRandomness()
-		{
-			Random r = new Random();
-			string s = "";
-			int c = 0;
-			int length = 0;
-			for (c = r.Next(10, 100); c > 0; c--)
-			{
-				s = "";
-				for (length = r.Next(10, 150); length > 0; length--)
-				{
-					s += words[r.Next(0, words.Length - 1)];
-				}
-				rands.Add(s);
-			}
-		}
-#endif
 	}
 
 	public enum answerPosition

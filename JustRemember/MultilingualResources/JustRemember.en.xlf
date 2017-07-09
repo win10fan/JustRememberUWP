@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="en" original="JUSTREMEMBER/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6810.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="JUSTREMEMBER/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="Home_add.Label" translate="yes" xml:space="preserve">
+          <source>Add</source>
+          <target state="new">Add</target>
+        </trans-unit>
+        <trans-unit id="Home_delete.Label" translate="yes" xml:space="preserve">
+          <source>Delete</source>
+          <target state="new">Delete</target>
+        </trans-unit>
+        <trans-unit id="Home_deselect.Label" translate="yes" xml:space="preserve">
+          <source>De select</source>
+          <target state="new">De select</target>
+        </trans-unit>
+        <trans-unit id="Home_edit.Label" translate="yes" xml:space="preserve">
+          <source>Edit</source>
+          <target state="new">Edit</target>
+        </trans-unit>
+        <trans-unit id="Home_import.Label" translate="yes" xml:space="preserve">
+          <source>Import</source>
+          <target state="new">Import</target>
+        </trans-unit>
+        <trans-unit id="Home_NoNote1.Text" translate="yes" xml:space="preserve">
+          <source>You don't have any note</source>
+          <target state="new">You don't have any note</target>
+        </trans-unit>
+        <trans-unit id="Home_NoNote2.Text" translate="yes" xml:space="preserve">
+          <source>You can add note by Write new note</source>
+          <target state="new">You can add note by Write new note</target>
+        </trans-unit>
+        <trans-unit id="Home_NoNote3.Text" translate="yes" xml:space="preserve">
+          <source>Or import text file</source>
+          <target state="new">Or import text file</target>
+        </trans-unit>
+        <trans-unit id="Home_NoNote4.Text" translate="yes" xml:space="preserve">
+          <source>By click at menu below</source>
+          <target state="new">By click at menu below</target>
+        </trans-unit>
+        <trans-unit id="Home_open.Label" translate="yes" xml:space="preserve">
+          <source>Open</source>
+          <target state="new">Open</target>
+        </trans-unit>
+        <trans-unit id="Home_prenoteMenu.Label" translate="yes" xml:space="preserve">
+          <source>Prenote</source>
+          <target state="new">Prenote</target>
+        </trans-unit>
+        <trans-unit id="Home_reload.Label" translate="yes" xml:space="preserve">
+          <source>Reload</source>
+          <target state="new">Reload</target>
+        </trans-unit>
+        <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
+          <source>Made by @</source>
+          <target state="new">Made by @</target>
+        </trans-unit>
+        <trans-unit id="Config_autoscroll.Text" translate="yes" xml:space="preserve">
+          <source>Display text auto scroll</source>
+          <target state="new">Display text auto scroll</target>
+        </trans-unit>
+        <trans-unit id="Config_c1a.Text" translate="yes" xml:space="preserve">
+          <source>1</source>
+          <target state="new">1</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">..</note>
+        </trans-unit>
+        <trans-unit id="Config_c1b.Text" translate="yes" xml:space="preserve">
+          <source>A</source>
+          <target state="new">A</target>
+        </trans-unit>
+        <trans-unit id="Config_c2a.Text" translate="yes" xml:space="preserve">
+          <source>2</source>
+          <target state="new">2</target>
+        </trans-unit>
+        <trans-unit id="Config_c2b.Text" translate="yes" xml:space="preserve">
+          <source>F</source>
+          <target state="new">F</target>
+        </trans-unit>
+        <trans-unit id="Config_c3a.Text" translate="yes" xml:space="preserve">
+          <source>3</source>
+          <target state="new">3</target>
+        </trans-unit>
+        <trans-unit id="Config_c3b.Text" translate="yes" xml:space="preserve">
+          <source>K</source>
+          <target state="new">K</target>
+        </trans-unit>
+        <trans-unit id="Config_choicelook.Text" translate="yes" xml:space="preserve">
+          <source>Choice style</source>
+          <target state="new">Choice style</target>
+        </trans-unit>
+        <trans-unit id="Config_choices.Text" translate="yes" xml:space="preserve">
+          <source>Max choice</source>
+          <target state="new">Max choice</target>
+        </trans-unit>
+        <trans-unit id="Config_delall" translate="yes" xml:space="preserve">
+          <source>Delete all stat</source>
+          <target state="new">Delete all stat</target>
+        </trans-unit>
+        <trans-unit id="Config_end.Text" translate="yes" xml:space="preserve">
+          <source>After final choice</source>
+          <target state="new">After final choice</target>
+        </trans-unit>
+        <trans-unit id="Config_end_a.Content" translate="yes" xml:space="preserve">
+          <source>Go to summary page</source>
+          <target state="new">Go to summary page</target>
+        </trans-unit>
+        <trans-unit id="Config_end_and.Text" translate="yes" xml:space="preserve">
+          <source>And...</source>
+          <target state="new">And...</target>
+        </trans-unit>
+        <trans-unit id="Config_end_b.Content" translate="yes" xml:space="preserve">
+          <source>Restart match</source>
+          <target state="new">Restart match</target>
+        </trans-unit>
+        <trans-unit id="Config_end_c.Content" translate="yes" xml:space="preserve">
+          <source>Go back to main page</source>
+          <target state="new">Go back to main page</target>
+        </trans-unit>
+        <trans-unit id="Config_fontsize.Text" translate="yes" xml:space="preserve">
+          <source>Display font size</source>
+          <target state="new">Display font size</target>
+        </trans-unit>
+        <trans-unit id="Config_hint.Text" translate="yes" xml:space="preserve">
+          <source>Hint at first choice</source>
+          <target state="new">Hint at first choice</target>
+        </trans-unit>
+        <trans-unit id="Config_language.Text" translate="yes" xml:space="preserve">
+          <source>Language</source>
+          <target state="new">Language</target>
+        </trans-unit>
+        <trans-unit id="Config_reset_a.Content" translate="yes" xml:space="preserve">
+          <source>Reset setting</source>
+          <target state="new">Reset setting</target>
+        </trans-unit>
+        <trans-unit id="Config_reset_b.Content" translate="yes" xml:space="preserve">
+          <source>Reset stat</source>
+          <target state="new">Reset stat</target>
+        </trans-unit>
+        <trans-unit id="Config_reset_c.Content" translate="yes" xml:space="preserve">
+          <source>Reset sessions</source>
+          <target state="new">Reset sessions</target>
+        </trans-unit>
+        <trans-unit id="Config_reset_d.Content" translate="yes" xml:space="preserve">
+          <source>Reset all user note</source>
+          <target state="new">Reset all user note</target>
+        </trans-unit>
+        <trans-unit id="Config_reset_e.Content" translate="yes" xml:space="preserve">
+          <source>Reset everything</source>
+          <target state="new">Reset everything</target>
+        </trans-unit>
+        <trans-unit id="Config_saveall" translate="yes" xml:space="preserve">
+          <source>Save all stat</source>
+          <target state="new">Save all stat</target>
+        </trans-unit>
+        <trans-unit id="Config_stat_corrected.Text" translate="yes" xml:space="preserve">
+          <source>Corrected choice</source>
+          <target state="new">Corrected choice</target>
+        </trans-unit>
+        <trans-unit id="Config_stat_count_format" translate="yes" xml:space="preserve">
+          <source>{0} {1}</source>
+          <target state="new">{0} {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</note>
+        </trans-unit>
+        <trans-unit id="Config_stat_no" translate="yes" xml:space="preserve">
+          <source>No stat saved yet</source>
+          <target state="new">No stat saved yet</target>
+        </trans-unit>
+        <trans-unit id="Config_stat_prural" translate="yes" xml:space="preserve">
+          <source>stats</source>
+          <target state="new">stats</target>
+        </trans-unit>
+        <trans-unit id="Config_stat_selected.Text" translate="yes" xml:space="preserve">
+          <source>Selected choice</source>
+          <target state="new">Selected choice</target>
+        </trans-unit>
+        <trans-unit id="Config_stat_single" translate="yes" xml:space="preserve">
+          <source>stat</source>
+          <target state="new">stat</target>
+        </trans-unit>
+        <trans-unit id="Config_stat_started.Text" translate="yes" xml:space="preserve">
+          <source>Started on:</source>
+          <target state="new">Started on:</target>
+        </trans-unit>
+        <trans-unit id="Config_stat_time_a.Text" translate="yes" xml:space="preserve">
+          <source>This session took </source>
+          <target state="new">This session took </target>
+        </trans-unit>
+        <trans-unit id="Config_stat_time_b.Text" translate="yes" xml:space="preserve">
+          <source> with </source>
+          <target state="new"> with </target>
+        </trans-unit>
+        <trans-unit id="Config_stat_time_c.Text" translate="yes" xml:space="preserve">
+          <source> left before </source>
+          <target state="new"> left before </target>
+        </trans-unit>
+        <trans-unit id="Config_stat_time_d.Text" translate="yes" xml:space="preserve">
+          <source> limit</source>
+          <target state="new"> limit</target>
+        </trans-unit>
+        <trans-unit id="Config_submit.Content" translate="yes" xml:space="preserve">
+          <source>Submit</source>
+          <target state="new">Submit</target>
+        </trans-unit>
+        <trans-unit id="Config_timelimit.Text" translate="yes" xml:space="preserve">
+          <source>Total limit</source>
+          <target state="new">Total limit</target>
+        </trans-unit>
+        <trans-unit id="Config_timelimit_use.Text" translate="yes" xml:space="preserve">
+          <source>Use time limit</source>
+          <target state="new">Use time limit</target>
+        </trans-unit>
+        <trans-unit id="Config_uselight.Text" translate="yes" xml:space="preserve">
+          <source>Use light theme</source>
+          <target state="new">Use light theme</target>
+        </trans-unit>
+        <trans-unit id="Config_when_wrong.Text" translate="yes" xml:space="preserve">
+          <source>When choose wrong choice</source>
+          <target state="new">When choose wrong choice</target>
+        </trans-unit>
+        <trans-unit id="Config_wrong_a.Content" translate="yes" xml:space="preserve">
+          <source>Skip to next choice</source>
+          <target state="new">Skip to next choice</target>
+        </trans-unit>
+        <trans-unit id="Config_wrong_b.Content" translate="yes" xml:space="preserve">
+          <source>Stay at same choice until correct</source>
+          <target state="new">Stay at same choice until correct</target>
+        </trans-unit>
+        <trans-unit id="Config_wrong_c.Content" translate="yes" xml:space="preserve">
+          <source>Reset match</source>
+          <target state="new">Reset match</target>
+        </trans-unit>
+        <trans-unit id="Config_wrong_hide.Text" translate="yes" xml:space="preserve">
+          <source>Obfuscate wrong choice</source>
+          <target state="new">Obfuscate wrong choice</target>
+        </trans-unit>
+        <trans-unit id="ms-resource:AppName" translate="yes" xml:space="preserve">
+          <source>Just remember</source>
+          <target state="new">Just remember</target>
+        </trans-unit>
+        <trans-unit id="Home_note" translate="yes" xml:space="preserve">
+          <source>Note</source>
+          <target state="new">Note</target>
+        </trans-unit>
+        <trans-unit id="Home_note_count_format" translate="yes" xml:space="preserve">
+          <source>{0} {1}</source>
+          <target state="new">{0} {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</note>
+        </trans-unit>
+        <trans-unit id="Home_note_prural" translate="yes" xml:space="preserve">
+          <source>notes</source>
+          <target state="new">notes</target>
+        </trans-unit>
+        <trans-unit id="Home_note_single" translate="yes" xml:space="preserve">
+          <source>note</source>
+          <target state="new">note</target>
+        </trans-unit>
+        <trans-unit id="Home_session" translate="yes" xml:space="preserve">
+          <source>Session</source>
+          <target state="new">Session</target>
+        </trans-unit>
+        <trans-unit id="Home_session_count_format" translate="yes" xml:space="preserve">
+          <source>{0} {1}</source>
+          <target state="new">{0} {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">same as note count</note>
+        </trans-unit>
+        <trans-unit id="Home_session_no" translate="yes" xml:space="preserve">
+          <source>You don't have any saved session</source>
+          <target state="new">You don't have any saved session</target>
+        </trans-unit>
+        <trans-unit id="Home_session_prural" translate="yes" xml:space="preserve">
+          <source>sessions</source>
+          <target state="new">sessions</target>
+        </trans-unit>
+        <trans-unit id="Home_session_single" translate="yes" xml:space="preserve">
+          <source>session</source>
+          <target state="new">session</target>
+        </trans-unit>
+        <trans-unit id="Config_about" translate="yes" xml:space="preserve">
+          <source>About &amp; reset</source>
+          <target state="new">About &amp; reset</target>
+        </trans-unit>
+        <trans-unit id="Config_general" translate="yes" xml:space="preserve">
+          <source>General settings</source>
+          <target state="new">General settings</target>
+        </trans-unit>
+        <trans-unit id="Config_session" translate="yes" xml:space="preserve">
+          <source>Session setting</source>
+          <target state="new">Session setting</target>
+        </trans-unit>
+        <trans-unit id="Config_stat" translate="yes" xml:space="preserve">
+          <source>Stat list</source>
+          <target state="new">Stat list</target>
+        </trans-unit>
+        <trans-unit id="Edit_bold.Text" translate="yes" xml:space="preserve">
+          <source>Bold</source>
+          <target state="new">Bold</target>
+        </trans-unit>
+        <trans-unit id="Edit_italic.Text" translate="yes" xml:space="preserve">
+          <source>Italic</source>
+          <target state="new">Italic</target>
+        </trans-unit>
+        <trans-unit id="Edit_load.Text" translate="yes" xml:space="preserve">
+          <source>Load</source>
+          <target state="new">Load</target>
+        </trans-unit>
+        <trans-unit id="Edit_name_empty.Text" translate="yes" xml:space="preserve">
+          <source>Name can't be empty</source>
+          <target state="new">Name can't be empty</target>
+        </trans-unit>
+        <trans-unit id="Edit_name_exist.Text" translate="yes" xml:space="preserve">
+          <source>Name already exist</source>
+          <target state="new">Name already exist</target>
+        </trans-unit>
+        <trans-unit id="Edit_name_illegal.Text" translate="yes" xml:space="preserve">
+          <source>Name can't contains: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</source>
+          <target state="new">Name can't contains: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</target>
+        </trans-unit>
+        <trans-unit id="Edit_new.Text" translate="yes" xml:space="preserve">
+          <source>New</source>
+          <target state="new">New</target>
+        </trans-unit>
+        <trans-unit id="Edit_redo.Label" translate="yes" xml:space="preserve">
+          <source>Redo</source>
+          <target state="new">Redo</target>
+        </trans-unit>
+        <trans-unit id="Edit_save.Text" translate="yes" xml:space="preserve">
+          <source>Save</source>
+          <target state="new">Save</target>
+        </trans-unit>
+        <trans-unit id="Edit_size_a.Text" translate="yes" xml:space="preserve">
+          <source>Size (</source>
+          <target state="new">Size (</target>
+        </trans-unit>
+        <trans-unit id="Edit_size_b.Text" translate="yes" xml:space="preserve">
+          <source>)</source>
+          <target state="new">)</target>
+        </trans-unit>
+        <trans-unit id="Edit_undo.Label" translate="yes" xml:space="preserve">
+          <source>Undo</source>
+          <target state="new">Undo</target>
+        </trans-unit>
+        <trans-unit id="Match_calmdown.Text" translate="yes" xml:space="preserve">
+          <source>NO NEED TO HURRY!</source>
+          <target state="new">NO NEED TO HURRY!</target>
+        </trans-unit>
+        <trans-unit id="Match_choice_1" translate="yes" xml:space="preserve">
+          <source>1: </source>
+          <target state="new">1: </target>
+        </trans-unit>
+        <trans-unit id="Match_choice_2" translate="yes" xml:space="preserve">
+          <source>2: </source>
+          <target state="new">2: </target>
+        </trans-unit>
+        <trans-unit id="Match_choice_3" translate="yes" xml:space="preserve">
+          <source>3: </source>
+          <target state="new">3: </target>
+        </trans-unit>
+        <trans-unit id="Match_choice_4" translate="yes" xml:space="preserve">
+          <source>4: </source>
+          <target state="new">4: </target>
+        </trans-unit>
+        <trans-unit id="Match_choice_5" translate="yes" xml:space="preserve">
+          <source>5: </source>
+          <target state="new">5: </target>
+        </trans-unit>
+        <trans-unit id="Match_continue.Text" translate="yes" xml:space="preserve">
+          <source>Continue</source>
+          <target state="new">Continue</target>
+        </trans-unit>
+        <trans-unit id="Match_detail_progress.Text" translate="yes" xml:space="preserve">
+          <source>Progress: </source>
+          <target state="new">Progress: </target>
+        </trans-unit>
+        <trans-unit id="Match_detail_time.Text" translate="yes" xml:space="preserve">
+          <source>Time:</source>
+          <target state="new">Time:</target>
+        </trans-unit>
+        <trans-unit id="Match_detail_wrong.Text" translate="yes" xml:space="preserve">
+          <source>Wrong: </source>
+          <target state="new">Wrong: </target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_confirm_content" translate="yes" xml:space="preserve">
+          <source>Do you want to leave this session?</source>
+          <target state="new">Do you want to leave this session?</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_confirm_title" translate="yes" xml:space="preserve">
+          <source>Confirm</source>
+          <target state="new">Confirm</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_no" translate="yes" xml:space="preserve">
+          <source>No</source>
+          <target state="new">No</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_notyet_content" translate="yes" xml:space="preserve">
+          <source>Not yet!</source>
+          <target state="new">Not yet!</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_ok" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="new">OK</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_reset_content" translate="yes" xml:space="preserve">
+          <source>This will reset current session to start!</source>
+          <target state="new">This will reset current session to start!</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_reset_title" translate="yes" xml:space="preserve">
+          <source>Are you sure?</source>
+          <target state="new">Are you sure?</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_timeup_content" translate="yes" xml:space="preserve">
+          <source>Hurry up next time</source>
+          <target state="new">Hurry up next time</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_timeup_title" translate="yes" xml:space="preserve">
+          <source>Times up!</source>
+          <target state="new">Times up!</target>
+        </trans-unit>
+        <trans-unit id="Match_dialog_yes" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="new">Yes</target>
+        </trans-unit>
+        <trans-unit id="Match_leave.Text" translate="yes" xml:space="preserve">
+          <source>Leave</source>
+          <target state="new">Leave</target>
+        </trans-unit>
+        <trans-unit id="Match_restart.Text" translate="yes" xml:space="preserve">
+          <source>Restart</source>
+          <target state="new">Restart</target>
+        </trans-unit>
+        <trans-unit id="Match_save.Text" translate="yes" xml:space="preserve">
+          <source>Save session</source>
+          <target state="new">Save session</target>
+        </trans-unit>
+        <trans-unit id="Note_Untitled" translate="yes" xml:space="preserve">
+          <source>Untitled</source>
+          <target state="new">Untitled</target>
+        </trans-unit>
+        <trans-unit id="PNote_edit.Label" translate="yes" xml:space="preserve">
+          <source>Copy &amp; Edit</source>
+          <target state="new">Copy &amp; Edit</target>
+        </trans-unit>
+        <trans-unit id="PNote_refresh.Label" translate="yes" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="new">Refresh</target>
+        </trans-unit>
+        <trans-unit id="PublisherDisplayName" translate="yes" xml:space="preserve">
+          <source>ToonWK</source>
+          <target state="new">ToonWK</target>
+        </trans-unit>
+        <trans-unit id="Session_obfuscateChar" translate="yes" xml:space="preserve">
+          <source>?</source>
+          <target state="new">?</target>
+        </trans-unit>
+        <trans-unit id="Stat_easy" translate="yes" xml:space="preserve">
+          <source>User choose to skip to next choice. When choose wrong choice</source>
+          <target state="new">User choose to skip to next choice. When choose wrong choice</target>
+        </trans-unit>
+        <trans-unit id="Stat_hard" translate="yes" xml:space="preserve">
+          <source>User choose to restart. When choose wrong choice</source>
+          <target state="new">User choose to restart. When choose wrong choice</target>
+        </trans-unit>
+        <trans-unit id="Stat_normal" translate="yes" xml:space="preserve">
+          <source>User choose to stay on the wrong choice, until correct</source>
+          <target state="new">User choose to stay on the wrong choice, until correct</target>
+        </trans-unit>
+        <trans-unit id="Stat_unknow" translate="yes" xml:space="preserve">
+          <source>Undefined mode</source>
+          <target state="new">Undefined mode</target>
+        </trans-unit>
+        <trans-unit id="End_Notice.Text" translate="yes" xml:space="preserve">
+          <source>You can view this stat later in setting, If you save it</source>
+          <target state="new">You can view this stat later in setting, If you save it</target>
+        </trans-unit>
+        <trans-unit id="Prenote_LoadExtension.Text" translate="yes" xml:space="preserve">
+          <source>Deploying prenote
+from extension</source>
+          <target state="new">Deploying prenote
+from extension</target>
+        </trans-unit>
+        <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
+          <source>Uninstall</source>
+          <target state="new">Uninstall</target>
+        </trans-unit>
+        <trans-unit id="Config_No_Ext" translate="yes" xml:space="preserve">
+          <source>No extension</source>
+          <target state="new">No extension</target>
+        </trans-unit>
+        <trans-unit id="Exam_Editor_Edit.Label" translate="yes" xml:space="preserve">
+          <source>Open in note editor</source>
+          <target state="new">Open in note editor</target>
+        </trans-unit>
+        <trans-unit id="Exam_Editor_New.Label" translate="yes" xml:space="preserve">
+          <source>New question</source>
+          <target state="new">New question</target>
+        </trans-unit>
+        <trans-unit id="Exam_Editor_Quit.Label" translate="yes" xml:space="preserve">
+          <source>Exit</source>
+          <target state="new">Exit</target>
+        </trans-unit>
+        <trans-unit id="Exam_Editor_Under.Label" translate="yes" xml:space="preserve">
+          <source>Save answer at the bottom</source>
+          <target state="new">Save answer at the bottom</target>
+        </trans-unit>
+        <trans-unit id="Config_Extensions" translate="yes" xml:space="preserve">
+          <source>Extensions</source>
+          <target state="new">Extensions</target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply.Text" translate="yes" xml:space="preserve">
+          <source>This option apply to </source>
+          <target state="new">This option apply to </target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply_Dic.Text" translate="yes" xml:space="preserve">
+          <source>Dictionary</source>
+          <target state="new">Dictionary</target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply_Dic_Desc.Text" translate="yes" xml:space="preserve">
+          <source>If note define with MODE=VOLC this option apply on that mode</source>
+          <target state="new">If note define with MODE=VOLC this option apply on that mode</target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply_QA.Text" translate="yes" xml:space="preserve">
+          <source>Q &amp; A</source>
+          <target state="new">Q &amp; A</target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply_QA_Desc.Text" translate="yes" xml:space="preserve">
+          <source>If note define with MODE=EXAM this option apply on that mode</source>
+          <target state="new">If note define with MODE=EXAM this option apply on that mode</target>
+        </trans-unit>
+        <trans-unit id="Config_RandomQA.Text" translate="yes" xml:space="preserve">
+          <source>Randomize question &amp; answer</source>
+          <target state="new">Randomize question &amp; answer</target>
+        </trans-unit>
+        <trans-unit id="Config_Rand_a.Content" translate="yes" xml:space="preserve">
+          <source>No randomize</source>
+          <target state="new">No randomize</target>
+        </trans-unit>
+        <trans-unit id="Config_Rand_b.Content" translate="yes" xml:space="preserve">
+          <source>Randomize question order</source>
+          <target state="new">Randomize question order</target>
+        </trans-unit>
+        <trans-unit id="Config_Rand_c.Content" translate="yes" xml:space="preserve">
+          <source>Randomize question &amp; answer order</source>
+          <target state="new">Randomize question &amp; answer order</target>
+        </trans-unit>
+        <trans-unit id="Config_Reverse_Dictionary.Text" translate="yes" xml:space="preserve">
+          <source>Reverse dictionary Q&amp;A</source>
+          <target state="new">Reverse dictionary Q&amp;A</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
