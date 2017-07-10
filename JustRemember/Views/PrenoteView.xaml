@@ -80,9 +80,12 @@
 										<CompositeTransform x:Name="syncRotate" Rotation="0"/>
 									</SymbolIcon.RenderTransform>
 								</SymbolIcon>
-								<TextBlock Margin="10" VerticalAlignment="Center" x:Uid="Prenote_LoadExtension">
-									Deploying prenote<LineBreak/>from extension
-								</TextBlock>
+								<StackPanel Orientation="Vertical">
+									<TextBlock Margin="5,2" x:Uid="Prenote_LoadExtension">
+									Deploying memo<LineBreak/>from extension
+									</TextBlock>
+								</StackPanel>
+								<ProgressBar Minimum="0" Maximum="100" Width="120" x:Name="progressInfo" Margin="5,0" Height="25"/>
 							</StackPanel>
 						</CommandBar.Content>
 						<AppBarButton Click="RefreshList" Label="Refresh" Icon="Refresh" x:Uid="PNote_refresh"/>

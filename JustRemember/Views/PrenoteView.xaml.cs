@@ -34,7 +34,7 @@ namespace JustRemember.Views
 			vm.v = this;
 			base.OnNavigatedTo(e);
 		}
-
+		
 		public async void GetNotesFromExtension()
 		{
 			//Get extensions
@@ -54,10 +54,12 @@ namespace JustRemember.Views
 				else
 				{
 					//Deploy note
-					PrenoteService.DeployPrenotesExtension(await ext.GetPublicFolderAsync(), ext.DisplayName);
+					await PrenoteService.DeployMemoFromExtension(await ext.GetPublicFolderAsync(), ext.DisplayName);
 				}
 			}
 		}
+
+		public ProgressBar extracting { get => progressInfo; }
 
 		public ListView FileList
 		{

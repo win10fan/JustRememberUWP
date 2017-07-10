@@ -14,6 +14,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -46,7 +47,6 @@ namespace JustRemember.Views
 		void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(width)));
 		}
 
 		public End()
@@ -54,40 +54,65 @@ namespace JustRemember.Views
 			this.InitializeComponent();
 		}
 		public StatModel current;
+		public static int maxChoice;
 
+		public bool miniview;
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			current = new StatModel();
 			if (e.Parameter is StatModel)
 			{
 				current = (StatModel)e.Parameter;
+				maxChoice = current.configChoice;
 				InitializeData();
+			}
+			if (e.Parameter is List<object>)
+			{
+				List<object> param = e.Parameter as List<object>;
+				current = (StatModel)param[0];
+				maxChoice = current.configChoice;
+				if ((bool)param[1])
+				{
+					//Hide save button
+					//Hide notice on bottom of page
+					//etc.
+					end_notice.Visibility = Visibility.Collapsed;
+					saveBTN.Visibility = Visibility.Collapsed;
+					emptyBTN.Visibility = Visibility.Visible;
+					deleteBTN.Visibility = Visibility.Collapsed;
+					miniview = true;
+					InitializeData();
+				}
 			}
 			base.OnNavigatedTo(e);
 		}
 
-		ObservableCollection<ChoicesCorrected> _c, _co;
-		public ObservableCollection<ChoicesCorrected> choices { get => _c; set => Set(ref _c, value); }
-
-		public ObservableCollection<ChoicesCorrected> corrected { get => _co; set => Set(ref _co, value); }
-
-		public int width { get { if (choices.Count < 1) { return 40; } return choices.Count * 40; } }
-
+		ObservableCollection<ChoiceTable> _choices = new ObservableCollection<ChoiceTable>();
+		public ObservableCollection<ChoiceTable> Choices { get => _choices; set => Set(ref _choices, value); }
 		private async void InitializeData()
 		{
-			int totalWork = current.choiceInfo2.Count;
+			int totalWork = current.choiceInfo.Count;
 			if (totalWork > 100)
 			{
 				totalWork = 100;
 			}
-			choices = new ObservableCollection<ChoicesCorrected>();
-			corrected = new ObservableCollection<ChoicesCorrected>();
 			for (int i = 0; i < totalWork; i++)
 			{
-				choices.Add(new ChoicesCorrected(current.choiceInfo2[i], current.correctedChoice[i]));
-				corrected.Add(new ChoicesCorrected(i + 1, current.correctedChoice[i]));
-				await Task.Delay(50);
-				RefreshGraph(null, null);
+				Choices.Add(new ChoiceTable(i + 1, current.correctedChoice[i] + 1, current.choiceInfo[i]));
+				bool all = false;
+				foreach (var item in current.choiceInfo[i])
+				{
+					if (item)
+					{
+						all = true;
+					}
+				}
+				if (!all)
+				{
+					Choices[i].SelectedChoice[Choices[i].CorrectChoice - 1] = true;
+				}
+				OnPropertyChanged(nameof(Choices));
+				await Task.Delay(100);
 			}
 		}
 
@@ -102,47 +127,146 @@ namespace JustRemember.Views
 			NavigationService.Navigate<Match>(App.cachedSession);
 		}
 		
-		private void RefreshGraph(object sender, RoutedEventArgs e)
-		{
-			OnPropertyChanged(nameof(choices));
-			OnPropertyChanged(nameof(corrected));
-			OnPropertyChanged(nameof(width));
-		}
-
 		public bool saveable
 		{
 			get => !App.Config.useSeed;
 		}
-	}
-	public class ChoicesCorrected
-	{
-		public string catagory { get; set; } 
-		public double corrected { get; set; }
-
-		public ChoicesCorrected()
+		
+		public GridLength showChoice4Grid
 		{
-			catagory = "item";
-			corrected = 0;
-		}
-
-		public ChoicesCorrected(choiceInfoUnDic input,int cor)
-		{
-			catagory = (input.choice + 1).ToString();
-			for (int i = 0; i < input.origin.Count - 1; i++)
+			get
 			{
-				if (input.origin[i])
+				if (maxChoice >= 4)
 				{
-					corrected = i;
-					return;
+					return new GridLength(1, GridUnitType.Star);
 				}
+				return new GridLength(0, GridUnitType.Pixel);
 			}
-			corrected = cor;
 		}
 
-		public ChoicesCorrected(int ch,int cor)
+		public GridLength showChoice5Grid
 		{
-			catagory = ch.ToString();
-			corrected = cor;
+			get
+			{
+				if (maxChoice >= 5)
+				{
+					return new GridLength(1, GridUnitType.Star);
+				}
+				return new GridLength(0, GridUnitType.Pixel);
+			}
+		}
+
+	}
+
+	public class ChoiceTable
+	{
+		public int Order { get; set; }
+		public int CorrectChoice { get; set; }
+		public List<bool> SelectedChoice { get; set; }
+
+		public ChoiceTable()
+		{
+			Order = 0;
+			CorrectChoice = 0;
+			SelectedChoice = new List<bool>() { false, false, false, false, false };
+		}
+
+		public ChoiceTable(int order,int correct, List<bool> selected)
+		{
+			Order = order;
+			CorrectChoice = correct;
+			SelectedChoice = selected;
+		}
+		
+		public GridLength showChoice4Grid
+		{
+			get
+			{
+				if (End.maxChoice >= 4)
+				{
+					return new GridLength(1, GridUnitType.Star);
+				}
+				return new GridLength(0, GridUnitType.Pixel);
+			}
+		}
+		
+		public GridLength showChoice5Grid
+		{
+			get
+			{
+				if (End.maxChoice >= 5)
+				{
+					return new GridLength(1, GridUnitType.Star);
+				}
+				return new GridLength(0, GridUnitType.Pixel);
+			}
+		}
+		
+		public Visibility isCorrect
+		{
+			get
+			{
+				return SelectedChoice[CorrectChoice - 1] ? Visibility.Visible : Visibility.Collapsed;
+			}
+		}
+
+		public Visibility isInCorrect
+		{
+			get
+			{
+				return !SelectedChoice[CorrectChoice - 1] ? Visibility.Visible : Visibility.Collapsed;
+			}
+		}
+
+		public Visibility choosing1
+		{
+			get
+			{
+				return SelectedChoice.Count >= 1 ? (SelectedChoice[0] ? Visibility.Visible : Visibility.Collapsed) : Visibility.Collapsed;
+			}
+		}
+
+		public Visibility choosing2
+		{
+			get
+			{
+				return SelectedChoice.Count >= 2 ? (SelectedChoice[1] ? Visibility.Visible : Visibility.Collapsed) : Visibility.Collapsed;
+			}
+		}
+
+		public Visibility choosing3
+		{
+			get
+			{
+				return SelectedChoice.Count >= 3 ? (SelectedChoice[2] ? Visibility.Visible : Visibility.Collapsed) : Visibility.Collapsed;
+			}
+		}
+
+		public Visibility choosing4
+		{
+			get
+			{
+				return SelectedChoice.Count >= 4 ? (SelectedChoice[3] ? Visibility.Visible : Visibility.Collapsed) : Visibility.Collapsed;
+			}
+		}
+
+		public Visibility choosing5
+		{
+			get
+			{
+				return SelectedChoice.Count >= 5 ? (SelectedChoice[4] ? Visibility.Visible : Visibility.Collapsed) : Visibility.Collapsed;
+			}
+		}
+
+		public Visibility is1Correct { get => CorrectChoice == 1 ? Visibility.Visible : Visibility.Collapsed; }
+		public Visibility is2Correct { get => CorrectChoice == 2 ? Visibility.Visible : Visibility.Collapsed; }
+		public Visibility is3Correct { get => CorrectChoice == 3 ? Visibility.Visible : Visibility.Collapsed; }
+		public Visibility is4Correct { get => CorrectChoice == 4 ? Visibility.Visible : Visibility.Collapsed; }
+		public Visibility is5Correct { get => CorrectChoice == 5 ? Visibility.Visible : Visibility.Collapsed; }
+
+		public SolidColorBrush BG
+		{
+			get => Order % 2 == 0 ? (SolidColorBrush)App.Current.Resources["AccentButtonBackgroundDisabled"] : (SolidColorBrush)App.Current.Resources["AccentButtonBackgroundPressed"];
 		}
 	}
 }

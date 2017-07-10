@@ -12,4 +12,137 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Home_deselect.Label" xml:space="preserve">
+    <value>Unselect</value>
+  </data>
+  <data name="Home_NoNote1.Text" xml:space="preserve">
+    <value>You don't have any memos</value>
+  </data>
+  <data name="Home_NoNote2.Text" xml:space="preserve">
+    <value>You can add a memo by selecting Add </value>
+  </data>
+  <data name="Home_NoNote3.Text" xml:space="preserve">
+    <value>Or import text a text file</value>
+  </data>
+  <data name="Home_NoNote4.Text" xml:space="preserve">
+    <value>By using the menu below</value>
+  </data>
+  <data name="Home_prenoteMenu.Label" xml:space="preserve">
+    <value>Bundled memos</value>
+  </data>
+  <data name="Config_autoscroll.Text" xml:space="preserve">
+    <value>Enable text auto scroll</value>
+  </data>
+  <data name="Config_choicelook.Text" xml:space="preserve">
+    <value>Choose style</value>
+  </data>
+  <data name="Config_choices.Text" xml:space="preserve">
+    <value>Number of choices</value>
+  </data>
+  <data name="Config_delall" xml:space="preserve">
+    <value>Clear progress</value>
+  </data>
+  <data name="Config_end.Text" xml:space="preserve">
+    <value>After completion</value>
+  </data>
+  <data name="Config_hint.Text" xml:space="preserve">
+    <value>Show hint on start</value>
+  </data>
+  <data name="Config_reset_a.Content" xml:space="preserve">
+    <value>Restore default settings</value>
+  </data>
+  <data name="Config_reset_b.Content" xml:space="preserve">
+    <value>Clear stats</value>
+  </data>
+  <data name="Config_reset_c.Content" xml:space="preserve">
+    <value>Clear sessions</value>
+  </data>
+  <data name="Config_reset_d.Content" xml:space="preserve">
+    <value>Clear all notes</value>
+  </data>
+  <data name="Config_saveall" xml:space="preserve">
+    <value>Save stats</value>
+  </data>
+  <data name="Config_stat_corrected.Text" xml:space="preserve">
+    <value>Correct choice</value>
+  </data>
+  <data name="Config_stat_no" xml:space="preserve">
+    <value>No stats saved yet</value>
+  </data>
+  <data name="Config_stat_prural" xml:space="preserve">
+    <value>memos</value>
+  </data>
+  <data name="Config_stat_single" xml:space="preserve">
+    <value>stat</value>
+  </data>
+  <data name="Config_when_wrong.Text" xml:space="preserve">
+    <value>When incorrect</value>
+  </data>
+  <data name="Config_wrong_a.Content" xml:space="preserve">
+    <value>Skip to next set</value>
+  </data>
+  <data name="Config_wrong_b.Content" xml:space="preserve">
+    <value>Keep guessing</value>
+  </data>
+  <data name="Config_wrong_c.Content" xml:space="preserve">
+    <value>Restart match</value>
+  </data>
+  <data name="Home_note" xml:space="preserve">
+    <value>Memos</value>
+  </data>
+  <data name="Home_note_prural" xml:space="preserve">
+    <value>Memos</value>
+  </data>
+  <data name="Home_note_single" xml:space="preserve">
+    <value>memo</value>
+  </data>
+  <data name="Home_session" xml:space="preserve">
+    <value>Saved sessions</value>
+  </data>
+  <data name="Home_session_no" xml:space="preserve">
+    <value>You don't have any saved sessions</value>
+  </data>
+  <data name="Config_session" xml:space="preserve">
+    <value>Session settings</value>
+  </data>
+  <data name="Config_stat" xml:space="preserve">
+    <value>Saved stats</value>
+  </data>
+  <data name="Edit_name_empty.Text" xml:space="preserve">
+    <value>Name must be supplied</value>
+  </data>
+  <data name="Edit_name_exist.Text" xml:space="preserve">
+    <value>Name has already been used</value>
+  </data>
+  <data name="Edit_name_illegal.Text" xml:space="preserve">
+    <value>Name can't contain: \ / : * ? " &lt; &gt; |</value>
+  </data>
+  <data name="Edit_size_a.Text" xml:space="preserve">
+    <value>Font size (</value>
+  </data>
+  <data name="Match_dialog_reset_content" xml:space="preserve">
+    <value>You will have to start over agin!</value>
+  </data>
+  <data name="PNote_edit.Label" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Stat_easy" xml:space="preserve">
+    <value>User chose to skip to next set when choosing the wrong choice</value>
+  </data>
+  <data name="Stat_hard" xml:space="preserve">
+    <value>User choose to restart when choosing the wrong choice</value>
+  </data>
+  <data name="Stat_normal" xml:space="preserve">
+    <value>User chose to keep guessing until correct</value>
+  </data>
+  <data name="Stat_unknow" xml:space="preserve">
+    <value>Undefined mode</value>
+  </data>
+  <data name="End_Notice.Text" xml:space="preserve">
+    <value>You can view these stats later in settings if you save it</value>
+  </data>
+  <data name="Prenote_LoadExtension.Text" xml:space="preserve">
+    <value>Deploying memo
+from extension</value>
+  </data>
 </root>

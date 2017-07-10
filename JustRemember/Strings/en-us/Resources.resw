@@ -157,7 +157,7 @@
     <value>Reload</value>
   </data>
   <data name="Config_about_made.Text" xml:space="preserve">
-    <value>Made by @</value>
+    <value>Develop by</value>
   </data>
   <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>Display text auto scroll</value>
@@ -255,22 +255,19 @@
     <value>Started on:</value>
   </data>
   <data name="Config_stat_time_a.Text" xml:space="preserve">
-    <value>This session took </value>
+    <value>This session took</value>
   </data>
   <data name="Config_stat_time_b.Text" xml:space="preserve">
-    <value> with </value>
+    <value>with</value>
   </data>
   <data name="Config_stat_time_c.Text" xml:space="preserve">
-    <value> left before </value>
+    <value>left before</value>
   </data>
   <data name="Config_stat_time_d.Text" xml:space="preserve">
-    <value> limit</value>
+    <value>limit</value>
   </data>
   <data name="Config_submit.Content" xml:space="preserve">
     <value>Submit</value>
-  </data>
-  <data name="Config_timelimit.Text" xml:space="preserve">
-    <value>Total limit</value>
   </data>
   <data name="Config_timelimit_use.Text" xml:space="preserve">
     <value>Use time limit</value>
@@ -476,10 +473,43 @@
     <value>You can view this stat later in setting, If you save it</value>
   </data>
   <data name="Prenote_LoadExtension.Text" xml:space="preserve">
-    <value>Deploying prenote
+    <value>Deploying memo
 from extension</value>
   </data>
   <data name="Config_Ext_Uninstall.Text" xml:space="preserve">
     <value>Uninstall</value>
+  </data>
+  <data name="Config_extension" xml:space="preserve">
+    <value>Extensions</value>
+  </data>
+  <data name="Config_stat_selectNcorrect.Text" xml:space="preserve">
+    <value>Selected and correct choice</value>
+  </data>
+  <data name="Stat_Minute" xml:space="preserve">
+    <value>minute</value>
+    <comment>Minute as a single</comment>
+  </data>
+  <data name="Stat_Minutes" xml:space="preserve">
+    <value>minutes</value>
+    <comment>Minute as a prural</comment>
+  </data>
+  <data name="Stat_Second" xml:space="preserve">
+    <value>second</value>
+    <comment>Second as a single</comment>
+  </data>
+  <data name="Stat_Seconds" xml:space="preserve">
+    <value>seconds</value>
+    <comment>Second as a prural</comment>
+  </data>
+  <data name="Dialog_Not_long_enough_editor" xml:space="preserve">
+    <value>Sorry! This memo is not long enough.
+Please write it little longer?</value>
+  </data>
+  <data name="Dialog_Not_long_enough_main" xml:space="preserve">
+    <value>Sorry! This memo is not long enough,
+please choose other memo</value>
+  </data>
+  <data name="Dialog_pleasewait_extracting" xml:space="preserve">
+    <value>Please stay until we're complete extracting memo from extension</value>
   </data>
 </root>

@@ -81,7 +81,15 @@ namespace JustRemember.Models
 		//private static 
 		public static SessionModel generate(NoteModel item)
 		{
-			return gen(item);
+			try
+			{
+				return gen(item);
+			}
+			catch (System.ArgumentOutOfRangeException ex1)
+			{
+				Debug.Write(ex1.Message);
+			}
+			return null;
 		}
 
 		public static SessionModel generate(SessionModel item)

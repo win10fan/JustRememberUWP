@@ -60,6 +60,10 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
+				if (Extensions == null)
+				{
+					return Visibility.Visible;
+				}
 				if (Extensions?.Count < 1)
 				{
 					return Visibility.Visible;
@@ -74,8 +78,7 @@ namespace JustRemember.ViewModels
 			//Get all note extension
 			var allext = await Notecatalog.FindAllAsync();
 			Extensions = await ExtensionService.GetExtension(allext, ExtensionType.Notes);
-			Debug.Write(Extensions.Count);
-			Debug.Write(allext.Count);
+			OnPropertyChanged(nameof(noExt));
 		}
 
 		int _selec = -1;

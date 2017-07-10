@@ -44,9 +44,12 @@ namespace JustRemember.Services
 			}
 		}
 
-		public static async void DeployPrenotesExtension(StorageFolder extFolder,string extensionName)
-		{
+		public static async Task DeployMemoFromExtension(StorageFolder extFolder, string extensionName)
+		{			
 			App.isDeploying = true;
+			tasks.Add(new TaskInfo());
+			int ind = tasks.Count - 1;
+			tasks[ind].progress = 0;
 			//First get prenote folder
 			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Prenote");
 			//Create confirm file
@@ -56,30 +59,69 @@ namespace JustRemember.Services
 			//Loop through all file in extension public folder
 			//Get file first
 			var notes = await extFolder.GetFilesAsync();
-			foreach (var note in notes)
-			{
-				//Create folders according to the note file name
-				string[] paths = note.Name.Split('-');
-				//Loop through paths to create directories
-				//But first get root folder start from \\Prenote\\[extension name]
-				StorageFolder root2 = root;
-				for (int i = 0; i < paths.Length - 1; i++)
+			tasks[ind].progress = 10;
+			float c = notes.Count;
+			await Task.Run(async () => {
+				foreach (var note in notes)
 				{
-					if (paths[i].Contains(".txt")) { continue; }
-					try
+					//Create folders according to the note file name
+					string[] paths = note.Name.Split('-');
+					//Loop through paths to create directories
+					//But first get root folder start from \\Prenote\\[extension name]
+					StorageFolder root2 = root;
+					for (int i = 0; i < paths.Length - 1; i++)
 					{
-						root2 = await root2.CreateFolderAsync(paths[i]);
+						if (paths[i].Contains(".txt")) { continue; }
+						try
+						{
+							root2 = await root2.CreateFolderAsync(paths[i]);
+						}
+						catch (Exception ex)
+						{
+							Debug.Write(ex.Message);
+							root2 = await root2.GetFolderAsync(paths[i]);
+						}
 					}
-					catch (Exception ex)
-					{
-						Debug.Write(ex.Message);
-						root2 = await root2.GetFolderAsync(paths[i]);
-					}
+					//Then copy that note from extension folder
+					await note.CopyAsync(root2, paths[paths.Length - 1]);
+					c -= 1;
+					float count = (float)(notes.Count - c) / notes.Count;
+					tasks[ind].progress = 10 + (int)(count * 90);
 				}
-				//Then copy that note from extension folder
-				await note.CopyAsync(root2,paths[paths.Length - 1]);
-			}
+			});
+			tasks[ind].isDone = true;
 			App.isDeploying = false;
+		}
+
+		public static List<TaskInfo> tasks = new List<TaskInfo>();
+		public class TaskInfo
+		{
+			public int progress;
+			public bool isDone;
+		}
+		public static int progress
+		{
+			get
+			{
+				float total = 0;
+				int done = 0;
+				foreach (var i in tasks)
+				{
+					if (i.isDone) { done += 1; continue; }
+					total += i.progress;
+				}
+				if (tasks.Count == done)
+				{
+					tasks.Clear();
+					return 100;
+				}
+				total = total / tasks.Count;
+				if (total > 100)
+				{
+					total = 100;
+				}
+				return (int)total;
+			}
 		}
 
 		public static async void RequestRemovePrenoteExtension(string extName)

@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using static JustRemember.Services.PrenoteService;
 
@@ -111,10 +112,19 @@ namespace JustRemember.ViewModels
 			navUp = new RelayCommand<RoutedEventArgs>(NAVUP);
 			deployCheck = new DispatcherTimer()
 			{
-				Interval = TimeSpan.FromSeconds(3)
+				Interval = TimeSpan.FromSeconds(1)
 			};
 			deployCheck.Tick += DeployCheck_Tick;
+			//
+			dontLeavePLS = new MessageDialog(App.language.GetString("Dialog_pleasewait_extracting"));
+			dontLeavePLS.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
+			view = NavigationService.Frame.Content as PrenoteView;
 		}
+		public PrenoteView view;
+
+		public async void ShowDontLeaveDialog() => await dontLeavePLS.ShowAsync();
+
+		public MessageDialog dontLeavePLS;
 
 		private void DeployCheck_Tick(object sender, object e)
 		{
@@ -123,7 +133,8 @@ namespace JustRemember.ViewModels
 				OnPropertyChanged(nameof(isDeployingFromExt));
 				Refresh();
 			}
-			else { deployCheck.Stop(); }
+			else { deployCheck.Stop(); OnPropertyChanged(nameof(isDeployingFromExt)); }
+			view.extracting.Value = progress;
 		}
 
 		bool _canUp;

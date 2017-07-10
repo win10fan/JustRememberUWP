@@ -78,6 +78,14 @@ namespace JustRemember.Views
 			{
 				await MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle);
 			}
+			//
+			if (ViewModel.current.StatInfo.correctedChoice.Count < 1)
+			{
+				foreach (var item in ViewModel.current.choices)
+				{
+					ViewModel.current.StatInfo.correctedChoice.Add(item.corrected);
+				}
+			}
 			base.OnNavigatedTo(e);
 		}
 

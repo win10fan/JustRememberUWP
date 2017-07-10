@@ -59,8 +59,9 @@
           <target state="needs-review-translation" state-qualifier="tm-suggestion">โหลดใหม่</target>
         </trans-unit>
         <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
-          <source>Made by @</source>
-          <target state="translated">สร้างโดย </target>
+          <source>Develop by</source>
+          <target state="needs-review-translation">สร้างโดย </target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Config_autoscroll.Text" translate="yes" xml:space="preserve">
           <source>Display text auto scroll</source>
@@ -189,28 +190,28 @@
           <target state="needs-review-translation" state-qualifier="tm-suggestion">เริ่มต้นเมื่อ</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_a.Text" translate="yes" xml:space="preserve">
-          <source>This session took </source>
-          <target state="translated">ครั้งนี้ ใช้เวลา </target>
+          <source>This session took</source>
+          <target state="needs-review-translation">ครั้งนี้ ใช้เวลา </target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Config_stat_time_b.Text" translate="yes" xml:space="preserve">
-          <source> with </source>
+          <source>with</source>
           <target state="needs-review-translation" state-qualifier="tm-suggestion">ด้วย</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Config_stat_time_c.Text" translate="yes" xml:space="preserve">
-          <source> left before </source>
-          <target state="translated"> ก่อนหมดหมดเวลาใน</target>
+          <source>left before</source>
+          <target state="needs-review-translation"> ก่อนหมดหมดเวลาใน</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Config_stat_time_d.Text" translate="yes" xml:space="preserve">
-          <source> limit</source>
-          <target state="translated"> </target>
+          <source>limit</source>
+          <target state="needs-review-translation"> </target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Config_submit.Content" translate="yes" xml:space="preserve">
           <source>Submit</source>
           <target state="needs-review-translation" state-qualifier="tm-suggestion">ส่ง</target>
-        </trans-unit>
-        <trans-unit id="Config_timelimit.Text" translate="yes" xml:space="preserve">
-          <source>Total limit</source>
-          <target state="translated">จำกัด (นาที)</target>
         </trans-unit>
         <trans-unit id="Config_timelimit_use.Text" translate="yes" xml:space="preserve">
           <source>Use time limit</source>
@@ -484,7 +485,7 @@
           <target state="translated">คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</target>
         </trans-unit>
         <trans-unit id="Prenote_LoadExtension.Text" translate="yes" xml:space="preserve">
-          <source>Deploying prenote
+          <source>Deploying memo
 from extension</source>
           <target state="translated">กำลังคัดลอกชีท
 จากส่วนขยายอื่น</target>
@@ -492,6 +493,50 @@ from extension</source>
         <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
           <source>Uninstall</source>
           <target state="new">Uninstall</target>
+        </trans-unit>
+        <trans-unit id="Config_extension" translate="yes" xml:space="preserve">
+          <source>Extensions</source>
+          <target state="new">Extensions</target>
+        </trans-unit>
+        <trans-unit id="Config_stat_selectNcorrect.Text" translate="yes" xml:space="preserve">
+          <source>Selected and correct choice</source>
+          <target state="new">Selected and correct choice</target>
+        </trans-unit>
+        <trans-unit id="Stat_Minute" translate="yes" xml:space="preserve">
+          <source>minute</source>
+          <target state="new">minute</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Minute as a single</note>
+        </trans-unit>
+        <trans-unit id="Stat_Minutes" translate="yes" xml:space="preserve">
+          <source>minutes</source>
+          <target state="new">minutes</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Minute as a prural</note>
+        </trans-unit>
+        <trans-unit id="Stat_Second" translate="yes" xml:space="preserve">
+          <source>second</source>
+          <target state="new">second</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Second as a single</note>
+        </trans-unit>
+        <trans-unit id="Stat_Seconds" translate="yes" xml:space="preserve">
+          <source>seconds</source>
+          <target state="new">seconds</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Second as a prural</note>
+        </trans-unit>
+        <trans-unit id="Dialog_Not_long_enough_editor" translate="yes" xml:space="preserve">
+          <source>Sorry! This memo is not long enough.
+Please write it little longer?</source>
+          <target state="new">Sorry! This memo is not long enough.
+Please write it little longer?</target>
+        </trans-unit>
+        <trans-unit id="Dialog_Not_long_enough_main" translate="yes" xml:space="preserve">
+          <source>Sorry! This memo is not long enough,
+please choose other memo</source>
+          <target state="new">Sorry! This memo is not long enough,
+please choose other memo</target>
+        </trans-unit>
+        <trans-unit id="Dialog_pleasewait_extracting" translate="yes" xml:space="preserve">
+          <source>Please stay until we're complete extracting memo from extension</source>
+          <target state="new">Please stay until we're complete extracting memo from extension</target>
         </trans-unit>
       </group>
     </body>

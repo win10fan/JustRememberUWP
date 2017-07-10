@@ -84,7 +84,7 @@
 								</ListBox>
 							</Grid>
 						</StackPanel>
-						
+
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="1">
 							<TextBlock 
 								Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
@@ -267,11 +267,7 @@
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="1">
 							<TextBlock x:Uid="Config_timelimit_use" Text="Use time limit" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.useTimeLimit, Mode=TwoWay}"/>
-						</StackPanel>
-
-						<StackPanel Visibility="{x:Bind config.showTimePicker,Mode=OneWay}" Style="{ThemeResource stackSettingItem}" Grid.Row="2">
-							<TextBlock x:Uid="Config_timelimit" Text="Total limit" Style="{ThemeResource settingTitleLabel}"/>
-							<TimePicker ClockIdentifier="24HourClock" TimeChanged="timeChanged" Loaded="TimePicker_Loaded"/>
+							<TimePicker Visibility="{x:Bind config.showTimePicker,Mode=OneWay}" ClockIdentifier="24HourClock" TimeChanged="timeChanged" Loaded="TimePicker_Loaded"/>
 						</StackPanel>
 
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="3">
@@ -366,10 +362,9 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="*"/>
-						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 					<TextBlock Margin="0,5" Grid.Row="0" x:Name="noStatNotif" Text="{x:Bind config.statCount, Mode=OneWay}"/>
-					<ListView Grid.Row="1" SelectedIndex="{x:Bind config.IselectedStat, Mode=TwoWay}" ItemsSource="{x:Bind config.stats, Mode=OneWay}" x:Name="statList">
+					<ListView Grid.Row="1" SelectedIndex="{x:Bind config.IselectedStat, Mode=TwoWay}" ItemsSource="{x:Bind config.stats, Mode=OneWay}" SelectionChanged="ShowStatPage" x:Name="statList">
 						<ListView.ItemContainerStyle>
 							<Style TargetType="ListViewItem">
 								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -415,71 +410,6 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
-					<Grid Visibility="{x:Bind config.isSelected, Mode=OneWay}" Grid.Row="2">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto" MaxHeight="400"/>
-						</Grid.RowDefinitions>
-						<TextBlock FontWeight="Bold" Grid.Row="0" Text="{x:Bind config.selectedStat.noteTitle, Mode=OneWay}" TextWrapping="WrapWholeWords" Style="{ThemeResource settingTitleLabel}"/>
-						<Button Click="DeSelect" Grid.Row="0" HorizontalAlignment="Right">
-							<SymbolIcon Symbol="Cancel"/>
-						</Button>
-						<TextBlock Grid.Row="1" Style="{ThemeResource settingTitleLabel}">
-							<Run x:Uid="Config_stat_started" Text="Started on "/>
-							<Run Text="{x:Bind config.selectedStat.begintimeSTR,Mode=OneWay}"/>
-						</TextBlock>
-						<TextBlock Visibility="{x:Bind config.selectedStat.wasTimeLimited, Mode=OneWay}" Grid.Row="2" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords">
-							<Run Text="This session took " x:Uid="Config_stat_time_a"/>
-							<Run Text="{x:Bind config.selectedStat.totalTimespend, Mode=OneWay}"/>
-							<Run Text=" with " x:Uid="Config_stat_time_b"/>
-							<Run Text="{x:Bind config.selectedStat.timeLeft, Mode=OneWay}"/>
-							<Run Text=" left before " x:Uid="Config_stat_time_c"/>
-							<Run Text="{x:Bind config.timeLimit,Mode=OneWay}"/>
-							<Run Text=" limit" x:Uid="Config_stat_time_d"/>
-						</TextBlock>
-						<TextBlock Grid.Row="3" Text="{x:Bind config.selectedStat.modeTXT, Mode=OneWay}" Style="{ThemeResource settingTitleLabel}" TextWrapping="WrapWholeWords"/>
-						<ScrollViewer VerticalAlignment="Bottom" HorizontalScrollBarVisibility="Visible" Grid.Row="4" Height="150" VerticalScrollMode="Disabled" HorizontalScrollMode="Enabled">
-							<StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="{x:Bind config.width, Mode=OneWay}" Height="150">
-								<rad:RadCartesianChart HorizontalAlignment="Left" Height="150" Width="{x:Bind config.width, Mode=OneWay}">
-									<rad:RadCartesianChart.HorizontalAxis>
-										<rad:CategoricalAxis/>
-									</rad:RadCartesianChart.HorizontalAxis>
-									<rad:RadCartesianChart.VerticalAxis>
-										<rad:LinearAxis/>
-									</rad:RadCartesianChart.VerticalAxis>
-									<rad:LineSeries ItemsSource="{x:Bind config.choices, Mode=OneWay}" Stroke="{ThemeResource AccentButtonBackground}" StrokeThickness="2">
-										<rad:LineSeries.CategoryBinding>
-											<rad:PropertyNameDataPointBinding PropertyName="catagory"/>
-										</rad:LineSeries.CategoryBinding>
-										<rad:LineSeries.ValueBinding>
-											<rad:PropertyNameDataPointBinding PropertyName="corrected"/>
-										</rad:LineSeries.ValueBinding>
-									</rad:LineSeries>
-									<rad:LineSeries ItemsSource="{x:Bind config.corrected, Mode=OneWay}" Stroke="#FF008F00" StrokeThickness="2">
-										<rad:LineSeries.CategoryBinding>
-											<rad:PropertyNameDataPointBinding PropertyName="catagory"/>
-										</rad:LineSeries.CategoryBinding>
-										<rad:LineSeries.ValueBinding>
-											<rad:PropertyNameDataPointBinding PropertyName="corrected"/>
-										</rad:LineSeries.ValueBinding>
-									</rad:LineSeries>
-								</rad:RadCartesianChart>
-							</StackPanel>
-						</ScrollViewer>
-						<StackPanel Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Vertical">
-							<StackPanel Orientation="Horizontal">
-								<Rectangle Fill="{ThemeResource AccentButtonBackground}" Width="15" Height="15"/>
-								<TextBlock x:Uid="Config_stat_selected" Text="Selected choice" Margin="5,0"/>
-							</StackPanel>
-							<StackPanel Orientation="Horizontal">
-								<Rectangle Fill="#FF008F00" Width="15" Height="15"/>
-								<TextBlock x:Uid="Config_stat_corrected" Text="Corrected choice" Margin="5,0"/>
-							</StackPanel>
-						</StackPanel>
-					</Grid>
 				</Grid>
 			</PivotItem>
 			<PivotItem x:Name="extPage">
@@ -553,49 +483,116 @@
 					</StackPanel>
 				</PivotItem.Header>
 				<ScrollViewer>
-					<ItemsControl Margin="0,5">
-						<TextBlock Style="{ThemeResource settingTitleLabel}">
-							<Run Text="{x:Bind config.AppName, Mode=OneTime}"/><Run Text=" "/><Run Text="{x:Bind config.AppVersion, Mode=OneTime}"/><LineBreak/>
-							<Run x:Uid="Config_about_made" Text="Made by @"/><Run Text="{x:Bind config.AppMaker, Mode=OneTime}"/><LineBreak/>
-						</TextBlock>
-						<Button Content="Reset setting" x:Uid="Config_reset_a">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind config.ResetConfig}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</Button>
-						<Button Margin="0,5,0,0" Content="Reset stat" x:Uid="Config_reset_b">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind config.ResetStat}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</Button>
-						<Button Margin="0,5,0,0" Content="Reset sessions" x:Uid="Config_reset_c">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind config.ResetSessions}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</Button>
-						<Button Margin="0,5,0,0" Content="Remove all user note" x:Uid="Config_reset_d">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind config.ResetNotes}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</Button>
-						<Button Margin="0,5,0,0" Content="Reset everything" x:Uid="Config_reset_e">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind config.ResetAll}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</Button>
-					</ItemsControl>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<TextBlock Grid.Row="0" Text="About" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+						<StackPanel Grid.Row="1">
+							<TextBlock Text="Just remember" Style="{ThemeResource TitleTextBlockStyle}"/>
+							<TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind config.AppVersion}"/>
+						</StackPanel>
+						<ScrollViewer Grid.Row="2" Height="200" Margin="0,10">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<StackPanel Grid.Row="2" Orientation="Vertical">
+									<TextBlock Margin="0,5" Text="Develop by:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
+									<StackPanel Margin="10,0" Orientation="Horizontal">
+										<HyperlinkButton Click="OpenWebA" Grid.Row="4">
+											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>
+										</HyperlinkButton>
+										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="@ToonWK"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Row="3" Orientation="Vertical">
+									<TextBlock TextWrapping="Wrap" Grid.Row="3" Margin="0,5" Text="English translate:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
+									<StackPanel Margin="10,0" Orientation="Horizontal">
+										<HyperlinkButton Click="OpenWebB" Grid.Row="4">
+											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>
+										</HyperlinkButton>
+										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="@win10fan"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Row="4" Orientation="Vertical">
+									<TextBlock TextWrapping="Wrap" Grid.Row="3" Margin="0,5" Text="Beta testing:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
+									<StackPanel Margin="10,0" Orientation="Horizontal">
+										<HyperlinkButton Click="OpenWebB" Grid.Row="4">
+											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>
+										</HyperlinkButton>
+										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="@win10fan"/>
+									</StackPanel>
+									<StackPanel Margin="10,0" Orientation="Horizontal">
+										<HyperlinkButton Click="OpenWebC" Grid.Row="4">
+											<Image Width="20" Height="20" Source="/Assets/facebook.png"/>
+										</HyperlinkButton>
+										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="Nukoon"/>
+									</StackPanel>
+									<StackPanel Margin="10,0" Orientation="Horizontal">
+										<HyperlinkButton Click="OpenWebD" Grid.Row="4">
+											<Image Width="20" Height="20" Source="/Assets/facebook.png"/>
+										</HyperlinkButton>
+										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="Wipob"/>
+									</StackPanel>
+								</StackPanel>
+							</Grid>
+						</ScrollViewer>
+						<StackPanel Margin="5" Grid.Row="5">
+							<Button Margin="0,5,0,0" Content="Reset setting" x:Uid="Config_reset_a">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:InvokeCommandAction Command="{x:Bind config.ResetConfig}"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</Button>
+							<Button Margin="0,5,0,0" Content="Reset stat" x:Uid="Config_reset_b">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:InvokeCommandAction Command="{x:Bind config.ResetStat}"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</Button>
+							<Button Margin="0,5,0,0" Content="Reset sessions" x:Uid="Config_reset_c">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:InvokeCommandAction Command="{x:Bind config.ResetSessions}"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</Button>
+							<Button Margin="0,5,0,0" Content="Remove all user note" x:Uid="Config_reset_d">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:InvokeCommandAction Command="{x:Bind config.ResetNotes}"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</Button>
+							<Button Margin="0,5,0,0" Content="Reset everything" x:Uid="Config_reset_e">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:InvokeCommandAction Command="{x:Bind config.ResetAll}"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</Button>
+						</StackPanel>
+					</Grid>
 				</ScrollViewer>
 			</PivotItem>
 		</Pivot>
+		<Frame x:Name="statView" Visibility="{x:Bind config.isSelected, Mode=OneWay}"/>
+		<CommandBar Visibility="{x:Bind config.isSelected, Mode=OneWay}" HorizontalAlignment="Right" Style="{StaticResource EditorCMD}">
+			<AppBarButton Click="DeleteStat" Icon="Delete"/>
+			<AppBarButton Click="QuitStat" Icon="Cancel"/>
+		</CommandBar>
 	</Grid>
 </Page>

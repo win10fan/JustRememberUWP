@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -161,7 +162,7 @@ namespace JustRemember.ViewModels
 		public ICommand splitUndo;
 
 		public ICommand saveFilename;
-		
+
 		public void ReNew()
 		{
 			Undo = new RelayCommand<RoutedEventArgs>(UNDO);
@@ -175,7 +176,11 @@ namespace JustRemember.ViewModels
 			splitUndo = new RelayCommand<KeyRoutedEventArgs>(SPLITUNDO);
 			//
 			saveFilename = new RelayCommand<TextChangedEventArgs>(SAVEFILENAME);
+			//Dialog
+			notLongEnough = new MessageDialog(App.language.GetString("Dialog_Not_long_enough_editor"));
+			notLongEnough.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
 		}
+		public MessageDialog notLongEnough;
 
 		Visibility _emp, _con, _al = Visibility.Collapsed;
 		public Visibility isEmpty
@@ -261,6 +266,13 @@ namespace JustRemember.ViewModels
 		{
 			view.MainEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.UseCrlf, out string cont);
 			NoteContent = cont;
+			//Test it first
+			SessionModel t = SessionModel.generate(editedNote);
+			if (t == null)
+			{
+				await notLongEnough.ShowAsync();
+				return;
+			}
 			await NoteModel.SaveNote(editedNote);
 		}
 

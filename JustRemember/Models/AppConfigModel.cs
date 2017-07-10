@@ -161,7 +161,7 @@ namespace JustRemember.Models
 		[JsonIgnore]
 		public static List<string> languages = new List<string>()
 		{
-			"en-US",
+			"en",
 			"th-TH"
 		};
 

@@ -53,6 +53,8 @@ namespace JustRemember.Views
 			if (sender.SelectedIndex == 3)
 				await MobileTitlebarService.Refresh(App.language.GetString("Config_stat"));
 			if (sender.SelectedIndex == 4)
+				await MobileTitlebarService.Refresh(App.language.GetString("Config_extension"));
+			if (sender.SelectedIndex == 5)
 				await MobileTitlebarService.Refresh(App.language.GetString("Config_about"));
 		}
 
@@ -74,6 +76,57 @@ namespace JustRemember.Views
 		private void RemoveExt(object sender, RoutedEventArgs e)
 		{
 			ext.RequestUninstallSelected();
+		}
+
+		private async void OpenWebA(object sender, RoutedEventArgs e)
+		{
+			await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.twitter.com/ToonWK"));
+		}
+
+		private async void OpenWebB(object sender, RoutedEventArgs e)
+		{
+			await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.twitter.com/win10fan"));
+		}
+
+		private async void OpenWebC(object sender, RoutedEventArgs e)
+		{
+			await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.facebook.com/nukun.fakfuy.1"));
+		}
+
+		private async void OpenWebD(object sender, RoutedEventArgs e)
+		{
+			await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.facebook.com/wipob.tita"));
+		}
+
+		private void ShowStatPage(object sender, SelectionChangedEventArgs e)
+		{
+			if ((sender as ListView).SelectedIndex > -1)
+			{
+				settingsContent.Visibility = Visibility.Visible;
+				statView.Navigate(typeof(End), new List<object>() { config.selectedStat, true });
+			}
+			else
+			{
+				settingsContent.Visibility = Visibility.Visible;
+				statView.Content = null;
+			}
+			config.OnPropertyChanged("stats");
+		}
+
+		private async void DeleteStat(object sender, RoutedEventArgs e)
+		{
+			int bfq = statList.SelectedIndex;
+			statList.SelectedIndex = -1;
+			StatModel.Delete(bfq);
+			await Task.Delay(500);
+			config.stats.Clear();
+			config.stats = await StatModel.Get();
+			config.OnPropertyChanged("stats");
+		}
+
+		private void QuitStat(object sender, RoutedEventArgs e)
+		{
+			statList.SelectedIndex = -1;
 		}
 	}
 }

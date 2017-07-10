@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using JustRemember.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace JustRemember.ViewModels
 {
@@ -84,6 +85,9 @@ namespace JustRemember.ViewModels
             DeleteSelected = new RelayCommand<RoutedEventArgs>(DeleteSelectedItem);
             DeSelect = new RelayCommand<RoutedEventArgs>(DeSelectNote);
             SendToMatch = new RelayCommand<RoutedEventArgs>(NavigateToMatchWithNote);
+			//Dialog
+			notLongEnough = new MessageDialog(App.language.GetString("Dialog_Not_long_enough_main"));
+			notLongEnough.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
 			//Other
 			saver = new DispatcherTimer()
 			{
@@ -92,6 +96,7 @@ namespace JustRemember.ViewModels
 			saver.Tick += Saver_Tick;
 			saver.Start();
 		}
+		public MessageDialog notLongEnough;
 
 		private async void Saver_Tick(object sender, object e)
 		{
@@ -105,9 +110,14 @@ namespace JustRemember.ViewModels
             InitializeAndGoToMatch();
         }
 
-        void InitializeAndGoToMatch()
+		async void InitializeAndGoToMatch()
         {
 			SessionModel current = SessionModel.generate(Notes[wr.WAR.SelectedIndex]);
+			if (current == null)
+			{
+				await notLongEnough.ShowAsync();
+				return;
+			}
             //Goto Match page
             NavigationService.Navigate<Match>(current);
         }
@@ -148,12 +158,25 @@ namespace JustRemember.ViewModels
             StorageFile file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
+				//Try to read it first:
+				string content = await FileIO.ReadTextAsync(file);
+				SessionModel test = SessionModel.generate(new NoteModel { Title = "Test", Content = content });
+				if (test == null)
+				{
+					await notLongEnough.ShowAsync();
+					return;
+				}
                 StorageFolder folder = ApplicationData.Current.RoamingFolder;
                 var noteFolder = await folder.GetFolderAsync("Notes");
                 await file.CopyAsync(noteFolder);
                 Notes = await NoteModel.GetNotesAsync();
             }
         }
+
+		//async void ShowTooShortDialog()
+		//{
+		//	MessageDialog tooshort
+		//}
 
         async void ReloadingListAsync(RoutedEventArgs obj)
         {

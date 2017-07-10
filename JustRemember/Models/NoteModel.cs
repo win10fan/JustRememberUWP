@@ -104,6 +104,9 @@ namespace JustRemember.Models
 
 		public static async Task SaveNote(NoteModel note)
 		{
+			string filename = note.Title;
+			if (!filename.EndsWith(".txt"))
+				filename = $"{filename}.txt";
 			var folder = (StorageFolder) await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Notes");
 			if (folder != null)
 			{

@@ -100,6 +100,9 @@ namespace JustRemember.Models
 		}
 
 		[JsonIgnore]
+		public string fileName { get; set; }
+
+		[JsonIgnore]
 		public TimeSpan timeLeft { get => isTimeLimited ? totalLimitTime - totalTimespend : TimeSpan.MinValue; }
 
 		[JsonIgnore]
@@ -122,18 +125,87 @@ namespace JustRemember.Models
 		}
 
 		[JsonIgnore]
-		public List<choiceInfoUnDic> choiceInfo2
+		public string timeSpendSTR
 		{
 			get
 			{
-				var choice2 = new List<choiceInfoUnDic>();
-				foreach (var ch in choiceInfo)
+				string res = "";
+				string minute = totalTimespend.Minutes == 1 ? App.language.GetString("Stat_Minute") : App.language.GetString("Stat_Minutes");
+				string second = totalTimespend.Seconds == 1 ? App.language.GetString("Stat_Second") : App.language.GetString("Stat_Seconds");
+				if (totalTimespend.Minutes >= 1)
 				{
-					choice2.Add(new choiceInfoUnDic(ch));
+					if (totalTimespend.Seconds == 0)
+						res += $"{totalTimespend.Minutes} {minute}";
+					else
+						res += $"{totalTimespend.Minutes} {minute} {totalTimespend.Seconds} {second}";
 				}
-				return choice2;
+				else
+				{
+					res += $"{totalTimespend.Seconds} {second}";
+				}
+				return res;
 			}
 		}
+
+		[JsonIgnore]
+		public string timeleftSTR
+		{
+			get
+			{
+				string res = "";
+				string minute = timeLeft.Minutes == 1 ? App.language.GetString("Stat_Minute") : App.language.GetString("Stat_Minutes");
+				string second = timeLeft.Seconds == 1 ? App.language.GetString("Stat_Second") : App.language.GetString("Stat_Seconds");
+				if (timeLeft.Minutes >= 1)
+				{
+					if (timeLeft.Seconds == 0)
+						res += $"{timeLeft.Minutes} {minute}";
+					else
+						res += $"{timeLeft.Minutes} {minute} {timeLeft.Seconds} {second}";
+				}
+				else
+				{
+					res += $"{timeLeft.Seconds} {second}";
+				}
+				return res;
+			}
+		}
+
+		[JsonIgnore]
+		public string timeLimitSTR
+		{
+			get
+			{
+				string res = "";
+				string minute = totalLimitTime.Minutes == 1 ? App.language.GetString("Stat_Minute") : App.language.GetString("Stat_Minutes");
+				string second = totalLimitTime.Seconds == 1 ? App.language.GetString("Stat_Second") : App.language.GetString("Stat_Seconds");
+				if (totalLimitTime.Minutes >= 1)
+				{
+					if (totalLimitTime.Seconds == 0)
+						res += $"{totalLimitTime.Minutes} {minute}";
+					else
+						res += $"{totalLimitTime.Minutes} {minute} {totalLimitTime.Seconds} {second}";
+				}
+				else
+				{
+					res += $"{totalLimitTime.Seconds} {second}";
+				}
+				return res;
+			}
+		}
+
+		//[JsonIgnore]
+		//public List<choiceInfoUnDic> choiceInfo2
+		//{
+		//	get
+		//	{
+		//		var choice2 = new List<choiceInfoUnDic>();
+		//		foreach (var ch in choiceInfo)
+		//		{
+		//			choice2.Add(new choiceInfoUnDic(ch));
+		//		}
+		//		return choice2;
+		//	}
+		//}
 
 		[JsonIgnore]
 		public string startedTime
@@ -170,6 +242,7 @@ namespace JustRemember.Models
 				foreach (var f in files)
 				{
 					stats.Add(await Json.ToObjectAsync<StatModel>(await FileIO.ReadTextAsync(f)));
+					stats[stats.Count - 1].fileName = f.Name;
 				}
 			}
 			return stats;
@@ -196,49 +269,27 @@ namespace JustRemember.Models
 			}
 			App.Stats.Add(set);
 		}
-	}
 
-	public class choiceInfoUnDic
-	{
-		public int choice { get; set; }
-		public int limit { get; set; }
-		public bool choice1 { get; set; }
-		public bool choice2 { get; set; }
-		public bool choice3 { get; set; }
-		public bool choice4 { get; set; }
-		public bool choice5 { get; set; }
-		public List<bool> origin { get; set; }
-		
-		public GridLength showChoice4Grid { get => new GridLength(limit >= 4 ? 1 : 0, GridUnitType.Star); }
-		
-		public GridLength showChoice5Grid { get => new GridLength(limit >= 5 ? 1 : 0, GridUnitType.Star); }
-
-		public choiceInfoUnDic()
+		public static async void Delete(int index)
 		{
-			choice = 0;
-			limit = 3;
-			choice1 = true;
-			choice2 = choice3 = choice4 = choice5 = false;
-			origin = new List<bool>();
-			origin.Add(false);
-			origin.Add(false);
-			origin.Add(false);
-		}
-
-		public choiceInfoUnDic(KeyValuePair<int,List<bool>> info)
-		{
-			choice = info.Key;
-			limit = info.Value.Count - 1;
-			choice1 = info.Value[0];
-			choice2 = info.Value[1];
-			choice3 = info.Value[2];
-			choice4 = limit >= 3 ? info.Value[3] : false;
-			choice5 = limit >= 4 ? info.Value[4] : false;
-			origin = new List<bool>();
-			origin = info.Value;
+			var items = await Get();
+			var statFol = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Stat");
+			if (statFol == null)
+			{
+				statFol = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Stat");
+			}
+			StorageFile statFil = (StorageFile)await statFol.TryGetItemAsync(items[index].fileName);
+			if (statFil == null)
+			{
+				return;
+			}
+			else
+			{
+				await statFil.DeleteAsync();
+			}
 		}
 	}
-
+	
 	public enum matchMode
 	{
 		Easy,

@@ -41,6 +41,24 @@ namespace JustRemember.Services
 					return;
 				}
 			}
+			else if (Frame.Content.GetType() == typeof(AppConfigView))
+			{
+				AppConfigView daPage = Frame.Content as AppConfigView;
+				if (daPage.config.IselectedStat > -1)
+				{
+					daPage.config.IselectedStat = -1;
+					return;
+				}
+			}
+			else if (Frame.Content.GetType() == typeof(PrenoteView))
+			{
+				PrenoteView daPage = Frame.Content as PrenoteView;
+				if (App.isDeploying)
+				{
+					daPage.vm.ShowDontLeaveDialog();
+					return;
+				}
+			}
 			Frame.GoBack();
 		}
         public static void GoForward() => Frame.GoForward();
