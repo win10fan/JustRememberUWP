@@ -15,6 +15,7 @@ using Windows.Globalization;
 using Windows.System.UserProfile;
 using System.Diagnostics;
 using Windows.ApplicationModel.Resources;
+using System.Globalization;
 
 namespace JustRemember
 {
@@ -55,6 +56,7 @@ namespace JustRemember
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
 			Config = await AppConfigModel.Load2();
+			Config.language = AppConfigModel.languages.IndexOf(AppConfigModel.GetLanguage());
 			await ThemeSelectorService.SetThemeAsync(Config.isItLightTheme ? ElementTheme.Light : ElementTheme.Dark);
 			await MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
 			Stats = await StatModel.Get();

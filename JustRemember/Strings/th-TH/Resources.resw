@@ -185,6 +185,9 @@
   <data name="Config_wrong_hide.Text" xml:space="preserve">
     <value>ซ่อนคำตอบ</value>
   </data>
+  <data name="ms-resource:AppName" xml:space="preserve">
+    <value>ช่วยจำ</value>
+  </data>
   <data name="Home_note" xml:space="preserve">
     <value>บันทึกย่อ</value>
   </data>
@@ -250,6 +253,9 @@
   <data name="Edit_redo.Label" xml:space="preserve">
     <value>ทําซ้ำ</value>
   </data>
+  <data name="Edit_save.Text" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
   <data name="Edit_size_a.Text" xml:space="preserve">
     <value>ขนาด</value>
   </data>
@@ -265,6 +271,21 @@
   <data name="Match_calmdown.Text" xml:space="preserve">
     <value>ใจเย็นๆ 
 ไม่ต้องรีบ</value>
+  </data>
+  <data name="Match_choice_1" xml:space="preserve">
+    <value>๑: </value>
+  </data>
+  <data name="Match_choice_2" xml:space="preserve">
+    <value>๒: </value>
+  </data>
+  <data name="Match_choice_3" xml:space="preserve">
+    <value>๓: </value>
+  </data>
+  <data name="Match_choice_4" xml:space="preserve">
+    <value>๔: </value>
+  </data>
+  <data name="Match_choice_5" xml:space="preserve">
+    <value>๕: </value>
   </data>
   <data name="Match_continue.Text" xml:space="preserve">
     <value>ดำเนินการต่อ</value>
@@ -329,6 +350,9 @@
   <data name="PublisherDisplayName" xml:space="preserve">
     <value>Toon</value>
   </data>
+  <data name="Session_obfuscateChar" xml:space="preserve">
+    <value>?</value>
+  </data>
   <data name="Stat_easy" xml:space="preserve">
     <value>ลัดไปข้อถัดไป เมื่อตอบผิด</value>
   </data>
@@ -341,35 +365,74 @@
   <data name="Stat_unknow" xml:space="preserve">
     <value>ไม่ทราบ</value>
   </data>
-  <data name="Edit_save.Text" xml:space="preserve">
-    <value>บันทึก</value>
-  </data>
-  <data name="Match_choice_1" xml:space="preserve">
-    <value>๑: </value>
-  </data>
-  <data name="Match_choice_2" xml:space="preserve">
-    <value>๒: </value>
-  </data>
-  <data name="Match_choice_3" xml:space="preserve">
-    <value>๓: </value>
-  </data>
-  <data name="Match_choice_4" xml:space="preserve">
-    <value>๔: </value>
-  </data>
-  <data name="Match_choice_5" xml:space="preserve">
-    <value>๕: </value>
-  </data>
-  <data name="Session_obfuscateChar" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="ms-resource:AppName" xml:space="preserve">
-    <value>ช่วยจำ</value>
-  </data>
   <data name="End_Notice.Text" xml:space="preserve">
     <value>คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</value>
   </data>
   <data name="Prenote_LoadExtension.Text" xml:space="preserve">
     <value>กำลังคัดลอกชีท
 จากส่วนขยายอื่น</value>
+  </data>
+  <data name="Config_Ext_Uninstall.Text" xml:space="preserve">
+    <value>ถอนการติดตั้ง</value>
+  </data>
+  <data name="Config_extension" xml:space="preserve">
+    <value>ส่วนขยาย</value>
+  </data>
+  <data name="Config_stat_selectNcorrect.Text" xml:space="preserve">
+    <value>ข้อที่เลือกและถูก</value>
+  </data>
+  <data name="Stat_Minute" xml:space="preserve">
+    <value>นาที</value>
+    <comment>Minute as a single</comment>
+  </data>
+  <data name="Stat_Minutes" xml:space="preserve">
+    <value>นาที</value>
+    <comment>Minute as a prural</comment>
+  </data>
+  <data name="Stat_Second" xml:space="preserve">
+    <value>วินาที</value>
+    <comment>Second as a single</comment>
+  </data>
+  <data name="Stat_Seconds" xml:space="preserve">
+    <value>วินาที</value>
+    <comment>Second as a prural</comment>
+  </data>
+  <data name="Dialog_Not_long_enough_editor" xml:space="preserve">
+    <value>ชีทนี้สั้นเกินไป
+กรุณาเลือกชีทอื่น</value>
+  </data>
+  <data name="Dialog_Not_long_enough_main" xml:space="preserve">
+    <value>ชีทนี้สั้นเกินไป
+กรุณาเขียนให้ยาวกว่านี้อีกสักนิด</value>
+  </data>
+  <data name="Dialog_pleasewait_extracting" xml:space="preserve">
+    <value>กรุณารอ จนกว่าการคัดลอกชีทจากส่วนขยายจะเสร็จสมบูรณ์</value>
+  </data>
+  <data name="Config_Info_Apply.Text" xml:space="preserve">
+    <value>การตั้งค่านี้ มีผลกับ: </value>
+  </data>
+  <data name="Config_Info_Apply_Dic.Text" xml:space="preserve">
+    <value>พจนานุกรม</value>
+  </data>
+  <data name="Config_Info_Apply_Dic_Desc.Text" xml:space="preserve">
+    <value>ถ้าชีทขึ้นต้นด้วย MODE=VOLC การตั้งค่าจะมีผลกับโหมดนั้น</value>
+  </data>
+  <data name="Config_Info_Apply_QA.Text" xml:space="preserve">
+    <value>ถามตอบ</value>
+  </data>
+  <data name="Config_Info_Apply_QA_Desc.Text" xml:space="preserve">
+    <value>ถ้าชีทขึ้นต้นด้วย MODE=EXAM การตั้งค่าจะมีผลกับโหมดนั้น</value>
+  </data>
+  <data name="Config_RandomQA.Text" xml:space="preserve">
+    <value>สุ่มคำถามและคำตอบ</value>
+  </data>
+  <data name="Config_Rand_a.Content" xml:space="preserve">
+    <value>ไม่มีการสุ่ม</value>
+  </data>
+  <data name="Config_Rand_b.Content" xml:space="preserve">
+    <value>สุ่มคำถาม</value>
+  </data>
+  <data name="Config_Rand_c.Content" xml:space="preserve">
+    <value>เรียงลำดับสุ่ม คำถามและคำตอบ</value>
   </data>
 </root>

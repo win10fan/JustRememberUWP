@@ -32,6 +32,7 @@ namespace JustRemember.Views
 			GetNotesFromExtension();
 			vm.Initialize();
 			vm.v = this;
+			MobileTitlebarService.Refresh();
 			base.OnNavigatedTo(e);
 		}
 		

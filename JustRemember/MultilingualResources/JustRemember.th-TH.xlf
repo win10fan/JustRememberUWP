@@ -241,6 +241,10 @@
           <source>Obfuscate wrong choice</source>
           <target state="translated">ซ่อนคำตอบ</target>
         </trans-unit>
+        <trans-unit id="ms-resource:AppName" translate="yes" xml:space="preserve">
+          <source>Just remember</source>
+          <target state="translated">ช่วยจำ</target>
+        </trans-unit>
         <trans-unit id="Home_note" translate="yes" xml:space="preserve">
           <source>Note</source>
           <target state="needs-review-translation" state-qualifier="tm-suggestion">บันทึกย่อ</target>
@@ -327,6 +331,10 @@
           <source>Redo</source>
           <target state="needs-review-translation" state-qualifier="tm-suggestion">ทําซ้ำ</target>
         </trans-unit>
+        <trans-unit id="Edit_save.Text" translate="yes" xml:space="preserve">
+          <source>Save</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">บันทึก</target>
+        </trans-unit>
         <trans-unit id="Edit_size_a.Text" translate="yes" xml:space="preserve">
           <source>Size (</source>
           <target state="needs-review-translation" state-qualifier="tm-suggestion">ขนาด</target>
@@ -347,6 +355,26 @@
           <source>NO NEED TO HURRY!</source>
           <target state="translated">ใจเย็นๆ 
 ไม่ต้องรีบ</target>
+        </trans-unit>
+        <trans-unit id="Match_choice_1" translate="yes" xml:space="preserve">
+          <source>1: </source>
+          <target state="translated">๑: </target>
+        </trans-unit>
+        <trans-unit id="Match_choice_2" translate="yes" xml:space="preserve">
+          <source>2: </source>
+          <target state="translated">๒: </target>
+        </trans-unit>
+        <trans-unit id="Match_choice_3" translate="yes" xml:space="preserve">
+          <source>3: </source>
+          <target state="translated">๓: </target>
+        </trans-unit>
+        <trans-unit id="Match_choice_4" translate="yes" xml:space="preserve">
+          <source>4: </source>
+          <target state="translated">๔: </target>
+        </trans-unit>
+        <trans-unit id="Match_choice_5" translate="yes" xml:space="preserve">
+          <source>5: </source>
+          <target state="translated">๕: </target>
         </trans-unit>
         <trans-unit id="Match_continue.Text" translate="yes" xml:space="preserve">
           <source>Continue</source>
@@ -432,6 +460,10 @@
           <source>ToonWK</source>
           <target state="translated">Toon</target>
         </trans-unit>
+        <trans-unit id="Session_obfuscateChar" translate="yes" xml:space="preserve">
+          <source>?</source>
+          <target state="translated">?</target>
+        </trans-unit>
         <trans-unit id="Stat_easy" translate="yes" xml:space="preserve">
           <source>User choose to skip to next choice. When choose wrong choice</source>
           <target state="translated">ลัดไปข้อถัดไป เมื่อตอบผิด</target>
@@ -448,38 +480,6 @@
           <source>Undefined mode</source>
           <target state="translated">ไม่ทราบ</target>
         </trans-unit>
-        <trans-unit id="Edit_save.Text" translate="yes" xml:space="preserve">
-          <source>Save</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">บันทึก</target>
-        </trans-unit>
-        <trans-unit id="Match_choice_1" translate="yes" xml:space="preserve">
-          <source>1: </source>
-          <target state="translated">๑: </target>
-        </trans-unit>
-        <trans-unit id="Match_choice_2" translate="yes" xml:space="preserve">
-          <source>2: </source>
-          <target state="translated">๒: </target>
-        </trans-unit>
-        <trans-unit id="Match_choice_3" translate="yes" xml:space="preserve">
-          <source>3: </source>
-          <target state="translated">๓: </target>
-        </trans-unit>
-        <trans-unit id="Match_choice_4" translate="yes" xml:space="preserve">
-          <source>4: </source>
-          <target state="translated">๔: </target>
-        </trans-unit>
-        <trans-unit id="Match_choice_5" translate="yes" xml:space="preserve">
-          <source>5: </source>
-          <target state="translated">๕: </target>
-        </trans-unit>
-        <trans-unit id="Session_obfuscateChar" translate="yes" xml:space="preserve">
-          <source>?</source>
-          <target state="translated">?</target>
-        </trans-unit>
-        <trans-unit id="ms-resource:AppName" translate="yes" xml:space="preserve">
-          <source>Just remember</source>
-          <target state="translated">ช่วยจำ</target>
-        </trans-unit>
         <trans-unit id="End_Notice.Text" translate="yes" xml:space="preserve">
           <source>You can view this stat later in setting, If you save it</source>
           <target state="translated">คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</target>
@@ -492,51 +492,87 @@ from extension</source>
         </trans-unit>
         <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
           <source>Uninstall</source>
-          <target state="new">Uninstall</target>
+          <target state="translated">ถอนการติดตั้ง</target>
         </trans-unit>
         <trans-unit id="Config_extension" translate="yes" xml:space="preserve">
           <source>Extensions</source>
-          <target state="new">Extensions</target>
+          <target state="translated">ส่วนขยาย</target>
         </trans-unit>
         <trans-unit id="Config_stat_selectNcorrect.Text" translate="yes" xml:space="preserve">
           <source>Selected and correct choice</source>
-          <target state="new">Selected and correct choice</target>
+          <target state="translated">ข้อที่เลือกและถูก</target>
         </trans-unit>
         <trans-unit id="Stat_Minute" translate="yes" xml:space="preserve">
           <source>minute</source>
-          <target state="new">minute</target>
+          <target state="translated">นาที</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Minute as a single</note>
         </trans-unit>
         <trans-unit id="Stat_Minutes" translate="yes" xml:space="preserve">
           <source>minutes</source>
-          <target state="new">minutes</target>
+          <target state="translated">นาที</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Minute as a prural</note>
         </trans-unit>
         <trans-unit id="Stat_Second" translate="yes" xml:space="preserve">
           <source>second</source>
-          <target state="new">second</target>
+          <target state="translated">วินาที</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Second as a single</note>
         </trans-unit>
         <trans-unit id="Stat_Seconds" translate="yes" xml:space="preserve">
           <source>seconds</source>
-          <target state="new">seconds</target>
+          <target state="translated">วินาที</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Second as a prural</note>
         </trans-unit>
         <trans-unit id="Dialog_Not_long_enough_editor" translate="yes" xml:space="preserve">
           <source>Sorry! This memo is not long enough.
 Please write it little longer?</source>
-          <target state="new">Sorry! This memo is not long enough.
-Please write it little longer?</target>
+          <target state="translated">ชีทนี้สั้นเกินไป
+กรุณาเลือกชีทอื่น</target>
         </trans-unit>
         <trans-unit id="Dialog_Not_long_enough_main" translate="yes" xml:space="preserve">
           <source>Sorry! This memo is not long enough,
 please choose other memo</source>
-          <target state="new">Sorry! This memo is not long enough,
-please choose other memo</target>
+          <target state="translated">ชีทนี้สั้นเกินไป
+กรุณาเขียนให้ยาวกว่านี้อีกสักนิด</target>
         </trans-unit>
         <trans-unit id="Dialog_pleasewait_extracting" translate="yes" xml:space="preserve">
           <source>Please stay until we're complete extracting memo from extension</source>
-          <target state="new">Please stay until we're complete extracting memo from extension</target>
+          <target state="translated">กรุณารอ จนกว่าการคัดลอกชีทจากส่วนขยายจะเสร็จสมบูรณ์</target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply.Text" translate="yes" xml:space="preserve">
+          <source>This option apply to:</source>
+          <target state="translated">การตั้งค่านี้ มีผลกับ: </target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply_Dic.Text" translate="yes" xml:space="preserve">
+          <source>Dictionary</source>
+          <target state="translated">พจนานุกรม</target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply_Dic_Desc.Text" translate="yes" xml:space="preserve">
+          <source>If note define with MODE=VOLC this option apply on that mode</source>
+          <target state="translated">ถ้าชีทขึ้นต้นด้วย MODE=VOLC การตั้งค่าจะมีผลกับโหมดนั้น</target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply_QA.Text" translate="yes" xml:space="preserve">
+          <source>Q &amp; A</source>
+          <target state="translated">ถามตอบ</target>
+        </trans-unit>
+        <trans-unit id="Config_Info_Apply_QA_Desc.Text" translate="yes" xml:space="preserve">
+          <source>If note define with MODE=EXAM this option apply on that mode</source>
+          <target state="translated">ถ้าชีทขึ้นต้นด้วย MODE=EXAM การตั้งค่าจะมีผลกับโหมดนั้น</target>
+        </trans-unit>
+        <trans-unit id="Config_RandomQA.Text" translate="yes" xml:space="preserve">
+          <source>Randomize question &amp; answer</source>
+          <target state="translated">สุ่มคำถามและคำตอบ</target>
+        </trans-unit>
+        <trans-unit id="Config_Rand_a.Content" translate="yes" xml:space="preserve">
+          <source>No randomize</source>
+          <target state="translated">ไม่มีการสุ่ม</target>
+        </trans-unit>
+        <trans-unit id="Config_Rand_b.Content" translate="yes" xml:space="preserve">
+          <source>Randomize question order</source>
+          <target state="translated">สุ่มคำถาม</target>
+        </trans-unit>
+        <trans-unit id="Config_Rand_c.Content" translate="yes" xml:space="preserve">
+          <source>Randomize question &amp; answer order</source>
+          <target state="translated">เรียงลำดับสุ่ม คำถามและคำตอบ</target>
         </trans-unit>
       </group>
     </body>

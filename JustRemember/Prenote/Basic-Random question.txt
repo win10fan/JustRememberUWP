@@ -1,0 +1,73 @@
+﻿#MODE=EXAM
+1. 4 16 64 256 ??
+A. 512
+B. 768
+C. 1024
+D. 2048
+
+2. What is the average of 9 23 4 56 91 78
+A. 30.5
+B. 42.5
+C. 50.5
+D. 66.25
+
+3. What is the most important thing that we can't live without it?
+A. Air
+B. Water
+C. Food
+D. Internet
+
+4. You ask a stranger for the time.  He doesn’t know the time, so he says
+A. I’m afraid I don’t know.
+B. I’m sorry. I have no time.
+C. Sorry, I’ve just bought this watch.
+D. Please don’t ask me about the time.
+
+5. Which choice is all operation system
+A. Unix, Mac OS, Microsoft office
+B. Linux, Windows, Mac OS, Symbian
+C. PDA, WWW, Linux, Windows
+D. BIOS, Symbian, IPX, RAM
+
+6. Which choice is on same catagory?
+A. Clarinet, Tuba, French Horn
+B. Piccolo, Trombone, Trumpet
+C. Oboe, Flute, Saxophone
+D. Violin, Cello, Bassoon
+
+7. Which is color template
+A. Red green blue
+B. Red cyan gray
+C. Red black white
+D. Red yellow blue
+
+8. Which is 2D visual element
+A. Dot
+B. Line
+C. Shape
+D. Contours
+
+9. 50 people answer the survey, 32 don't like music and sport, if there are 6 that like music but not sport and 1 that like sport but not music. How many people that like music and sport
+A. 11
+B. 12
+C. 17
+D. 18
+
+10. If there are pig and cow in a farm, with total 80 legs, how many pig in a farm if there are 8 cow more than pig?
+A. 4 pigs, 12 cows
+B. 6 pigs, 14 cows
+C. 8 pigs, 16 cows
+D. 10 pigs, 18 cows
+
+11. If there are chicken, duck, pig and cow with total of 132 legs, everything is same amount, how many duck would be in the farm?
+A. 9
+B. 10
+C. 11
+D. 12
+
+12. If Country A is 9:00 what time will be on Country B that western from Country A 15 degree
+A. 7:00
+B. 8:00
+C. 10:00
+D. 11:00
+>CBAABCDBABCC

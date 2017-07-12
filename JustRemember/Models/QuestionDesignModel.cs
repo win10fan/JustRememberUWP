@@ -222,9 +222,14 @@ namespace JustRemember.Models
 		const string answerpos = "AnswerPosition";
 		const string separator = "Separate";
 		const string usesp8spr = "SpaceAfterSeparate";
-		const string ansSymbol = "ABCDEFG";
+		public const string ansSymbol = "ABCDEFG";
 
 		public static ObservableCollection<QuestionDesignModel> FromString(string content)
+		{
+			return FromString(content, false);
+		}
+
+		public static ObservableCollection<QuestionDesignModel> FromString(string content,bool forPlay)
 		{
 			var items = new ObservableCollection<QuestionDesignModel>();
 			List<string> lines = content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -315,7 +320,10 @@ namespace JustRemember.Models
 						}
 						answers.Add(lines[i].Substring(line.IndexOf(check) + 1).Trim());
 					}
-					while (answers.Count != 5) { answers.Add(""); }
+					if (!forPlay)
+					{
+						while (answers.Count != 5) { answers.Add(""); }
+					}
 					item.Answers.Clear();
 					answers.ForEach((string s) => item.Answers.Add(s));
 					items.Add(item);

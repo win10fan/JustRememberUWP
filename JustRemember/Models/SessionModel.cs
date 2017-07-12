@@ -327,31 +327,62 @@ namespace JustRemember.Models
 			};
 			//Get new one
 			//Initialize Session
-			List<string> lines2 = item.Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
-			string answerLine = null;
-			if (lines2.Last().StartsWith("A="))
+			var qas = QuestionDesignHelper.FromString(item.Content, true);
+			int re = 1;
+			switch (App.Config.randomizeQA)
 			{
-				answerLine = lines2.Last().Remove(0, 2);
-				lines2.RemoveAt(lines2.Count - 1);
+				case randomQA.OnlyQuestion:
+					qas.Shuffle();
+					foreach (var q in qas)
+					{
+						q.Index = re;
+						re += 1;
+					}
+					break;
+				case randomQA.All:
+					qas.Shuffle();
+					foreach (var q in qas)
+					{
+						q.Index = re;
+						re += 1;
+						q.Answers[q.Correct] += "";
+						q.Answers.Shuffle();
+						for (int i = 0; i < q.Answers.Count; i++)
+						{
+							if (q.Answers[i].EndsWith(""))
+							{
+								q.Correct = i;
+								q.Answers[i] = q.Answers[i].Replace("", "");
+							}
+						}
+					}
+					break;
 			}
-			lines2.RemoveAt(0);
-			var lines = ExamSplit.GetList(lines2, answerLine);
+			//Update texts
+			foreach (var q in qas)
+			{
+				q.Question = $"{q.Index}.{q.Question}";
+				for (int i = 0; i < q.Answers.Count; i++)
+				{
+					q.Answers[i] = $"{QuestionDesignHelper.ansSymbol[i]}.{q.Answers[i]}";
+				}
+			}
 			current.texts = new ObservableCollection<TextList>();
 			current.choices = new ObservableCollection<ChoiceSet>
 			{
 				new ChoiceSet() { choices = new List<string>() { ">>>" }, corrected = 0 }
 			};
-			for (int i = 0; i < lines.Count; i++)
+			for (int i = 0; i < qas.Count; i++)
 			{
 				if (current.texts.Count == 0)
 				{
 					//Add first texts
-					current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i].question}\r\n" });
-					current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
+					current.texts.Add(new TextList() { isWhitespace = false, text = $"{qas[i].Question}\r\n" });
+					current.choices.Add(new ChoiceSet() { choices = qas[i].Answers.ToList(), corrected = qas[i].Correct });
 					continue;
 				}
-				current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i - 1].answers[lines[i - 1].corrected]}\r\n\r\n{lines[i].question}\r\n" });
-				current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
+				current.texts.Add(new TextList() { isWhitespace = false, text = $"{qas[i - 1].Answers[qas[i - 1].Correct]}\r\n\r\n{qas[i].Question}\r\n" });
+				current.choices.Add(new ChoiceSet() { choices = qas[i].Answers.ToList(), corrected = qas[i].Correct });
 			}
 			current.StatInfo = refreshStat(current);
 			return current;
@@ -402,144 +433,7 @@ namespace JustRemember.Models
 			return current;
 		}
 	}
-
-	public class ExamSplit
-	{
-		public string question;
-		public List<string> answers;
-		public int corrected;
-
-		public ExamSplit()
-		{
-			question = "";
-			answers = new List<string>();
-			corrected = 0;
-		}
-
-		public static List<ExamSplit> GetList(List<string> input,string answers)
-		{
-			List<ExamSplit> res = new List<ExamSplit>();
-			ExamSplit es = new ExamSplit();
-			bool question;
-			for (int i = 0; i < input.Count - 1; i++)
-			{
-				question = char.IsNumber(input[i][0]);
-				if (question)
-				{
-					es.question = input[i];
-				}
-				else
-				{
-					es.answers.Add(input[i]);
-				}
-				if ((i + 1) < input.Count - 1)
-				{
-					//Next choice work
-					if (char.IsNumber(input[i + 1][0]))
-					{
-						if (answers != null)
-						{
-							int indq = int.Parse(es.question.Substring(0, es.question.IndexOf('.')));
-							foreach (string s in es.answers)
-							{
-								if (s[0] == answers[indq])
-								{
-									//Correct answer
-									es.corrected = es.answers.IndexOf(s);
-								}
-							}
-						}
-						else
-						{
-							//Find correct choice
-							foreach (string s in es.answers)
-							{
-								if (s[0] == es.question[es.question.Length - 1])
-								{
-									//Correct answer
-									es.corrected = es.answers.IndexOf(s);
-									es.question = es.question.Substring(0, es.question.Length - 4);
-								}
-							}
-						}
-						res.Add(es);
-						es = new ExamSplit();
-					}
-				}
-			}
-			//Final answer
-			es.answers.Add(input[input.Count - 1]);
-			if (answers != null)
-			{
-				int indq = int.Parse(es.question.Substring(0, es.question.IndexOf('.'))) - 1;
-				foreach (string s in es.answers)
-				{
-					if (s[0] == answers[indq])
-					{
-						//Correct answer
-						es.corrected = es.answers.IndexOf(s);
-					}
-				}
-			}
-			else
-			{
-				//Find correct choice
-				foreach (string s in es.answers)
-				{
-					if (s[0] == es.question[es.question.Length - 1])
-					{
-						//Correct answer
-						es.corrected = es.answers.IndexOf(s);
-						es.question = es.question.Substring(0, es.question.Length - 4);
-					}
-				}
-			}
-			res.Add(es);
-			//Random qa check
-			int qs = 1;
-			switch (App.Config.randomizeQA)
-			{
-				case randomQA.OnlyQuestion:
-					res.Shuffle();
-					foreach (var r in res)
-					{
-						r.question = r.question.Remove(0, r.question.IndexOf('.') + 1).Trim();
-						r.question = $"{qs}. {r.question}";
-						qs += 1;
-					}
-					break;
-				case randomQA.All:
-					res.Shuffle();
-					foreach (var r in res)
-					{
-						r.question = r.question.Remove(0, r.question.IndexOf('.') + 1).Trim();
-						r.question = $"{qs}. {r.question}";
-						qs += 1;
-						r.answers[r.corrected] += "<<";
-						r.answers.Shuffle();
-						for (int c = 0; c < r.answers.Count; c++)
-						{
-							if (r.answers[c].EndsWith("<<"))
-							{
-								r.corrected = c;
-								r.answers[c] = r.answers[c].Replace("<<", "");
-							}
-							r.answers[c] = r.answers[c].Remove(0, r.answers[c].IndexOf('.') + 1).Trim();
-							r.answers[c] = $"{ansSymbol[c]}. {r.answers[c]}";
-						}
-					}
-					break;
-			}
-			//
-			res.Add(new ExamSplit() { question = "", corrected = 0, answers = new List<string>() { ">>>" } });
-			return res;
-		}
-
-		const string ansSymbol = "ABCDEFG";
-	}
-
-
-
+	
 	/// <summary>
 	/// Contain snip of text from note content | whice later use to generate choice
 	/// </summary>
@@ -741,6 +635,8 @@ namespace JustRemember.Models
 
 	public static class ExtendFunc
 	{
+		private static Random rng = new Random();
+
 		public static string obfuscateText(this string text)
 		{
 			string res = "";
@@ -758,9 +654,7 @@ namespace JustRemember.Models
 			if (value > max) { return max; }
 			return value;
 		}
-
-		private static Random rng = new Random();
-
+		
 		public static void Shuffle<T>(this IList<T> list)
 		{
 			int n = list.Count;

@@ -310,9 +310,7 @@
 								</ListBox>
 							</Grid>
 							<StackPanel Margin="5,10,0,5" Orientation="Horizontal">
-								<TextBlock Style="{ThemeResource settingNotifyLabel}" x:Uid="Config_Info_Apply" VerticalAlignment="Center">
-								this option apply to
-								</TextBlock>
+								<TextBlock Style="{ThemeResource settingNotifyLabel}" x:Uid="Config_Info_Apply" VerticalAlignment="Center" Text="This option apply to: "/>
 								<Border BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
 									<TextBlock Margin="3" x:Uid="Config_Info_Apply_QA" Style="{ThemeResource settingNotifyLabel}" Text="Q &amp; A">
 										<ToolTipService.ToolTip>
@@ -333,9 +331,7 @@
 							<TextBlock x:Uid="Config_Reverse_Dictionary" Text="Reverse dictionary Q&amp;A" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.config.reverseDictionary, Mode=TwoWay}"/>
 							<StackPanel Margin="0,0,0,5" Orientation="Horizontal">
-								<TextBlock Style="{ThemeResource settingNotifyLabel}" VerticalAlignment="Center">
-								this option apply to
-								</TextBlock>
+								<TextBlock Style="{ThemeResource settingNotifyLabel}" VerticalAlignment="Center" x:Uid="Config_Info_Apply" Text="This option apply to: "/>
 								<Border Margin="5,0" BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
 									<TextBlock Margin="3" x:Uid="Config_Info_Apply_Dic" Style="{ThemeResource settingNotifyLabel}" Text="Dictionary">
 										<ToolTipService.ToolTip>

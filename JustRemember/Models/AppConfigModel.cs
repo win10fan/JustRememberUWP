@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -268,36 +270,47 @@ namespace JustRemember.Models
 
 		public static async void SetLanguage(int selected)
 		{
-			var folder = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("lang");
-			if (folder == null)
+			var file = await ApplicationData.Current.LocalFolder.GetFileAsync("lang");
+			if (file == null)
 			{
-				folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("lang");
+				file = await ApplicationData.Current.LocalFolder.CreateFileAsync("lang");
+			}
+			string lang = await FileIO.ReadTextAsync(file);
+			if (GetLanguage(lang) == languages[App.Config.language])
+			{
+				return;
 			}
 			else
 			{
-				if (GetLanguage() == languages[App.Config.language])
-				{
-					return;
-				}
-				else
-				{
-					var files = await folder.GetFilesAsync();
-					foreach (var file in files)
-					{
-						await file.DeleteAsync();
-					}
-					await folder.DeleteAsync(StorageDeleteOption.PermanentDelete);
-					SetLanguage(selected);
-				}
+				await file.DeleteAsync();
+				file = await ApplicationData.Current.LocalFolder.CreateFileAsync("lang");
+				await FileIO.WriteTextAsync(file, languages[App.Config.language]);
 			}
-			await folder.CreateFileAsync(languages[selected]);
 		}
-
+		
 		public static string GetLanguage()
 		{
+			if (File.Exists(ApplicationData.Current.LocalFolder.Path + "\\lang"))
+			{
+				string res = File.ReadAllText(ApplicationData.Current.LocalFolder.Path + "\\lang");
+				return res;
+			}
+			else
+			{
+				CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+				if (cultureInfo.Name == "th" || cultureInfo.Name == "th-TH")
+				{
+					return languages[1];
+				}
+			}
+			return languages[0];
+		}
+
+		public static string GetLanguage(string readed)
+		{			
 			foreach (var lang in languages)
 			{
-				if (File.Exists($"{ApplicationData.Current.LocalFolder.Path}\\lang\\{lang}"))
+				if (readed == lang)
 				{
 					return languages[languages.IndexOf(lang)];
 				}

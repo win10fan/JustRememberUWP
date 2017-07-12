@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp genTemplate">
-  <Identity Name="RememberIt-B741-48AE-AC03-51F96077DD29" Publisher="CN=rayle" Version="1.4.12.0" />
-  <mp:PhoneIdentity PhoneProductId="1A8F0248-B741-48AE-AC03-51F96077DD29" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="37168ToonWK.JustRemember" Publisher="CN=B8F8EDD3-C154-4702-A782-DDE6ED5AD8CA" Version="1.1.1.0" />
+  <mp:PhoneIdentity PhoneProductId="8e3a2e45-7b7c-4e6c-b3b9-c5c1660d06e1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>JustRemember</DisplayName>
+    <DisplayName>Just Remember</DisplayName>
     <PublisherDisplayName>ToonWK</PublisherDisplayName>
     <Logo>assets\Store\StoreLogo.png</Logo>
   </Properties>
