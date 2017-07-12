@@ -3,15 +3,11 @@ using JustRemember.Models;
 using JustRemember.Services;
 using JustRemember.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -168,7 +164,15 @@ namespace JustRemember.ViewModels
 					Navigate(notes[v.FileList.SelectedIndex].Fullpath);
 				else
 				{
-					NavigationService.Navigate<Match>(SessionModel.generate(await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath)));
+					SessionModel generate = SessionModel.generate(await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath));
+					if (generate == null)
+					{
+						MessageDialog msg = new MessageDialog("Unable to generate content from memo, please try other memo");
+						msg.Commands.Add(new UICommand("OK"));
+						await msg.ShowAsync();
+						return;
+					}
+					NavigationService.Navigate<Match>(generate);
 				}
 			}
 		}
@@ -198,6 +202,11 @@ namespace JustRemember.ViewModels
 		{
 			NoteModel note = await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath);
 			NavigationService.Navigate<NoteEditorView>(note);
+		}
+
+		public GridLength showAds
+		{
+			get => App.Config.useAd ? new GridLength(120, GridUnitType.Pixel) : new GridLength(0);
 		}
 	}
 }

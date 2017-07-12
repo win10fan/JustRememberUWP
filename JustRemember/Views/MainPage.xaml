@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:ad="using:Microsoft.Advertising.WinRT.UI"
     xmlns:local="using:JustRemember.Models"
     mc:Ignorable="d">
 	<Grid>
@@ -22,6 +23,7 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition/>
+						<RowDefinition Height="{x:Bind ViewModel.showAds, Mode=OneWay}"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 					<TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel.NoteCount, Mode=OneWay}" Grid.Row="0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
@@ -61,7 +63,15 @@
                     <LineBreak/>
                     <Run x:Uid="Home_Nonote4" Text="By click at menu below"/>
 					</TextBlock>
-					<CommandBar Grid.Row="2">
+					<ad:AdControl 
+						Height="120"
+						IsAutoRefreshEnabled="True"
+						Grid.Row="2"
+						ApplicationId="9nzklwbqcq31"
+						AdUnitId="11689284"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"/>
+					<CommandBar Grid.Row="3">
 						<CommandBar.Content>
 							<AppBarButton Icon="Setting" Click="GotoSettings"/>
 						</CommandBar.Content>
@@ -80,13 +90,13 @@
 										<Button HorizontalAlignment="Center" Click="GoToNoteEditor">
 											<StackPanel Orientation="Horizontal">
 												<SymbolIcon Symbol="Edit"/>
-												<TextBlock Margin="5" VerticalAlignment="Center" Text="Memo editor"/>
+												<TextBlock x:Uid="Home_edit_with_memoedit" Margin="5" VerticalAlignment="Center" Text="Memo editor"/>
 											</StackPanel>
 										</Button>
 										<Button Margin="0,5" Grid.Row="2" HorizontalAlignment="Center" Click="GoToQuestionDesigner">
 											<StackPanel Orientation="Horizontal">
 												<SymbolIcon Symbol="Help"/>
-												<TextBlock Margin="5" VerticalAlignment="Center" Text="Question designer"/>
+												<TextBlock x:Uid="Home_edit_with_questdesi" Margin="5" VerticalAlignment="Center" Text="Question designer"/>
 											</StackPanel>
 										</Button>
 									</Grid>
@@ -139,23 +149,23 @@
 								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="Auto"/>
 							</Grid.RowDefinitions>
-							<TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="Edit with" HorizontalAlignment="Center"/>
+							<TextBlock x:Uid="Home_edit_with" Style="{ThemeResource TitleTextBlockStyle}" Text="Edit with" HorizontalAlignment="Center"/>
 							<Button Margin="0,5" HorizontalAlignment="Center" Grid.Row="1" Click="SendToNoteEditor">
 								<StackPanel Orientation="Horizontal">
 									<SymbolIcon Symbol="Edit"/>
-									<TextBlock Margin="5" VerticalAlignment="Center" Text="Memo editor"/>
+									<TextBlock Margin="5" x:Uid="Home_edit_with_memoedit" VerticalAlignment="Center" Text="Memo editor"/>
 								</StackPanel>
 							</Button>
 							<Button Margin="0,5" Grid.Row="2" HorizontalAlignment="Center" Click="SendToQuestionDesigner">
 								<StackPanel Orientation="Horizontal">
 									<SymbolIcon Symbol="Help"/>
-									<TextBlock Margin="5" VerticalAlignment="Center" Text="Question designer"/>
+									<TextBlock Margin="5" VerticalAlignment="Center" x:Uid="Home_edit_with_questdesi" Text="Question designer"/>
 								</StackPanel>
 							</Button>
 							<Button Margin="0,5" Grid.Row="3" HorizontalAlignment="Center" Click="CloseOWPopup">
 								<StackPanel Orientation="Horizontal">
 									<SymbolIcon Symbol="Cancel"/>
-									<TextBlock Margin="5" VerticalAlignment="Center" Text="Cancel"/>
+									<TextBlock Margin="5" x:Uid="Home_edit_with_cancel" VerticalAlignment="Center" Text="Cancel"/>
 								</StackPanel>
 							</Button>
 						</Grid>
@@ -174,6 +184,7 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition/>
+						<RowDefinition Height="{x:Bind ViewModel.showAds, Mode=OneWay}"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 					<TextBlock Margin="5" VerticalAlignment="Center" FontSize="18" Text="{x:Bind ViewModel2.SessionCount, Mode=OneWay}" Grid.Row="0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
@@ -229,7 +240,15 @@
 							</DataTemplate>
 						</ListView.ItemTemplate>
 					</ListView>
-					<CommandBar Grid.Row="2">
+					<ad:AdControl 
+						Height="120"
+						IsAutoRefreshEnabled="True"
+						Grid.Row="2"
+						ApplicationId="9nzklwbqcq31"
+						AdUnitId="11689284"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"/>
+					<CommandBar Grid.Row="3">
 						<CommandBar.Content>
 							<AppBarButton Icon="Setting" Click="GotoSettings"/>
 						</CommandBar.Content>

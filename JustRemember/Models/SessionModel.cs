@@ -1,15 +1,9 @@
-﻿using JustRemember.Services;
-using JustRemember.Views;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -361,10 +355,10 @@ namespace JustRemember.Models
 			//Update texts
 			foreach (var q in qas)
 			{
-				q.Question = $"{q.Index}.{q.Question}";
+				q.Question = $"{q.Index}. {q.Question}";
 				for (int i = 0; i < q.Answers.Count; i++)
 				{
-					q.Answers[i] = $"{QuestionDesignHelper.ansSymbol[i]}.{q.Answers[i]}";
+					q.Answers[i] = $"{App.Config.customChoiceHeader[i]}. {q.Answers[i]}";
 				}
 			}
 			current.texts = new ObservableCollection<TextList>();

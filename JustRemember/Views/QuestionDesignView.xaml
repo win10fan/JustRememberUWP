@@ -21,18 +21,18 @@
 				<CommandBar.Content>
 					<Grid Height="48" VerticalAlignment="Stretch">
 						<TextBlock Margin="5,0" Style="{ThemeResource TitleTextBlockStyle}" VerticalAlignment="Center">
-							<Run Text="{x:Bind vm.questionCount, Mode=OneWay}"/> question
+							<Run Text="{x:Bind vm.questionCount, Mode=OneWay}"/> <Run Text="{x:Bind vm.questionCountSTR, Mode=OneTime}"/>
 						</TextBlock>
 					</Grid>
 				</CommandBar.Content>
-				<AppBarButton Label="Add" Icon="Add">
+				<AppBarButton Label="Add" x:Uid="Home_add" Icon="Add">
 					<i:Interaction.Behaviors>
 						<ic:EventTriggerBehavior EventName="Click">
 							<ic:InvokeCommandAction Command="{x:Bind vm.addQuestion,Mode=OneWay}"/>
 						</ic:EventTriggerBehavior>
 					</i:Interaction.Behaviors>
 				</AppBarButton>
-				<AppBarButton Label="Refresh" Icon="Refresh">
+				<AppBarButton Label="Refresh" x:Uid="PNote_refresh" Icon="Refresh">
 					<i:Interaction.Behaviors>
 						<ic:EventTriggerBehavior EventName="Click">
 							<ic:InvokeCommandAction Command="{x:Bind vm.refreshQuestions,Mode=OneWay}"/>
@@ -47,14 +47,14 @@
 					</i:Interaction.Behaviors>
 				</AppBarButton>
 				<CommandBar.SecondaryCommands>
-					<AppBarButton Label="Setting" Icon="Setting">
+					<AppBarButton Label="Setting" x:Uid="QD_setting" Icon="Setting">
 						<i:Interaction.Behaviors>
 							<ic:EventTriggerBehavior EventName="Click">
 								<ic:InvokeCommandAction Command="{x:Bind vm.showSetting,Mode=OneWay}"/>
 							</ic:EventTriggerBehavior>
 						</i:Interaction.Behaviors>
 					</AppBarButton>
-					<AppBarButton Label="Send to note editor" Icon="Edit">
+					<AppBarButton x:Uid="QD_send_away" Label="Send to Memo editor" Icon="Edit">
 						<i:Interaction.Behaviors>
 							<ic:EventTriggerBehavior EventName="Click">
 								<ic:InvokeCommandAction Command="{x:Bind vm.sendToEditor,Mode=OneWay}"/>
@@ -183,42 +183,47 @@
 									</ic:EventTriggerBehavior>
 								</i:Interaction.Behaviors>
 							</Button>
-							<TextBlock Margin="5,0"  Style="{ThemeResource SubheaderTextBlockStyle}" Text="Setting"/>
+							<TextBlock x:Uid="QD_setting_page" Margin="5,0" Style="{ThemeResource SubheaderTextBlockStyle}" Text="Setting"/>
 						</StackPanel>						
 						<StackPanel Margin="10" Orientation="Vertical">
-							<TextBlock Text="Answer position" Style="{ThemeResource TitleTextBlockStyle}"/>
+							<TextBlock x:Uid="QD_answer_pos" Text="Answer position" Style="{ThemeResource TitleTextBlockStyle}"/>
 							<ListBox SelectedIndex="{x:Bind vm.AnswerPosition, Mode=TwoWay}">
-								<ListBoxItem Content="Behind question"/>
-								<ListBoxItem Content="Bottom of memo"/>
+								<ListBoxItem x:Uid="QD_behind_question" Content="Behind question"/>
+								<ListBoxItem x:Uid="QD_bottom_memo" Content="Bottom of memo"/>
 							</ListBox>
 						</StackPanel>
 						<StackPanel Margin="10" Orientation="Vertical">
-							<TextBlock Text="Separate answer and number" Style="{ThemeResource TitleTextBlockStyle}"/>
+							<TextBlock x:Uid="QD_separator" Text="Separate answer and number" Style="{ThemeResource TitleTextBlockStyle}"/>
 							<ListBox SelectedIndex="{x:Bind vm.questionSeparator, Mode=TwoWay}">
-								<ListBoxItem Content="Separate with &quot;.&quot;"/>
-								<ListBoxItem Content="Separate with &quot;)&quot;"/>
+								<ListBoxItem x:Uid="QD_separator_dot" Content="Separate with &quot;.&quot;"/>
+								<ListBoxItem x:Uid="QD_separator_bracket" Content="Separate with &quot;)&quot;"/>
 							</ListBox>
 						</StackPanel>
 						<StackPanel Margin="10" Orientation="Vertical">
-							<TextBlock Text="Space after separate symbol" Style="{ThemeResource TitleTextBlockStyle}"/>
-							<CheckBox Content="Yes" IsChecked="{x:Bind vm.spaceAfterSeparator, Mode=TwoWay}"/>
+							<TextBlock x:Uid="QD_use_space" Text="Space after separate symbol" Style="{ThemeResource TitleTextBlockStyle}"/>
+							<CheckBox x:Uid="QD_use_space_yes" Content="Yes" IsChecked="{x:Bind vm.spaceAfterSeparator, Mode=TwoWay}"/>
+						</StackPanel>
+						<StackPanel Margin="10" Orientation="Vertical">
+							<TextBlock x:Uid="QD_custom_header" Text="Custom question header" Style="{ThemeResource TitleTextBlockStyle}"/>
+							<TextBox Text="{x:Bind vm.customAnswerHeader,Mode=TwoWay}"/>
 						</StackPanel>
 						<StackPanel Orientation="Vertical">
-							<TextBlock Text="Example:" Style="{ThemeResource TitleTextBlockStyle}"/>
+							<TextBlock x:Uid="QD_example" Text="Example:" Style="{ThemeResource TitleTextBlockStyle}"/>
 							<Grid Margin="5" Background="{ThemeResource SystemControlDisabledBaseLowBrush}">
 								<TextBlock FontFamily="Consolas" Margin="10">
 												#MODE=EXAM
 												<LineBreak/>1<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Example question? <Run Text="{x:Bind vm.answerExampleA1, Mode=OneWay}"/>
-												<LineBreak/>A<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Some incorrect answer.
-												<LineBreak/>B<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Some incorrect answer.
-												<LineBreak/>C<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Correct answer.
-												<LineBreak/>D<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Some incorrect answer.
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderA, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Some incorrect answer.
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderB, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Some incorrect answer.
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderC, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Correct answer.
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderD, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Some incorrect answer.
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderE, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>Some incorrect answer.
 
 											<LineBreak/>2<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>1+1=? <Run Text="{x:Bind vm.answerExampleA2, Mode=OneWay}"/>
-												<LineBreak/>A<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>-1
-												<LineBreak/>B<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>0
-												<LineBreak/>C<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>1
-												<LineBreak/>D<Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>2
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderA, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>-1
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderB, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>0
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderC, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>1
+												<LineBreak/><Run Text="{x:Bind vm.customAnswerHeaderD, Mode=OneWay}"/><Run Text="{x:Bind vm.whatAfterQAList, Mode=OneWay}"/><Run Text="{x:Bind vm.useSpaceAfterSep, Mode=OneWay}"/>2
 												<LineBreak/><Run Text="{x:Bind vm.answerExampleB, Mode=OneWay}"/>
 								</TextBlock>
 							</Grid>

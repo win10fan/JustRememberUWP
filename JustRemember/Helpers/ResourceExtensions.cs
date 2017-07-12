@@ -1,10 +1,9 @@
-using System.Runtime.InteropServices;
 
 using Windows.ApplicationModel.Resources;
 
 namespace JustRemember.Helpers
 {
-    internal static class ResourceExtensions
+	internal static class ResourceExtensions
     {
         private static ResourceLoader _resLoader = new ResourceLoader();
 

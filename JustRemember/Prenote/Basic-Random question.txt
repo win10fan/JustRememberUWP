@@ -1,4 +1,4 @@
-﻿#MODE=EXAM
+﻿#MODE=EXAM AnswerPosition=Bottom Separate=Dot SpaceAfterSeparate=Yes CustomChoiceHeader=ABCDE
 1. 4 16 64 256 ??
 A. 512
 B. 768
@@ -17,13 +17,13 @@ B. Water
 C. Food
 D. Internet
 
-4. You ask a stranger for the time.  He doesn’t know the time, so he says
+4. You ask a stranger for the time.  He doesn’t know the time, so he says....
 A. I’m afraid I don’t know.
 B. I’m sorry. I have no time.
 C. Sorry, I’ve just bought this watch.
 D. Please don’t ask me about the time.
 
-5. Which choice is all operation system
+5. Which choice is all operation system?
 A. Unix, Mac OS, Microsoft office
 B. Linux, Windows, Mac OS, Symbian
 C. PDA, WWW, Linux, Windows
@@ -35,19 +35,19 @@ B. Piccolo, Trombone, Trumpet
 C. Oboe, Flute, Saxophone
 D. Violin, Cello, Bassoon
 
-7. Which is color template
+7. Which is color template?
 A. Red green blue
 B. Red cyan gray
 C. Red black white
 D. Red yellow blue
 
-8. Which is 2D visual element
+8. Which is 2D visual element?
 A. Dot
 B. Line
 C. Shape
 D. Contours
 
-9. 50 people answer the survey, 32 don't like music and sport, if there are 6 that like music but not sport and 1 that like sport but not music. How many people that like music and sport
+9. 50 people answer the survey, 32 don't like music and sport, if there are 6 that like music but not sport and 1 that like sport but not music. How many people that like music and sport?
 A. 11
 B. 12
 C. 17
@@ -65,7 +65,7 @@ B. 10
 C. 11
 D. 12
 
-12. If Country A is 9:00 what time will be on Country B that western from Country A 15 degree
+12. If Country A is 9:00 what time will be on Country B that western from Country A 15 degree?
 A. 7:00
 B. 8:00
 C. 10:00

@@ -65,6 +65,7 @@
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<StackPanel Grid.Row="0">
 							<TextBlock 
@@ -214,7 +215,13 @@
 							</StackPanel>
 						</StackPanel>
 
-						<!--<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="5">
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="6">
+							<TextBlock Text="Show ads" x:Uid="Config_ShowAd" Style="{ThemeResource settingTitleLabel}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"/>
+							<ToggleSwitch IsOn="{x:Bind config.config.useAd, Mode=TwoWay}"/>
+							<TextBlock Style="{ThemeResource settingNotifyLabel}" x:Uid="Config_ShowAd_Desc" Text="You can turn this off, no need to pay anything."/>
+						</StackPanel>
+						
+						<StackPanel Visibility="{x:Bind config.showDBG, Mode=OneWay}" Style="{ThemeResource stackSettingItem}" Grid.Row="7">
 							<TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Default seed" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.useSeed, Mode=TwoWay}"/>
 							<TextBox Visibility="{x:Bind config.seedUI, Mode=OneWay}" Text="{x:Bind config.seedValue, Mode=TwoWay}" Width="200" MaxLength="9" InputScope="Number" PlaceholderText="12345" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -222,7 +229,7 @@
 									<Run Text="As all choice stay same."/><LineBreak/>
 									<Run Text="It equally cheat. All stat will not save."/>
 							</TextBlock>
-						</StackPanel>-->
+						</StackPanel>
 					</Grid>
 				</ScrollViewer>
 			</PivotItem>
@@ -488,7 +495,7 @@
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<TextBlock Grid.Row="0" Text="About" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+						<TextBlock Grid.Row="0" Text="About" x:Uid="Config_about_header" Style="{ThemeResource SubheaderTextBlockStyle}"/>
 						<StackPanel Grid.Row="1">
 							<TextBlock Text="Just remember" Style="{ThemeResource TitleTextBlockStyle}"/>
 							<TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind config.AppVersion}"/>
@@ -504,7 +511,7 @@
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
 								<StackPanel Grid.Row="2" Orientation="Vertical">
-									<TextBlock Margin="0,5" Text="Develop by:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
+									<TextBlock Margin="0,5" x:Uid="Config_about_made" Text="Develop by:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
 									<StackPanel Margin="10,0" Orientation="Horizontal">
 										<HyperlinkButton Click="OpenWebA" Grid.Row="4">
 											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>
@@ -513,7 +520,7 @@
 									</StackPanel>
 								</StackPanel>
 								<StackPanel Grid.Row="3" Orientation="Vertical">
-									<TextBlock TextWrapping="Wrap" Grid.Row="3" Margin="0,5" Text="English translate:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
+									<TextBlock x:Uid="Config_eng_translate" TextWrapping="Wrap" Grid.Row="3" Margin="0,5" Text="English translate by:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
 									<StackPanel Margin="10,0" Orientation="Horizontal">
 										<HyperlinkButton Click="OpenWebB" Grid.Row="4">
 											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>
@@ -522,7 +529,7 @@
 									</StackPanel>
 								</StackPanel>
 								<StackPanel Grid.Row="4" Orientation="Vertical">
-									<TextBlock TextWrapping="Wrap" Grid.Row="3" Margin="0,5" Text="Beta testing:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
+									<TextBlock TextWrapping="Wrap" Grid.Row="3" Margin="0,5" x:Uid="Config_beta_tester" Text="Beta testing:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
 									<StackPanel Margin="10,0" Orientation="Horizontal">
 										<HyperlinkButton Click="OpenWebB" Grid.Row="4">
 											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>

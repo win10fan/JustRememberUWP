@@ -1,14 +1,10 @@
 ﻿using JustRemember.Helpers;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using static JustRemember.App;
 
@@ -222,7 +218,8 @@ namespace JustRemember.Models
 		const string answerpos = "AnswerPosition";
 		const string separator = "Separate";
 		const string usesp8spr = "SpaceAfterSeparate";
-		public const string ansSymbol = "ABCDEFG";
+		const string customhdr = "CustomChoiceHeader";
+		//public const string ansSymbol = "ABCDEFG";
 
 		public static ObservableCollection<QuestionDesignModel> FromString(string content)
 		{
@@ -236,6 +233,7 @@ namespace JustRemember.Models
 			answerPosition answerPos = answerPosition.Bottom;
 			QuestionSeparator Separate = QuestionSeparator.Dot;
 			SpaceAfterSeparator UseSpace = SpaceAfterSeparator.Yes;
+			string customChoiceHeader = "ABCDE";
 			string[] config = lines[0].Split(' ');
 			//Read config
 			foreach (string c in config)
@@ -246,7 +244,10 @@ namespace JustRemember.Models
 					Separate = ParseEnum<QuestionSeparator>(c.Remove(0, c.IndexOf('=') + 1));
 				else if (c.StartsWith(usesp8spr))
 					UseSpace = ParseEnum<SpaceAfterSeparator>(c.Remove(0, c.IndexOf('=') + 1));
+				else if (c.StartsWith(customhdr))
+					customChoiceHeader = c.Substring(c.IndexOf('='));
 			}
+			Debug.Write(customChoiceHeader);
 			lines.RemoveAt(0);
 			//Get answers if it was at bottom
 			string answersLine = "";
@@ -282,12 +283,12 @@ namespace JustRemember.Models
 					item.Question = line.Substring(line.IndexOf(check) + 1).Trim();
 					if (answerPos == answerPosition.BehindAnswer)
 					{
-						item.Correct = ansSymbol.IndexOf(item.Question[item.Question.Length - 1]);
+						item.Correct = customChoiceHeader.IndexOf(item.Question[item.Question.Length - 1]);
 						item.Question = item.Question.Substring(0, item.Question.LastIndexOf('=') - 1);
 					}
 					else
 					{
-						item.Correct = answersLine[item.Index];
+						item.Correct = customChoiceHeader.IndexOf(answersLine[item.Index]);
 					}
 				}
 				else
@@ -331,21 +332,23 @@ namespace JustRemember.Models
 				}
 				index++;
 			}
+			if (forPlay) { items.Add(new QuestionDesignModel() { Answers = new ObservableCollection<string>() { "0", "1", "2", "3", "4" }, Question = "1 + 1 = ?", Correct = 2 }); }
 			return items;
 		}
 
 		public static string ToString(IList<QuestionDesignModel> items)
 		{
-			return ToString(items, Config.AnswerPosition, Config.questionSeparator, Config.spaceAfterSeparator);
+			return ToString(items, Config.AnswerPosition, Config.questionSeparator, Config.spaceAfterSeparator,Config.customChoiceHeader);
 		}
 
-		public static string ToString(IList<QuestionDesignModel> items, answerPosition answerPos, QuestionSeparator Separate, SpaceAfterSeparator UseSpace)
+		public static string ToString(IList<QuestionDesignModel> items, answerPosition answerPos, QuestionSeparator Separate, SpaceAfterSeparator UseSpace,string customHeader)
 		{
 			//Config
 			string output = $"MODE=EXAM " +
 				$"{answerpos}={answerPos.ToString()} " +
 				$"{separator}={Separate.ToString()} " +
-				$"{usesp8spr}={UseSpace.ToString()}\r\n";
+				$"{usesp8spr}={UseSpace.ToString()} " +
+				$"{customhdr}={customHeader}\r\n";
 			//Questions and Answers
 			string separ8 = Separate == QuestionSeparator.Dot ? "." : ")";
 			string space = UseSpace == SpaceAfterSeparator.Yes ? " " : "";
@@ -359,8 +362,8 @@ namespace JustRemember.Models
 					continue;
 				}
 				string index = $"{item.Index - emptyQuestion}";
-				string after = answerPos == answerPosition.BehindAnswer ? $" A={ansSymbol[item.Correct]}" : "";
-				answerLine += answerPos == answerPosition.Bottom ? $"{ansSymbol[item.Correct]}" : "";
+				string after = answerPos == answerPosition.BehindAnswer ? $" A={customHeader[item.Correct]}" : "";
+				answerLine += answerPos == answerPosition.Bottom ? $"{customHeader[item.Correct]}" : "";
 				output += $"{index}{separ8}{space}{item.Question}{after}\r\n";
 				int i = 1;
 				foreach (var an in item.Answers)

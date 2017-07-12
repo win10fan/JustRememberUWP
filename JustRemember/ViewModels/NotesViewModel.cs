@@ -12,13 +12,11 @@ using Windows.Storage.Pickers;
 using JustRemember.Views;
 using Windows.UI.Xaml.Input;
 using JustRemember.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Windows.UI.Popups;
 
 namespace JustRemember.ViewModels
 {
-    public class NotesViewModel : INotifyPropertyChanged
+	public class NotesViewModel : INotifyPropertyChanged
     {
         public MainPage wr;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -255,5 +253,10 @@ namespace JustRemember.ViewModels
                 return Visibility.Visible;
             }
         }
+
+		public GridLength showAds
+		{
+			get => App.Config.useAd ? new GridLength(120,GridUnitType.Pixel) : new GridLength(0);
+		}
     }
 }

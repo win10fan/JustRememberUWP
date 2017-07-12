@@ -1,17 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace JustRemember.Models
 {
-    public class NoteModel
+	public class NoteModel
     {
         public string Title { get; set; }
         public string Content { get; set; }

@@ -36,7 +36,7 @@
         </trans-unit>
         <trans-unit id="Home_NoNote3.Text" translate="yes" xml:space="preserve">
           <source>Or import text file</source>
-          <target state="translated">Or import text a text file</target>
+          <target state="translated">Or import a text file</target>
         </trans-unit>
         <trans-unit id="Home_NoNote4.Text" translate="yes" xml:space="preserve">
           <source>By click at menu below</source>
@@ -55,8 +55,8 @@
           <target state="new">Reload</target>
         </trans-unit>
         <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
-          <source>Develop by</source>
-          <target state="new">Develop by</target>
+          <source>Develop by:</source>
+          <target state="new">Develop by:</target>
         </trans-unit>
         <trans-unit id="Config_autoscroll.Text" translate="yes" xml:space="preserve">
           <source>Display text auto scroll</source>
@@ -231,10 +231,6 @@
         <trans-unit id="Config_wrong_hide.Text" translate="yes" xml:space="preserve">
           <source>Obfuscate wrong choice</source>
           <target state="new">Obfuscate wrong choice</target>
-        </trans-unit>
-        <trans-unit id="ms-resource:AppName" translate="yes" xml:space="preserve">
-          <source>Just remember</source>
-          <target state="new">Just remember</target>
         </trans-unit>
         <trans-unit id="Home_note" translate="yes" xml:space="preserve">
           <source>Note</source>
@@ -442,10 +438,6 @@
           <source>Refresh</source>
           <target state="new">Refresh</target>
         </trans-unit>
-        <trans-unit id="PublisherDisplayName" translate="yes" xml:space="preserve">
-          <source>ToonWK</source>
-          <target state="new">ToonWK</target>
-        </trans-unit>
         <trans-unit id="Session_obfuscateChar" translate="yes" xml:space="preserve">
           <source>?</source>
           <target state="new">?</target>
@@ -479,14 +471,6 @@ from extension</target>
         <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
           <source>Uninstall</source>
           <target state="new">Uninstall</target>
-        </trans-unit>
-        <trans-unit id="Home_initializeSetting.Text" translate="yes" xml:space="preserve">
-          <source>Initializing settings</source>
-          <target state="new">Initializing settings</target>
-        </trans-unit>
-        <trans-unit id="Edit_version.Text" translate="yes" xml:space="preserve">
-          <source>Note editor 1.0.0.2</source>
-          <target state="new">Note editor 1.0.0.2</target>
         </trans-unit>
         <trans-unit id="Config_extension" translate="yes" xml:space="preserve">
           <source>Extensions</source>
@@ -567,6 +551,106 @@ please choose other memo</target>
         <trans-unit id="Config_Rand_c.Content" translate="yes" xml:space="preserve">
           <source>Randomize question &amp; answer order</source>
           <target state="new">Randomize question &amp; answer order</target>
+        </trans-unit>
+        <trans-unit id="Config_ShowAd.Text" translate="yes" xml:space="preserve">
+          <source>Show ads</source>
+          <target state="new">Show ads</target>
+        </trans-unit>
+        <trans-unit id="Config_ShowAd_Desc.Text" translate="yes" xml:space="preserve">
+          <source>You can turn this off, no need to pay anything.</source>
+          <target state="new">You can turn this off, no need to pay anything.</target>
+        </trans-unit>
+        <trans-unit id="Config_about_header.Text" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="new">About</target>
+        </trans-unit>
+        <trans-unit id="Config_beta_tester.Text" translate="yes" xml:space="preserve">
+          <source>Beta testing:</source>
+          <target state="new">Beta testing:</target>
+        </trans-unit>
+        <trans-unit id="Config_eng_translate.Text" translate="yes" xml:space="preserve">
+          <source>English translate by:</source>
+          <target state="new">English translate by:</target>
+        </trans-unit>
+        <trans-unit id="Home_edit_with.Text" translate="yes" xml:space="preserve">
+          <source>Edit with</source>
+          <target state="new">Edit with</target>
+        </trans-unit>
+        <trans-unit id="Home_edit_with_cancel.Text" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="new">Cancel</target>
+        </trans-unit>
+        <trans-unit id="Home_edit_with_memoedit.Text" translate="yes" xml:space="preserve">
+          <source>Memo editor</source>
+          <target state="new">Memo editor</target>
+        </trans-unit>
+        <trans-unit id="Home_edit_with_questdesi.Text" translate="yes" xml:space="preserve">
+          <source>Question editor</source>
+          <target state="new">Question editor</target>
+        </trans-unit>
+        <trans-unit id="QD_answer_pos.Text" translate="yes" xml:space="preserve">
+          <source>Answer position</source>
+          <target state="new">Answer position</target>
+        </trans-unit>
+        <trans-unit id="QD_behind_question.Content" translate="yes" xml:space="preserve">
+          <source>Behind question</source>
+          <target state="new">Behind question</target>
+        </trans-unit>
+        <trans-unit id="QD_bottom_memo.Content" translate="yes" xml:space="preserve">
+          <source>Bottom of memo</source>
+          <target state="new">Bottom of memo</target>
+        </trans-unit>
+        <trans-unit id="QD_custom_header.Text" translate="yes" xml:space="preserve">
+          <source>Custom question header</source>
+          <target state="new">Custom question header</target>
+        </trans-unit>
+        <trans-unit id="QD_example.Text" translate="yes" xml:space="preserve">
+          <source>Example:</source>
+          <target state="new">Example:</target>
+        </trans-unit>
+        <trans-unit id="QD_send_away.Label" translate="yes" xml:space="preserve">
+          <source>Send to Memo editor</source>
+          <target state="new">Send to Memo editor</target>
+        </trans-unit>
+        <trans-unit id="QD_separator.Text" translate="yes" xml:space="preserve">
+          <source>Separate answer and number</source>
+          <target state="new">Separate answer and number</target>
+        </trans-unit>
+        <trans-unit id="QD_separator_bracket.Content" translate="yes" xml:space="preserve">
+          <source>Separate with ")"</source>
+          <target state="new">Separate with ")"</target>
+        </trans-unit>
+        <trans-unit id="QD_separator_dot.Content" translate="yes" xml:space="preserve">
+          <source>Separate with "."</source>
+          <target state="new">Separate with "."</target>
+        </trans-unit>
+        <trans-unit id="QD_setting.Label" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="new">Settings</target>
+        </trans-unit>
+        <trans-unit id="QD_setting_page.Text" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="new">Settings</target>
+        </trans-unit>
+        <trans-unit id="QD_use_space.Text" translate="yes" xml:space="preserve">
+          <source>Space after separate symbol</source>
+          <target state="new">Space after separate symbol</target>
+        </trans-unit>
+        <trans-unit id="QD_use_space_yes.Text" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="new">Yes</target>
+        </trans-unit>
+        <trans-unit id="QE_Question" translate="yes" xml:space="preserve">
+          <source>Question</source>
+          <target state="new">Question</target>
+        </trans-unit>
+        <trans-unit id="QE_Questions" translate="yes" xml:space="preserve">
+          <source>Questions</source>
+          <target state="new">Questions</target>
+        </trans-unit>
+        <trans-unit id="QuestionDesign_Close" translate="yes" xml:space="preserve">
+          <source>Close</source>
+          <target state="new">Close</target>
         </trans-unit>
       </group>
     </body>

@@ -132,9 +132,6 @@
   <data name="Home_import.Label" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="Home_initializeSetting.Text" xml:space="preserve">
-    <value>Initializing settings</value>
-  </data>
   <data name="Home_NoNote1.Text" xml:space="preserve">
     <value>You don't have any note</value>
   </data>
@@ -157,7 +154,7 @@
     <value>Reload</value>
   </data>
   <data name="Config_about_made.Text" xml:space="preserve">
-    <value>Develop by</value>
+    <value>Develop by:</value>
   </data>
   <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>Display text auto scroll</value>
@@ -290,9 +287,6 @@
   <data name="Config_wrong_hide.Text" xml:space="preserve">
     <value>Obfuscate wrong choice</value>
   </data>
-  <data name="ms-resource:AppName" xml:space="preserve">
-    <value>Just remember</value>
-  </data>
   <data name="Home_note" xml:space="preserve">
     <value>Note</value>
   </data>
@@ -369,9 +363,6 @@
   </data>
   <data name="Edit_undo.Label" xml:space="preserve">
     <value>Undo</value>
-  </data>
-  <data name="Edit_version.Text" xml:space="preserve">
-    <value>Note editor 1.0.0.2</value>
   </data>
   <data name="Match_calmdown.Text" xml:space="preserve">
     <value>NO NEED TO HURRY!</value>
@@ -450,9 +441,6 @@
   </data>
   <data name="PNote_refresh.Label" xml:space="preserve">
     <value>Refresh</value>
-  </data>
-  <data name="PublisherDisplayName" xml:space="preserve">
-    <value>ToonWK</value>
   </data>
   <data name="Session_obfuscateChar" xml:space="preserve">
     <value>?</value>
@@ -538,5 +526,80 @@ please choose other memo</value>
   </data>
   <data name="Config_Rand_c.Content" xml:space="preserve">
     <value>Randomize question &amp; answer order</value>
+  </data>
+  <data name="Config_ShowAd.Text" xml:space="preserve">
+    <value>Show ads</value>
+  </data>
+  <data name="Config_ShowAd_Desc.Text" xml:space="preserve">
+    <value>You can turn this off, no need to pay anything.</value>
+  </data>
+  <data name="Config_about_header.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Config_beta_tester.Text" xml:space="preserve">
+    <value>Beta testing:</value>
+  </data>
+  <data name="Config_eng_translate.Text" xml:space="preserve">
+    <value>English translate by:</value>
+  </data>
+  <data name="Home_edit_with.Text" xml:space="preserve">
+    <value>Edit with</value>
+  </data>
+  <data name="Home_edit_with_cancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Home_edit_with_memoedit.Text" xml:space="preserve">
+    <value>Memo editor</value>
+  </data>
+  <data name="Home_edit_with_questdesi.Text" xml:space="preserve">
+    <value>Question editor</value>
+  </data>
+  <data name="QD_answer_pos.Text" xml:space="preserve">
+    <value>Answer position</value>
+  </data>
+  <data name="QD_behind_question.Content" xml:space="preserve">
+    <value>Behind question</value>
+  </data>
+  <data name="QD_bottom_memo.Content" xml:space="preserve">
+    <value>Bottom of memo</value>
+  </data>
+  <data name="QD_custom_header.Text" xml:space="preserve">
+    <value>Custom question header</value>
+  </data>
+  <data name="QD_example.Text" xml:space="preserve">
+    <value>Example:</value>
+  </data>
+  <data name="QD_send_away.Label" xml:space="preserve">
+    <value>Send to Memo editor</value>
+  </data>
+  <data name="QD_separator.Text" xml:space="preserve">
+    <value>Separate answer and number</value>
+  </data>
+  <data name="QD_separator_bracket.Content" xml:space="preserve">
+    <value>Separate with ")"</value>
+  </data>
+  <data name="QD_separator_dot.Content" xml:space="preserve">
+    <value>Separate with "."</value>
+  </data>
+  <data name="QD_setting.Label" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="QD_setting_page.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="QD_use_space.Text" xml:space="preserve">
+    <value>Space after separate symbol</value>
+  </data>
+  <data name="QD_use_space_yes.Text" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="QE_Question" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="QE_Questions" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="QuestionDesign_Close" xml:space="preserve">
+    <value>Close</value>
   </data>
 </root>

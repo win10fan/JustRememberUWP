@@ -7,7 +7,8 @@
 	xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"   
 	xmlns:mod="using:JustRemember.Models"
-    mc:Ignorable="d">
+	xmlns:ad="using:Microsoft.Advertising.WinRT.UI"
+	mc:Ignorable="d">
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<SplitView>
@@ -19,6 +20,7 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="50"/>
 						<RowDefinition Height="*"/>
+						<RowDefinition Height="{x:Bind vm.showAds, Mode=OneWay}"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 					<Grid>
@@ -73,7 +75,16 @@
 						</ListView.ItemTemplate>
 					</ListView>
 
-					<CommandBar Grid.Row="2">
+					<ad:AdControl 
+						Height="120"
+						IsAutoRefreshEnabled="True"
+						Grid.Row="2"
+						ApplicationId="9nzklwbqcq31"
+						AdUnitId="11689284"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"/>
+
+					<CommandBar Grid.Row="3">
 						<CommandBar.Content>
 							<StackPanel Height="50" Orientation="Horizontal" Visibility="{x:Bind vm.isDeployingFromExt, Mode=OneWay}">
 								<SymbolIcon Symbol="Sync" RenderTransformOrigin="0.5,0.5">

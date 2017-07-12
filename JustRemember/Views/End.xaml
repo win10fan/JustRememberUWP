@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:mod="using:JustRemember.Models"
-    mc:Ignorable="d">
+	xmlns:ad="using:Microsoft.Advertising.WinRT.UI"
+	mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<Style x:Key="hdTXT" TargetType="TextBlock">
@@ -47,6 +48,7 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="{x:Bind showAds, Mode=OneWay}"/>
 		</Grid.RowDefinitions>
 		<Grid>
 			<Grid.ColumnDefinitions>
@@ -204,5 +206,13 @@
 		<Grid Grid.Row="2">
 			<TextBlock x:Name="end_notice" x:Uid="End_Notice" Text="You can view this stat later in setting, If you save it"/>
 		</Grid>
+		<ad:AdControl 
+						Height="120"
+						IsAutoRefreshEnabled="True"
+						Grid.Row="3"
+						ApplicationId="9nzklwbqcq31"
+						AdUnitId="11689284"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"/>
 	</Grid>
 </Page>

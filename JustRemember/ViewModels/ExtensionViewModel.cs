@@ -2,19 +2,14 @@
 using JustRemember.Models;
 using JustRemember.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.AppExtensions;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace JustRemember.ViewModels
 {
-    public class ExtensionViewModel : Observable
+	public class ExtensionViewModel : Observable
     {
 		AppExtensionCatalog Notecatalog;
 		private CoreDispatcher _dispatcher;

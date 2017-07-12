@@ -5,13 +5,7 @@ using JustRemember.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,7 +15,7 @@ namespace JustRemember.ViewModels
 	public class QuestionDesignViewModel : Observable
 	{
 		ObservableCollection<QuestionDesignModel> _mod = new ObservableCollection<QuestionDesignModel>();
-		public ObservableCollection<QuestionDesignModel> Questions { get => _mod; set { Set(ref _mod, value); QuestionDesignModel.maxIndex = Questions.Count; OnPropertyChanged(nameof(questionCount)); } }
+		public ObservableCollection<QuestionDesignModel> Questions { get => _mod; set { Set(ref _mod, value); QuestionDesignModel.maxIndex = Questions.Count; OnPropertyChanged(nameof(questionCount)); OnPropertyChanged(nameof(questionCountSTR)); } }
 		
 		public int questionCount { get => Questions.Count; }
 		public QuestionDesignView view { get => NavigationService.Frame.Content as QuestionDesignView; }
@@ -113,7 +107,7 @@ namespace JustRemember.ViewModels
 		{
 			showingSave = !showingSave;
 			saveIconPopup = new SymbolIcon(showingSave ? Symbol.Cancel : Symbol.Save);
-			saveLabelPopup = showingSave ? "Close" : "Save";
+			saveLabelPopup = showingSave ? App.language.GetString("QuestionDesign_Close") : App.language.GetString("Edit_save");
 		}
 
 		SymbolIcon _sic = new SymbolIcon(Symbol.Save);
@@ -200,6 +194,8 @@ namespace JustRemember.ViewModels
 			get => selectedQuestion > -1 ? Visibility.Visible : Visibility.Collapsed;
 		}
 
+		public string questionCountSTR { get => questionCount <= 1 ? App.language.GetString("QE_Question") : App.language.GetString("QE_Questions"); }
+
 		#region Setting and example
 		public int AnswerPosition
 		{
@@ -219,70 +215,26 @@ namespace JustRemember.ViewModels
 			}
 		}
 		
-		public bool isAnswerAtBottom
+		public string customAnswerHeader
 		{
-			get => App.Config.AnswerPosition == answerPosition.Bottom;
+			get => App.Config.customChoiceHeader;
 			set
 			{
-				if (value)
-				{
-					App.Config.AnswerPosition = answerPosition.Bottom;
-					OnPropertyChanged(nameof(isAnswerAtBottom));
-					OnPropertyChanged(nameof(isAnswerAtBehind));
-					OnPropertyChanged(nameof(answerExampleA1));
-					OnPropertyChanged(nameof(answerExampleA2));
-					OnPropertyChanged(nameof(answerExampleB)); ;
-				}
+				App.Config.customChoiceHeader = value;
+				OnPropertyChanged(nameof(customAnswerHeaderA));
+				OnPropertyChanged(nameof(customAnswerHeaderB));
+				OnPropertyChanged(nameof(customAnswerHeaderC));
+				OnPropertyChanged(nameof(customAnswerHeaderD));
+				OnPropertyChanged(nameof(customAnswerHeaderE));
 			}
 		}
 
-		public bool isAnswerAtBehind
-		{
-			get => App.Config.AnswerPosition == answerPosition.BehindAnswer;
-			set
-			{
-				if (value)
-				{
-					App.Config.AnswerPosition = answerPosition.BehindAnswer;
-					OnPropertyChanged(nameof(isAnswerAtBottom));
-					OnPropertyChanged(nameof(isAnswerAtBehind));
-					OnPropertyChanged(nameof(answerExampleA1));
-					OnPropertyChanged(nameof(answerExampleA2));
-					OnPropertyChanged(nameof(answerExampleB));
-				}
-			}
-		}
-		
-		public bool isUsingDot
-		{
-			get => App.Config.questionSeparator == QuestionSeparator.Dot;
-			set
-			{
-				if (value)
-				{
-					App.Config.questionSeparator = QuestionSeparator.Dot;
-					OnPropertyChanged(nameof(whatAfterQAList));
-					OnPropertyChanged(nameof(isUsingDot));
-					OnPropertyChanged(nameof(isUsingBracket));
-				}
-			}
-		}
+		public string customAnswerHeaderA { get { if (App.Config.customChoiceHeader.Length < 1) { return ""; } return App.Config.customChoiceHeader[0].ToString(); } }
+		public string customAnswerHeaderB { get { if (App.Config.customChoiceHeader.Length < 2) { return ""; } return App.Config.customChoiceHeader[1].ToString(); } }
+		public string customAnswerHeaderC { get { if (App.Config.customChoiceHeader.Length < 3) { return ""; } return App.Config.customChoiceHeader[2].ToString(); } }
+		public string customAnswerHeaderD { get { if (App.Config.customChoiceHeader.Length < 4) { return ""; } return App.Config.customChoiceHeader[3].ToString(); } }
+		public string customAnswerHeaderE { get { if (App.Config.customChoiceHeader.Length < 5) { return ""; } return App.Config.customChoiceHeader[4].ToString(); } }
 
-		public bool isUsingBracket
-		{
-			get => App.Config.questionSeparator == QuestionSeparator.Bracket;
-			set
-			{
-				if (value)
-				{
-					App.Config.questionSeparator = QuestionSeparator.Bracket;
-					OnPropertyChanged(nameof(whatAfterQAList));
-					OnPropertyChanged(nameof(isUsingDot));
-					OnPropertyChanged(nameof(isUsingBracket));
-				}
-			}
-		}
-		
 		public bool spaceAfterSeparator
 		{
 			get => App.Config.spaceAfterSeparator == SpaceAfterSeparator.Yes;
@@ -295,27 +247,27 @@ namespace JustRemember.ViewModels
 
 		public string answerExampleA1
 		{
-			get => isAnswerAtBehind ? "A=C" : "";
+			get => App.Config.AnswerPosition == answerPosition.BehindAnswer ? "A=C" : "";
 		}
 
 		public string answerExampleA2
 		{
-			get => isAnswerAtBehind ? "A=D" : "";
+			get => App.Config.AnswerPosition == answerPosition.BehindAnswer ? "A=D" : "";
 		}
 		
 		public string answerExampleB
 		{
-			get => isAnswerAtBottom ? "\r\nA=CDB" : "";
+			get => App.Config.AnswerPosition == answerPosition.Bottom ? "\r\nA=CDB" : "";
 		}
 
 		public string whatAfterQAList
 		{
-			get => isUsingDot ? "." : ")";
+			get => App.Config.questionSeparator == QuestionSeparator.Dot ? "." : ")";
 		}
 
 		public string useSpaceAfterSep
 		{
-			get => spaceAfterSeparator ? " " : "";
+			get => App.Config.spaceAfterSeparator == SpaceAfterSeparator.Yes ? " " : "";
 		}
 		#endregion		
 	}

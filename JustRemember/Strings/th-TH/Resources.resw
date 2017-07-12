@@ -27,9 +27,6 @@
   <data name="Home_import.Label" xml:space="preserve">
     <value>นำเข้า</value>
   </data>
-  <data name="Home_initializeSetting.Text" xml:space="preserve">
-    <value>กำลังเตรียมการตั้งค่า</value>
-  </data>
   <data name="Home_NoNote1.Text" xml:space="preserve">
     <value>ไม่พบชีทที่บันทึกไว้</value>
   </data>
@@ -52,7 +49,7 @@
     <value>โหลดใหม่</value>
   </data>
   <data name="Config_about_made.Text" xml:space="preserve">
-    <value>สร้างโดย </value>
+    <value>สร้างโดย</value>
   </data>
   <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>เลื่อนข้อความอัตโนมัติ</value>
@@ -150,16 +147,16 @@
     <value>เริ่มต้นเมื่อ</value>
   </data>
   <data name="Config_stat_time_a.Text" xml:space="preserve">
-    <value>ครั้งนี้ ใช้เวลา </value>
+    <value>ครั้งนี้ ใช้เวลา</value>
   </data>
   <data name="Config_stat_time_b.Text" xml:space="preserve">
     <value>ด้วย</value>
   </data>
   <data name="Config_stat_time_c.Text" xml:space="preserve">
-    <value> ก่อนหมดหมดเวลาใน</value>
+    <value>ก่อนหมดหมดเวลาใน</value>
   </data>
   <data name="Config_stat_time_d.Text" xml:space="preserve">
-    <value> </value>
+    <value></value>
   </data>
   <data name="Config_submit.Content" xml:space="preserve">
     <value>ส่ง</value>
@@ -185,21 +182,18 @@
   <data name="Config_wrong_hide.Text" xml:space="preserve">
     <value>ซ่อนคำตอบ</value>
   </data>
-  <data name="ms-resource:AppName" xml:space="preserve">
-    <value>ช่วยจำ</value>
-  </data>
   <data name="Home_note" xml:space="preserve">
-    <value>บันทึกย่อ</value>
+    <value>ชีท</value>
   </data>
   <data name="Home_note_count_format" xml:space="preserve">
     <value>มี{1}อยู่ {0} อัน</value>
     <comment>0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</comment>
   </data>
   <data name="Home_note_prural" xml:space="preserve">
-    <value>บันทึกย่อ</value>
+    <value>ชีท</value>
   </data>
   <data name="Home_note_single" xml:space="preserve">
-    <value>หมายเหตุ</value>
+    <value>ชีท</value>
   </data>
   <data name="Home_session" xml:space="preserve">
     <value>เซสชัน</value>
@@ -264,9 +258,6 @@
   </data>
   <data name="Edit_undo.Label" xml:space="preserve">
     <value>เลิกทำ</value>
-  </data>
-  <data name="Edit_version.Text" xml:space="preserve">
-    <value>แก้ไขชีท 1.0.0.2</value>
   </data>
   <data name="Match_calmdown.Text" xml:space="preserve">
     <value>ใจเย็นๆ 
@@ -346,9 +337,6 @@
   </data>
   <data name="PNote_refresh.Label" xml:space="preserve">
     <value>รีเฟรช</value>
-  </data>
-  <data name="PublisherDisplayName" xml:space="preserve">
-    <value>Toon</value>
   </data>
   <data name="Session_obfuscateChar" xml:space="preserve">
     <value>?</value>
@@ -434,5 +422,11 @@
   </data>
   <data name="Config_Rand_c.Content" xml:space="preserve">
     <value>เรียงลำดับสุ่ม คำถามและคำตอบ</value>
+  </data>
+  <data name="Config_ShowAd.Text" xml:space="preserve">
+    <value>แสดงโฆษณา</value>
+  </data>
+  <data name="Config_ShowAd_Desc.Text" xml:space="preserve">
+    <value>ปิดได้ ฟรี</value>
   </data>
 </root>

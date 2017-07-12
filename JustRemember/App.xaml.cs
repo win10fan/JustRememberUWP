@@ -5,17 +5,9 @@ using JustRemember.Services;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using JustRemember.Models;
-using JustRemember.Helpers;
-using Windows.Storage;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Windows.Globalization;
-using Windows.System.UserProfile;
-using System.Diagnostics;
 using Windows.ApplicationModel.Resources;
-using System.Globalization;
 
 namespace JustRemember
 {

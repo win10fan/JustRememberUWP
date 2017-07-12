@@ -22,7 +22,7 @@
     <value>You can add a memo by selecting Add </value>
   </data>
   <data name="Home_NoNote3.Text" xml:space="preserve">
-    <value>Or import text a text file</value>
+    <value>Or import a text file</value>
   </data>
   <data name="Home_NoNote4.Text" xml:space="preserve">
     <value>By using the menu below</value>

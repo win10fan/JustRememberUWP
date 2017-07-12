@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
-    mc:Ignorable="d">
+	xmlns:ad="using:Microsoft.Advertising.WinRT.UI"
+	mc:Ignorable="d">
 	<Page.Resources>
 		<Style x:Key="recTan" TargetType="Grid">
 			<Style.Setters>
@@ -143,7 +144,16 @@
 							</i:Interaction.Behaviors>
 						</Button>
 					</Grid>
-					<Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource recTan}">
+					<ad:AdControl
+						Visibility="{x:Bind ViewModel.showAds,Mode=OneWay}"
+						IsAutoRefreshEnabled="True"
+						Grid.Row="1"
+						Grid.Column="2"
+						ApplicationId="9nzklwbqcq31"
+						AdUnitId="11689284"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"/>
+					<Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="{x:Bind ViewModel.spanableAds, Mode=OneWay}" Style="{StaticResource recTan}">
 						<TextBlock Margin="5,2" Foreground="{ThemeResource AccentButtonForeground}">
                             <Run x:Uid="Match_detail_progress" Text="Progress: "/>
                             <Run Text="{x:Bind ViewModel.currentChoice,Mode=OneWay}"/>
@@ -346,6 +356,16 @@
 		</Grid>
 		<Grid Visibility="{x:Bind ViewModel.BlindThePage, Mode=OneWay}" Background="Black" Grid.Row="0" Grid.RowSpan="3">
 			<TextBlock x:Uid="Match_calmdown" Text="NO NEED TO HURRY!" FontSize="48" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			<ad:AdControl
+						Visibility="{x:Bind ViewModel.showAds,Mode=OneWay}"
+						IsAutoRefreshEnabled="True"
+						Grid.Row="1"
+						Grid.Column="2"
+						ApplicationId="9nzklwbqcq31"
+						AdUnitId="11689284"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Bottom"
+						Height="120"/>
 		</Grid>
 	</Grid>
 </Page>

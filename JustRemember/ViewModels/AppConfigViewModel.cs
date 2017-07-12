@@ -1,15 +1,10 @@
 ﻿using JustRemember.Helpers;
 using JustRemember.Models;
 using JustRemember.Services;
-using JustRemember.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.Storage;
@@ -290,6 +285,11 @@ namespace JustRemember.ViewModels
 				if (IselectedStat < 0) { return new StatModel(); }
 				return stats[IselectedStat];
 			}
+		}
+
+		public Visibility showDBG
+		{
+			get => App.Config.showDebugging ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		PackageId app { get => Package.Current.Id; }

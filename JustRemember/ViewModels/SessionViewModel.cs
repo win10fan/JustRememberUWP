@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Windows.System.Threading;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Diagnostics;
 using Windows.UI.Xaml;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Documents;
@@ -14,7 +11,6 @@ using JustRemember.Views;
 using JustRemember.Services;
 using System.Windows.Input;
 using JustRemember.Helpers;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace JustRemember.ViewModels
@@ -111,6 +107,17 @@ namespace JustRemember.ViewModels
 		#endregion
 
 		#region Binding Property
+		public int spanableAds
+		{
+			get => App.Config.useAd ? 1 : 2;
+		}
+
+		public Visibility showAds
+		{
+			get => App.Config.useAd ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+
 		public string writeUp
 		{
 			get => "";

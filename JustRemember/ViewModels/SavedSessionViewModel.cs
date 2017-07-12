@@ -1,12 +1,9 @@
-﻿using JustRemember.Helpers;
-using JustRemember.Models;
+﻿using JustRemember.Models;
 using JustRemember.Services;
 using JustRemember.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;

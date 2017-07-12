@@ -2,11 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -153,9 +150,21 @@ namespace JustRemember.Models
 			set => Set(ref _frontback, value);
 		}
 
-		public answerPosition AnswerPosition { get; set; }
-		public QuestionSeparator questionSeparator { get; set; }
-		public SpaceAfterSeparator spaceAfterSeparator { get; set; }
+		answerPosition _ap;
+		QuestionSeparator _qs;
+		SpaceAfterSeparator _sa;
+		public answerPosition AnswerPosition { get => _ap; set => Set(ref _ap, value); }
+		public QuestionSeparator questionSeparator { get => _qs; set => Set(ref _qs, value); }
+		public SpaceAfterSeparator spaceAfterSeparator { get => _sa; set => Set(ref _sa, value); }
+
+		bool _ads;
+		public bool useAd { get => _ads; set => Set(ref _ads, value); }
+
+		bool _dbg;
+		public bool showDebugging { get => _dbg; set => Set(ref _dbg, value); }
+
+		string _chdr;
+		public string customChoiceHeader { get => _chdr; set => Set(ref _chdr, value); }
 
 		[JsonIgnore]
 		public int randomizeQAInt
@@ -266,11 +275,14 @@ namespace JustRemember.Models
 			AnswerPosition = answerPosition.Bottom;
 			questionSeparator = QuestionSeparator.Dot;
 			spaceAfterSeparator = SpaceAfterSeparator.Yes;
+			useAd = true;
+			showDebugging = false;
+			customChoiceHeader = "ABCDE";
 	}
 
 		public static async void SetLanguage(int selected)
 		{
-			var file = await ApplicationData.Current.LocalFolder.GetFileAsync("lang");
+			var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync("lang") as StorageFile;
 			if (file == null)
 			{
 				file = await ApplicationData.Current.LocalFolder.CreateFileAsync("lang");
