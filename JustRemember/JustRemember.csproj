@@ -135,6 +135,7 @@
     <Compile Include="Models\ExtensionModel.cs" />
     <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\PrenoteModel.cs" />
+    <Compile Include="Models\QuestionDesignModel.cs" />
     <Compile Include="Models\SavedSessionModel.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\StatModel.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="ViewModels\NoteEditorViewModel.cs" />
     <Compile Include="ViewModels\NotesViewModel.cs" />
     <Compile Include="ViewModels\PrenoteViewModel.cs" />
+    <Compile Include="ViewModels\QuestionDesignViewModel.cs" />
     <Compile Include="ViewModels\SavedSessionViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="Views\AppConfigView.xaml.cs">
@@ -169,6 +171,9 @@
     </Compile>
     <Compile Include="Views\PrenoteView.xaml.cs">
       <DependentUpon>PrenoteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuestionDesignView.xaml.cs">
+      <DependentUpon>QuestionDesignView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PrenoteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\QuestionDesignView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

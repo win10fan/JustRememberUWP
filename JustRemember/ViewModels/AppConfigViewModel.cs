@@ -273,8 +273,6 @@ namespace JustRemember.ViewModels
 				Set(ref _sel, value);
 				OnPropertyChanged(nameof(selectedStat));
 				OnPropertyChanged(nameof(isSelected));
-				//TODO:Update selected
-				//UpdateSelected(value);
 			}
 		}
 
@@ -333,35 +331,6 @@ namespace JustRemember.ViewModels
 			}
 		}
 		
-		//ObservableCollection<ChoicesCorrected> _c, _co;
-		//public ObservableCollection<ChoicesCorrected> choices { get => _c; set => Set(ref _c, value); }
-
-		//public ObservableCollection<ChoicesCorrected> corrected { get => _co; set => Set(ref _co, value); }
-
-		//public int width { get { if (IselectedStat < 0) { return 0; } if (choices.Count < 1) { return 40; } return choices.Count * 40; } }
-
-		//public async void UpdateSelected(int selected)
-		//{
-		//	if (selected < 0) { return; }
-		//	StatModel info = stats[selected];
-		//	int totalWork = info.choiceInfo2.Count;
-		//	if (totalWork > 100)
-		//	{
-		//		totalWork = 100;
-		//	}
-		//	choices = new ObservableCollection<ChoicesCorrected>();
-		//	corrected = new ObservableCollection<ChoicesCorrected>();
-		//	for (int i = 0; i < totalWork; i++)
-		//	{
-		//		choices.Add(new ChoicesCorrected(info.choiceInfo2[i], info.correctedChoice[i]));
-		//		corrected.Add(new ChoicesCorrected(i + 1, info.correctedChoice[i]));
-		//		await Task.Delay(50);
-		//		OnPropertyChanged(nameof(choices));
-		//		OnPropertyChanged(nameof(corrected));
-		//		OnPropertyChanged(nameof(width));
-		//	}
-		//}
-
 		public int language
 		{
 			get => config.language;

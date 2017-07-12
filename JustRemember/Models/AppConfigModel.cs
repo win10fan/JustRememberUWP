@@ -151,6 +151,10 @@ namespace JustRemember.Models
 			set => Set(ref _frontback, value);
 		}
 
+		public answerPosition AnswerPosition { get; set; }
+		public QuestionSeparator questionSeparator { get; set; }
+		public SpaceAfterSeparator spaceAfterSeparator { get; set; }
+
 		[JsonIgnore]
 		public int randomizeQAInt
 		{
@@ -257,7 +261,10 @@ namespace JustRemember.Models
 			antiSpamChoice = true;
 			randomizeQA = randomQA.No;
 			reverseDictionary = false;
-		}
+			AnswerPosition = answerPosition.Bottom;
+			questionSeparator = QuestionSeparator.Dot;
+			spaceAfterSeparator = SpaceAfterSeparator.Yes;
+	}
 
 		public static async void SetLanguage(int selected)
 		{
@@ -318,5 +325,23 @@ namespace JustRemember.Models
 		No,
 		OnlyQuestion,
 		All
+	}
+
+	public enum answerPosition
+	{
+		BehindAnswer,
+		Bottom
+	}
+
+	public enum QuestionSeparator
+	{
+		Dot,
+		Bracket
+	}
+
+	public enum SpaceAfterSeparator
+	{
+		Yes,
+		No
 	}
 }

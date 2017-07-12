@@ -49,6 +49,14 @@
 			</i:Interaction.Behaviors>
 		</RichEditBox>
 		<CommandBar Grid.Row="2" Style="{StaticResource EditorCMD}">
+			<AppBarButton Icon="OpenPane">
+				<i:Interaction.Behaviors>
+					<ic:EventTriggerBehavior EventName="Click">
+						<ic:InvokeCommandAction Command="{x:Bind editor.sendToQE}"/>
+					</ic:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
+			</AppBarButton>
+			<AppBarSeparator/>
 			<AppBarButton IsEnabled="{x:Bind editor.canUndo, Mode=OneWay}" x:Uid="Edit_undo" Label="Undo" Icon="Undo">
 				<i:Interaction.Behaviors>
 					<ic:EventTriggerBehavior EventName="Click">

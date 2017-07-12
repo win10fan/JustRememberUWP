@@ -44,6 +44,8 @@ namespace JustRemember
 		public static ResourceLoader language;
 		public static bool isDeploying;
 		public static SessionModel cachedSession;
+		public static NoteModel selectedNote;
+		public static bool attentionReq = false;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points

@@ -111,16 +111,16 @@ namespace JustRemember.Models
 			if (folder != null)
 			{
 				//Folder exist
-				var nf = (StorageFile)await folder.TryGetItemAsync(note.Title);
+				var nf = (StorageFile)await folder.TryGetItemAsync(filename);
 				if (nf == null)
 				{
 					//No file
-					nf = await folder.CreateFileAsync(note.Title);
+					nf = await folder.CreateFileAsync(filename);
 				}
 				else
 				{
 					await nf.DeleteAsync();
-					nf = await folder.CreateFileAsync(note.Title);
+					nf = await folder.CreateFileAsync(filename);
 				}
 				await FileIO.WriteTextAsync(nf, note.Content);
 			}

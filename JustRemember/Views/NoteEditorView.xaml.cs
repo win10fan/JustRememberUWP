@@ -37,24 +37,26 @@ namespace JustRemember.Views
 		{
 			if (e.Parameter is NoteModel note)
 			{
-				if (note.Title == NoteModel.empty.Title && note.Content == NoteModel.empty.Content)
+				editor.editedNote = note;
+				editor.NoteName = note.Title;
+				editor.NoteContent = note.Content;
+			}
+			else
+			{
+				if (App.attentionReq)
+				{
+					NoteModel note2 = App.selectedNote;
+					editor.editedNote = note2;
+					editor.NoteName = note2.Title;
+					editor.NoteContent = note2.Content;
+					App.attentionReq = false;
+				}
+				else
 				{
 					editor.editedNote = new NoteModel();
 					editor.NoteName = "Untitled";
 					editor.NoteContent = "";
 				}
-				else
-				{
-					editor.editedNote = note;
-					editor.NoteName = note.Title;
-					editor.NoteContent = note.Content;
-				}
-			}
-			else
-			{
-				editor.editedNote = new NoteModel();
-				editor.NoteName = "Untitled";
-				editor.NoteContent = "";
 			}
 			editor.ReNew();
 			editor.view = this;

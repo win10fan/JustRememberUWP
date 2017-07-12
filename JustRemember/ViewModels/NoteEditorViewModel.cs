@@ -162,7 +162,9 @@ namespace JustRemember.ViewModels
 		public ICommand splitUndo;
 
 		public ICommand saveFilename;
+		public ICommand sendToQE;
 
+		public MessageDialog doneSave;
 		public void ReNew()
 		{
 			Undo = new RelayCommand<RoutedEventArgs>(UNDO);
@@ -176,10 +178,25 @@ namespace JustRemember.ViewModels
 			splitUndo = new RelayCommand<KeyRoutedEventArgs>(SPLITUNDO);
 			//
 			saveFilename = new RelayCommand<TextChangedEventArgs>(SAVEFILENAME);
+			//
+			sendToQE = new RelayCommand<RoutedEventArgs>(SENDTOQE);
 			//Dialog
 			notLongEnough = new MessageDialog(App.language.GetString("Dialog_Not_long_enough_editor"));
 			notLongEnough.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
+			doneSave = new MessageDialog("File saved");
+			doneSave.Commands.Add(new UICommand("OK"));
 		}
+
+		private void SENDTOQE(RoutedEventArgs obj)
+		{
+			if (editedNote.Mode == noteMode.Question)
+			{
+				NavigationService.Navigate<QuestionDesignView>(editedNote);
+				return;
+			}
+			NavigationService.Navigate<QuestionDesignView>();
+		}
+
 		public MessageDialog notLongEnough;
 
 		Visibility _emp, _con, _al = Visibility.Collapsed;
@@ -274,6 +291,7 @@ namespace JustRemember.ViewModels
 				return;
 			}
 			await NoteModel.SaveNote(editedNote);
+			await doneSave.ShowAsync();
 		}
 
 		private void CLEARINPUT(RoutedEventArgs obj)
