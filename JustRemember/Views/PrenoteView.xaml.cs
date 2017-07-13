@@ -46,7 +46,7 @@ namespace JustRemember.Views
 			foreach (var ext in allExts)
 			{
 				//Verify if this extension note is already deploy
-				var depChk = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memoes");
+				var depChk = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memos");
 				if (File.Exists($"{depChk.Path}\\{ext.DisplayName}.dep"))
 				{
 					//Extension is already exist

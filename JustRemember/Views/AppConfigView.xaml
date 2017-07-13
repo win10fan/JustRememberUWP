@@ -318,7 +318,7 @@
 							</Grid>
 							<StackPanel Style="{ThemeResource stackSettingItem}" Orientation="Horizontal">
 								<TextBlock Style="{ThemeResource settingNotifyLabel}" x:Uid="Config_Info_Apply" VerticalAlignment="Center" Text="This option apply to: "/>
-								<Border Margin="5,0,0,0" BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
+								<Border BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
 									<TextBlock Margin="3" x:Uid="Config_Info_Apply_QA" Style="{ThemeResource settingNotifyLabel}" Text="Q &amp; A">
 										<ToolTipService.ToolTip>
 											<TextBlock x:Uid="Config_Info_Apply_QA_Desc" Text="If note define with MODE=EXAM this option apply on that mode" TextWrapping="Wrap"/>
