@@ -185,7 +185,7 @@ namespace JustRemember.ViewModels
 
 		private void SENDTOQE(RoutedEventArgs obj)
 		{
-			if (editedNote.Mode == noteMode.Question)
+			if (editedNote?.Mode == noteMode.Question)
 			{
 				NavigationService.Navigate<QuestionDesignView>(editedNote);
 				return;

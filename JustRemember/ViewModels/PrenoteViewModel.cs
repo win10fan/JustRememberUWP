@@ -67,7 +67,7 @@ namespace JustRemember.ViewModels
 			basePath = await StorageFolder.GetFolderFromPathAsync(path);
 			Path = basePath.Path;
 			notes = await PrenoteModel.GetChild(basePath);
-			isMoreUp = new DirectoryInfo(basePath.Path).Name != "Bundled memos";
+			isMoreUp = new DirectoryInfo(basePath.Path).Name != "Bundled memoes";
 			OnPropertyChanged(nameof(notes));
 		}
 
@@ -97,10 +97,10 @@ namespace JustRemember.ViewModels
 		DispatcherTimer deployCheck;
 		public async void Initialize()
 		{
-			basePath = (StorageFolder)await basePath.TryGetItemAsync("Bundled memos");
+			basePath = (StorageFolder)await basePath.TryGetItemAsync("Bundled memoes");
 			if (basePath == null)
 			{
-				basePath = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Bundled memos");
+				basePath = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Bundled memoes");
 			}
 			Navigate(basePath.Path);
 			//Command
@@ -148,7 +148,7 @@ namespace JustRemember.ViewModels
 		private void NAVUP(RoutedEventArgs obj)
 		{
 			DirectoryInfo dir = new DirectoryInfo(basePath.Path);
-			if (dir.Name == "Bundled memos")
+			if (dir.Name == "Bundled memoes")
 			{
 				NavigationService.GoBack();
 				return;

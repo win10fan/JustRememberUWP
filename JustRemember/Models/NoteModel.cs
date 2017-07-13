@@ -40,6 +40,8 @@ namespace JustRemember.Models
 		{
 			get
 			{
+				if (string.IsNullOrEmpty(Content))
+					return new string[] { "" };
 				var pack = Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 				return pack;
 			}

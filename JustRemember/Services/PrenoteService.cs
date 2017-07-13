@@ -48,7 +48,7 @@ namespace JustRemember.Services
 			int ind = tasks.Count - 1;
 			tasks[ind].progress = 0;
 			//First get prenote folder
-			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memos");
+			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memoes");
 			//Create confirm file
 			var confirm = await prenote.CreateFileAsync($"{extensionName}.dep");
 			//Create root directory
@@ -123,7 +123,7 @@ namespace JustRemember.Services
 
 		public static async void RequestRemovePrenoteExtension(string extName)
 		{
-			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memos");
+			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memoes");
 			
 			if (File.Exists($"{prenote.Path}\\{extName}.dep"))
 			{
@@ -142,7 +142,7 @@ namespace JustRemember.Services
 			yield return new PathDir(ret.FullName);
 			for (int i = 0;i < 10;i++)
 			{
-				if (ret.Name != "Bundled memos")
+				if (ret.Name != "Bundled memoes")
 				{
 					ret = ret.Parent;
 				}

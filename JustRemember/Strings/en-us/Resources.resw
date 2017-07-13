@@ -123,32 +123,14 @@
   <data name="Home_delete.Label" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Home_deselect.Label" xml:space="preserve">
-    <value>De select</value>
-  </data>
   <data name="Home_edit.Label" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="Home_import.Label" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="Home_NoNote1.Text" xml:space="preserve">
-    <value>You don't have any note</value>
-  </data>
-  <data name="Home_NoNote2.Text" xml:space="preserve">
-    <value>You can add note by Write new note</value>
-  </data>
-  <data name="Home_NoNote3.Text" xml:space="preserve">
-    <value>Or import text file</value>
-  </data>
-  <data name="Home_NoNote4.Text" xml:space="preserve">
-    <value>By click at menu below</value>
-  </data>
   <data name="Home_open.Label" xml:space="preserve">
     <value>Open</value>
-  </data>
-  <data name="Home_prenoteMenu.Label" xml:space="preserve">
-    <value>Prenote</value>
   </data>
   <data name="Home_reload.Label" xml:space="preserve">
     <value>Reload</value>
@@ -156,39 +138,24 @@
   <data name="Config_about_made.Text" xml:space="preserve">
     <value>Develop by:</value>
   </data>
-  <data name="Config_autoscroll.Text" xml:space="preserve">
-    <value>Display text auto scroll</value>
-  </data>
   <data name="Config_c1a.Text" xml:space="preserve">
     <value>1</value>
     <comment>..</comment>
   </data>
   <data name="Config_c1b.Text" xml:space="preserve">
-    <value>A</value>
+    <value>first</value>
   </data>
   <data name="Config_c2a.Text" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="Config_c2b.Text" xml:space="preserve">
-    <value>F</value>
+    <value>second</value>
   </data>
   <data name="Config_c3a.Text" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="Config_c3b.Text" xml:space="preserve">
-    <value>K</value>
-  </data>
-  <data name="Config_choicelook.Text" xml:space="preserve">
-    <value>Choice style</value>
-  </data>
-  <data name="Config_choices.Text" xml:space="preserve">
-    <value>Max choice</value>
-  </data>
-  <data name="Config_delall" xml:space="preserve">
-    <value>Delete all stat</value>
-  </data>
-  <data name="Config_end.Text" xml:space="preserve">
-    <value>After final choice</value>
+    <value>third</value>
   </data>
   <data name="Config_end_a.Content" xml:space="preserve">
     <value>Go to summary page</value>
@@ -205,42 +172,15 @@
   <data name="Config_fontsize.Text" xml:space="preserve">
     <value>Display font size</value>
   </data>
-  <data name="Config_hint.Text" xml:space="preserve">
-    <value>Hint at first choice</value>
-  </data>
   <data name="Config_language.Text" xml:space="preserve">
     <value>Language</value>
-  </data>
-  <data name="Config_reset_a.Content" xml:space="preserve">
-    <value>Reset setting</value>
-  </data>
-  <data name="Config_reset_b.Content" xml:space="preserve">
-    <value>Reset stat</value>
-  </data>
-  <data name="Config_reset_c.Content" xml:space="preserve">
-    <value>Reset sessions</value>
-  </data>
-  <data name="Config_reset_d.Content" xml:space="preserve">
-    <value>Reset all user note</value>
   </data>
   <data name="Config_reset_e.Content" xml:space="preserve">
     <value>Reset everything</value>
   </data>
-  <data name="Config_saveall" xml:space="preserve">
-    <value>Save all stat</value>
-  </data>
-  <data name="Config_stat_corrected.Text" xml:space="preserve">
-    <value>Corrected choice</value>
-  </data>
   <data name="Config_stat_count_format" xml:space="preserve">
     <value>{0} {1}</value>
     <comment>0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</comment>
-  </data>
-  <data name="Config_stat_no" xml:space="preserve">
-    <value>No stat saved yet</value>
-  </data>
-  <data name="Config_stat_prural" xml:space="preserve">
-    <value>stats</value>
   </data>
   <data name="Config_stat_selected.Text" xml:space="preserve">
     <value>Selected choice</value>
@@ -272,43 +212,16 @@
   <data name="Config_uselight.Text" xml:space="preserve">
     <value>Use light theme</value>
   </data>
-  <data name="Config_when_wrong.Text" xml:space="preserve">
-    <value>When choose wrong choice</value>
-  </data>
-  <data name="Config_wrong_a.Content" xml:space="preserve">
-    <value>Skip to next choice</value>
-  </data>
-  <data name="Config_wrong_b.Content" xml:space="preserve">
-    <value>Stay at same choice until correct</value>
-  </data>
-  <data name="Config_wrong_c.Content" xml:space="preserve">
-    <value>Reset match</value>
-  </data>
   <data name="Config_wrong_hide.Text" xml:space="preserve">
     <value>Obfuscate wrong choice</value>
-  </data>
-  <data name="Home_note" xml:space="preserve">
-    <value>Note</value>
   </data>
   <data name="Home_note_count_format" xml:space="preserve">
     <value>{0} {1}</value>
     <comment>0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</comment>
   </data>
-  <data name="Home_note_prural" xml:space="preserve">
-    <value>notes</value>
-  </data>
-  <data name="Home_note_single" xml:space="preserve">
-    <value>note</value>
-  </data>
-  <data name="Home_session" xml:space="preserve">
-    <value>Session</value>
-  </data>
   <data name="Home_session_count_format" xml:space="preserve">
     <value>{0} {1}</value>
     <comment>same as note count</comment>
-  </data>
-  <data name="Home_session_no" xml:space="preserve">
-    <value>You don't have any saved session</value>
   </data>
   <data name="Home_session_prural" xml:space="preserve">
     <value>sessions</value>
@@ -322,12 +235,6 @@
   <data name="Config_general" xml:space="preserve">
     <value>General settings</value>
   </data>
-  <data name="Config_session" xml:space="preserve">
-    <value>Session setting</value>
-  </data>
-  <data name="Config_stat" xml:space="preserve">
-    <value>Stat list</value>
-  </data>
   <data name="Edit_bold.Text" xml:space="preserve">
     <value>Bold</value>
   </data>
@@ -337,15 +244,6 @@
   <data name="Edit_load.Text" xml:space="preserve">
     <value>Load</value>
   </data>
-  <data name="Edit_name_empty.Text" xml:space="preserve">
-    <value>Name can't be empty</value>
-  </data>
-  <data name="Edit_name_exist.Text" xml:space="preserve">
-    <value>Name already exist</value>
-  </data>
-  <data name="Edit_name_illegal.Text" xml:space="preserve">
-    <value>Name can't contains: \ / : * ? " &lt; &gt; |</value>
-  </data>
   <data name="Edit_new.Text" xml:space="preserve">
     <value>New</value>
   </data>
@@ -354,9 +252,6 @@
   </data>
   <data name="Edit_save.Text" xml:space="preserve">
     <value>Save</value>
-  </data>
-  <data name="Edit_size_a.Text" xml:space="preserve">
-    <value>Size (</value>
   </data>
   <data name="Edit_size_b.Text" xml:space="preserve">
     <value>)</value>
@@ -409,9 +304,6 @@
   <data name="Match_dialog_ok" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Match_dialog_reset_content" xml:space="preserve">
-    <value>This will reset current session to start!</value>
-  </data>
   <data name="Match_dialog_reset_title" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
@@ -436,33 +328,11 @@
   <data name="Note_Untitled" xml:space="preserve">
     <value>Untitled</value>
   </data>
-  <data name="PNote_edit.Label" xml:space="preserve">
-    <value>Copy &amp; Edit</value>
-  </data>
   <data name="PNote_refresh.Label" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="Session_obfuscateChar" xml:space="preserve">
     <value>?</value>
-  </data>
-  <data name="Stat_easy" xml:space="preserve">
-    <value>User choose to skip to next choice. When choose wrong choice</value>
-  </data>
-  <data name="Stat_hard" xml:space="preserve">
-    <value>User choose to restart. When choose wrong choice</value>
-  </data>
-  <data name="Stat_normal" xml:space="preserve">
-    <value>User choose to stay on the wrong choice, until correct</value>
-  </data>
-  <data name="Stat_unknow" xml:space="preserve">
-    <value>Undefined mode</value>
-  </data>
-  <data name="End_Notice.Text" xml:space="preserve">
-    <value>You can view this stat later in setting, If you save it</value>
-  </data>
-  <data name="Prenote_LoadExtension.Text" xml:space="preserve">
-    <value>Deploying memo
-from extension</value>
   </data>
   <data name="Config_Ext_Uninstall.Text" xml:space="preserve">
     <value>Uninstall</value>
@@ -605,140 +475,137 @@ please choose other memo</value>
   <data name="PN_CantExt" xml:space="preserve">
     <value>Unable to generate content from memo, please try other memo</value>
   </data>
-  <data name="Config_autoscroll.Text1" xml:space="preserve">
+  <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>Enable text auto scroll</value>
   </data>
-  <data name="Config_choicelook.Text1" xml:space="preserve">
+  <data name="Config_choicelook.Text" xml:space="preserve">
     <value>Choose style</value>
   </data>
-  <data name="Config_choices.Text1" xml:space="preserve">
+  <data name="Config_choices.Text" xml:space="preserve">
     <value>Number of choices</value>
   </data>
-  <data name="Config_delall1" xml:space="preserve">
+  <data name="Config_delall" xml:space="preserve">
     <value>Clear progress</value>
   </data>
-  <data name="Config_end.Text1" xml:space="preserve">
+  <data name="Config_end.Text" xml:space="preserve">
     <value>After completion</value>
   </data>
-  <data name="Config_hint.Text1" xml:space="preserve">
+  <data name="Config_hint.Text" xml:space="preserve">
     <value>Show hint on start</value>
   </data>
-  <data name="Config_reset_a.Content1" xml:space="preserve">
+  <data name="Config_reset_a.Content" xml:space="preserve">
     <value>Restore default settings</value>
   </data>
-  <data name="Config_reset_b.Content1" xml:space="preserve">
+  <data name="Config_reset_b.Content" xml:space="preserve">
     <value>Clear stats</value>
   </data>
-  <data name="Config_reset_c.Content1" xml:space="preserve">
+  <data name="Config_reset_c.Content" xml:space="preserve">
     <value>Clear sessions</value>
   </data>
-  <data name="Config_reset_d.Content1" xml:space="preserve">
+  <data name="Config_reset_d.Content" xml:space="preserve">
     <value>Clear all notes</value>
   </data>
   <data name="Config_Reverse_Dictionary.Text" xml:space="preserve">
     <value>Reverse dictionary tranlation</value>
   </data>
-  <data name="Config_saveall1" xml:space="preserve">
+  <data name="Config_saveall" xml:space="preserve">
     <value>Save stats</value>
   </data>
-  <data name="Config_session1" xml:space="preserve">
+  <data name="Config_session" xml:space="preserve">
     <value>Session settings</value>
   </data>
-  <data name="Config_stat1" xml:space="preserve">
+  <data name="Config_stat" xml:space="preserve">
     <value>Saved stats</value>
   </data>
-  <data name="Config_stat_corrected.Text1" xml:space="preserve">
+  <data name="Config_stat_corrected.Text" xml:space="preserve">
     <value>Correct choice</value>
   </data>
-  <data name="Config_stat_no1" xml:space="preserve">
+  <data name="Config_stat_no" xml:space="preserve">
     <value>No stats saved yet</value>
   </data>
-  <data name="Config_stat_prural1" xml:space="preserve">
+  <data name="Config_stat_prural" xml:space="preserve">
     <value>stats</value>
   </data>
-  <data name="Config_stat_single1" xml:space="preserve">
-    <value>stat</value>
-  </data>
-  <data name="Config_when_wrong.Text1" xml:space="preserve">
+  <data name="Config_when_wrong.Text" xml:space="preserve">
     <value>When incorrect</value>
   </data>
-  <data name="Config_wrong_a.Content1" xml:space="preserve">
+  <data name="Config_wrong_a.Content" xml:space="preserve">
     <value>Skip to next set</value>
   </data>
-  <data name="Config_wrong_b.Content1" xml:space="preserve">
+  <data name="Config_wrong_b.Content" xml:space="preserve">
     <value>Keep guessing</value>
   </data>
-  <data name="Config_wrong_c.Content1" xml:space="preserve">
+  <data name="Config_wrong_c.Content" xml:space="preserve">
     <value>Restart match</value>
   </data>
-  <data name="Edit_name_empty.Text1" xml:space="preserve">
+  <data name="Edit_name_empty.Text" xml:space="preserve">
     <value>Name must be supplied</value>
   </data>
-  <data name="Edit_name_exist.Text1" xml:space="preserve">
+  <data name="Edit_name_exist.Text" xml:space="preserve">
     <value>Name has already been used</value>
   </data>
-  <data name="Edit_name_illegal.Text1" xml:space="preserve">
+  <data name="Edit_name_illegal.Text" xml:space="preserve">
     <value>Name can't contain: \ / : * ? " &lt; &gt; |</value>
   </data>
-  <data name="Edit_size_a.Text1" xml:space="preserve">
+  <data name="Edit_size_a.Text" xml:space="preserve">
     <value>Font size (</value>
   </data>
-  <data name="End_Notice.Text1" xml:space="preserve">
+  <data name="End_Notice.Text" xml:space="preserve">
     <value>You can view these stats later in settings if you save it</value>
   </data>
-  <data name="Home_deselect.Label1" xml:space="preserve">
+  <data name="Home_deselect.Label" xml:space="preserve">
     <value>Unselect</value>
   </data>
-  <data name="Home_NoNote1.Text1" xml:space="preserve">
+  <data name="Home_NoNote1.Text" xml:space="preserve">
     <value>You don't have any memoes</value>
   </data>
-  <data name="Home_NoNote2.Text1" xml:space="preserve">
+  <data name="Home_NoNote2.Text" xml:space="preserve">
     <value>You can add a memo by selecting Add </value>
   </data>
-  <data name="Home_NoNote3.Text1" xml:space="preserve">
+  <data name="Home_NoNote3.Text" xml:space="preserve">
     <value>Or import a text file</value>
   </data>
-  <data name="Home_NoNote4.Text1" xml:space="preserve">
+  <data name="Home_NoNote4.Text" xml:space="preserve">
     <value>By using the menu below</value>
   </data>
-  <data name="Home_note1" xml:space="preserve">
+  <data name="Home_note" xml:space="preserve">
     <value>Memo</value>
   </data>
-  <data name="Home_note_prural1" xml:space="preserve">
+  <data name="Home_note_prural" xml:space="preserve">
     <value>memoes</value>
   </data>
-  <data name="Home_note_single1" xml:space="preserve">
+  <data name="Home_note_single" xml:space="preserve">
     <value>memo</value>
   </data>
-  <data name="Home_prenoteMenu.Label1" xml:space="preserve">
+  <data name="Home_prenoteMenu.Label" xml:space="preserve">
     <value>Bundled memoes</value>
   </data>
-  <data name="Home_session1" xml:space="preserve">
+  <data name="Home_session" xml:space="preserve">
     <value>Saved sessions</value>
   </data>
-  <data name="Home_session_no1" xml:space="preserve">
+  <data name="Home_session_no" xml:space="preserve">
     <value>You don't have any saved sessions</value>
   </data>
-  <data name="Match_dialog_reset_content1" xml:space="preserve">
+  <data name="Match_dialog_reset_content" xml:space="preserve">
     <value>You will have to start over agin!</value>
   </data>
-  <data name="PNote_edit.Label1" xml:space="preserve">
+  <data name="PNote_edit.Label" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="Prenote_LoadExtension.Text1" xml:space="preserve">
+  <data name="Prenote_LoadExtension.Text" xml:space="preserve">
     <value>Deploying memoes
 from extension</value>
   </data>
-  <data name="Stat_easy1" xml:space="preserve">
+  <data name="Stat_easy" xml:space="preserve">
     <value>User chose to skip to next set when choosing the wrong choice</value>
   </data>
-  <data name="Stat_hard1" xml:space="preserve">
+  <data name="Stat_hard" xml:space="preserve">
     <value>User choose to restart when choosing the wrong choice</value>
   </data>
-  <data name="Stat_normal1" xml:space="preserve">
+  <data name="Stat_normal" xml:space="preserve">
     <value>User chose to keep guessing until correct</value>
   </data>
-  <data name="Stat_unknow1" xml:space="preserve">
+  <data name="Stat_unknow" xml:space="preserve">
     <value>Undefined mode</value>
   </data>
 </root>

@@ -67,7 +67,7 @@
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<StackPanel Grid.Row="0">
+						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="0">
 							<TextBlock 
 								Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
 								Text="Use light theme" 
@@ -79,7 +79,7 @@
 									<ColumnDefinition Width="*"/>
 									<ColumnDefinition Width="*"/>
 								</Grid.ColumnDefinitions>
-								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Margin="5,10,0,0" SelectedIndex="{x:Bind config.language, Mode=TwoWay}">
+								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0" SelectedIndex="{x:Bind config.language, Mode=TwoWay}">
 									<ListBoxItem Content="English"/>
 									<ListBoxItem Content="ภาษาไทย"/>
 								</ListBox>
@@ -112,16 +112,16 @@
 										<Grid.RowDefinitions>
 											<RowDefinition Height="Auto"/>
 											<RowDefinition Height="Auto"/>
-											<RowDefinition Height="*"/>
+											<RowDefinition Height="Auto"/>
 										</Grid.RowDefinitions>
 										<Button HorizontalAlignment="Center" FontSize="8" Grid.Row="0">
-											<TextBlock x:Uid="Config_c1b" Text="A"/>
+											<TextBlock x:Uid="Config_c1b" Text="first"/>
 										</Button>
-										<Button HorizontalAlignment="Center" FontSize="8" Grid.Row="1">
-											<TextBlock x:Uid="Config_c2b" Text="F"/>
+										<Button Margin="3" HorizontalAlignment="Center" FontSize="8" Grid.Row="1">
+											<TextBlock x:Uid="Config_c2b" Text="second"/>
 										</Button>
 										<Button HorizontalAlignment="Center" FontSize="8" Grid.Row="2">
-											<TextBlock x:Uid="Config_c3b" Text="K"/>
+											<TextBlock x:Uid="Config_c3b" Text="third"/>
 										</Button>
 									</Grid>
 								</ListBoxItem>
@@ -296,7 +296,7 @@
 									<ListBoxItem x:Uid="Config_wrong_c" Content="Reset match"/>
 								</ListBox>
 							</Grid>
-							<StackPanel Margin="5,0" Visibility="{x:Bind config.isEasySelected, Mode=OneWay}">
+							<StackPanel Margin="0,10,0,0" Visibility="{x:Bind config.isEasySelected, Mode=OneWay}">
 								<TextBlock x:Uid="Config_wrong_hide" Text="Obfuscate wrong choice" Style="{ThemeResource settingTitleLabel}"/>
 								<ToggleSwitch IsOn="{x:Bind config.showWrongContent, Mode=TwoWay}"/>
 							</StackPanel>
@@ -316,7 +316,7 @@
 									<ListBoxItem x:Uid="Config_Rand_c" Content="Randomize question &amp; answer order"/>
 								</ListBox>
 							</Grid>
-							<StackPanel Margin="5,10,0,5" Orientation="Horizontal">
+							<StackPanel Style="{ThemeResource stackSettingItem}" Orientation="Horizontal">
 								<TextBlock Style="{ThemeResource settingNotifyLabel}" x:Uid="Config_Info_Apply" VerticalAlignment="Center" Text="This option apply to: "/>
 								<Border BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
 									<TextBlock Margin="3" x:Uid="Config_Info_Apply_QA" Style="{ThemeResource settingNotifyLabel}" Text="Q &amp; A">
@@ -337,7 +337,7 @@
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="7">
 							<TextBlock x:Uid="Config_Reverse_Dictionary" Text="Reverse dictionary translation" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.config.reverseDictionary, Mode=TwoWay}"/>
-							<StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+							<StackPanel Style="{ThemeResource stackSettingItem}" Orientation="Horizontal">
 								<TextBlock Style="{ThemeResource settingNotifyLabel}" VerticalAlignment="Center" x:Uid="Config_Info_Apply" Text="This option apply to: "/>
 								<Border Margin="5,0" BorderBrush="{ThemeResource AccentButtonBackground}" BorderThickness="3" CornerRadius="8,8,8,8">
 									<TextBlock Margin="3" x:Uid="Config_Info_Apply_Dic" Style="{ThemeResource settingNotifyLabel}" Text="Dictionary">
@@ -375,7 +375,7 @@
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
 							<DataTemplate x:DataType="mod:StatModel">
-								<Grid>
+								<Grid Margin="0,5">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="Auto"/>
 										<RowDefinition Height="Auto"/>
@@ -434,7 +434,7 @@
 						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
 							<DataTemplate x:DataType="mod:Extension">
-								<Grid Padding="5" Height="50">
+								<Grid Margin="0,5" Height="50">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="50"/>
 										<ColumnDefinition Width="*"/>

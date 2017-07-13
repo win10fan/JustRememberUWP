@@ -136,7 +136,7 @@
 				</ListView.ItemTemplate>
 			</ListView>
 			<Popup IsOpen="{x:Bind vm.showingSave, Mode=TwoWay}" Grid.Row="1" Width="300" Height="240">
-				<StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="10">
+				<StackPanel Background="{ThemeResource AccentButtonBackgroundPointerOver}" Padding="10">
 					<StackPanel Orientation="Horizontal">
 						<TextBox x:Name="fileNameEdit" Width="220">
 							<i:Interaction.Behaviors>
@@ -172,7 +172,7 @@
 				</StackPanel>
 			</Popup>
 			<Popup Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="400" IsOpen="{x:Bind vm.showSettingPopup, Mode=TwoWay}">
-				<ScrollViewer VerticalScrollMode="Enabled" Width="300" Height="400" Padding="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+				<ScrollViewer VerticalScrollMode="Enabled" Width="300" Height="400" Padding="10" Background="{ThemeResource AccentButtonBackgroundPointerOver}">
 					<StackPanel Orientation="Vertical">
 						<StackPanel Orientation="Horizontal">
 							<Button Width="50" Height="50">
