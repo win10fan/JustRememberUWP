@@ -27,6 +27,10 @@ namespace JustRemember.Models
 				{
 					return lines[0];
 				}
+				if (Mode == noteMode.Question && lines[0].Contains("AnswerPosition=BehindAnswer"))
+				{
+					return lines[1].Substring(0, lines[1].LastIndexOf('=') - 1);
+				}
 				return lines[1];
             }
         }

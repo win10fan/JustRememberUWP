@@ -335,7 +335,7 @@
 							</StackPanel>
 						</StackPanel>
 						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="7">
-							<TextBlock x:Uid="Config_Reverse_Dictionary" Text="Reverse dictionary Q&amp;A" Style="{ThemeResource settingTitleLabel}"/>
+							<TextBlock x:Uid="Config_Reverse_Dictionary" Text="Reverse dictionary translation" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.config.reverseDictionary, Mode=TwoWay}"/>
 							<StackPanel Margin="0,0,0,5" Orientation="Horizontal">
 								<TextBlock Style="{ThemeResource settingNotifyLabel}" VerticalAlignment="Center" x:Uid="Config_Info_Apply" Text="This option apply to: "/>

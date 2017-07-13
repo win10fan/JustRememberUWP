@@ -118,9 +118,6 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.2</Version>
     </PackageReference>
-    <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
-      <Version>1.0.0.3</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-us\Resources.resw" />
@@ -266,10 +263,10 @@
     <Content Include="Assets\Wide\Wide310x150Logo.scale-400.png" />
     <None Include="JustRemember_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
-    <Content Include="Prenote\Basic-English alphabet.txt" />
-    <Content Include="Prenote\Basic-ภาษาไทย-พยัญชนะ.txt" />
-    <Content Include="Prenote\Basic-ภาษาไทย-สระ.txt" />
-    <Content Include="Prenote\Basic-Random question.txt" />
+    <Content Include="Bundled memoes\Basic-English alphabet.txt" />
+    <Content Include="Bundled memoes\Basic-ภาษาไทย-พยัญชนะ.txt" />
+    <Content Include="Bundled memoes\Basic-ภาษาไทย-สระ.txt" />
+    <Content Include="Bundled memoes\Basic-Random question.txt" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>

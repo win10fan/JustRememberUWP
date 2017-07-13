@@ -21,11 +21,7 @@ namespace JustRemember.Views
 		public static SessionModel transfer;
 		public Match()
 		{
-			dbg = Visibility.Collapsed;
-#if DEBUG
-			dbg = Visibility.Visible;
-			App.Config.antiSpamChoice = false;
-#endif
+			dbg = App.Config.showDebugging ? Visibility.Visible : Visibility.Collapsed;
 			this.InitializeComponent();
 			this.KeyDown += Match_KeyDown;
 		}

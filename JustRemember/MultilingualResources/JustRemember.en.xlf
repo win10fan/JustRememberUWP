@@ -28,7 +28,7 @@
         </trans-unit>
         <trans-unit id="Home_NoNote1.Text" translate="yes" xml:space="preserve">
           <source>You don't have any note</source>
-          <target state="translated">You don't have any memos</target>
+          <target state="translated">You don't have any memoes</target>
         </trans-unit>
         <trans-unit id="Home_NoNote2.Text" translate="yes" xml:space="preserve">
           <source>You can add note by Write new note</source>
@@ -48,7 +48,7 @@
         </trans-unit>
         <trans-unit id="Home_prenoteMenu.Label" translate="yes" xml:space="preserve">
           <source>Prenote</source>
-          <target state="translated">Bundled memos</target>
+          <target state="translated">Bundled memoes</target>
         </trans-unit>
         <trans-unit id="Home_reload.Label" translate="yes" xml:space="preserve">
           <source>Reload</source>
@@ -170,7 +170,7 @@
         </trans-unit>
         <trans-unit id="Config_stat_prural" translate="yes" xml:space="preserve">
           <source>stats</source>
-          <target state="translated">memos</target>
+          <target state="translated">stats</target>
         </trans-unit>
         <trans-unit id="Config_stat_selected.Text" translate="yes" xml:space="preserve">
           <source>Selected choice</source>
@@ -234,7 +234,7 @@
         </trans-unit>
         <trans-unit id="Home_note" translate="yes" xml:space="preserve">
           <source>Note</source>
-          <target state="translated">Memos</target>
+          <target state="translated">Memo</target>
         </trans-unit>
         <trans-unit id="Home_note_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
@@ -243,7 +243,7 @@
         </trans-unit>
         <trans-unit id="Home_note_prural" translate="yes" xml:space="preserve">
           <source>notes</source>
-          <target state="translated">Memos</target>
+          <target state="translated">memoes</target>
         </trans-unit>
         <trans-unit id="Home_note_single" translate="yes" xml:space="preserve">
           <source>note</source>
@@ -465,7 +465,7 @@
         <trans-unit id="Prenote_LoadExtension.Text" translate="yes" xml:space="preserve">
           <source>Deploying memo
 from extension</source>
-          <target state="translated">Deploying memo
+          <target state="translated">Deploying memoes
 from extension</target>
         </trans-unit>
         <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
@@ -636,10 +636,6 @@ please choose other memo</target>
           <source>Space after separate symbol</source>
           <target state="new">Space after separate symbol</target>
         </trans-unit>
-        <trans-unit id="QD_use_space_yes.Text" translate="yes" xml:space="preserve">
-          <source>Yes</source>
-          <target state="new">Yes</target>
-        </trans-unit>
         <trans-unit id="QE_Question" translate="yes" xml:space="preserve">
           <source>Question</source>
           <target state="new">Question</target>
@@ -651,6 +647,18 @@ please choose other memo</target>
         <trans-unit id="QuestionDesign_Close" translate="yes" xml:space="preserve">
           <source>Close</source>
           <target state="new">Close</target>
+        </trans-unit>
+        <trans-unit id="QD_use_space_yes.Content" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="new">Yes</target>
+        </trans-unit>
+        <trans-unit id="PN_CantExt" translate="yes" xml:space="preserve">
+          <source>Unable to generate content from memo, please try other memo</source>
+          <target state="new">Unable to generate content from memo, please try other memo</target>
+        </trans-unit>
+        <trans-unit id="Config_Reverse_Dictionary.Text" translate="yes" xml:space="preserve">
+          <source>Reverse dictionary tranlation</source>
+          <target state="new">Reverse dictionary tranlation</target>
         </trans-unit>
       </group>
     </body>

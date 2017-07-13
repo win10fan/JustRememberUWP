@@ -245,7 +245,7 @@ namespace JustRemember.Models
 				else if (c.StartsWith(usesp8spr))
 					UseSpace = ParseEnum<SpaceAfterSeparator>(c.Remove(0, c.IndexOf('=') + 1));
 				else if (c.StartsWith(customhdr))
-					customChoiceHeader = c.Substring(c.IndexOf('='));
+					customChoiceHeader = c.Substring(c.IndexOf('=') + 1);
 			}
 			Debug.Write(customChoiceHeader);
 			lines.RemoveAt(0);

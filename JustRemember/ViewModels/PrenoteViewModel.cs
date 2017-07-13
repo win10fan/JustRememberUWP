@@ -67,7 +67,7 @@ namespace JustRemember.ViewModels
 			basePath = await StorageFolder.GetFolderFromPathAsync(path);
 			Path = basePath.Path;
 			notes = await PrenoteModel.GetChild(basePath);
-			isMoreUp = new DirectoryInfo(basePath.Path).Name != "Prenote";
+			isMoreUp = new DirectoryInfo(basePath.Path).Name != "Bundled memos";
 			OnPropertyChanged(nameof(notes));
 		}
 
@@ -97,10 +97,10 @@ namespace JustRemember.ViewModels
 		DispatcherTimer deployCheck;
 		public async void Initialize()
 		{
-			basePath = (StorageFolder)await basePath.TryGetItemAsync("Prenote");
+			basePath = (StorageFolder)await basePath.TryGetItemAsync("Bundled memos");
 			if (basePath == null)
 			{
-				basePath = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Prenote");
+				basePath = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Bundled memos");
 			}
 			Navigate(basePath.Path);
 			//Command
@@ -148,7 +148,7 @@ namespace JustRemember.ViewModels
 		private void NAVUP(RoutedEventArgs obj)
 		{
 			DirectoryInfo dir = new DirectoryInfo(basePath.Path);
-			if (dir.Name == "Prenote")
+			if (dir.Name == "Bundled memos")
 			{
 				NavigationService.GoBack();
 				return;
@@ -167,8 +167,8 @@ namespace JustRemember.ViewModels
 					SessionModel generate = SessionModel.generate(await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath));
 					if (generate == null)
 					{
-						MessageDialog msg = new MessageDialog("Unable to generate content from memo, please try other memo");
-						msg.Commands.Add(new UICommand("OK"));
+						MessageDialog msg = new MessageDialog(App.language.GetString("PN_CantExt"));
+						msg.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
 						await msg.ShowAsync();
 						return;
 					}

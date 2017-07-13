@@ -13,6 +13,7 @@ using JustRemember.Views;
 using Windows.UI.Xaml.Input;
 using JustRemember.Services;
 using Windows.UI.Popups;
+using System.Diagnostics;
 
 namespace JustRemember.ViewModels
 {
@@ -34,7 +35,6 @@ namespace JustRemember.ViewModels
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NoteCount)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(noNoteSuggestion)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsNotSelected)));
@@ -61,6 +61,7 @@ namespace JustRemember.ViewModels
             set
             {
                 Set(ref _notes, value);
+				OnPropertyChanged(nameof(NoteCount));
             }
         }
 
@@ -170,12 +171,7 @@ namespace JustRemember.ViewModels
                 Notes = await NoteModel.GetNotesAsync();
             }
         }
-
-		//async void ShowTooShortDialog()
-		//{
-		//	MessageDialog tooshort
-		//}
-
+		
         async void ReloadingListAsync(RoutedEventArgs obj)
         {
             Notes = await NoteModel.GetNotesAsync();
@@ -214,11 +210,11 @@ namespace JustRemember.ViewModels
                 if (Notes?.Count < 1)
                 {
 					return App.language.GetString("Home_NoNote1");
-                }
+				}
 				return string.Format(
-					App.language.GetString("Home_note_count_format"),
+					App.language.GetString("Home_note_count_format"), 
 					Notes?.Count, 
-					Notes?.Count == 1 ? App.language.GetString("Home_note_single") : App.language.GetString("Home_note_prupal"));
+					Notes?.Count == 1 ? App.language.GetString("Home_note_single") : App.language.GetString("Home_note_prural"));
             }
         }
 

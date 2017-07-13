@@ -637,10 +637,6 @@ please choose other memo</source>
           <source>Space after separate symbol</source>
           <target state="translated">เว้นวรรคหลังตัวคั่นหัวข้อ</target>
         </trans-unit>
-        <trans-unit id="QD_use_space_yes.Text" translate="yes" xml:space="preserve">
-          <source>Yes</source>
-          <target state="translated">ใช่</target>
-        </trans-unit>
         <trans-unit id="QE_Question" translate="yes" xml:space="preserve">
           <source>Question</source>
           <target state="translated">คำถาม</target>
@@ -652,6 +648,18 @@ please choose other memo</source>
         <trans-unit id="QuestionDesign_Close" translate="yes" xml:space="preserve">
           <source>Close</source>
           <target state="translated">ปิด</target>
+        </trans-unit>
+        <trans-unit id="QD_use_space_yes.Content" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="translated">ใช่</target>
+        </trans-unit>
+        <trans-unit id="PN_CantExt" translate="yes" xml:space="preserve">
+          <source>Unable to generate content from memo, please try other memo</source>
+          <target state="translated">มีปัญหาในการอ่านชีท กรุณาเลือกชีทอื่นแทน</target>
+        </trans-unit>
+        <trans-unit id="Config_Reverse_Dictionary.Text" translate="yes" xml:space="preserve">
+          <source>Reverse dictionary tranlation</source>
+          <target state="new">Reverse dictionary tranlation</target>
         </trans-unit>
       </group>
     </body>

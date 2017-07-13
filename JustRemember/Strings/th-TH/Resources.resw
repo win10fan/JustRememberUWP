@@ -429,4 +429,76 @@
   <data name="Config_ShowAd_Desc.Text" xml:space="preserve">
     <value>ปิดได้ ฟรี</value>
   </data>
+  <data name="Config_about_header.Text" xml:space="preserve">
+    <value>เกี่ยวกับ</value>
+  </data>
+  <data name="Config_beta_tester.Text" xml:space="preserve">
+    <value>ผู้ทดสอบ:</value>
+  </data>
+  <data name="Config_eng_translate.Text" xml:space="preserve">
+    <value>แปลเป็นภาษาอังกฤษโดย:</value>
+  </data>
+  <data name="Home_edit_with.Text" xml:space="preserve">
+    <value>แก้ไขด้วย</value>
+  </data>
+  <data name="Home_edit_with_cancel.Text" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Home_edit_with_memoedit.Text" xml:space="preserve">
+    <value>แก้ไขชีท</value>
+  </data>
+  <data name="Home_edit_with_questdesi.Text" xml:space="preserve">
+    <value>ตั้งคำถาม</value>
+  </data>
+  <data name="QD_answer_pos.Text" xml:space="preserve">
+    <value>ตำแหน่งคำตอบ</value>
+  </data>
+  <data name="QD_behind_question.Content" xml:space="preserve">
+    <value>หลังคำถาม</value>
+  </data>
+  <data name="QD_bottom_memo.Content" xml:space="preserve">
+    <value>ล่างชีท</value>
+  </data>
+  <data name="QD_custom_header.Text" xml:space="preserve">
+    <value>กำหนดหัวข้อ</value>
+  </data>
+  <data name="QD_example.Text" xml:space="preserve">
+    <value>ตัวอย่าง:</value>
+  </data>
+  <data name="QD_send_away.Label" xml:space="preserve">
+    <value>แก้ไขด้วยตัวแก้ไขชีท</value>
+  </data>
+  <data name="QD_separator.Text" xml:space="preserve">
+    <value>คั่นระหว่างหัวข้อกับคำถาม</value>
+  </data>
+  <data name="QD_separator_bracket.Content" xml:space="preserve">
+    <value>คั่นด้วย ")"</value>
+  </data>
+  <data name="QD_separator_dot.Content" xml:space="preserve">
+    <value>คั่นด้วย "."</value>
+  </data>
+  <data name="QD_setting.Label" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="QD_setting_page.Text" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="QD_use_space.Text" xml:space="preserve">
+    <value>เว้นวรรคหลังตัวคั่นหัวข้อ</value>
+  </data>
+  <data name="QE_Question" xml:space="preserve">
+    <value>คำถาม</value>
+  </data>
+  <data name="QE_Questions" xml:space="preserve">
+    <value>คำถาม</value>
+  </data>
+  <data name="QuestionDesign_Close" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="QD_use_space_yes.Content" xml:space="preserve">
+    <value>ใช่</value>
+  </data>
+  <data name="PN_CantExt" xml:space="preserve">
+    <value>มีปัญหาในการอ่านชีท กรุณาเลือกชีทอื่นแทน</value>
+  </data>
 </root>

@@ -79,7 +79,7 @@ namespace JustRemember.Models
 			{
 				return gen(item);
 			}
-			catch (System.ArgumentOutOfRangeException ex1)
+			catch (ArgumentOutOfRangeException ex1)
 			{
 				Debug.Write(ex1.Message);
 			}

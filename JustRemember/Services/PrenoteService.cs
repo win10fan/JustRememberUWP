@@ -14,7 +14,7 @@ namespace JustRemember.Services
 		{
 			get
 			{
-				if (Directory.Exists(ApplicationData.Current.LocalFolder.Path + "\\Prenote"))
+				if (Directory.Exists(ApplicationData.Current.LocalFolder.Path + "\\Bundled memoes"))
 				{
 					return true;
 				}
@@ -24,9 +24,9 @@ namespace JustRemember.Services
 
 		public static void DeployPrenote()
 		{
-			string prenotepath = Windows.ApplicationModel.Package.Current.InstalledLocation.Path + "\\Prenote";
+			string prenotepath = Windows.ApplicationModel.Package.Current.InstalledLocation.Path + "\\Bundled memoes";
 			var files = Directory.GetFiles(prenotepath);
-			string deployPath = ApplicationData.Current.LocalFolder.Path + "\\Prenote";
+			string deployPath = ApplicationData.Current.LocalFolder.Path + "\\Bundled memoes";
 			Directory.CreateDirectory(deployPath);
 			for (int i = 0; i < files.Length - 1; i++)
 			{
@@ -48,7 +48,7 @@ namespace JustRemember.Services
 			int ind = tasks.Count - 1;
 			tasks[ind].progress = 0;
 			//First get prenote folder
-			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Prenote");
+			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memos");
 			//Create confirm file
 			var confirm = await prenote.CreateFileAsync($"{extensionName}.dep");
 			//Create root directory
@@ -123,7 +123,7 @@ namespace JustRemember.Services
 
 		public static async void RequestRemovePrenoteExtension(string extName)
 		{
-			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Prenote");
+			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memos");
 			
 			if (File.Exists($"{prenote.Path}\\{extName}.dep"))
 			{
@@ -142,7 +142,7 @@ namespace JustRemember.Services
 			yield return new PathDir(ret.FullName);
 			for (int i = 0;i < 10;i++)
 			{
-				if (ret.Name != "Prenote")
+				if (ret.Name != "Bundled memos")
 				{
 					ret = ret.Parent;
 				}
@@ -150,16 +150,6 @@ namespace JustRemember.Services
 				yield return new PathDir(ret.FullName);
 			}
 			yield break;
-			//if (path.Parent != null) ret.AddRange(Split(path.Parent));
-			//ret.Add(path);
-
-			//foreach (var idx in null)
-			//{
-			//	if (ret.Parent.Name != "Prenote")
-			//	{ ret = ret.Parent; }
-				
-			//	yield return new PathDir(path.Substring(0, idx - 1), ret.Parent.FullName);
-			//}
 		}
 	}
 }

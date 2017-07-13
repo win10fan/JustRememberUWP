@@ -18,7 +18,10 @@ namespace JustRemember.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-			App.Config.antiSpamChoice = true;
+			if (!App.Config.showDebugging)
+			{
+				App.Config.antiSpamChoice = true;
+			}
             ViewModel.Initialize();
             ViewModel.wr = this;
             ViewModel2.Initialize();
