@@ -263,10 +263,10 @@
     <Content Include="Assets\Wide\Wide310x150Logo.scale-400.png" />
     <None Include="JustRemember_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
-    <Content Include="Bundled memoes\Basic-English alphabet.txt" />
-    <Content Include="Bundled memoes\Basic-ภาษาไทย-พยัญชนะ.txt" />
-    <Content Include="Bundled memoes\Basic-ภาษาไทย-สระ.txt" />
-    <Content Include="Bundled memoes\Basic-Random question.txt" />
+    <Content Include="Bundled memos\Basic-English alphabet.txt" />
+    <Content Include="Bundled memos\Basic-ภาษาไทย-พยัญชนะ.txt" />
+    <Content Include="Bundled memos\Basic-ภาษาไทย-สระ.txt" />
+    <Content Include="Bundled memos\Basic-Random question.txt" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>

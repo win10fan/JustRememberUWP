@@ -11,10 +11,12 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace JustRemember.ViewModels
 {
@@ -66,7 +68,15 @@ namespace JustRemember.ViewModels
 			{
 				_note.Title = value;
 				OnPropertyChanged(nameof(editedNote));
+				OnPropertyChanged(nameof(saveableSymbol));
+				OnPropertyChanged(nameof(saveableSymbolColor));
+				TitleUpdate(value);
 			}
+		}
+
+		async void TitleUpdate(string val)
+		{
+			await MobileTitlebarService.Refresh(val);
 		}
 
 		public string NoteContent
@@ -94,6 +104,23 @@ namespace JustRemember.ViewModels
 				Set(ref _szz, value);
 				view.MainEditBox.FontSize = value;
 				view.MainEditBox.Document.ApplyDisplayUpdates();
+			}
+		}
+
+		int[] sizeList = new int[] { -1, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
+		public int fontSizeCBB
+		{
+			get
+			{
+				if (sizeList.Contains(FontSize))
+				{
+					return sizeList.ToList().IndexOf(FontSize);
+				}
+				return 0;
+			}
+			set
+			{
+				FontSize = sizeList[value];
 			}
 		}
 
@@ -194,6 +221,23 @@ namespace JustRemember.ViewModels
 		}
 
 		public MessageDialog notLongEnough;
+		
+		string mode;
+		public string modeDetection
+		{
+			get => mode;
+			set
+			{
+				pcItem = value == "P" ? Visibility.Visible : Visibility.Collapsed;
+				mbItem = value == "M" ? Visibility.Visible : Visibility.Collapsed;
+				mode = value;
+			}
+		}
+
+		Visibility _pc = Visibility.Collapsed;
+		Visibility _mb = Visibility.Visible;
+		public Visibility pcItem { get => _pc; set => Set(ref _pc, value); }
+		public Visibility mbItem { get => _mb; set => Set(ref _mb, value); }
 
 		Visibility _emp, _con, _al = Visibility.Collapsed;
 		public Visibility isEmpty
@@ -220,10 +264,34 @@ namespace JustRemember.ViewModels
 			set => Set(ref _al, value);
 		}
 		public List<string> fileList;
+
+		public Symbol saveableSymbol
+		{
+			get
+			{
+				if (isEmpty == Visibility.Collapsed && isContainIlegalName == Visibility.Collapsed && isAlreadyExist == Visibility.Collapsed)
+				{
+					return Symbol.Accept;
+				}
+				return Symbol.Important;
+			}
+		}
+
+		public SolidColorBrush saveableSymbolColor
+		{
+			get
+			{
+				if (isEmpty == Visibility.Collapsed && isContainIlegalName == Visibility.Collapsed && isAlreadyExist == Visibility.Collapsed)
+				{
+					return new SolidColorBrush(Colors.Green);
+				}
+				return new SolidColorBrush(Colors.Red);
+			}
+		}
 		
 		private void SAVEFILENAME(TextChangedEventArgs obj)
 		{
-			string chk = view.fileInput.Text;
+			string chk = NoteName;
 			//Check existance
 			if (isNew)
 			{

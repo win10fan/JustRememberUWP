@@ -19,7 +19,6 @@ namespace JustRemember.ViewModels
 {
 	public class NotesViewModel : INotifyPropertyChanged
     {
-        public MainPage wr;
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
@@ -73,7 +72,14 @@ namespace JustRemember.ViewModels
         public ICommand DeleteSelected { get; private set; }
         public ICommand DeSelect { get; private set; }
         public ICommand SendToMatch { get; private set; }
-		
+		public ICommand OpenAddFlyout { get; private set; }
+		public ICommand GoToNoteEditorWithNote { get; private set; }
+		public ICommand GoToQuesionDesignerWithNote { get; private set; }
+		public ICommand EditSelector { get; private set; }
+		public ICommand SendToNoteEdior { get; private set; }
+		public ICommand SendToQuestionDesigner { get; private set; }
+		public ICommand CloseOpenWithDialog { get; private set; }
+
 		public NotesViewModel()
         {
             OpenNote = new RelayCommand<DoubleTappedRoutedEventArgs>(OnItemDoubleClick);
@@ -84,6 +90,13 @@ namespace JustRemember.ViewModels
             DeleteSelected = new RelayCommand<RoutedEventArgs>(DeleteSelectedItem);
             DeSelect = new RelayCommand<RoutedEventArgs>(DeSelectNote);
             SendToMatch = new RelayCommand<RoutedEventArgs>(NavigateToMatchWithNote);
+			OpenAddFlyout = new RelayCommand<RoutedEventArgs>(OPENADDFLYOUT);
+			GoToNoteEditorWithNote = new RelayCommand<RoutedEventArgs>(GOTONOTEEDITORWITHNOTE);
+			GoToQuesionDesignerWithNote = new RelayCommand<RoutedEventArgs>(GOTOQUESTIONDESIGNERWITHNOTE);
+			EditSelector = new RelayCommand<RoutedEventArgs>(EDITSELECTOR);
+			SendToNoteEdior = new RelayCommand<RoutedEventArgs>(SENDTONOTEEDITOR);
+			SendToQuestionDesigner = new RelayCommand<RoutedEventArgs>(SENDTOQUESTIONDESIGNER);
+			CloseOpenWithDialog = new RelayCommand<RoutedEventArgs>(CLOSEOPENWITHDIALOG);
 			//Dialog
 			notLongEnough = new MessageDialog(App.language.GetString("Dialog_Not_long_enough_main"));
 			notLongEnough.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
@@ -95,6 +108,58 @@ namespace JustRemember.ViewModels
 			saver.Tick += Saver_Tick;
 			saver.Start();
 		}
+		
+		private void CLOSEOPENWITHDIALOG(RoutedEventArgs obj)
+		{
+			EditWithPopup = false;
+		}
+
+		private void SENDTOQUESTIONDESIGNER(RoutedEventArgs obj)
+		{
+			NavigationService.Navigate<QuestionDesignView>(Notes[selectedIndex]);
+			EditWithPopup = false;
+		}
+
+		private void SENDTONOTEEDITOR(RoutedEventArgs obj)
+		{
+			NavigationService.Navigate<NoteEditorView>(selectedIndex > -1 ? Notes[selectedIndex] : null);
+			EditWithPopup = false;
+		}
+
+		bool editWithDiag;
+		public bool EditWithPopup
+		{
+			get => editWithDiag;
+			set => Set(ref editWithDiag, value);
+		}
+
+		private void EDITSELECTOR(RoutedEventArgs obj)
+		{
+			if (Notes[selectedIndex].Mode == Models.noteMode.Question)
+			{
+				EditWithPopup = true;
+			}
+			else
+			{
+				EditSelected.Execute(null);
+			}
+		}
+
+		private void GOTOQUESTIONDESIGNERWITHNOTE(RoutedEventArgs obj)
+		{
+			NavigationService.Navigate<QuestionDesignView>(selectedIndex > -1 ? Notes[selectedIndex] : null);
+		}
+
+		private void GOTONOTEEDITORWITHNOTE(RoutedEventArgs obj)
+		{
+			NavigationService.Navigate<NoteEditorView>(selectedIndex > -1 ? Notes[selectedIndex] : null);
+		}
+
+		private void OPENADDFLYOUT(RoutedEventArgs obj)
+		{
+			(obj.OriginalSource as AppBarButton).Flyout.ShowAt(obj.OriginalSource as FrameworkElement);
+		}
+
 		public MessageDialog notLongEnough;
 
 		private async void Saver_Tick(object sender, object e)
@@ -111,7 +176,7 @@ namespace JustRemember.ViewModels
 
 		async void InitializeAndGoToMatch()
         {
-			SessionModel current = SessionModel.generate(Notes[wr.WAR.SelectedIndex]);
+			SessionModel current = SessionModel.generate(Notes[selectedIndex]);
 			if (current == null)
 			{
 				await notLongEnough.ShowAsync();
@@ -123,26 +188,22 @@ namespace JustRemember.ViewModels
 
         private void DeSelectNote(RoutedEventArgs obj)
         {
-            wr.workAround.SelectedIndex = -1;
+            selectedIndex = -1;
         }
 
         async void DeleteSelectedItem(RoutedEventArgs obj)
         {
-            if (wr.WAR.SelectedItem == null)
+            if (selectedIndex < 0)
             {
                 return;
             }
-            await NoteModel.DeleteNote(Notes[wr.WAR.SelectedIndex].Title);
-            Notes = await NoteModel.GetNotesAsync();
+            await NoteModel.DeleteNote(Notes[selectedIndex].Title);
+			Notes.RemoveAt(selectedIndex);
         }
 
         private void EditSelectedItem(RoutedEventArgs obj)
         {
-			if (wr.WAR.SelectedIndex < 0)
-			{
-				return;
-			}
-			NavigationService.Navigate<NoteEditorView>(Notes[wr.WAR.SelectedIndex]);
+			NavigationService.Navigate<NoteEditorView>(selectedIndex > -1 ? Notes[selectedIndex] : null);
         }
 
         async void ImportTextFile(RoutedEventArgs obj)
@@ -184,7 +245,7 @@ namespace JustRemember.ViewModels
 
         public void OnItemDoubleClick(DoubleTappedRoutedEventArgs obj)
         {
-            if (wr.workAround.SelectedIndex == -1)
+            if (selectedIndex == -1)
             {
                 return;
             }
@@ -198,6 +259,7 @@ namespace JustRemember.ViewModels
 		{
 			get => App.Config;
 		}
+
         public async void Initialize()
         {
             Notes = await NoteModel.GetNotesAsync();
@@ -230,7 +292,7 @@ namespace JustRemember.ViewModels
         {
             get
             {
-                if (wr.WAR.SelectedIndex < 0)
+                if (selectedIndex < 0)
                 {
                     return Visibility.Collapsed;
                 }
@@ -238,15 +300,18 @@ namespace JustRemember.ViewModels
             }
         }
 
+		int sel = -1;
+		public int selectedIndex
+		{
+			get => sel;
+			set => Set(ref sel, value);
+		}
+
         public Visibility IsNotSelected
         {
             get
             {
-                if (wr.WAR.SelectedIndex > -1)
-                {
-                    return Visibility.Collapsed;
-                }
-                return Visibility.Visible;
+				return selectedIndex > -1 ? Visibility.Collapsed : Visibility.Visible;
             }
         }
 

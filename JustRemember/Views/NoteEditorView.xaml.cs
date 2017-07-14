@@ -33,20 +33,9 @@ namespace JustRemember.Views
 			}
 			else
 			{
-				if (App.attentionReq)
-				{
-					NoteModel note2 = App.selectedNote;
-					editor.editedNote = note2;
-					editor.NoteName = note2.Title;
-					editor.NoteContent = note2.Content;
-					App.attentionReq = false;
-				}
-				else
-				{
-					editor.editedNote = new NoteModel();
-					editor.NoteName = "Untitled";
-					editor.NoteContent = "";
-				}
+				editor.editedNote = new NoteModel();
+				editor.NoteName = "Untitled";
+				editor.NoteContent = "";
 			}
 			editor.ReNew();
 			editor.view = this;
@@ -96,11 +85,6 @@ namespace JustRemember.Views
 		{
 			get => mainEdit;
 			set => mainEdit = value;
-		}
-
-		public TextBox fileInput
-		{
-			get => fileDefine;
 		}
 	}
 }

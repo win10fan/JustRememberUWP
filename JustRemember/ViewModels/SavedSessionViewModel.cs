@@ -1,18 +1,20 @@
-﻿using JustRemember.Models;
+﻿using JustRemember.Helpers;
+using JustRemember.Models;
 using JustRemember.Services;
 using JustRemember.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using System;
 
 namespace JustRemember.ViewModels
 {
 	public class SavedSessionViewModel : INotifyPropertyChanged
 	{
-		public MainPage view;
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		protected void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
@@ -32,70 +34,105 @@ namespace JustRemember.ViewModels
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isSelected)));
 		}
 		
-		ObservableCollection<SessionModel> _ss;
+		ObservableCollection<SessionModel> _ss = new ObservableCollection<SessionModel>();
 		public ObservableCollection<SessionModel> SavedSessions
 		{
 			get { return _ss; }
 			set { Set(ref _ss, value); }
 		}
-		
+
+		public ICommand UpdateSelection { get; private set; }
+		public ICommand DoubleTappedSelection { get; private set; }
+		public ICommand GoToSetting { get; private set; }
+		public ICommand GoToBundledMemoes { get; private set; }
+		public ICommand RefreshSessionList { get; private set; }
+		public ICommand OpenSession { get; private set; }
+		public ICommand DeleteSession { get; private set; }
+		public ICommand DeSelectSession { get; private set; }
+
+		public SavedSessionViewModel()
+		{
+			UpdateSelection = new RelayCommand<SelectionChangedEventArgs>(UPDATESELECTION);
+			DoubleTappedSelection = new RelayCommand<DoubleTappedRoutedEventArgs>(DOUBLETAPPEDSELECTION);
+			GoToSetting = new RelayCommand<RoutedEventArgs>(GOTOSETTING);
+			GoToBundledMemoes = new RelayCommand<RoutedEventArgs>(GOTOBUNDLEDMEMOES);
+			RefreshSessionList = new RelayCommand<RoutedEventArgs>(REFRESHSESSIONLIST);
+			OpenSession = new RelayCommand<RoutedEventArgs>(OPENSESSION);
+			DeleteSession = new RelayCommand<RoutedEventArgs>(DELETESESSION);
+			DeSelectSession = new RelayCommand<RoutedEventArgs>(DESELECTSESSION);
+		}
+
+		private void DESELECTSESSION(RoutedEventArgs obj)
+		{
+			selectedIndex = -1;
+			OnPropertyChanged(nameof(isSelected));
+		}
+
+		private async void DELETESESSION(RoutedEventArgs obj)
+		{
+			await SavedSessionModel.Delete(SavedSessions[selectedIndex].GeneratedName);
+			SavedSessions.RemoveAt(selectedIndex);
+		}
+
+		private void OPENSESSION(RoutedEventArgs obj)
+		{
+			if (selectedIndex == -1)
+			{
+				return;
+			}
+			else
+			{
+				KickToMatchWithSession();
+			}
+		}
+
+		private async void REFRESHSESSIONLIST(RoutedEventArgs obj)
+		{
+			SavedSessions = await SavedSessionModel.Load();
+		}
+
+		private void GOTOBUNDLEDMEMOES(RoutedEventArgs obj)
+		{
+			NavigationService.Navigate<PrenoteView>();
+		}
+
+		private void GOTOSETTING(RoutedEventArgs obj)
+		{
+			NavigationService.Navigate<AppConfigView>();
+		}
+
+		int _indx = -1;
+		public int selectedIndex
+		{
+			get => _indx;
+			set => Set(ref _indx, value);
+		}
+
+		private void DOUBLETAPPEDSELECTION(DoubleTappedRoutedEventArgs obj)
+		{
+			if (selectedIndex == -1)
+			{
+				return;
+			}
+			else
+			{
+				KickToMatchWithSession();
+			}
+		}
+
+		private void UPDATESELECTION(SelectionChangedEventArgs obj)
+		{
+			OnPropertyChanged(nameof(isSelected));
+		}
+
 		public async void Initialize()
 		{
 			SavedSessions = await SavedSessionModel.Load();
 		}
 
-		public void DeSelectSession(RoutedEventArgs obj)
-		{
-			view.SSL.SelectedIndex = -1;
-			OnPropertyChanged(nameof(isSelected));
-		}
-
-		public async void DeleteSelectedSession(RoutedEventArgs obj)
-		{
-			//Get list of files
-			await SavedSessionModel.Delete(SavedSessions[view.SSL.SelectedIndex].GeneratedName);
-			SavedSessions.RemoveAt(view.SSL.SelectedIndex);
-		}
-		
-		public void OpenSessionMenu(RoutedEventArgs obj)
-		{
-			if (view.SSL.SelectedIndex == -1)
-			{
-				return;
-			}
-			else
-			{
-				KickToMatchWithSession();
-			}
-		}
-
-		public async void RefrehListAsync(RoutedEventArgs obj)
-		{
-			SavedSessions.Clear();
-			SavedSessions = await SavedSessionModel.Load();
-		}
-
-		public void UpdateSelection(SelectionChangedEventArgs obj)
-		{
-			OnPropertyChanged(nameof(isSelected));
-		}
-
-		public void DoubleClickSession(DoubleTappedRoutedEventArgs arg)
-		{
-			if (view.SSL.SelectedIndex == -1)
-			{
-				return;
-			}
-			else
-			{
-				KickToMatchWithSession();
-			}
-		}
-
 		public async void KickToMatchWithSession()
 		{
-			int sel = view.SSL.SelectedIndex;
-			SessionModel send = SavedSessions[sel];
+			SessionModel send = SavedSessions[selectedIndex];
 			if (send.isNew) { send.isNew = false; }
 			await SavedSessionModel.Delete(send.GeneratedName);
 			NavigationService.Navigate<Match>(send);
@@ -120,7 +157,7 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				if (view.SSL.SelectedIndex < 0)
+				if (selectedIndex < 0)
 				{
 					return Visibility.Collapsed;
 				}
