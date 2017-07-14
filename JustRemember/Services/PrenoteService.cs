@@ -14,7 +14,7 @@ namespace JustRemember.Services
 		{
 			get
 			{
-				if (Directory.Exists(ApplicationData.Current.LocalFolder.Path + "\\Bundled memoes"))
+				if (Directory.Exists(ApplicationData.Current.LocalFolder.Path + "\\Bundled memos"))
 				{
 					return true;
 				}
@@ -24,9 +24,9 @@ namespace JustRemember.Services
 
 		public static void DeployPrenote()
 		{
-			string prenotepath = Windows.ApplicationModel.Package.Current.InstalledLocation.Path + "\\Bundled memoes";
+			string prenotepath = Windows.ApplicationModel.Package.Current.InstalledLocation.Path + "\\Bundled memos";
 			var files = Directory.GetFiles(prenotepath);
-			string deployPath = ApplicationData.Current.LocalFolder.Path + "\\Bundled memoes";
+			string deployPath = ApplicationData.Current.LocalFolder.Path + "\\Bundled memos";
 			Directory.CreateDirectory(deployPath);
 			for (int i = 0; i < files.Length - 1; i++)
 			{
@@ -48,7 +48,7 @@ namespace JustRemember.Services
 			int ind = tasks.Count - 1;
 			tasks[ind].progress = 0;
 			//First get prenote folder
-			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memoes");
+			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memos");
 			//Create confirm file
 			var confirm = await prenote.CreateFileAsync($"{extensionName}.dep");
 			//Create root directory
@@ -123,7 +123,7 @@ namespace JustRemember.Services
 
 		public static async void RequestRemovePrenoteExtension(string extName)
 		{
-			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memoes");
+			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memos");
 			
 			if (File.Exists($"{prenote.Path}\\{extName}.dep"))
 			{
@@ -142,7 +142,7 @@ namespace JustRemember.Services
 			yield return new PathDir(ret.FullName);
 			for (int i = 0;i < 10;i++)
 			{
-				if (ret.Name != "Bundled memoes")
+				if (ret.Name != "Bundled memos")
 				{
 					ret = ret.Parent;
 				}

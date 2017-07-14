@@ -28,7 +28,7 @@
           <target state="needs-review-translation" state-qualifier="tm-suggestion">นำเข้า</target>
         </trans-unit>
         <trans-unit id="Home_NoNote1.Text" translate="yes" xml:space="preserve">
-          <source>You don't have any memoes</source>
+          <source>You don't have any memos</source>
           <target state="needs-review-translation">ไม่พบชีทที่บันทึกไว้</target>
           <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
@@ -52,7 +52,7 @@
           <target state="translated">เปิด</target>
         </trans-unit>
         <trans-unit id="Home_prenoteMenu.Label" translate="yes" xml:space="preserve">
-          <source>Bundled memoes</source>
+          <source>Bundled memos</source>
           <target state="needs-review-translation">ชีทที่มีอยู่</target>
           <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
@@ -269,7 +269,7 @@
           <note from="MultilingualBuild" annotates="source" priority="2">0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</note>
         </trans-unit>
         <trans-unit id="Home_note_prural" translate="yes" xml:space="preserve">
-          <source>memoes</source>
+          <source>memos</source>
           <target state="needs-review-translation">ชีท</target>
           <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
@@ -507,7 +507,7 @@
           <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Prenote_LoadExtension.Text" translate="yes" xml:space="preserve">
-          <source>Deploying memoes
+          <source>Deploying memos
 from extension</source>
           <target state="needs-review-translation">กำลังคัดลอกชีท
 จากส่วนขยายอื่น</target>

@@ -16,7 +16,7 @@
     <value>Unselect</value>
   </data>
   <data name="Home_NoNote1.Text" xml:space="preserve">
-    <value>You don't have any memoes</value>
+    <value>You don't have any memos</value>
   </data>
   <data name="Home_NoNote2.Text" xml:space="preserve">
     <value>You can add a memo by selecting Add </value>
@@ -28,7 +28,7 @@
     <value>By using the menu below</value>
   </data>
   <data name="Home_prenoteMenu.Label" xml:space="preserve">
-    <value>Bundled memoes</value>
+    <value>Bundled memos</value>
   </data>
   <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>Enable text auto scroll</value>
@@ -91,7 +91,7 @@
     <value>Memo</value>
   </data>
   <data name="Home_note_prural" xml:space="preserve">
-    <value>memoes</value>
+    <value>memos</value>
   </data>
   <data name="Home_note_single" xml:space="preserve">
     <value>memo</value>
@@ -142,7 +142,7 @@
     <value>You can view these stats later in settings if you save it</value>
   </data>
   <data name="Prenote_LoadExtension.Text" xml:space="preserve">
-    <value>Deploying memoes
+    <value>Deploying memos
 from extension</value>
   </data>
 </root>

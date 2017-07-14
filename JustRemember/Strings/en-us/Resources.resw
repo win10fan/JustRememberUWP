@@ -557,7 +557,7 @@ please choose other memo</value>
     <value>Unselect</value>
   </data>
   <data name="Home_NoNote1.Text" xml:space="preserve">
-    <value>You don't have any memoes</value>
+    <value>You don't have any memos</value>
   </data>
   <data name="Home_NoNote2.Text" xml:space="preserve">
     <value>You can add a memo by selecting Add </value>
@@ -572,13 +572,13 @@ please choose other memo</value>
     <value>Memo</value>
   </data>
   <data name="Home_note_prural" xml:space="preserve">
-    <value>memoes</value>
+    <value>memos</value>
   </data>
   <data name="Home_note_single" xml:space="preserve">
     <value>memo</value>
   </data>
   <data name="Home_prenoteMenu.Label" xml:space="preserve">
-    <value>Bundled memoes</value>
+    <value>Bundled memos</value>
   </data>
   <data name="Home_session" xml:space="preserve">
     <value>Saved sessions</value>
@@ -593,7 +593,7 @@ please choose other memo</value>
     <value>Edit</value>
   </data>
   <data name="Prenote_LoadExtension.Text" xml:space="preserve">
-    <value>Deploying memoes
+    <value>Deploying memos
 from extension</value>
   </data>
   <data name="Stat_easy" xml:space="preserve">
