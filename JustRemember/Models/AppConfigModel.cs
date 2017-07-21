@@ -312,6 +312,7 @@ namespace JustRemember.Models
 				CultureInfo cultureInfo = CultureInfo.CurrentCulture;
 				if (cultureInfo.Name == "th" || cultureInfo.Name == "th-TH")
 				{
+					SetLanguage(1);
 					return languages[1];
 				}
 			}

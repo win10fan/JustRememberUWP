@@ -24,11 +24,11 @@
 						<AdaptiveTrigger MinWindowWidth="0"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="hidden.Text" Value="M"/>
 						<Setter Target="cmdBar.(Grid.Row)" Value="2"/>
 						<Setter Target="pcBar.Visibility" Value="Collapsed"/>
 						<Setter Target="mbBar1.Visibility" Value="Visible"/>
 						<Setter Target="mbBar2.Visibility" Value="Visible"/>
+						<Setter Target="titlePart.Height" Value="0"/>
 					</VisualState.Setters>
 				</VisualState>
 				<VisualState x:Name="Pc">
@@ -36,12 +36,12 @@
 						<AdaptiveTrigger MinWindowWidth="700"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="hidden.Text" Value="P"/>
 						<Setter Target="cmdBar.(Grid.Row)" Value="0"/>
 						<Setter Target="menuPane.Height" Value="0"/>
 						<Setter Target="pcBar.Visibility" Value="Visible"/>
 						<Setter Target="mbBar1.Visibility" Value="Collapsed"/>
 						<Setter Target="mbBar2.Visibility" Value="Collapsed"/>
+						<Setter Target="titlePart.Height" Value="Auto"/>
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -65,12 +65,11 @@
 			</Storyboard>
 		</Grid.Resources>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
+			<RowDefinition x:Name="titlePart" Height="Auto"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*" x:Name="menuPane"/>
 		</Grid.RowDefinitions>
-		<TextBlock Text="{x:Bind editor.modeDetection, Mode=TwoWay}" x:Name="hidden" Foreground="Transparent"/>
 		<RichEditBox x:Name="mainEdit" Grid.Row="1" FontFamily="{x:Bind editor.FontName, Mode=OneWay}">
 			<i:Interaction.Behaviors>
 				<ic:EventTriggerBehavior EventName="KeyDown">

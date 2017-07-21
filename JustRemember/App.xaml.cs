@@ -38,8 +38,6 @@ namespace JustRemember
 		public static bool isDeploying;
 		public static SessionModel cachedSession;
 		public static NoteModel selectedNote;
-		//TODO:Remove if note editor not thrown error anymore
-		//public static bool attentionReq = false;
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
