@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using JustRemember.Services;
 using Windows.UI.Popups;
 using System.Diagnostics;
+using System.Text;
+using Windows.Storage.Streams;
 
 namespace JustRemember.ViewModels
 {
@@ -218,8 +220,11 @@ namespace JustRemember.ViewModels
             StorageFile file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
-				//Try to read it first:
-				string content = await FileIO.ReadTextAsync(file);
+				IBuffer buffer = await FileIO.ReadBufferAsync(file);
+				DataReader reader = DataReader.FromBuffer(buffer);
+				byte[] fileContent = new byte[reader.UnconsumedBufferLength];
+				reader.ReadBytes(fileContent);
+				string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
 				SessionModel test = SessionModel.generate(new NoteModel { Title = "Test", Content = content });
 				if (test == null)
 				{

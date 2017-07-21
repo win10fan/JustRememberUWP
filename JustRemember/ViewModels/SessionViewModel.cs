@@ -225,7 +225,7 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				if (view.modeDetection == "P")
+				if (view.scSize >= 700)
 				{
 					return isPausing;
 				}
@@ -807,7 +807,7 @@ namespace JustRemember.ViewModels
 			});
 			if (App.Config.autoScrollContent)
 			{
-				view.displayTexts.ChangeView(view.displayTexts.ViewportWidth, view.displayTexts.ViewportHeight, view.displayTexts.ZoomFactor);
+				view.displayTexts.ChangeView(view.displayTexts.HorizontalOffset, view.displayTexts.ExtentHeight, view.displayTexts.ZoomFactor);
 			}
 		}
 
@@ -818,10 +818,6 @@ namespace JustRemember.ViewModels
 				Text = current.selectedChoices[at].finalText,
 				Foreground = current.selectedChoices[at].mark
 			});
-			if (App.Config.autoScrollContent)
-			{
-				view.displayTexts.ChangeView(view.displayTexts.ViewportWidth, view.displayTexts.ViewportHeight, view.displayTexts.ZoomFactor);
-			}
 		}
 
 		string t1 { get => App.language.GetString("Match_choice_1"); }

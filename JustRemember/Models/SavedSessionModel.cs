@@ -2,8 +2,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace JustRemember.Models
 {
@@ -46,8 +48,15 @@ namespace JustRemember.Models
 						StorageFile stat = await sfol.GetFileAsync(statName);
 						StorageFile chos = await sfol.GetFileAsync(chosName);
 						SessionModel ss = new SessionModel();
+						//Note reader
+						IBuffer buffer = await FileIO.ReadBufferAsync(note);
+						DataReader reader = DataReader.FromBuffer(buffer);
+						byte[] fileContent = new byte[reader.UnconsumedBufferLength];
+						reader.ReadBytes(fileContent);
+						string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
+						//end
 						ss = await Json.ToObjectAsync<SessionModel>(await FileIO.ReadTextAsync(file));
-						ss.SelectedNote = await Json.ToObjectAsync<NoteModel>(await FileIO.ReadTextAsync(note));
+						ss.SelectedNote = await Json.ToObjectAsync<NoteModel>(content);
 						ss.StatInfo = await Json.ToObjectAsync<StatModel>(await FileIO.ReadTextAsync(stat));
 						ss.choices = await Json.ToObjectAsync<ObservableCollection<ChoiceSet>>(await FileIO.ReadTextAsync(chos));
 						ss.texts = TextList.Extract(ss.SelectedNote.Content);

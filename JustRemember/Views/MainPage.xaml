@@ -17,14 +17,9 @@
 						<AdaptiveTrigger MinWindowWidth="0"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="pcSeparator.Width" Value="0"/>
-						<Setter Target="mainPivot.Visibility" Value="Visible"/>
-						<Setter Target="hidden.Text" Value="M"/>
 						<Setter Target="pcListView.Visibility" Value="Collapsed"/>
-						<Setter Target="pcListView.Width" Value="0"/>
-						<Setter Target="pcListView.Height" Value="0"/>
-						<Setter Target="mainPivot.Width" Value="Auto"/>
-						<Setter Target="mainPivot.Height" Value="Auto"/>
+						<Setter Target="mainPivot.Visibility" Value="Visible"/>
+						<Setter Target="mainPivot.(Grid.ColumnSpan)" Value="2"/>
 					</VisualState.Setters>
 				</VisualState>
 				<VisualState x:Name="Pc">
@@ -32,14 +27,8 @@
 						<AdaptiveTrigger MinWindowWidth="700"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="pcSeparator.Width" Value="*"/>
-						<Setter Target="mainPivot.Visibility" Value="Collapsed"/>
-						<Setter Target="mainPivot.Width" Value="0"/>
-						<Setter Target="mainPivot.Height" Value="0"/>
 						<Setter Target="pcListView.Visibility" Value="Visible"/>
-						<Setter Target="pcListView.Width" Value="Auto"/>
-						<Setter Target="pcListView.Height" Value="Auto"/>
-						<Setter Target="hidden.Text" Value="P"/>
+						<Setter Target="mainPivot.Visibility" Value="Collapsed"/>
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
@@ -49,8 +38,7 @@
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition x:Name="pcSeparator" Width="*"/>
 			</Grid.ColumnDefinitions>
-			<TextBlock Text="{x:Bind modeDetection, Mode=TwoWay}" x:Name="hidden" Foreground="Transparent"/>
-			<Pivot x:DeferLoadStrategy="Lazy" PivotItemLoaded="changePage" x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource SettingsPivot}">
+			<Pivot PivotItemLoaded="changePage" x:Name="mainPivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Style="{StaticResource SettingsPivot}">
 				<PivotItem Margin="0" Foreground="{ThemeResource AccentButtonForeground}">
 					<PivotItem.Header>
 						<SymbolIcon Symbol="Page2" RenderTransformOrigin="0.5,0.5">
@@ -352,12 +340,13 @@
 					</Grid>
 				</PivotItem>
 			</Pivot>
-			<Grid x:DeferLoadStrategy="Lazy" Grid.ColumnSpan="2" x:Name="pcListView">
+			<Grid Grid.ColumnSpan="2" x:Name="pcListView">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
+				
 				<Grid Grid.Column="0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
@@ -407,64 +396,6 @@
                     <Run x:Uid="Home_Nonote4" Text="By click at menu below"/>
 					</TextBlock>
 					<CommandBar Grid.Row="2">
-						<CommandBar.Content>
-							<AppBarButton Icon="Setting">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToSetting}"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</AppBarButton>
-						</CommandBar.Content>
-						<CommandBar.SecondaryCommands>
-							<AppBarButton x:Uid="Home_prenoteMenu" Icon="AllApps" Label="Prenote">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToBundledMemoes}"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</AppBarButton>
-						</CommandBar.SecondaryCommands>
-
-						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="Add" x:Uid="Home_add" Label="Add">
-							<i:Interaction.Behaviors>
-								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind ViewModel.OpenAddFlyout}"/>
-								</ic:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-							<AppBarButton.Flyout>
-								<Flyout>
-									<Grid>
-										<Grid.RowDefinitions>
-											<RowDefinition Height="Auto"/>
-											<RowDefinition Height="Auto"/>
-										</Grid.RowDefinitions>
-										<Button HorizontalAlignment="Center">
-											<i:Interaction.Behaviors>
-												<ic:EventTriggerBehavior EventName="Click">
-													<ic:InvokeCommandAction Command="{x:Bind ViewModel.GoToNoteEditorWithNote}"/>
-												</ic:EventTriggerBehavior>
-											</i:Interaction.Behaviors>
-											<StackPanel Orientation="Horizontal">
-												<SymbolIcon Symbol="Edit"/>
-												<TextBlock x:Uid="Home_edit_with_memoedit" Margin="5" VerticalAlignment="Center" Text="Memo editor"/>
-											</StackPanel>
-										</Button>
-										<Button Margin="0,5" Grid.Row="2" HorizontalAlignment="Center">
-											<i:Interaction.Behaviors>
-												<ic:EventTriggerBehavior EventName="Click">
-													<ic:InvokeCommandAction Command="{x:Bind ViewModel.GoToQuesionDesignerWithNote}"/>
-												</ic:EventTriggerBehavior>
-											</i:Interaction.Behaviors>
-											<StackPanel Orientation="Horizontal">
-												<SymbolIcon Symbol="Help"/>
-												<TextBlock x:Uid="Home_edit_with_questdesi" Margin="5" VerticalAlignment="Center" Text="Question designer"/>
-											</StackPanel>
-										</Button>
-									</Grid>
-								</Flyout>
-							</AppBarButton.Flyout>
-						</AppBarButton>
 						<AppBarButton Visibility="{x:Bind ViewModel.IsNotSelected, Mode=OneWay}" Icon="OpenFile" x:Uid="Home_import" Label="Import">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
@@ -479,7 +410,6 @@
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</AppBarButton>
-
 						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="OpenLocal" Label="Open" x:Uid="Home_open">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
@@ -512,10 +442,57 @@
 				</Grid>
 				<Grid VerticalAlignment="Stretch" Grid.Column="1">
 					<Rectangle HorizontalAlignment="Stretch" Height="50" Fill="{ThemeResource AccentButtonBackground}" VerticalAlignment="Top"/>
-					<Rectangle Width="4" Fill="{ThemeResource AccentButtonBackground}"/>
+					<Rectangle Fill="{ThemeResource AccentButtonBackground}"/>
 					<CommandBar Style="{ThemeResource EditorCMD}" VerticalAlignment="Bottom"/>
 				</Grid>
-
+				<Grid Grid.Column="1" VerticalAlignment="Center" Margin="5,0">
+					<StackPanel>
+						<Button HorizontalAlignment="Center">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToSetting}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+							<SymbolIcon Symbol="Setting"/>
+							<ToolTipService.ToolTip>
+								<TextBlock Text="Settings" x:Uid="QD_setting_page"/>
+							</ToolTipService.ToolTip>
+						</Button>
+						<Button Margin="0,5" HorizontalAlignment="Center">
+							<SymbolIcon Symbol="Edit"/>
+							<ToolTipService.ToolTip>
+								<TextBlock x:Uid="Home_edit_with_memoedit" Text="Memo editor"/>
+							</ToolTipService.ToolTip>
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.GoToNoteEditorWithNote}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button HorizontalAlignment="Center">
+							<SymbolIcon Symbol="Help"/>
+							<ToolTipService.ToolTip>
+								<TextBlock x:Uid="Home_edit_with_questdesi" Text="Question designer"/>
+							</ToolTipService.ToolTip>
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.GoToQuesionDesignerWithNote}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button Margin="0,5" HorizontalAlignment="Center">
+							<SymbolIcon Symbol="AllApps"/>
+							<ToolTipService.ToolTip>
+								<TextBlock x:Uid="Home_prenoteMenu2" Text="Bundled memos"/>
+							</ToolTipService.ToolTip>
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToBundledMemoes}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+					</StackPanel>
+				</Grid>
 				<Grid Grid.Column="2">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
@@ -598,16 +575,6 @@
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"/>
 					<CommandBar Grid.Row="3">
-						<CommandBar.SecondaryCommands>
-							<AppBarButton x:Uid="Home_prenoteMenu" Icon="AllApps" Label="Prenote">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToBundledMemoes}"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</AppBarButton>
-						</CommandBar.SecondaryCommands>
-
 						<AppBarButton Visibility="Visible" Icon="Refresh" Label="Reload">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">

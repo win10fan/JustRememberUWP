@@ -150,10 +150,10 @@
     <value>ครั้งนี้ ใช้เวลา</value>
   </data>
   <data name="Config_stat_time_b.Text" xml:space="preserve">
-    <value>ด้วย</value>
+    <value>ด้วยเวลา</value>
   </data>
   <data name="Config_stat_time_c.Text" xml:space="preserve">
-    <value>ก่อนหมดหมดเวลาใน</value>
+    <value>ที่เหลืออยู่ ก่อนหมดเวลา</value>
   </data>
   <data name="Config_stat_time_d.Text" xml:space="preserve">
     <value></value>
@@ -251,7 +251,7 @@
     <value>บันทึก</value>
   </data>
   <data name="Edit_size_a.Text" xml:space="preserve">
-    <value>ขนาด</value>
+    <value>ขนาด (</value>
   </data>
   <data name="Edit_size_b.Text" xml:space="preserve">
     <value>)</value>
@@ -500,5 +500,11 @@
   </data>
   <data name="PN_CantExt" xml:space="preserve">
     <value>มีปัญหาในการอ่านชีท กรุณาเลือกชีทอื่นแทน</value>
+  </data>
+  <data name="Config_Reverse_Dictionary.Text" xml:space="preserve">
+    <value>Reverse dictionary tranlation</value>
+  </data>
+  <data name="Home_prenoteMenu2.Text" xml:space="preserve">
+    <value>Bundled memos</value>
   </data>
 </root>

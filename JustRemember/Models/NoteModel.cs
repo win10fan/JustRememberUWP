@@ -2,8 +2,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace JustRemember.Models
 {
@@ -82,10 +84,15 @@ namespace JustRemember.Models
             {
                 foreach (var file in noteFiles)
                 {
+					IBuffer buffer = await FileIO.ReadBufferAsync(file);
+					DataReader reader = DataReader.FromBuffer(buffer);
+					byte[] fileContent = new byte[reader.UnconsumedBufferLength];
+					reader.ReadBytes(fileContent);
+					string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
 					NoteModel n3 = new NoteModel()
 					{
 						Title = file.DisplayName,
-						Content = await FileIO.ReadTextAsync(file)
+						Content = content
 					};
 					allNote.Add(n3);
                 }
@@ -140,10 +147,15 @@ namespace JustRemember.Models
 			{
 				displayName = displayName.Remove(0, 1);
 			}
+			IBuffer buffer = await FileIO.ReadBufferAsync(fol);
+			DataReader reader = DataReader.FromBuffer(buffer);
+			byte[] fileContent = new byte[reader.UnconsumedBufferLength];
+			reader.ReadBytes(fileContent);
+			string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
 			NoteModel datNote = new NoteModel()
 			{
 				Title = displayName,
-				Content = await FileIO.ReadTextAsync(fol)
+				Content = content
 			};
 			return datNote;
 		}

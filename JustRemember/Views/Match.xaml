@@ -85,7 +85,6 @@
 						<AdaptiveTrigger MinWindowWidth="0"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="hidden.Text" Value="M"/>
 						<Setter Target="PauseMenu.(Grid.ColumnSpan)" Value="3"/>
 						<Setter Target="contentScreen.(Grid.ColumnSpan)" Value="3"/>
 						<Setter Target="choiceList.(Grid.ColumnSpan)" Value="3"/>
@@ -96,7 +95,6 @@
 						<AdaptiveTrigger MinWindowWidth="700"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="hidden.Text" Value="P"/>
 						<Setter Target="contentScreen.(Grid.ColumnSpan)" Value="1"/>
 						<Setter Target="choiceList.(Grid.ColumnSpan)" Value="1"/>
 						<Setter Target="contentScreen.(Grid.Column)" Value="1"/>
@@ -111,15 +109,14 @@
 		</VisualStateManager.VisualStateGroups>
 		<!--Whole content-->
 		<!--PauseMenu / contentScreen / choiceList-->
-		<TextBlock Text="{x:Bind modeDetection, Mode=TwoWay}" x:Name="hidden" Foreground="Transparent"/>
 		<SplitView x:Name="cHolder" IsPaneOpen="{x:Bind ViewModel.pausingPC, Mode=TwoWay}" DisplayMode="Inline">
 			<SplitView.Pane>
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="48"/>
-						<RowDefinition Height="48"/>
-						<RowDefinition Height="48"/>
-						<RowDefinition Height="48"/>
+						<RowDefinition Height="58"/>
+						<RowDefinition Height="58"/>
+						<RowDefinition Height="58"/>
+						<RowDefinition Height="58"/>
 						<RowDefinition Height="*"/>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>

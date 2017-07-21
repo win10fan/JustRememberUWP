@@ -8,184 +8,165 @@
       <group id="JUSTREMEMBER/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="Home_add.Label" translate="yes" xml:space="preserve">
           <source>Add</source>
-          <target state="new">Add</target>
+          <target state="translated">Add</target>
         </trans-unit>
         <trans-unit id="Home_delete.Label" translate="yes" xml:space="preserve">
           <source>Delete</source>
-          <target state="new">Delete</target>
+          <target state="translated">Delete</target>
         </trans-unit>
         <trans-unit id="Home_deselect.Label" translate="yes" xml:space="preserve">
           <source>Unselect</source>
-          <target state="needs-review-translation">Unselect</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Unselect</target>
         </trans-unit>
         <trans-unit id="Home_edit.Label" translate="yes" xml:space="preserve">
           <source>Edit</source>
-          <target state="new">Edit</target>
+          <target state="translated">Edit</target>
         </trans-unit>
         <trans-unit id="Home_import.Label" translate="yes" xml:space="preserve">
           <source>Import</source>
-          <target state="new">Import</target>
+          <target state="translated">Import</target>
         </trans-unit>
         <trans-unit id="Home_NoNote1.Text" translate="yes" xml:space="preserve">
           <source>You don't have any memos</source>
-          <target state="needs-review-translation">You don't have any memos</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">You don't have any memos</target>
         </trans-unit>
         <trans-unit id="Home_NoNote2.Text" translate="yes" xml:space="preserve">
           <source>You can add a memo by selecting Add </source>
-          <target state="needs-review-translation">You can add a memo by selecting Add </target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">You can add a memo by selecting Add </target>
         </trans-unit>
         <trans-unit id="Home_NoNote3.Text" translate="yes" xml:space="preserve">
           <source>Or import a text file</source>
-          <target state="needs-review-translation">Or import a text file</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Or import a text file</target>
         </trans-unit>
         <trans-unit id="Home_NoNote4.Text" translate="yes" xml:space="preserve">
           <source>By using the menu below</source>
-          <target state="needs-review-translation">By using the menu below</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">By using the menu below</target>
         </trans-unit>
         <trans-unit id="Home_open.Label" translate="yes" xml:space="preserve">
           <source>Open</source>
-          <target state="new">Open</target>
+          <target state="translated">Open</target>
         </trans-unit>
         <trans-unit id="Home_prenoteMenu.Label" translate="yes" xml:space="preserve">
           <source>Bundled memos</source>
-          <target state="needs-review-translation">Bundled memos</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Bundled memos</target>
         </trans-unit>
         <trans-unit id="Home_reload.Label" translate="yes" xml:space="preserve">
           <source>Reload</source>
-          <target state="new">Reload</target>
+          <target state="translated">Reload</target>
         </trans-unit>
         <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
           <source>Develop by:</source>
-          <target state="new">Develop by:</target>
+          <target state="translated">Develop by:</target>
         </trans-unit>
         <trans-unit id="Config_autoscroll.Text" translate="yes" xml:space="preserve">
           <source>Enable text auto scroll</source>
-          <target state="needs-review-translation">Enable text auto scroll</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Enable text auto scroll</target>
         </trans-unit>
         <trans-unit id="Config_c1a.Text" translate="yes" xml:space="preserve">
           <source>1</source>
-          <target state="new">1</target>
+          <target state="translated">1</target>
           <note from="MultilingualBuild" annotates="source" priority="2">..</note>
         </trans-unit>
         <trans-unit id="Config_c1b.Text" translate="yes" xml:space="preserve">
           <source>first</source>
-          <target state="new">first</target>
+          <target state="translated">first</target>
         </trans-unit>
         <trans-unit id="Config_c2a.Text" translate="yes" xml:space="preserve">
           <source>2</source>
-          <target state="new">2</target>
+          <target state="translated">2</target>
         </trans-unit>
         <trans-unit id="Config_c2b.Text" translate="yes" xml:space="preserve">
           <source>second</source>
-          <target state="new">second</target>
+          <target state="translated">second</target>
         </trans-unit>
         <trans-unit id="Config_c3a.Text" translate="yes" xml:space="preserve">
           <source>3</source>
-          <target state="new">3</target>
+          <target state="translated">3</target>
         </trans-unit>
         <trans-unit id="Config_c3b.Text" translate="yes" xml:space="preserve">
           <source>third</source>
-          <target state="new">third</target>
+          <target state="translated">third</target>
         </trans-unit>
         <trans-unit id="Config_choicelook.Text" translate="yes" xml:space="preserve">
           <source>Choose style</source>
-          <target state="needs-review-translation">Choose style</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Choose style</target>
         </trans-unit>
         <trans-unit id="Config_choices.Text" translate="yes" xml:space="preserve">
           <source>Number of choices</source>
-          <target state="needs-review-translation">Number of choices</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Number of choices</target>
         </trans-unit>
         <trans-unit id="Config_delall" translate="yes" xml:space="preserve">
           <source>Clear progress</source>
-          <target state="needs-review-translation">Clear progress</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Clear progress</target>
         </trans-unit>
         <trans-unit id="Config_end.Text" translate="yes" xml:space="preserve">
           <source>After completion</source>
-          <target state="needs-review-translation">After completion</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">After completion</target>
         </trans-unit>
         <trans-unit id="Config_end_a.Content" translate="yes" xml:space="preserve">
           <source>Go to summary page</source>
-          <target state="new">Go to summary page</target>
+          <target state="translated">Go to summary page</target>
         </trans-unit>
         <trans-unit id="Config_end_and.Text" translate="yes" xml:space="preserve">
           <source>And...</source>
-          <target state="new">And...</target>
+          <target state="translated">And...</target>
         </trans-unit>
         <trans-unit id="Config_end_b.Content" translate="yes" xml:space="preserve">
           <source>Restart match</source>
-          <target state="new">Restart match</target>
+          <target state="translated">Restart match</target>
         </trans-unit>
         <trans-unit id="Config_end_c.Content" translate="yes" xml:space="preserve">
           <source>Go back to main page</source>
-          <target state="new">Go back to main page</target>
+          <target state="translated">Go back to main page</target>
         </trans-unit>
         <trans-unit id="Config_fontsize.Text" translate="yes" xml:space="preserve">
           <source>Display font size</source>
-          <target state="new">Display font size</target>
+          <target state="translated">Display font size</target>
         </trans-unit>
         <trans-unit id="Config_hint.Text" translate="yes" xml:space="preserve">
           <source>Show hint on start</source>
-          <target state="needs-review-translation">Show hint on start</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Show hint on start</target>
         </trans-unit>
         <trans-unit id="Config_language.Text" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="new">Language</target>
+          <target state="translated">Language</target>
         </trans-unit>
         <trans-unit id="Config_reset_a.Content" translate="yes" xml:space="preserve">
           <source>Restore default settings</source>
-          <target state="needs-review-translation">Restore default settings</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Restore default settings</target>
         </trans-unit>
         <trans-unit id="Config_reset_b.Content" translate="yes" xml:space="preserve">
           <source>Clear stats</source>
-          <target state="needs-review-translation">Clear stats</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Clear stats</target>
         </trans-unit>
         <trans-unit id="Config_reset_c.Content" translate="yes" xml:space="preserve">
           <source>Clear sessions</source>
-          <target state="needs-review-translation">Clear sessions</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Clear sessions</target>
         </trans-unit>
         <trans-unit id="Config_reset_d.Content" translate="yes" xml:space="preserve">
           <source>Clear all notes</source>
-          <target state="needs-review-translation">Clear all notes</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Clear all notes</target>
         </trans-unit>
         <trans-unit id="Config_reset_e.Content" translate="yes" xml:space="preserve">
           <source>Reset everything</source>
-          <target state="new">Reset everything</target>
+          <target state="translated">Reset everything</target>
         </trans-unit>
         <trans-unit id="Config_saveall" translate="yes" xml:space="preserve">
           <source>Save stats</source>
-          <target state="needs-review-translation">Save stats</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Save stats</target>
         </trans-unit>
         <trans-unit id="Config_stat_corrected.Text" translate="yes" xml:space="preserve">
           <source>Correct choice</source>
-          <target state="needs-review-translation">Correct choice</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Correct choice</target>
         </trans-unit>
         <trans-unit id="Config_stat_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
-          <target state="new">{0} {1}</target>
+          <target state="translated">{0} {1}</target>
           <note from="MultilingualBuild" annotates="source" priority="2">0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</note>
         </trans-unit>
         <trans-unit id="Config_stat_no" translate="yes" xml:space="preserve">
           <source>No stats saved yet</source>
-          <target state="needs-review-translation">No stats saved yet</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">No stats saved yet</target>
         </trans-unit>
         <trans-unit id="Config_stat_prural" translate="yes" xml:space="preserve">
           <source>stats</source>
@@ -193,7 +174,7 @@
         </trans-unit>
         <trans-unit id="Config_stat_selected.Text" translate="yes" xml:space="preserve">
           <source>Selected choice</source>
-          <target state="new">Selected choice</target>
+          <target state="translated">Selected choice</target>
         </trans-unit>
         <trans-unit id="Config_stat_single" translate="yes" xml:space="preserve">
           <source>stat</source>
@@ -201,297 +182,277 @@
         </trans-unit>
         <trans-unit id="Config_stat_started.Text" translate="yes" xml:space="preserve">
           <source>Started on:</source>
-          <target state="new">Started on:</target>
+          <target state="translated">Started on:</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_a.Text" translate="yes" xml:space="preserve">
           <source>This session took</source>
-          <target state="new">This session took</target>
+          <target state="translated">This session took</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_b.Text" translate="yes" xml:space="preserve">
           <source>with</source>
-          <target state="new">with</target>
+          <target state="translated">with</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_c.Text" translate="yes" xml:space="preserve">
           <source>left before</source>
-          <target state="new">left before</target>
+          <target state="translated">left before</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_d.Text" translate="yes" xml:space="preserve">
           <source>limit</source>
-          <target state="new">limit</target>
+          <target state="translated">limit</target>
         </trans-unit>
         <trans-unit id="Config_submit.Content" translate="yes" xml:space="preserve">
           <source>Submit</source>
-          <target state="new">Submit</target>
+          <target state="translated">Submit</target>
         </trans-unit>
         <trans-unit id="Config_timelimit_use.Text" translate="yes" xml:space="preserve">
           <source>Use time limit</source>
-          <target state="new">Use time limit</target>
+          <target state="translated">Use time limit</target>
         </trans-unit>
         <trans-unit id="Config_uselight.Text" translate="yes" xml:space="preserve">
           <source>Use light theme</source>
-          <target state="new">Use light theme</target>
+          <target state="translated">Use light theme</target>
         </trans-unit>
         <trans-unit id="Config_when_wrong.Text" translate="yes" xml:space="preserve">
           <source>When incorrect</source>
-          <target state="needs-review-translation">When incorrect</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">When incorrect</target>
         </trans-unit>
         <trans-unit id="Config_wrong_a.Content" translate="yes" xml:space="preserve">
           <source>Skip to next set</source>
-          <target state="needs-review-translation">Skip to next set</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Skip to next set</target>
         </trans-unit>
         <trans-unit id="Config_wrong_b.Content" translate="yes" xml:space="preserve">
           <source>Keep guessing</source>
-          <target state="needs-review-translation">Keep guessing</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Keep guessing</target>
         </trans-unit>
         <trans-unit id="Config_wrong_c.Content" translate="yes" xml:space="preserve">
           <source>Restart match</source>
-          <target state="needs-review-translation">Restart match</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Restart match</target>
         </trans-unit>
         <trans-unit id="Config_wrong_hide.Text" translate="yes" xml:space="preserve">
           <source>Obfuscate wrong choice</source>
-          <target state="new">Obfuscate wrong choice</target>
+          <target state="translated">Obfuscate wrong choice</target>
         </trans-unit>
         <trans-unit id="Home_note" translate="yes" xml:space="preserve">
           <source>Memo</source>
-          <target state="needs-review-translation">Memo</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Memo</target>
         </trans-unit>
         <trans-unit id="Home_note_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
-          <target state="new">{0} {1}</target>
+          <target state="translated">{0} {1}</target>
           <note from="MultilingualBuild" annotates="source" priority="2">0 is note count and 1 is collective noun text (Ex: 3 notes , 1 note)</note>
         </trans-unit>
         <trans-unit id="Home_note_prural" translate="yes" xml:space="preserve">
           <source>memos</source>
-          <target state="needs-review-translation">memos</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">memos</target>
         </trans-unit>
         <trans-unit id="Home_note_single" translate="yes" xml:space="preserve">
           <source>memo</source>
-          <target state="needs-review-translation">memo</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">memo</target>
         </trans-unit>
         <trans-unit id="Home_session" translate="yes" xml:space="preserve">
           <source>Saved sessions</source>
-          <target state="needs-review-translation">Saved sessions</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Saved sessions</target>
         </trans-unit>
         <trans-unit id="Home_session_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
-          <target state="new">{0} {1}</target>
+          <target state="translated">{0} {1}</target>
           <note from="MultilingualBuild" annotates="source" priority="2">same as note count</note>
         </trans-unit>
         <trans-unit id="Home_session_no" translate="yes" xml:space="preserve">
           <source>You don't have any saved sessions</source>
-          <target state="needs-review-translation">You don't have any saved sessions</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">You don't have any saved sessions</target>
         </trans-unit>
         <trans-unit id="Home_session_prural" translate="yes" xml:space="preserve">
           <source>sessions</source>
-          <target state="new">sessions</target>
+          <target state="translated">sessions</target>
         </trans-unit>
         <trans-unit id="Home_session_single" translate="yes" xml:space="preserve">
           <source>session</source>
-          <target state="new">session</target>
+          <target state="translated">session</target>
         </trans-unit>
         <trans-unit id="Config_about" translate="yes" xml:space="preserve">
           <source>About &amp; reset</source>
-          <target state="new">About &amp; reset</target>
+          <target state="translated">About &amp; reset</target>
         </trans-unit>
         <trans-unit id="Config_general" translate="yes" xml:space="preserve">
           <source>General settings</source>
-          <target state="new">General settings</target>
+          <target state="translated">General settings</target>
         </trans-unit>
         <trans-unit id="Config_session" translate="yes" xml:space="preserve">
           <source>Session settings</source>
-          <target state="needs-review-translation">Session settings</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Session settings</target>
         </trans-unit>
         <trans-unit id="Config_stat" translate="yes" xml:space="preserve">
           <source>Saved stats</source>
-          <target state="needs-review-translation">Saved stats</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Saved stats</target>
         </trans-unit>
         <trans-unit id="Edit_bold.Text" translate="yes" xml:space="preserve">
           <source>Bold</source>
-          <target state="new">Bold</target>
+          <target state="translated">Bold</target>
         </trans-unit>
         <trans-unit id="Edit_italic.Text" translate="yes" xml:space="preserve">
           <source>Italic</source>
-          <target state="new">Italic</target>
+          <target state="translated">Italic</target>
         </trans-unit>
         <trans-unit id="Edit_load.Text" translate="yes" xml:space="preserve">
           <source>Load</source>
-          <target state="new">Load</target>
+          <target state="translated">Load</target>
         </trans-unit>
         <trans-unit id="Edit_name_empty.Text" translate="yes" xml:space="preserve">
           <source>Name must be supplied</source>
-          <target state="needs-review-translation">Name must be supplied</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Name must be supplied</target>
         </trans-unit>
         <trans-unit id="Edit_name_exist.Text" translate="yes" xml:space="preserve">
           <source>Name has already been used</source>
-          <target state="needs-review-translation">Name has already been used</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Name has already been used</target>
         </trans-unit>
         <trans-unit id="Edit_name_illegal.Text" translate="yes" xml:space="preserve">
           <source>Name can't contain: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</source>
-          <target state="needs-review-translation">Name can't contain: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Name can't contain: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</target>
         </trans-unit>
         <trans-unit id="Edit_new.Text" translate="yes" xml:space="preserve">
           <source>New</source>
-          <target state="new">New</target>
+          <target state="translated">New</target>
         </trans-unit>
         <trans-unit id="Edit_redo.Label" translate="yes" xml:space="preserve">
           <source>Redo</source>
-          <target state="new">Redo</target>
+          <target state="translated">Redo</target>
         </trans-unit>
         <trans-unit id="Edit_save.Text" translate="yes" xml:space="preserve">
           <source>Save</source>
-          <target state="new">Save</target>
+          <target state="translated">Save</target>
         </trans-unit>
         <trans-unit id="Edit_size_a.Text" translate="yes" xml:space="preserve">
           <source>Font size (</source>
-          <target state="needs-review-translation">Font size (</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Font size (</target>
         </trans-unit>
         <trans-unit id="Edit_size_b.Text" translate="yes" xml:space="preserve">
           <source>)</source>
-          <target state="new">)</target>
+          <target state="translated">)</target>
         </trans-unit>
         <trans-unit id="Edit_undo.Label" translate="yes" xml:space="preserve">
           <source>Undo</source>
-          <target state="new">Undo</target>
+          <target state="translated">Undo</target>
         </trans-unit>
         <trans-unit id="Match_calmdown.Text" translate="yes" xml:space="preserve">
           <source>NO NEED TO HURRY!</source>
-          <target state="new">NO NEED TO HURRY!</target>
+          <target state="translated">NO NEED TO HURRY!</target>
         </trans-unit>
         <trans-unit id="Match_choice_1" translate="yes" xml:space="preserve">
           <source>1: </source>
-          <target state="new">1: </target>
+          <target state="translated">1: </target>
         </trans-unit>
         <trans-unit id="Match_choice_2" translate="yes" xml:space="preserve">
           <source>2: </source>
-          <target state="new">2: </target>
+          <target state="translated">2: </target>
         </trans-unit>
         <trans-unit id="Match_choice_3" translate="yes" xml:space="preserve">
           <source>3: </source>
-          <target state="new">3: </target>
+          <target state="translated">3: </target>
         </trans-unit>
         <trans-unit id="Match_choice_4" translate="yes" xml:space="preserve">
           <source>4: </source>
-          <target state="new">4: </target>
+          <target state="translated">4: </target>
         </trans-unit>
         <trans-unit id="Match_choice_5" translate="yes" xml:space="preserve">
           <source>5: </source>
-          <target state="new">5: </target>
+          <target state="translated">5: </target>
         </trans-unit>
         <trans-unit id="Match_continue.Text" translate="yes" xml:space="preserve">
           <source>Continue</source>
-          <target state="new">Continue</target>
+          <target state="translated">Continue</target>
         </trans-unit>
         <trans-unit id="Match_detail_progress.Text" translate="yes" xml:space="preserve">
           <source>Progress: </source>
-          <target state="new">Progress: </target>
+          <target state="translated">Progress: </target>
         </trans-unit>
         <trans-unit id="Match_detail_time.Text" translate="yes" xml:space="preserve">
           <source>Time:</source>
-          <target state="new">Time:</target>
+          <target state="translated">Time:</target>
         </trans-unit>
         <trans-unit id="Match_detail_wrong.Text" translate="yes" xml:space="preserve">
           <source>Wrong:</source>
-          <target state="new">Wrong:</target>
+          <target state="translated">Wrong:</target>
         </trans-unit>
         <trans-unit id="Match_dialog_confirm_content" translate="yes" xml:space="preserve">
           <source>Do you want to leave this session?</source>
-          <target state="new">Do you want to leave this session?</target>
+          <target state="translated">Do you want to leave this session?</target>
         </trans-unit>
         <trans-unit id="Match_dialog_confirm_title" translate="yes" xml:space="preserve">
           <source>Confirm</source>
-          <target state="new">Confirm</target>
+          <target state="translated">Confirm</target>
         </trans-unit>
         <trans-unit id="Match_dialog_no" translate="yes" xml:space="preserve">
           <source>No</source>
-          <target state="new">No</target>
+          <target state="translated">No</target>
         </trans-unit>
         <trans-unit id="Match_dialog_notyet_content" translate="yes" xml:space="preserve">
           <source>Not yet!</source>
-          <target state="new">Not yet!</target>
+          <target state="translated">Not yet!</target>
         </trans-unit>
         <trans-unit id="Match_dialog_ok" translate="yes" xml:space="preserve">
           <source>OK</source>
-          <target state="new">OK</target>
+          <target state="translated">OK</target>
         </trans-unit>
         <trans-unit id="Match_dialog_reset_content" translate="yes" xml:space="preserve">
           <source>You will have to start over agin!</source>
-          <target state="needs-review-translation">You will have to start over agin!</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">You will have to start over agin!</target>
         </trans-unit>
         <trans-unit id="Match_dialog_reset_title" translate="yes" xml:space="preserve">
           <source>Are you sure?</source>
-          <target state="new">Are you sure?</target>
+          <target state="translated">Are you sure?</target>
         </trans-unit>
         <trans-unit id="Match_dialog_timeup_content" translate="yes" xml:space="preserve">
           <source>Hurry up next time</source>
-          <target state="new">Hurry up next time</target>
+          <target state="translated">Hurry up next time</target>
         </trans-unit>
         <trans-unit id="Match_dialog_timeup_title" translate="yes" xml:space="preserve">
           <source>Times up!</source>
-          <target state="new">Times up!</target>
+          <target state="translated">Times up!</target>
         </trans-unit>
         <trans-unit id="Match_dialog_yes" translate="yes" xml:space="preserve">
           <source>Yes</source>
-          <target state="new">Yes</target>
+          <target state="translated">Yes</target>
         </trans-unit>
         <trans-unit id="Match_leave.Text" translate="yes" xml:space="preserve">
           <source>Leave</source>
-          <target state="new">Leave</target>
+          <target state="translated">Leave</target>
         </trans-unit>
         <trans-unit id="Match_restart.Text" translate="yes" xml:space="preserve">
           <source>Restart</source>
-          <target state="new">Restart</target>
+          <target state="translated">Restart</target>
         </trans-unit>
         <trans-unit id="Match_save.Text" translate="yes" xml:space="preserve">
           <source>Save session</source>
-          <target state="new">Save session</target>
+          <target state="translated">Save session</target>
         </trans-unit>
         <trans-unit id="Note_Untitled" translate="yes" xml:space="preserve">
           <source>Untitled</source>
-          <target state="new">Untitled</target>
+          <target state="translated">Untitled</target>
         </trans-unit>
         <trans-unit id="PNote_edit.Label" translate="yes" xml:space="preserve">
           <source>Edit</source>
-          <target state="needs-review-translation">Edit</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Edit</target>
         </trans-unit>
         <trans-unit id="PNote_refresh.Label" translate="yes" xml:space="preserve">
           <source>Refresh</source>
-          <target state="new">Refresh</target>
+          <target state="translated">Refresh</target>
         </trans-unit>
         <trans-unit id="Session_obfuscateChar" translate="yes" xml:space="preserve">
           <source>?</source>
-          <target state="new">?</target>
+          <target state="translated">?</target>
         </trans-unit>
         <trans-unit id="Stat_easy" translate="yes" xml:space="preserve">
           <source>User chose to skip to next set when choosing the wrong choice</source>
-          <target state="needs-review-translation">User chose to skip to next set when choosing the wrong choice</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">User chose to skip to next set when choosing the wrong choice</target>
         </trans-unit>
         <trans-unit id="Stat_hard" translate="yes" xml:space="preserve">
           <source>User choose to restart when choosing the wrong choice</source>
-          <target state="needs-review-translation">User choose to restart when choosing the wrong choice</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">User choose to restart when choosing the wrong choice</target>
         </trans-unit>
         <trans-unit id="Stat_normal" translate="yes" xml:space="preserve">
           <source>User chose to keep guessing until correct</source>
-          <target state="needs-review-translation">User chose to keep guessing until correct</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">User chose to keep guessing until correct</target>
         </trans-unit>
         <trans-unit id="Stat_unknow" translate="yes" xml:space="preserve">
           <source>Undefined mode</source>
@@ -499,207 +460,209 @@
         </trans-unit>
         <trans-unit id="End_Notice.Text" translate="yes" xml:space="preserve">
           <source>You can view these stats later in settings if you save it</source>
-          <target state="needs-review-translation">You can view these stats later in settings if you save it</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">You can view these stats later in settings if you save it</target>
         </trans-unit>
         <trans-unit id="Prenote_LoadExtension.Text" translate="yes" xml:space="preserve">
           <source>Deploying memos
 from extension</source>
-          <target state="needs-review-translation">Deploying memos
+          <target state="translated">Deploying memos
 from extension</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
           <source>Uninstall</source>
-          <target state="new">Uninstall</target>
+          <target state="translated">Uninstall</target>
         </trans-unit>
         <trans-unit id="Config_extension" translate="yes" xml:space="preserve">
           <source>Extensions</source>
-          <target state="new">Extensions</target>
+          <target state="translated">Extensions</target>
         </trans-unit>
         <trans-unit id="Config_stat_selectNcorrect.Text" translate="yes" xml:space="preserve">
           <source>Selected and correct choice</source>
-          <target state="new">Selected and correct choice</target>
+          <target state="translated">Selected and correct choice</target>
         </trans-unit>
         <trans-unit id="Stat_Minute" translate="yes" xml:space="preserve">
           <source>minute</source>
-          <target state="new">minute</target>
+          <target state="translated">minute</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Minute as a single</note>
         </trans-unit>
         <trans-unit id="Stat_Minutes" translate="yes" xml:space="preserve">
           <source>minutes</source>
-          <target state="new">minutes</target>
+          <target state="translated">minutes</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Minute as a prural</note>
         </trans-unit>
         <trans-unit id="Stat_Second" translate="yes" xml:space="preserve">
           <source>second</source>
-          <target state="new">second</target>
+          <target state="translated">second</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Second as a single</note>
         </trans-unit>
         <trans-unit id="Stat_Seconds" translate="yes" xml:space="preserve">
           <source>seconds</source>
-          <target state="new">seconds</target>
+          <target state="translated">seconds</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Second as a prural</note>
         </trans-unit>
         <trans-unit id="Dialog_Not_long_enough_editor" translate="yes" xml:space="preserve">
           <source>Sorry! This memo is not long enough.
 Please write it little longer?</source>
-          <target state="new">Sorry! This memo is not long enough.
+          <target state="translated">Sorry! This memo is not long enough.
 Please write it little longer?</target>
         </trans-unit>
         <trans-unit id="Dialog_Not_long_enough_main" translate="yes" xml:space="preserve">
           <source>Sorry! This memo is not long enough,
 please choose other memo</source>
-          <target state="new">Sorry! This memo is not long enough,
+          <target state="translated">Sorry! This memo is not long enough,
 please choose other memo</target>
         </trans-unit>
         <trans-unit id="Dialog_pleasewait_extracting" translate="yes" xml:space="preserve">
           <source>Please stay until we're complete extracting memo from extension</source>
-          <target state="new">Please stay until we're complete extracting memo from extension</target>
+          <target state="translated">Please stay until we're complete extracting memo from extension</target>
         </trans-unit>
         <trans-unit id="Config_Info_Apply.Text" translate="yes" xml:space="preserve">
           <source>This option apply to:</source>
-          <target state="new">This option apply to:</target>
+          <target state="translated">This option apply to:</target>
         </trans-unit>
         <trans-unit id="Config_Info_Apply_Dic.Text" translate="yes" xml:space="preserve">
           <source>Dictionary</source>
-          <target state="new">Dictionary</target>
+          <target state="translated">Dictionary</target>
         </trans-unit>
         <trans-unit id="Config_Info_Apply_Dic_Desc.Text" translate="yes" xml:space="preserve">
           <source>If note define with MODE=VOLC this option apply on that mode</source>
-          <target state="new">If note define with MODE=VOLC this option apply on that mode</target>
+          <target state="translated">If note define with MODE=VOLC this option apply on that mode</target>
         </trans-unit>
         <trans-unit id="Config_Info_Apply_QA.Text" translate="yes" xml:space="preserve">
           <source>Q &amp; A</source>
-          <target state="new">Q &amp; A</target>
+          <target state="translated">Q &amp; A</target>
         </trans-unit>
         <trans-unit id="Config_Info_Apply_QA_Desc.Text" translate="yes" xml:space="preserve">
           <source>If note define with MODE=EXAM this option apply on that mode</source>
-          <target state="new">If note define with MODE=EXAM this option apply on that mode</target>
+          <target state="translated">If note define with MODE=EXAM this option apply on that mode</target>
         </trans-unit>
         <trans-unit id="Config_RandomQA.Text" translate="yes" xml:space="preserve">
           <source>Randomize question &amp; answer</source>
-          <target state="new">Randomize question &amp; answer</target>
+          <target state="translated">Randomize question &amp; answer</target>
         </trans-unit>
         <trans-unit id="Config_Rand_a.Content" translate="yes" xml:space="preserve">
           <source>No randomize</source>
-          <target state="new">No randomize</target>
+          <target state="translated">No randomize</target>
         </trans-unit>
         <trans-unit id="Config_Rand_b.Content" translate="yes" xml:space="preserve">
           <source>Randomize question order</source>
-          <target state="new">Randomize question order</target>
+          <target state="translated">Randomize question order</target>
         </trans-unit>
         <trans-unit id="Config_Rand_c.Content" translate="yes" xml:space="preserve">
           <source>Randomize question &amp; answer order</source>
-          <target state="new">Randomize question &amp; answer order</target>
+          <target state="translated">Randomize question &amp; answer order</target>
         </trans-unit>
         <trans-unit id="Config_ShowAd.Text" translate="yes" xml:space="preserve">
           <source>Show ads</source>
-          <target state="new">Show ads</target>
+          <target state="translated">Show ads</target>
         </trans-unit>
         <trans-unit id="Config_ShowAd_Desc.Text" translate="yes" xml:space="preserve">
           <source>You can turn this off, no need to pay anything.</source>
-          <target state="new">You can turn this off, no need to pay anything.</target>
+          <target state="translated">You can turn this off, no need to pay anything.</target>
         </trans-unit>
         <trans-unit id="Config_about_header.Text" translate="yes" xml:space="preserve">
           <source>About</source>
-          <target state="new">About</target>
+          <target state="translated">About</target>
         </trans-unit>
         <trans-unit id="Config_beta_tester.Text" translate="yes" xml:space="preserve">
           <source>Beta testing:</source>
-          <target state="new">Beta testing:</target>
+          <target state="translated">Beta testing:</target>
         </trans-unit>
         <trans-unit id="Config_eng_translate.Text" translate="yes" xml:space="preserve">
           <source>English translate by:</source>
-          <target state="new">English translate by:</target>
+          <target state="translated">English translate by:</target>
         </trans-unit>
         <trans-unit id="Home_edit_with.Text" translate="yes" xml:space="preserve">
           <source>Edit with</source>
-          <target state="new">Edit with</target>
+          <target state="translated">Edit with</target>
         </trans-unit>
         <trans-unit id="Home_edit_with_cancel.Text" translate="yes" xml:space="preserve">
           <source>Cancel</source>
-          <target state="new">Cancel</target>
+          <target state="translated">Cancel</target>
         </trans-unit>
         <trans-unit id="Home_edit_with_memoedit.Text" translate="yes" xml:space="preserve">
           <source>Memo editor</source>
-          <target state="new">Memo editor</target>
+          <target state="translated">Memo editor</target>
         </trans-unit>
         <trans-unit id="Home_edit_with_questdesi.Text" translate="yes" xml:space="preserve">
           <source>Question editor</source>
-          <target state="new">Question editor</target>
+          <target state="translated">Question editor</target>
         </trans-unit>
         <trans-unit id="QD_answer_pos.Text" translate="yes" xml:space="preserve">
           <source>Answer position</source>
-          <target state="new">Answer position</target>
+          <target state="translated">Answer position</target>
         </trans-unit>
         <trans-unit id="QD_behind_question.Content" translate="yes" xml:space="preserve">
           <source>Behind question</source>
-          <target state="new">Behind question</target>
+          <target state="translated">Behind question</target>
         </trans-unit>
         <trans-unit id="QD_bottom_memo.Content" translate="yes" xml:space="preserve">
           <source>Bottom of memo</source>
-          <target state="new">Bottom of memo</target>
+          <target state="translated">Bottom of memo</target>
         </trans-unit>
         <trans-unit id="QD_custom_header.Text" translate="yes" xml:space="preserve">
           <source>Custom question header</source>
-          <target state="new">Custom question header</target>
+          <target state="translated">Custom question header</target>
         </trans-unit>
         <trans-unit id="QD_example.Text" translate="yes" xml:space="preserve">
           <source>Example:</source>
-          <target state="new">Example:</target>
+          <target state="translated">Example:</target>
         </trans-unit>
         <trans-unit id="QD_send_away.Label" translate="yes" xml:space="preserve">
           <source>Send to Memo editor</source>
-          <target state="new">Send to Memo editor</target>
+          <target state="translated">Send to Memo editor</target>
         </trans-unit>
         <trans-unit id="QD_separator.Text" translate="yes" xml:space="preserve">
           <source>Separate answer and number</source>
-          <target state="new">Separate answer and number</target>
+          <target state="translated">Separate answer and number</target>
         </trans-unit>
         <trans-unit id="QD_separator_bracket.Content" translate="yes" xml:space="preserve">
           <source>Separate with ")"</source>
-          <target state="new">Separate with ")"</target>
+          <target state="translated">Separate with ")"</target>
         </trans-unit>
         <trans-unit id="QD_separator_dot.Content" translate="yes" xml:space="preserve">
           <source>Separate with "."</source>
-          <target state="new">Separate with "."</target>
+          <target state="translated">Separate with "."</target>
         </trans-unit>
         <trans-unit id="QD_setting.Label" translate="yes" xml:space="preserve">
           <source>Settings</source>
-          <target state="new">Settings</target>
+          <target state="translated">Settings</target>
         </trans-unit>
         <trans-unit id="QD_setting_page.Text" translate="yes" xml:space="preserve">
           <source>Settings</source>
-          <target state="new">Settings</target>
+          <target state="translated">Settings</target>
         </trans-unit>
         <trans-unit id="QD_use_space.Text" translate="yes" xml:space="preserve">
           <source>Space after separate symbol</source>
-          <target state="new">Space after separate symbol</target>
+          <target state="translated">Space after separate symbol</target>
         </trans-unit>
         <trans-unit id="QE_Question" translate="yes" xml:space="preserve">
           <source>Question</source>
-          <target state="new">Question</target>
+          <target state="translated">Question</target>
         </trans-unit>
         <trans-unit id="QE_Questions" translate="yes" xml:space="preserve">
           <source>Questions</source>
-          <target state="new">Questions</target>
+          <target state="translated">Questions</target>
         </trans-unit>
         <trans-unit id="QuestionDesign_Close" translate="yes" xml:space="preserve">
           <source>Close</source>
-          <target state="new">Close</target>
+          <target state="translated">Close</target>
         </trans-unit>
         <trans-unit id="QD_use_space_yes.Content" translate="yes" xml:space="preserve">
           <source>Yes</source>
-          <target state="new">Yes</target>
+          <target state="translated">Yes</target>
         </trans-unit>
         <trans-unit id="PN_CantExt" translate="yes" xml:space="preserve">
           <source>Unable to generate content from memo, please try other memo</source>
-          <target state="new">Unable to generate content from memo, please try other memo</target>
+          <target state="translated">Unable to generate content from memo, please try other memo</target>
         </trans-unit>
         <trans-unit id="Config_Reverse_Dictionary.Text" translate="yes" xml:space="preserve">
           <source>Reverse dictionary tranlation</source>
-          <target state="new">Reverse dictionary tranlation</target>
+          <target state="translated">Reverse dictionary tranlation</target>
+        </trans-unit>
+        <trans-unit id="Home_prenoteMenu2.Text" translate="yes" xml:space="preserve">
+          <source>Bundled memos</source>
+          <target state="translated">Bundled memos</target>
         </trans-unit>
       </group>
     </body>

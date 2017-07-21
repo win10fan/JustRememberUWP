@@ -12,40 +12,35 @@
         </trans-unit>
         <trans-unit id="Home_delete.Label" translate="yes" xml:space="preserve">
           <source>Delete</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ลบ</target>
+          <target state="translated" state-qualifier="tm-suggestion">ลบ</target>
         </trans-unit>
         <trans-unit id="Home_deselect.Label" translate="yes" xml:space="preserve">
           <source>Unselect</source>
-          <target state="needs-review-translation">ไม่เลือก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ไม่เลือก</target>
         </trans-unit>
         <trans-unit id="Home_edit.Label" translate="yes" xml:space="preserve">
           <source>Edit</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">แก้ไข</target>
+          <target state="translated" state-qualifier="tm-suggestion">แก้ไข</target>
         </trans-unit>
         <trans-unit id="Home_import.Label" translate="yes" xml:space="preserve">
           <source>Import</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">นำเข้า</target>
+          <target state="translated" state-qualifier="tm-suggestion">นำเข้า</target>
         </trans-unit>
         <trans-unit id="Home_NoNote1.Text" translate="yes" xml:space="preserve">
           <source>You don't have any memos</source>
-          <target state="needs-review-translation">ไม่พบชีทที่บันทึกไว้</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ไม่พบชีทที่บันทึกไว้</target>
         </trans-unit>
         <trans-unit id="Home_NoNote2.Text" translate="yes" xml:space="preserve">
           <source>You can add a memo by selecting Add </source>
-          <target state="needs-review-translation">สามารถเพิ่มชีทได้ โดยเขียนชีทใหม่</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">สามารถเพิ่มชีทได้ โดยเขียนชีทใหม่</target>
         </trans-unit>
         <trans-unit id="Home_NoNote3.Text" translate="yes" xml:space="preserve">
           <source>Or import a text file</source>
-          <target state="needs-review-translation">หรือนำเข้าไฟล์ข้อความ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">หรือนำเข้าไฟล์ข้อความ</target>
         </trans-unit>
         <trans-unit id="Home_NoNote4.Text" translate="yes" xml:space="preserve">
           <source>By using the menu below</source>
-          <target state="needs-review-translation">โดยคลิกเมนูด้านล่าง</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">โดยคลิกเมนูด้านล่าง</target>
         </trans-unit>
         <trans-unit id="Home_open.Label" translate="yes" xml:space="preserve">
           <source>Open</source>
@@ -53,12 +48,11 @@
         </trans-unit>
         <trans-unit id="Home_prenoteMenu.Label" translate="yes" xml:space="preserve">
           <source>Bundled memos</source>
-          <target state="needs-review-translation">ชีทที่มีอยู่</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ชีทที่มีอยู่</target>
         </trans-unit>
         <trans-unit id="Home_reload.Label" translate="yes" xml:space="preserve">
           <source>Reload</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">โหลดใหม่</target>
+          <target state="translated" state-qualifier="tm-suggestion">โหลดใหม่</target>
         </trans-unit>
         <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
           <source>Develop by:</source>
@@ -66,8 +60,7 @@
         </trans-unit>
         <trans-unit id="Config_autoscroll.Text" translate="yes" xml:space="preserve">
           <source>Enable text auto scroll</source>
-          <target state="needs-review-translation">เลื่อนข้อความอัตโนมัติ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">เลื่อนข้อความอัตโนมัติ</target>
         </trans-unit>
         <trans-unit id="Config_c1a.Text" translate="yes" xml:space="preserve">
           <source>1</source>
@@ -76,8 +69,7 @@
         </trans-unit>
         <trans-unit id="Config_c1b.Text" translate="yes" xml:space="preserve">
           <source>first</source>
-          <target state="needs-review-translation">ก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ก</target>
         </trans-unit>
         <trans-unit id="Config_c2a.Text" translate="yes" xml:space="preserve">
           <source>2</source>
@@ -85,8 +77,7 @@
         </trans-unit>
         <trans-unit id="Config_c2b.Text" translate="yes" xml:space="preserve">
           <source>second</source>
-          <target state="needs-review-translation">ฟ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ฟ</target>
         </trans-unit>
         <trans-unit id="Config_c3a.Text" translate="yes" xml:space="preserve">
           <source>3</source>
@@ -94,28 +85,23 @@
         </trans-unit>
         <trans-unit id="Config_c3b.Text" translate="yes" xml:space="preserve">
           <source>third</source>
-          <target state="needs-review-translation">ฆ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ฆ</target>
         </trans-unit>
         <trans-unit id="Config_choicelook.Text" translate="yes" xml:space="preserve">
           <source>Choose style</source>
-          <target state="needs-review-translation">รูปแบบ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">รูปแบบ</target>
         </trans-unit>
         <trans-unit id="Config_choices.Text" translate="yes" xml:space="preserve">
           <source>Number of choices</source>
-          <target state="needs-review-translation">จำนวนข้อ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">จำนวนข้อ</target>
         </trans-unit>
         <trans-unit id="Config_delall" translate="yes" xml:space="preserve">
           <source>Clear progress</source>
-          <target state="needs-review-translation">ลบสถิติ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ลบสถิติ</target>
         </trans-unit>
         <trans-unit id="Config_end.Text" translate="yes" xml:space="preserve">
           <source>After completion</source>
-          <target state="needs-review-translation">เมื่อหมดตัวเลือก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">เมื่อหมดตัวเลือก</target>
         </trans-unit>
         <trans-unit id="Config_end_a.Content" translate="yes" xml:space="preserve">
           <source>Go to summary page</source>
@@ -123,7 +109,7 @@
         </trans-unit>
         <trans-unit id="Config_end_and.Text" translate="yes" xml:space="preserve">
           <source>And...</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">และ</target>
+          <target state="translated" state-qualifier="tm-suggestion">และ</target>
         </trans-unit>
         <trans-unit id="Config_end_b.Content" translate="yes" xml:space="preserve">
           <source>Restart match</source>
@@ -139,32 +125,27 @@
         </trans-unit>
         <trans-unit id="Config_hint.Text" translate="yes" xml:space="preserve">
           <source>Show hint on start</source>
-          <target state="needs-review-translation">บอกใบ้ข้อแรก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">บอกใบ้ข้อแรก</target>
         </trans-unit>
         <trans-unit id="Config_language.Text" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ภาษา</target>
+          <target state="translated" state-qualifier="tm-suggestion">ภาษา</target>
         </trans-unit>
         <trans-unit id="Config_reset_a.Content" translate="yes" xml:space="preserve">
           <source>Restore default settings</source>
-          <target state="needs-review-translation">รีเซทตั้งค่า</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">รีเซทตั้งค่า</target>
         </trans-unit>
         <trans-unit id="Config_reset_b.Content" translate="yes" xml:space="preserve">
           <source>Clear stats</source>
-          <target state="needs-review-translation">ล้างสถิติ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ล้างสถิติ</target>
         </trans-unit>
         <trans-unit id="Config_reset_c.Content" translate="yes" xml:space="preserve">
           <source>Clear sessions</source>
-          <target state="needs-review-translation">ลบบันทึกทั้งหมด</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ลบบันทึกทั้งหมด</target>
         </trans-unit>
         <trans-unit id="Config_reset_d.Content" translate="yes" xml:space="preserve">
           <source>Clear all notes</source>
-          <target state="needs-review-translation">ลบชีทที่มีอยู่</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ลบชีทที่มีอยู่</target>
         </trans-unit>
         <trans-unit id="Config_reset_e.Content" translate="yes" xml:space="preserve">
           <source>Reset everything</source>
@@ -172,13 +153,11 @@
         </trans-unit>
         <trans-unit id="Config_saveall" translate="yes" xml:space="preserve">
           <source>Save stats</source>
-          <target state="needs-review-translation">บันทึกสถิติ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">บันทึกสถิติ</target>
         </trans-unit>
         <trans-unit id="Config_stat_corrected.Text" translate="yes" xml:space="preserve">
           <source>Correct choice</source>
-          <target state="needs-review-translation">ตัวเลือกที่ถูก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ตัวเลือกที่ถูก</target>
         </trans-unit>
         <trans-unit id="Config_stat_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
@@ -187,8 +166,7 @@
         </trans-unit>
         <trans-unit id="Config_stat_no" translate="yes" xml:space="preserve">
           <source>No stats saved yet</source>
-          <target state="needs-review-translation">ไม่มีสถิติบันทึกไว้</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ไม่มีสถิติบันทึกไว้</target>
         </trans-unit>
         <trans-unit id="Config_stat_prural" translate="yes" xml:space="preserve">
           <source>stats</source>
@@ -212,11 +190,11 @@
         </trans-unit>
         <trans-unit id="Config_stat_time_b.Text" translate="yes" xml:space="preserve">
           <source>with</source>
-          <target state="translated">ด้วย</target>
+          <target state="translated">ด้วยเวลา</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_c.Text" translate="yes" xml:space="preserve">
           <source>left before</source>
-          <target state="translated">ก่อนหมดหมดเวลาใน</target>
+          <target state="translated">ที่เหลืออยู่ ก่อนหมดเวลา</target>
         </trans-unit>
         <trans-unit id="Config_stat_time_d.Text" translate="yes" xml:space="preserve">
           <source>limit</source>
@@ -236,23 +214,19 @@
         </trans-unit>
         <trans-unit id="Config_when_wrong.Text" translate="yes" xml:space="preserve">
           <source>When incorrect</source>
-          <target state="needs-review-translation">เมื่อเลือกข้อผิด</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">เมื่อเลือกข้อผิด</target>
         </trans-unit>
         <trans-unit id="Config_wrong_a.Content" translate="yes" xml:space="preserve">
           <source>Skip to next set</source>
-          <target state="needs-review-translation">ลัดไปข้อถัดไป</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ลัดไปข้อถัดไป</target>
         </trans-unit>
         <trans-unit id="Config_wrong_b.Content" translate="yes" xml:space="preserve">
           <source>Keep guessing</source>
-          <target state="needs-review-translation">อยู่ข้อเดิมจนกว่าจะถูก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">อยู่ข้อเดิมจนกว่าจะถูก</target>
         </trans-unit>
         <trans-unit id="Config_wrong_c.Content" translate="yes" xml:space="preserve">
           <source>Restart match</source>
-          <target state="needs-review-translation">เริ่มใหม่</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">เริ่มใหม่</target>
         </trans-unit>
         <trans-unit id="Config_wrong_hide.Text" translate="yes" xml:space="preserve">
           <source>Obfuscate wrong choice</source>
@@ -260,8 +234,7 @@
         </trans-unit>
         <trans-unit id="Home_note" translate="yes" xml:space="preserve">
           <source>Memo</source>
-          <target state="needs-review-translation">ชีท</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ชีท</target>
         </trans-unit>
         <trans-unit id="Home_note_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
@@ -270,18 +243,15 @@
         </trans-unit>
         <trans-unit id="Home_note_prural" translate="yes" xml:space="preserve">
           <source>memos</source>
-          <target state="needs-review-translation">ชีท</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ชีท</target>
         </trans-unit>
         <trans-unit id="Home_note_single" translate="yes" xml:space="preserve">
           <source>memo</source>
-          <target state="needs-review-translation">ชีท</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ชีท</target>
         </trans-unit>
         <trans-unit id="Home_session" translate="yes" xml:space="preserve">
           <source>Saved sessions</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">เซสชัน</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated" state-qualifier="tm-suggestion">เซสชัน</target>
         </trans-unit>
         <trans-unit id="Home_session_count_format" translate="yes" xml:space="preserve">
           <source>{0} {1}</source>
@@ -290,8 +260,7 @@
         </trans-unit>
         <trans-unit id="Home_session_no" translate="yes" xml:space="preserve">
           <source>You don't have any saved sessions</source>
-          <target state="needs-review-translation">คุณไม่มีเซฟ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">คุณไม่มีเซฟ</target>
         </trans-unit>
         <trans-unit id="Home_session_prural" translate="yes" xml:space="preserve">
           <source>sessions</source>
@@ -299,7 +268,7 @@
         </trans-unit>
         <trans-unit id="Home_session_single" translate="yes" xml:space="preserve">
           <source>session</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">เซสชัน</target>
+          <target state="translated" state-qualifier="tm-suggestion">เซสชัน</target>
         </trans-unit>
         <trans-unit id="Config_about" translate="yes" xml:space="preserve">
           <source>About &amp; reset</source>
@@ -307,61 +276,55 @@
         </trans-unit>
         <trans-unit id="Config_general" translate="yes" xml:space="preserve">
           <source>General settings</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">การตั้งค่าทั่วไป:</target>
+          <target state="translated" state-qualifier="tm-suggestion">การตั้งค่าทั่วไป:</target>
         </trans-unit>
         <trans-unit id="Config_session" translate="yes" xml:space="preserve">
           <source>Session settings</source>
-          <target state="needs-review-translation">บันทึก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">บันทึก</target>
         </trans-unit>
         <trans-unit id="Config_stat" translate="yes" xml:space="preserve">
           <source>Saved stats</source>
-          <target state="needs-review-translation">สถิติ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">สถิติ</target>
         </trans-unit>
         <trans-unit id="Edit_bold.Text" translate="yes" xml:space="preserve">
           <source>Bold</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ตัวหนา</target>
+          <target state="translated" state-qualifier="tm-suggestion">ตัวหนา</target>
         </trans-unit>
         <trans-unit id="Edit_italic.Text" translate="yes" xml:space="preserve">
           <source>Italic</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ตัวเอียง</target>
+          <target state="translated" state-qualifier="tm-suggestion">ตัวเอียง</target>
         </trans-unit>
         <trans-unit id="Edit_load.Text" translate="yes" xml:space="preserve">
           <source>Load</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">โหลด</target>
+          <target state="translated" state-qualifier="tm-suggestion">โหลด</target>
         </trans-unit>
         <trans-unit id="Edit_name_empty.Text" translate="yes" xml:space="preserve">
           <source>Name must be supplied</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ชื่อต้องไม่เว้นว่างไว้</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated" state-qualifier="tm-suggestion">ชื่อต้องไม่เว้นว่างไว้</target>
         </trans-unit>
         <trans-unit id="Edit_name_exist.Text" translate="yes" xml:space="preserve">
           <source>Name has already been used</source>
-          <target state="needs-review-translation">ชื่อนี้มีแล้ว</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ชื่อนี้มีแล้ว</target>
         </trans-unit>
         <trans-unit id="Edit_name_illegal.Text" translate="yes" xml:space="preserve">
           <source>Name can't contain: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</source>
-          <target state="needs-review-translation">ห้ามใส่อักษรเหล่านี้ในชื่อ: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ห้ามใส่อักษรเหล่านี้ในชื่อ: \ / : * ? " <it id="1" pos="open">&lt; &gt;</it> |</target>
         </trans-unit>
         <trans-unit id="Edit_new.Text" translate="yes" xml:space="preserve">
           <source>New</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">สร้าง</target>
+          <target state="translated" state-qualifier="tm-suggestion">สร้าง</target>
         </trans-unit>
         <trans-unit id="Edit_redo.Label" translate="yes" xml:space="preserve">
           <source>Redo</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ทําซ้ำ</target>
+          <target state="translated" state-qualifier="tm-suggestion">ทําซ้ำ</target>
         </trans-unit>
         <trans-unit id="Edit_save.Text" translate="yes" xml:space="preserve">
           <source>Save</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">บันทึก</target>
+          <target state="translated" state-qualifier="tm-suggestion">บันทึก</target>
         </trans-unit>
         <trans-unit id="Edit_size_a.Text" translate="yes" xml:space="preserve">
           <source>Font size (</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ขนาด</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ขนาด (</target>
         </trans-unit>
         <trans-unit id="Edit_size_b.Text" translate="yes" xml:space="preserve">
           <source>)</source>
@@ -398,15 +361,15 @@
         </trans-unit>
         <trans-unit id="Match_continue.Text" translate="yes" xml:space="preserve">
           <source>Continue</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ดำเนินการต่อ</target>
+          <target state="translated" state-qualifier="tm-suggestion">ดำเนินการต่อ</target>
         </trans-unit>
         <trans-unit id="Match_detail_progress.Text" translate="yes" xml:space="preserve">
           <source>Progress: </source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ความคืบหน้า</target>
+          <target state="translated" state-qualifier="tm-suggestion">ความคืบหน้า</target>
         </trans-unit>
         <trans-unit id="Match_detail_time.Text" translate="yes" xml:space="preserve">
           <source>Time:</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">เวลา</target>
+          <target state="translated" state-qualifier="tm-suggestion">เวลา</target>
         </trans-unit>
         <trans-unit id="Match_detail_wrong.Text" translate="yes" xml:space="preserve">
           <source>Wrong:</source>
@@ -418,11 +381,11 @@
         </trans-unit>
         <trans-unit id="Match_dialog_confirm_title" translate="yes" xml:space="preserve">
           <source>Confirm</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ยืนยัน</target>
+          <target state="translated" state-qualifier="tm-suggestion">ยืนยัน</target>
         </trans-unit>
         <trans-unit id="Match_dialog_no" translate="yes" xml:space="preserve">
           <source>No</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ไม่ใช่</target>
+          <target state="translated" state-qualifier="tm-suggestion">ไม่ใช่</target>
         </trans-unit>
         <trans-unit id="Match_dialog_notyet_content" translate="yes" xml:space="preserve">
           <source>Not yet!</source>
@@ -430,16 +393,15 @@
         </trans-unit>
         <trans-unit id="Match_dialog_ok" translate="yes" xml:space="preserve">
           <source>OK</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ตกลง</target>
+          <target state="translated" state-qualifier="tm-suggestion">ตกลง</target>
         </trans-unit>
         <trans-unit id="Match_dialog_reset_content" translate="yes" xml:space="preserve">
           <source>You will have to start over agin!</source>
-          <target state="needs-review-translation">แน่ใจแล้วใช่ไหมว่าจะเริ่มใหม่?</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">แน่ใจแล้วใช่ไหมว่าจะเริ่มใหม่?</target>
         </trans-unit>
         <trans-unit id="Match_dialog_reset_title" translate="yes" xml:space="preserve">
           <source>Are you sure?</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">คุณแน่ใจหรือไม่</target>
+          <target state="translated" state-qualifier="tm-suggestion">คุณแน่ใจหรือไม่</target>
         </trans-unit>
         <trans-unit id="Match_dialog_timeup_content" translate="yes" xml:space="preserve">
           <source>Hurry up next time</source>
@@ -451,15 +413,15 @@
         </trans-unit>
         <trans-unit id="Match_dialog_yes" translate="yes" xml:space="preserve">
           <source>Yes</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ใช่</target>
+          <target state="translated" state-qualifier="tm-suggestion">ใช่</target>
         </trans-unit>
         <trans-unit id="Match_leave.Text" translate="yes" xml:space="preserve">
           <source>Leave</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ออก</target>
+          <target state="translated" state-qualifier="tm-suggestion">ออก</target>
         </trans-unit>
         <trans-unit id="Match_restart.Text" translate="yes" xml:space="preserve">
           <source>Restart</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">เริ่มใหม่</target>
+          <target state="translated" state-qualifier="tm-suggestion">เริ่มใหม่</target>
         </trans-unit>
         <trans-unit id="Match_save.Text" translate="yes" xml:space="preserve">
           <source>Save session</source>
@@ -467,16 +429,15 @@
         </trans-unit>
         <trans-unit id="Note_Untitled" translate="yes" xml:space="preserve">
           <source>Untitled</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">ไม่มีชื่อ</target>
+          <target state="translated" state-qualifier="tm-suggestion">ไม่มีชื่อ</target>
         </trans-unit>
         <trans-unit id="PNote_edit.Label" translate="yes" xml:space="preserve">
           <source>Edit</source>
-          <target state="needs-review-translation">คัดลอกและแก้ไข</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">คัดลอกและแก้ไข</target>
         </trans-unit>
         <trans-unit id="PNote_refresh.Label" translate="yes" xml:space="preserve">
           <source>Refresh</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">รีเฟรช</target>
+          <target state="translated" state-qualifier="tm-suggestion">รีเฟรช</target>
         </trans-unit>
         <trans-unit id="Session_obfuscateChar" translate="yes" xml:space="preserve">
           <source>?</source>
@@ -484,18 +445,15 @@
         </trans-unit>
         <trans-unit id="Stat_easy" translate="yes" xml:space="preserve">
           <source>User chose to skip to next set when choosing the wrong choice</source>
-          <target state="needs-review-translation">ลัดไปข้อถัดไป เมื่อตอบผิด</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">ลัดไปข้อถัดไป เมื่อตอบผิด</target>
         </trans-unit>
         <trans-unit id="Stat_hard" translate="yes" xml:space="preserve">
           <source>User choose to restart when choosing the wrong choice</source>
-          <target state="needs-review-translation">เมื่อเลือกข้อผิด เริ่มใหม่</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">เมื่อเลือกข้อผิด เริ่มใหม่</target>
         </trans-unit>
         <trans-unit id="Stat_normal" translate="yes" xml:space="preserve">
           <source>User chose to keep guessing until correct</source>
-          <target state="needs-review-translation">อยู่ข้อเดิม จนกว่าจะตอบถูก</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">อยู่ข้อเดิม จนกว่าจะตอบถูก</target>
         </trans-unit>
         <trans-unit id="Stat_unknow" translate="yes" xml:space="preserve">
           <source>Undefined mode</source>
@@ -503,15 +461,13 @@
         </trans-unit>
         <trans-unit id="End_Notice.Text" translate="yes" xml:space="preserve">
           <source>You can view these stats later in settings if you save it</source>
-          <target state="needs-review-translation">คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">คุณสามารถดูสถิติตนี้ได้อีกครั้งในการตั้งค่า, ถ้าคุณบันทึกสถิตินี้ไว้</target>
         </trans-unit>
         <trans-unit id="Prenote_LoadExtension.Text" translate="yes" xml:space="preserve">
           <source>Deploying memos
 from extension</source>
-          <target state="needs-review-translation">กำลังคัดลอกชีท
+          <target state="translated">กำลังคัดลอกชีท
 จากส่วนขยายอื่น</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Config_Ext_Uninstall.Text" translate="yes" xml:space="preserve">
           <source>Uninstall</source>
@@ -703,7 +659,11 @@ please choose other memo</source>
         </trans-unit>
         <trans-unit id="Config_Reverse_Dictionary.Text" translate="yes" xml:space="preserve">
           <source>Reverse dictionary tranlation</source>
-          <target state="new">Reverse dictionary tranlation</target>
+          <target state="translated">Reverse dictionary tranlation</target>
+        </trans-unit>
+        <trans-unit id="Home_prenoteMenu2.Text" translate="yes" xml:space="preserve">
+          <source>Bundled memos</source>
+          <target state="translated">Bundled memos</target>
         </trans-unit>
       </group>
     </body>

@@ -8,9 +8,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -338,7 +340,11 @@ namespace JustRemember.ViewModels
 			StorageFile file = await openPicker.PickSingleFileAsync();
 			if (file != null)
 			{
-				string content = await FileIO.ReadTextAsync(file);
+				IBuffer buffer = await FileIO.ReadBufferAsync(file);
+				DataReader reader = DataReader.FromBuffer(buffer);
+				byte[] fileContent = new byte[reader.UnconsumedBufferLength];
+				reader.ReadBytes(fileContent);
+				string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
 				view.MainEditBox.Document.SetText(Windows.UI.Text.TextSetOptions.UnicodeBidi, content);
 			}
 		}

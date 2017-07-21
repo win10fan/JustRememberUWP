@@ -3,6 +3,7 @@ using JustRemember.Services;
 using JustRemember.ViewModels;
 using System.Diagnostics;
 using System.Linq;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -21,8 +22,11 @@ namespace JustRemember.Views
 		public static SessionModel transfer;
 		public Match()
 		{
+			initialized = false;
 			dbg = App.Config.showDebugging ? Visibility.Visible : Visibility.Collapsed;
 			this.InitializeComponent();
+			scSize = ApplicationView.GetForCurrentView().VisibleBounds.Width;
+			ApplicationView.GetForCurrentView().VisibleBoundsChanged += Match_VisibleBoundsChanged;
 			this.KeyDown += Match_KeyDown;
 #if DEBUG
 #else
@@ -30,20 +34,22 @@ namespace JustRemember.Views
 #endif
 		}
 
-		string mode = "M";
-		public string modeDetection
+		double scc = 600;
+		public double scSize
 		{
-			get => mode;
-			set
-			{
-				mode = value;
-				if (ViewModel.isPausing)
-				{
-					ViewModel.UnPauseFunc.Execute(null);
-				}
-			}
+			get => scc;
+			set => scc = value;
 		}
 
+		private void Match_VisibleBoundsChanged(ApplicationView sender, object args)
+		{
+			scSize = sender.VisibleBounds.Width;
+			if (ViewModel.isPausing && initialized)
+			{
+				ViewModel.UnPauseFunc.Execute(null);
+			}
+		}
+		
 		private void Match_KeyDown(object sender, KeyRoutedEventArgs e)
 		{
 			if (App.Config.choiceStyle != choiceDisplayMode.Write && !ViewModel.isPausing)
@@ -61,6 +67,7 @@ namespace JustRemember.Views
 			}
 		}
 
+		bool initialized;
 		public SessionViewModel ViewModel { get; } = new SessionViewModel();
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
@@ -89,6 +96,7 @@ namespace JustRemember.Views
 					ViewModel.current.StatInfo.correctedChoice.Add(item.corrected);
 				}
 			}
+			initialized = true;
 			base.OnNavigatedTo(e);
 		}
 

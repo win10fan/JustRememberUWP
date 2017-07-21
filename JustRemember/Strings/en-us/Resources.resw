@@ -577,7 +577,7 @@ please choose other memo</value>
   <data name="Home_note_single" xml:space="preserve">
     <value>memo</value>
   </data>
-  <data name="Home_prenoteMenu.Label" xml:space="preserve">
+  <data name="Home_prenoteMenu2.Text" xml:space="preserve">
     <value>Bundled memos</value>
   </data>
   <data name="Home_session" xml:space="preserve">
@@ -607,5 +607,8 @@ from extension</value>
   </data>
   <data name="Stat_unknow" xml:space="preserve">
     <value>Undefined mode</value>
+  </data>
+  <data name="Home_prenoteMenu.Label" xml:space="preserve">
+    <value>Bundled memos</value>
   </data>
 </root>
