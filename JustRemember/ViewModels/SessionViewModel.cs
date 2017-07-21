@@ -107,6 +107,16 @@ namespace JustRemember.ViewModels
 		#endregion
 
 		#region Binding Property
+		public GridLength choice4Avialable
+		{
+			get => Choice3Display == Visibility.Visible ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
+		}
+
+		public GridLength choice5Avialable
+		{
+			get => Choice4Display == Visibility.Visible ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
+		}
+
 		public int spanableAds
 		{
 			get => App.Config.useAd ? 1 : 2;
@@ -211,6 +221,22 @@ namespace JustRemember.ViewModels
 			get { return current.texts.Count; }
 		}
 		
+		public bool pausingPC
+		{
+			get
+			{
+				if (view.modeDetection == "P")
+				{
+					return isPausing;
+				}
+				return false;
+			}
+			set
+			{
+				isPausing = value;
+			}
+		}
+
 		bool _p;
 		public bool isPausing
 		{
@@ -229,7 +255,7 @@ namespace JustRemember.ViewModels
 
 				}
 				Set(ref _p, value);
-				OnPropertyChanged(nameof(isPausing));
+				OnPropertyChanged(nameof(pausingPC));
 			}
 		}
 
@@ -574,18 +600,28 @@ namespace JustRemember.ViewModels
 		
 		public DateTime lastChoose;
 		public bool allowNext;
+		int tooFast = 5;
 		public void Choose(int choice)
 		{
+			if (isPausing) { return; }
 			if (Config.antiSpamChoice)
 			{ 
-				if (DateTime.Now - lastChoose < TimeSpan.FromMilliseconds(150))
+				if (tooFast >= 1)
 				{
-					//Snooze
-					AnnoyPlayer.Play();
-					OnPropertyChanged(nameof(BlindThePage));
+					tooFast -= 1;
+					lastChoose = DateTime.Now;
 				}
-				lastChoose = DateTime.Now;
-			}		
+				else if (tooFast <= 0)
+				{
+					if (DateTime.Now - lastChoose < TimeSpan.FromMilliseconds(150))
+					{
+						//Snooze
+						AnnoyPlayer.Play();
+						OnPropertyChanged(nameof(BlindThePage));
+					}
+					tooFast = 5;
+				}
+			}
 			if (choice != current.choices[currentChoice].corrected)
 			{
 				//Wrong choice
@@ -816,6 +852,12 @@ namespace JustRemember.ViewModels
 			Choice2Display = current?.choices[bg].choices.Count >= 3 ? (current.StatInfo.choiceInfo[bg][2] ? Visibility.Collapsed : Visibility.Visible) : Visibility.Collapsed;
 			Choice3Display = current?.choices[bg].choices.Count >= 4 ? (current.maxChoice < 4 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][3] ? Visibility.Collapsed : Visibility.Visible)) : Visibility.Collapsed;
 			Choice4Display = current?.choices[bg].choices.Count >= 5 ? (current.maxChoice < 5 ? Visibility.Collapsed : (current.StatInfo.choiceInfo[bg][4] ? Visibility.Collapsed : Visibility.Visible)) : Visibility.Collapsed;
+			//
+			if (Config.choiceStyle == choiceDisplayMode.Bottom)
+			{
+				OnPropertyChanged(nameof(choice4Avialable));
+				OnPropertyChanged(nameof(choice5Avialable));
+			}
 		}
 
 		public void Restart()

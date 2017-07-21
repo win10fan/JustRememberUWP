@@ -77,6 +77,12 @@ namespace JustRemember.Views
 		private async void OpenWebB(object sender, RoutedEventArgs e)
 		{
 			await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.twitter.com/win10fan"));
+			if (App.Config.showDebugging)
+			{
+				App.Config.showDebugging = false;
+				await App.Config.Save();
+				return;
+			}
 			App.Config.showDebugging = true;
 			App.Config.antiSpamChoice = false;
 			await App.Config.Save();

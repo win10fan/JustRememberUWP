@@ -356,10 +356,6 @@ namespace JustRemember.Models
 			foreach (var q in qas)
 			{
 				q.Question = $"{q.Index}. {q.Question}";
-				for (int i = 0; i < q.Answers.Count; i++)
-				{
-					q.Answers[i] = $"{App.Config.customChoiceHeader[i]}. {q.Answers[i]}";
-				}
 			}
 			current.texts = new ObservableCollection<TextList>();
 			current.choices = new ObservableCollection<ChoiceSet>

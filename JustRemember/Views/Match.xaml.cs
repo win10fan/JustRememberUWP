@@ -24,6 +24,24 @@ namespace JustRemember.Views
 			dbg = App.Config.showDebugging ? Visibility.Visible : Visibility.Collapsed;
 			this.InitializeComponent();
 			this.KeyDown += Match_KeyDown;
+#if DEBUG
+#else
+			dhr.Opacity = 1;			
+#endif
+		}
+
+		string mode = "M";
+		public string modeDetection
+		{
+			get => mode;
+			set
+			{
+				mode = value;
+				if (ViewModel.isPausing)
+				{
+					ViewModel.UnPauseFunc.Execute(null);
+				}
+			}
 		}
 
 		private void Match_KeyDown(object sender, KeyRoutedEventArgs e)
