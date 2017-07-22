@@ -33,8 +33,7 @@ namespace JustRemember.Models
 			get => light;
 			set => Set(ref light, value);
 		}
-
-
+		
 		bool limittime;
 		public bool isLimitTime
 		{
@@ -166,6 +165,9 @@ namespace JustRemember.Models
 		string _chdr;
 		public string customChoiceHeader { get => _chdr; set => Set(ref _chdr, value); }
 
+		double hrs = -1;
+		public double halfResolution { get => hrs; set => Set(ref hrs, value); }
+
 		[JsonIgnore]
 		public int randomizeQAInt
 		{
@@ -278,6 +280,7 @@ namespace JustRemember.Models
 			useAd = true;
 			showDebugging = false;
 			customChoiceHeader = "ABCDE";
+			halfResolution = -1;
 	}
 
 		public static async void SetLanguage(int selected)

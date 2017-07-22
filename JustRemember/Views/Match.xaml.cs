@@ -160,5 +160,10 @@ namespace JustRemember.Views
 			get => dbg;
 			set => dbg = value;
 		}
+
+		public double halfRes
+		{
+			get => App.Config.halfResolution;
+		}
 	}
 }

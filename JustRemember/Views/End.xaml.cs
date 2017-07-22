@@ -19,6 +19,11 @@ namespace JustRemember.Views
 	/// </summary>
 	public sealed partial class End : Page, INotifyPropertyChanged
 	{
+		public double halfRes
+		{
+			get => App.Config.halfResolution;
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)

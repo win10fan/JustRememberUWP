@@ -3,6 +3,7 @@ using JustRemember.Services;
 using JustRemember.ViewModels;
 using System;
 using System.Collections.Generic;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -20,7 +21,18 @@ namespace JustRemember.Views
 		public NoteEditorView()
 		{
 			this.InitializeComponent();
+			ApplicationView.GetForCurrentView().VisibleBoundsChanged += NoteEditorView_VisibleBoundsChanged;
 			menuPane.Height = new GridLength(0);
+		}
+
+		private void NoteEditorView_VisibleBoundsChanged(ApplicationView sender, object args)
+		{
+			if (MobileTitlebarService.isMobile)
+				if (sender.VisibleBounds.Width > App.Config.halfResolution)
+				{
+					mbBar1.Visibility = Visibility.Visible;
+					mbBar2.Visibility = Visibility.Visible;
+				}
 		}
 
 		protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -85,6 +97,11 @@ namespace JustRemember.Views
 		{
 			get => mainEdit;
 			set => mainEdit = value;
+		}
+
+		public double halfRes
+		{
+			get => App.Config.halfResolution;
 		}
 	}
 }

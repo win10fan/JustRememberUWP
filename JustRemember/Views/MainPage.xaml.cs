@@ -49,6 +49,9 @@ namespace JustRemember.Views
 				await MobileTitlebarService.Refresh(App.language.GetString("Home_session"));
 		}
 
-		
+		public double halfRes
+		{
+			get => App.Config.halfResolution;
+		}
 	}
 }

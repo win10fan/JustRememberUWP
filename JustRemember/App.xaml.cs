@@ -10,6 +10,8 @@ using Windows.Globalization;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.ViewManagement;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace JustRemember
 {
@@ -49,6 +51,13 @@ namespace JustRemember
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
 			Config = await AppConfigModel.Load2();
+			if (Config.halfResolution == -1)
+			{
+				if (MobileTitlebarService.isMobile)
+					DetectResolution();
+				else
+					Config.halfResolution = 700;
+			}
 			Config.language = AppConfigModel.languages.IndexOf(AppConfigModel.GetLanguage());
 			await ThemeSelectorService.SetThemeAsync(Config.isItLightTheme ? ElementTheme.Light : ElementTheme.Dark);
 			await MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
@@ -59,7 +68,28 @@ namespace JustRemember
 			}
 			AnnoyPlayer.Initialize();
 		}
-		
+
+		private void DetectResolution()
+		{
+			var viw = ApplicationView.GetForCurrentView();
+			bool atmp = viw.TryEnterFullScreenMode();
+			if (atmp)
+			{
+				//Work
+				var res = new List<double>() { viw.VisibleBounds.Width, viw.VisibleBounds.Height };
+				var max = res.Max() / 2;
+				if (max < res.Min())
+				{
+					Config.halfResolution = max + (res.Min() / 2);
+				}
+				else
+				{
+					Config.halfResolution = max;
+				}
+			}
+			viw.ExitFullScreenMode();
+		}
+
 		/// <summary>
 		/// Invoked when the application is activated by some means other than normal launching.
 		/// </summary>

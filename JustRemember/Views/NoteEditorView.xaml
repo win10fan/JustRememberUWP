@@ -33,7 +33,7 @@
 				</VisualState>
 				<VisualState x:Name="Pc">
 					<VisualState.StateTriggers>
-						<AdaptiveTrigger MinWindowWidth="700"/>
+						<AdaptiveTrigger MinWindowWidth="{x:Bind halfRes}"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
 						<Setter Target="cmdBar.(Grid.Row)" Value="0"/>
