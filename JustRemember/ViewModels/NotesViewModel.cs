@@ -102,13 +102,6 @@ namespace JustRemember.ViewModels
 			//Dialog
 			notLongEnough = new MessageDialog(App.language.GetString("Dialog_Not_long_enough_main"));
 			notLongEnough.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
-			//Other
-			saver = new DispatcherTimer()
-			{
-				Interval = TimeSpan.FromSeconds(5)
-			};
-			saver.Tick += Saver_Tick;
-			saver.Start();
 		}
 		
 		private void CLOSEOPENWITHDIALOG(RoutedEventArgs obj)
@@ -163,14 +156,7 @@ namespace JustRemember.ViewModels
 		}
 
 		public MessageDialog notLongEnough;
-
-		private async void Saver_Tick(object sender, object e)
-		{
-			if (AppConfigModel.isDirty)
-				await config.Save();
-		}
-		DispatcherTimer saver;
-
+		
 		private void NavigateToMatchWithNote(RoutedEventArgs obj)
         {
             InitializeAndGoToMatch();

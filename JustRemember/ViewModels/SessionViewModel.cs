@@ -89,21 +89,7 @@ namespace JustRemember.ViewModels
 					current.StatInfo.correctedChoice.Add(c.corrected);
 				}
 			}
-			saver = new DispatcherTimer()
-			{
-				Interval = TimeSpan.FromSeconds(5)
-			};
-			saver.Tick += Saver_Tick;
-			saver.Start();
 		}
-		
-		private async void Saver_Tick(object sender, object e)
-		{
-			if (AppConfigModel.isDirty)
-				await Config.Save();
-		}
-		DispatcherTimer saver;
-
 		#endregion
 
 		#region Binding Property
@@ -225,7 +211,7 @@ namespace JustRemember.ViewModels
 		{
 			get
 			{
-				if (view.scSize >= 700)
+				if (view.scSize >= App.Config.halfResolution)
 				{
 					return isPausing;
 				}

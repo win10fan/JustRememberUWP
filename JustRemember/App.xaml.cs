@@ -12,6 +12,7 @@ using Windows.UI.ViewManagement;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.Storage;
 
 namespace JustRemember
 {
@@ -29,8 +30,15 @@ namespace JustRemember
 		/// </summary>
 		public App()
 		{
+			_cfg = ApplicationData.Current.LocalSettings;
+			if (_cfg.Values.Count < 3)
+			{
+				Config = new AppConfigModel();
+			}
+			Config = AppConfigModel.GetSettings();
+			Config.isInitialize = true;
 			InitializeComponent();
-			ApplicationLanguages.PrimaryLanguageOverride = AppConfigModel.GetLanguage();
+			ApplicationLanguages.PrimaryLanguageOverride = AppConfigModel.languages[Config.language];
 			language = ResourceLoader.GetForViewIndependentUse();
 			//Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
 			_activationService = new Lazy<ActivationService>(CreateActivationService);
@@ -42,6 +50,8 @@ namespace JustRemember
 		public static bool isDeploying;
 		public static SessionModel cachedSession;
 		public static NoteModel selectedNote;
+		public static ApplicationDataContainer _cfg;
+		//TODO:Make time limit longer
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
@@ -50,17 +60,16 @@ namespace JustRemember
 		/// <param name="e">Details about the launch request and process.</param>
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			Config = await AppConfigModel.Load2();
-			if (Config.halfResolution == -1)
+			if (!Config.isOpenBefore)
 			{
 				if (MobileTitlebarService.isMobile)
 					DetectResolution();
 				else
 					Config.halfResolution = 700;
+				Config.isOpenBefore = false;
 			}
-			Config.language = AppConfigModel.languages.IndexOf(AppConfigModel.GetLanguage());
 			await ThemeSelectorService.SetThemeAsync(Config.isItLightTheme ? ElementTheme.Light : ElementTheme.Dark);
-			await MobileTitlebarService.Refresh("", Resources["SystemControlBackgroundAccentBrush"], Resources["ApplicationForegroundThemeBrush"]);
+			MobileTitlebarService.Refresh();
 			Stats = await StatModel.Get();
 			if (!e.PrelaunchActivated)
 			{
@@ -72,22 +81,16 @@ namespace JustRemember
 		private void DetectResolution()
 		{
 			var viw = ApplicationView.GetForCurrentView();
-			bool atmp = viw.TryEnterFullScreenMode();
-			if (atmp)
+			var res = new List<double>() { viw.VisibleBounds.Width, viw.VisibleBounds.Height };
+			var max = res.Max() / 2;
+			if (max < res.Min())
 			{
-				//Work
-				var res = new List<double>() { viw.VisibleBounds.Width, viw.VisibleBounds.Height };
-				var max = res.Max() / 2;
-				if (max < res.Min())
-				{
-					Config.halfResolution = max + (res.Min() / 2);
-				}
-				else
-				{
-					Config.halfResolution = max;
-				}
+				Config.halfResolution = max + (res.Min() / 2);
 			}
-			viw.ExitFullScreenMode();
+			else
+			{
+				Config.halfResolution = max;
+			}
 		}
 
 		/// <summary>
@@ -101,6 +104,7 @@ namespace JustRemember
 
 		private ActivationService CreateActivationService()
 		{
+			//return new ActivationService(this, typeof(Views.Home));
 			return new ActivationService(this, typeof(Views.MainPage));
 		}
 	}

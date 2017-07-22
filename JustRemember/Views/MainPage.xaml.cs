@@ -21,7 +21,7 @@ namespace JustRemember.Views
 
 		private void MainPage_VisibleBoundsChanged(ApplicationView sender, object args)
 		{
-			if (sender.VisibleBounds.Width >= 700)
+			if (sender.VisibleBounds.Width >= App.Config.halfResolution)
 				MobileTitlebarService.Refresh();
 			else
 				changePage(mainPivot, null);

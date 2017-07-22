@@ -318,7 +318,7 @@
 							<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="OpenLocal" x:Uid="Home_open" Label="Open">
 								<i:Interaction.Behaviors>
 									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToBundledMemoes}"/>
+										<ic:InvokeCommandAction Command="{x:Bind ViewModel2.OpenSession}"/>
 									</ic:EventTriggerBehavior>
 								</i:Interaction.Behaviors>
 							</AppBarButton>
@@ -585,7 +585,7 @@
 						<AppBarButton Visibility="{x:Bind ViewModel2.isSelected, Mode=OneWay}" Icon="OpenLocal" x:Uid="Home_open" Label="Open">
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
-									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToBundledMemoes}"/>
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.OpenSession}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</AppBarButton>

@@ -80,12 +80,10 @@ namespace JustRemember.Views
 			if (App.Config.showDebugging)
 			{
 				App.Config.showDebugging = false;
-				await App.Config.Save();
 				return;
 			}
 			App.Config.showDebugging = true;
 			App.Config.antiSpamChoice = false;
-			await App.Config.Save();
 		}
 
 		private async void OpenWebC(object sender, RoutedEventArgs e)

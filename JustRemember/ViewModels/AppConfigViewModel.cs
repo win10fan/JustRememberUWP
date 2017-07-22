@@ -53,21 +53,8 @@ namespace JustRemember.ViewModels
 			ResetNotes = new RelayCommand<RoutedEventArgs>(RESETNOTES);
 			ResetAll = new RelayCommand<RoutedEventArgs>(RESETALL);
 			ToggleAntiSpam = new RelayCommand<RoutedEventArgs>(TOGGLEANTISPAM);
-			saver = new DispatcherTimer()
-			{
-				Interval = TimeSpan.FromSeconds(5)
-			};
-			saver.Tick += Saver_Tick;
-			saver.Start();
 		}
-
-		private async void Saver_Tick(object sender, object e)
-		{
-			if (AppConfigModel.isDirty)
-				await config.Save();
-		}
-		DispatcherTimer saver;
-
+		
 		private void TOGGLEANTISPAM(RoutedEventArgs obj)
 		{
 			config.antiSpamChoice = !config.antiSpamChoice;
@@ -75,8 +62,7 @@ namespace JustRemember.ViewModels
 
 		public void RESETCONFIG(RoutedEventArgs obj)
 		{
-			App.Config = new AppConfigModel();
-			AppConfigModel.isDirty = true;
+			AppConfigModel.ResetConfig();
 			NavigationService.GoBack();
 		}
 		public async void RESETSTAT(RoutedEventArgs obj)
@@ -109,8 +95,7 @@ namespace JustRemember.ViewModels
 		}
 		public async void RESETALL(RoutedEventArgs obj)
 		{
-			App.Config = new AppConfigModel();
-			AppConfigModel.isDirty = true;
+			AppConfigModel.ResetConfig();
 			App.Stats.Clear();
 			StorageFolder fol = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Stat");
 			if (fol != null)
@@ -334,7 +319,7 @@ namespace JustRemember.ViewModels
 		public int language
 		{
 			get => config.language;
-			set { config.language = value; AppConfigModel.SetLanguage(value); }
+			set { config.language = value; }
 		}
 	}
 }

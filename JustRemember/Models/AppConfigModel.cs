@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -11,15 +12,28 @@ namespace JustRemember.Models
 {
 	public class AppConfigModel
 	{
-		public void Set<T>(ref T container, T value)
+		public void Set<T>(ref T container, T value,[CallerMemberName]string name = null)
 		{
 			if (!Equals(container, value))
 			{
-				isDirty = true;
 				container = value;
+				if (App._cfg.Values.ContainsKey(name) && isInitialize)
+				{
+					App._cfg.Values[name] = value;
+				}
 			}
 		}
-		
+
+		[JsonIgnore]
+		public bool isInitialize { get; set; }
+
+		bool isn;
+		public bool isOpenBefore
+		{
+			get => isn;
+			set => Set(ref isn, value);
+		}
+
 		int lang;
 		public int language
 		{
@@ -48,11 +62,11 @@ namespace JustRemember.Models
 			set => Set(ref hidewrong, value);
 		}
 
-		matchMode mode;
+		int mode;
 		public matchMode defaultMode
 		{
-			get => mode;
-			set => Set(ref mode, value);
+			get => (matchMode)mode;
+			set => Set(ref mode, (int)value);
 		}
 
 		double limits;
@@ -97,11 +111,11 @@ namespace JustRemember.Models
 			set => Set(ref scroll, value);
 		}
 
-		whenFinalChoice end;
+		int end;
 		public whenFinalChoice AfterFinalChoice
 		{
-			get => end;
-			set => Set(ref end, value);
+			get => (whenFinalChoice)end;
+			set => Set(ref end, (int)value);
 		}
 
 		bool savestat;
@@ -121,11 +135,11 @@ namespace JustRemember.Models
 			set => Set(ref hint, value);
 		}
 
-		choiceDisplayMode style;
+		int style;
 		public choiceDisplayMode choiceStyle
 		{
-			get => style;
-			set => Set(ref style, value);
+			get => (choiceDisplayMode)style;
+			set => Set(ref style, (int)value);
 		}
 
 		bool nospam;
@@ -135,11 +149,11 @@ namespace JustRemember.Models
 			set => Set(ref nospam, value);
 		}
 
-		randomQA _randQA;
+		int _randQA;
 		public randomQA randomizeQA
 		{
-			get => _randQA;
-			set => Set(ref _randQA, value);
+			get => (randomQA)_randQA;
+			set => Set(ref _randQA, (int)value);
 		}
 
 		bool _frontback;
@@ -149,12 +163,10 @@ namespace JustRemember.Models
 			set => Set(ref _frontback, value);
 		}
 
-		answerPosition _ap;
-		QuestionSeparator _qs;
-		SpaceAfterSeparator _sa;
-		public answerPosition AnswerPosition { get => _ap; set => Set(ref _ap, value); }
-		public QuestionSeparator questionSeparator { get => _qs; set => Set(ref _qs, value); }
-		public SpaceAfterSeparator spaceAfterSeparator { get => _sa; set => Set(ref _sa, value); }
+		int _ap, _qs, _sa;
+		public answerPosition AnswerPosition { get => (answerPosition)_ap; set => Set(ref _ap, (int)value); }
+		public QuestionSeparator questionSeparator { get => (QuestionSeparator)_qs; set => Set(ref _qs, (int)value); }
+		public SpaceAfterSeparator spaceAfterSeparator { get => (SpaceAfterSeparator)_sa; set => Set(ref _sa, (int)value); }
 
 		bool _ads;
 		public bool useAd { get => _ads; set => Set(ref _ads, value); }
@@ -163,7 +175,7 @@ namespace JustRemember.Models
 		public bool showDebugging { get => _dbg; set => Set(ref _dbg, value); }
 
 		string _chdr;
-		public string customChoiceHeader { get => _chdr; set => Set(ref _chdr, value); }
+		public string customChoiceHeader { get => _chdr == null ? "ABCDE" : _chdr; set => Set(ref _chdr, value); }
 
 		double hrs = -1;
 		public double halfResolution { get => hrs; set => Set(ref hrs, value); }
@@ -171,8 +183,8 @@ namespace JustRemember.Models
 		[JsonIgnore]
 		public int randomizeQAInt
 		{
-			get => (int)_randQA;
-			set => Set(ref _randQA, (randomQA)value);
+			get => _randQA;
+			set => Set(ref _randQA, value);
 		}
 
 		[JsonIgnore]
@@ -182,76 +194,49 @@ namespace JustRemember.Models
 			"th-TH"
 		};
 
-		[JsonIgnore]
-		public static bool isDirty;
-
-		public static async Task<AppConfigModel> Load2()
+		public static AppConfigModel GetSettings()
 		{
-			AppConfigModel settings = new AppConfigModel();
-			var tf = await ApplicationData.Current.LocalFolder.TryGetItemAsync("appconfig");
-			if (tf == null)
-			{
-				var nit = new AppConfigModel();
-				await nit.Save();
-				return nit;
-			}
-			else
-			{
-				var proper = await tf.GetBasicPropertiesAsync();
-				if (proper.Size < 2u)
-				{
-					await tf.DeleteAsync();
-					await Load2();
-				}
-			}
-			StorageFile configPath = await ApplicationData.Current.LocalFolder.GetFileAsync("appconfig");
-			string jsonConfig = await FileIO.ReadTextAsync(configPath);
-			return await Json.ToObjectAsync<AppConfigModel>(jsonConfig);
+			AppConfigModel cfg = new AppConfigModel();
+			cfg.language = get<int>(nameof(language));
+			cfg.isItLightTheme = get<bool>(nameof(isItLightTheme));
+			cfg.isLimitTime = get<bool>(nameof(isLimitTime));
+			cfg.obfuscateWrongText = get<bool>(nameof(obfuscateWrongText));
+			cfg.defaultMode = (matchMode)get<int>(nameof(defaultMode));
+			cfg.limitTime = get<double>(nameof(limitTime));
+			cfg.totalChoice = get<int>(nameof(totalChoice));
+			cfg.displayTextSize = get<int>(nameof(displayTextSize));
+			cfg.useSeed = get<bool>(nameof(useSeed));
+			cfg.defaultSeed = get<int>(nameof(defaultSeed));
+			cfg.autoScrollContent = get<bool>(nameof(autoScrollContent));
+			cfg.AfterFinalChoice = (whenFinalChoice)get<int>(nameof(AfterFinalChoice));
+			cfg.saveStatAfterEnd = get<bool>(nameof(saveStatAfterEnd));
+			cfg.hintAtFirstchoice = get<bool>(nameof(hintAtFirstchoice));
+			cfg.antiSpamChoice = get<bool>(nameof(antiSpamChoice));
+			cfg.randomizeQA = (randomQA)get<int>(nameof(randomizeQA));
+			cfg.reverseDictionary = get<bool>(nameof(reverseDictionary));
+			cfg.AnswerPosition = (answerPosition)get<int>(nameof(AnswerPosition));
+			cfg.questionSeparator = (QuestionSeparator)get<int>(nameof(questionSeparator));
+			cfg.spaceAfterSeparator = (SpaceAfterSeparator)get<int>(nameof(spaceAfterSeparator));
+			cfg.useAd = get<bool>(nameof(useAd));
+			cfg.showDebugging = get<bool>(nameof(showDebugging));
+			cfg.customChoiceHeader = get<string>(nameof(customChoiceHeader));
+			cfg.halfResolution = get<double>(nameof(halfResolution));
+			return cfg;
 		}
 
-		public async Task<AppConfigModel> Load()
+		static T get<T>(string key)
 		{
-			AppConfigModel settings = new AppConfigModel();
-			var tf = await ApplicationData.Current.LocalFolder.TryGetItemAsync("appconfig");
-			if (tf == null)
+			if (!App._cfg.Values.ContainsKey(key))
 			{
-				await Save();
-				return new AppConfigModel();
+				App._cfg.Values.Add(key, default(T));
 			}
-			else
-			{
-				var proper = await tf.GetBasicPropertiesAsync();
-				if (proper.Size < 2u)
-				{
-					await tf.DeleteAsync();
-					await Load();
-				}
-			}
-			StorageFile configPath = await ApplicationData.Current.LocalFolder.GetFileAsync("appconfig");
-			string jsonConfig = await FileIO.ReadTextAsync(configPath);
-			return await Json.ToObjectAsync<AppConfigModel>(jsonConfig);
+			return (T)App._cfg.Values[key];
 		}
 
-		[JsonIgnore]
-		bool isSaving;
-		public async Task Save()
+		public static void ResetConfig()
 		{
-			if (isSaving) { return; }
-			isSaving = true;
-			string settings = await Json.StringifyAsync(this);
-			StorageFile file = null;
-			var tfile = await ApplicationData.Current.LocalFolder.TryGetItemAsync("appconfig");
-			if (tfile == null)
-			{
-				file = await ApplicationData.Current.LocalFolder.CreateFileAsync("appconfig");
-			}
-			else
-			{
-				await tfile.DeleteAsync();
-				file = await ApplicationData.Current.LocalFolder.CreateFileAsync("appconfig");
-			}
-			await FileIO.WriteTextAsync(file, settings);
-			isSaving = false;
+			App._cfg.Values.Clear();
+			GetSettings();
 		}
 
 		public AppConfigModel()
@@ -281,57 +266,6 @@ namespace JustRemember.Models
 			showDebugging = false;
 			customChoiceHeader = "ABCDE";
 			halfResolution = -1;
-	}
-
-		public static async void SetLanguage(int selected)
-		{
-			var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync("lang") as StorageFile;
-			if (file == null)
-			{
-				file = await ApplicationData.Current.LocalFolder.CreateFileAsync("lang");
-			}
-			string lang = await FileIO.ReadTextAsync(file);
-			if (GetLanguage(lang) == languages[App.Config.language])
-			{
-				return;
-			}
-			else
-			{
-				await file.DeleteAsync();
-				file = await ApplicationData.Current.LocalFolder.CreateFileAsync("lang");
-				await FileIO.WriteTextAsync(file, languages[App.Config.language]);
-			}
-		}
-		
-		public static string GetLanguage()
-		{
-			if (File.Exists(ApplicationData.Current.LocalFolder.Path + "\\lang"))
-			{
-				string res = File.ReadAllText(ApplicationData.Current.LocalFolder.Path + "\\lang");
-				return res;
-			}
-			else
-			{
-				CultureInfo cultureInfo = CultureInfo.CurrentCulture;
-				if (cultureInfo.Name == "th" || cultureInfo.Name == "th-TH")
-				{
-					SetLanguage(1);
-					return languages[1];
-				}
-			}
-			return languages[0];
-		}
-
-		public static string GetLanguage(string readed)
-		{			
-			foreach (var lang in languages)
-			{
-				if (readed == lang)
-				{
-					return languages[languages.IndexOf(lang)];
-				}
-			}
-			return languages[0];
 		}
 	}
 
