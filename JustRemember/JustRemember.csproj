@@ -166,9 +166,6 @@
     <Compile Include="Views\End.xaml.cs">
       <DependentUpon>End.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -287,7 +284,6 @@
     <Content Include="Assets\Fonts\THSarabunNewBoldItalic.ttf" />
     <Content Include="Assets\Fonts\THSarabunNewItalic.ttf" />
     <Content Include="Assets\Fonts\THSarabunNew.ttf" />
-    <None Include="JustRemember_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en\Resources.resw" />
     <PRIResource Include="Strings\th-TH\Resources.resw" />
   </ItemGroup>
@@ -312,10 +308,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\End.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -104,7 +104,6 @@ namespace JustRemember
 
 		private ActivationService CreateActivationService()
 		{
-			//return new ActivationService(this, typeof(Views.Home));
 			return new ActivationService(this, typeof(Views.MainPage));
 		}
 	}
