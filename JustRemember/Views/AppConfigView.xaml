@@ -292,7 +292,8 @@
 								</Grid.ColumnDefinitions>
 								<ListBox Grid.Column="0" Grid.ColumnSpan="2" Margin="5,10,0,0" SelectedIndex="{x:Bind config.difficultSet, Mode=TwoWay}">
 									<ListBoxItem x:Uid="Config_wrong_a" Content="Skip to next choice"/>
-									<ListBoxItem x:Uid="Config_wrong_b" Content="Stay at same choice until correct"/>
+									<!--Hide normal mode until it's fix-->
+									<ListBoxItem x:Uid="Config_wrong_b" Content="Stay at same choice until correct" Visibility="Collapsed"/>
 									<ListBoxItem x:Uid="Config_wrong_c" Content="Reset match"/>
 								</ListBox>
 							</Grid>
