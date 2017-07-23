@@ -75,9 +75,9 @@ namespace JustRemember.Models
 		//private static 
 		public static SessionModel generate(NoteModel item)
 		{
+			return gen(item);
 			try
 			{
-				return gen(item);
 			}
 			catch (ArgumentOutOfRangeException ex1)
 			{
@@ -91,7 +91,7 @@ namespace JustRemember.Models
 			return gen(item);
 		}
 
-		public static SessionModel generate(NoteModel item,SessionModel old)
+		public static SessionModel generate(NoteModel item, SessionModel old)
 		{
 			//Wanted to restart
 			List<object> trade = new List<object>
@@ -112,6 +112,8 @@ namespace JustRemember.Models
 				fromNote = (NoteModel)item;
 				if (fromNote.Mode == noteMode.Question)
 					return genEx(fromNote);
+				else if (fromNote.Mode == noteMode.Volcabulary)
+					return genVo(fromNote);
 				current = new SessionModel()
 				{
 					selectedChoices = new ObservableCollection<SelectedChoices>(),
@@ -122,8 +124,8 @@ namespace JustRemember.Models
 				//Initialize Session
 				current.SelectedNote = fromNote;
 				current.texts = TextList.Extract(current.SelectedNote.Content, out bool? nW);
-				current.noteWhiteSpaceMode = nW == true;				
-				current.choices = generateChoice(current.texts,current.maxChoice);
+				current.noteWhiteSpaceMode = nW == true;
+				current.choices = generateChoice(current.texts, current.maxChoice);
 				current.StatInfo = refreshStat(current);
 			}
 			else if (item is SessionModel)
@@ -138,6 +140,8 @@ namespace JustRemember.Models
 				fromNote = (NoteModel)((List<object>)item)[1];
 				if (fromNote.Mode == noteMode.Question)
 					return genEx(fromNote);
+				else if (fromNote.Mode == noteMode.Volcabulary)
+					return genVo(fromNote);
 				current.choices.Clear();
 				current.choices = generateChoice(current.texts, current.maxChoice);
 				current.StatInfo = refreshStat(current);
@@ -170,8 +174,7 @@ namespace JustRemember.Models
 			{
 				ChoiceSet c = new ChoiceSet()
 				{
-					choices = new List<string>(),
-
+					choices = new List<string>()
 				};
 				//Get valid number first
 				int valid = validChoice.Next(0, (maxChoice) * 100);
@@ -380,50 +383,107 @@ namespace JustRemember.Models
 
 		private static SessionModel genVo(NoteModel item)
 		{
-			SessionModel current = new SessionModel();
-			//current = new SessionModel()
-			//{
-			//	selectedChoices = new ObservableCollection<SelectedChoices>(),
-			//	isNew = true,
-			//	maxChoice = 5,
-			//	currentChoice = 0,
-			//	noteWhiteSpaceMode = false,
-			//	SelectedNote = item
-			//};
-			////Get new one
-			////Initialize Session
-			//List<string> lines2 = item.Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
-			//string answerLine = null;
-			//if (lines2.Last().StartsWith("A="))
-			//{
-			//	answerLine = lines2.Last().Remove(0, 2);
-			//	lines2.RemoveAt(lines2.Count - 1);
-			//}
-			//lines2.RemoveAt(0);
-			//var lines = ExamSplit.GetList(lines2, answerLine);
-			//current.texts = new ObservableCollection<TextList>();
-			//current.choices = new ObservableCollection<ChoiceSet>
-			//{
-			//	new ChoiceSet() { choices = new List<string>() { ">>>" }, corrected = 0 }
-			//};
-			//for (int i = 0; i < lines.Count; i++)
-			//{
-			//	if (current.texts.Count == 0)
-			//	{
-			//		//Add first texts
-			//		current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i].question}\r\n" });
-			//		current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
-			//		continue;
-			//	}
-			//	current.texts.Add(new TextList() { isWhitespace = false, text = $"{lines[i - 1].answers[lines[i - 1].corrected]}\r\n\r\n{lines[i].question}\r\n" });
-			//	current.choices.Add(new ChoiceSet() { choices = lines[i].answers, corrected = lines[i].corrected });
-			//}
-			current.StatInfo = refreshStat(current);
+			SessionModel current = new SessionModel()
+			{
+				selectedChoices = new ObservableCollection<SelectedChoices>(),
+				isNew = true,
+				maxChoice = 5,
+				currentChoice = 0,
+				noteWhiteSpaceMode = false,
+				SelectedNote = item
+			};
+			Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
+			List<string> keys = new List<string>();
+			List<string> lines = item.Content.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
+			foreach (var line in lines)
+			{
+				if (line.StartsWith("#MODE=VOLC")) continue;
+				var words = line.Split(' ').ToList();
+				string mean = words[0];
+				keys.Add(mean);
+				words.RemoveAt(0);
+				dict.Add(mean, new List<string>());
+				foreach (var word in words)
+				{
+					dict[mean].Add(word);
+				}
+			}
 
+			current.texts = new ObservableCollection<TextList>();
+			current.choices = new ObservableCollection<ChoiceSet>()
+			{
+				new ChoiceSet() { choices = new List<string>() { ">>>" }, corrected = 0 }
+			};
+			for (int i = 0; i < dict.Count; i++)
+			{
+				string now = keys[i];
+				if (i == dict.Count - 1)
+				{
+					for (int i2 = 0; i2 < dict[now].Count; i2++)
+					{
+						current.texts.Add(new TextList() { text = $"{dict[now][i2]} " });
+					}
+					continue;
+				}
+				string next = keys[i + 1];
+				if (i == 0)
+					current.texts.Add(new TextList() { text = $"{now}\r\n" });
+				for (int i2 = 0; i2 < dict[now].Count; i2++)
+				{
+					if (i2 == dict[now].Count - 1)
+					{
+						current.texts.Add(new TextList() { text = $"{dict[now][i2]}\r\n\r\n{next}\r\n" });
+						continue;
+					}
+					current.texts.Add(new TextList() { text = $"{dict[now][i2]} " });
+				}
+			}
+
+			//Generate choices
+			Random rnd = null;
+			Random chs = null;
+			if (App.Config.useSeed)
+			{
+				rnd = new Random(App.Config.defaultSeed);
+				chs = new Random(App.Config.defaultSeed);
+			}
+			else
+			{
+				rnd = new Random();
+				chs = new Random();
+			}
+			for (int i = 0; i < dict.Count; i++)
+			{
+				for (int nd = 0; nd < dict[keys[i]].Count; nd++)
+				{
+					ChoiceSet cs = new ChoiceSet()
+					{
+						corrected = rnd.Next(0, App.Config.totalChoice)
+					};
+					for (int sub = 0; sub < App.Config.totalChoice; sub++)
+					{
+						if (sub == cs.corrected)
+						{
+							cs.choices.Add(dict[keys[i]][nd]);
+						}
+						int randKey = chs.Next(0, keys.Count);
+						while (randKey == i)
+						{
+							randKey = chs.Next(0, keys.Count);
+						}
+						int randIndx = chs.Next(0, dict[keys[randKey]].Count);
+						cs.choices.Add(dict[keys[randKey]][randIndx]);
+					}
+					current.choices.Add(cs);
+				}
+			}
+
+			//Stat
+			current.StatInfo = refreshStat(current);
 			return current;
 		}
 	}
-	
+
 	/// <summary>
 	/// Contain snip of text from note content | whice later use to generate choice
 	/// </summary>
@@ -612,7 +672,7 @@ namespace JustRemember.Models
 			{
 				if (isItWrong)
 				{
-					return new SolidColorBrush(Colors.Red);
+					return new SolidColorBrush((Color)Application.Current.Resources["SystemAccentColor"]);
 				}
 				if (Application.Current.RequestedTheme == ApplicationTheme.Light)
 				{
@@ -622,7 +682,7 @@ namespace JustRemember.Models
 			}
 		}
 	}
-
+	
 	public static class ExtendFunc
 	{
 		private static Random rng = new Random();
@@ -644,7 +704,7 @@ namespace JustRemember.Models
 			if (value > max) { return max; }
 			return value;
 		}
-		
+
 		public static void Shuffle<T>(this IList<T> list)
 		{
 			int n = list.Count;
