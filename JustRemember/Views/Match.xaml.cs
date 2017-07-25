@@ -100,6 +100,12 @@ namespace JustRemember.Views
 			base.OnNavigatedTo(e);
 		}
 
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			ViewModel.timerUI?.Stop();
+			base.OnNavigatedFrom(e);
+		}
+
 		private void Writing(object sender, KeyRoutedEventArgs e)
 		{
 			if (e.Key == Windows.System.VirtualKey.Space)

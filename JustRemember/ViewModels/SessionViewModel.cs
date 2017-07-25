@@ -65,7 +65,6 @@ namespace JustRemember.ViewModels
 						AddTextDisplay(i);
 					}
 				}
-
 			}
 			SetTimer();
 			isPausing = false;
@@ -542,7 +541,7 @@ namespace JustRemember.ViewModels
 		#endregion
 
 		#region Function
-		DispatcherTimer timerUI;
+		public DispatcherTimer timerUI;
 		void SetTimer()
 		{
 			timerUI = new DispatcherTimer()

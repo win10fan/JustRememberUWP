@@ -75,9 +75,9 @@ namespace JustRemember.Models
 		//private static 
 		public static SessionModel generate(NoteModel item)
 		{
-			return gen(item);
 			try
 			{
+				return gen(item);
 			}
 			catch (ArgumentOutOfRangeException ex1)
 			{
@@ -278,38 +278,6 @@ namespace JustRemember.Models
 			return choices;
 		}
 
-		private static StatModel refreshStat(SessionModel current)
-		{
-			var Config = App.Config;
-			var StatInfo = new StatModel()
-			{
-				beginTime = DateTime.Now,
-				NoteWordCount = current.texts.Count - 1,
-				configChoice = Config.totalChoice,
-				choiceInfo = new Dictionary<int, List<bool>>(),
-				setMode = Config.defaultMode,
-				noteTitle = current.SelectedNote.Title,
-				totalTimespend = TimeSpan.FromMilliseconds(0),
-				isTimeLimited = Config.isLimitTime,
-				totalLimitTime = Config.isLimitTime ? TimeSpan.FromSeconds(Config.limitTime) : TimeSpan.MinValue
-			};
-			StatInfo.correctedChoice = new List<int>();
-			foreach (var item in current.choices)
-			{
-				current.StatInfo.correctedChoice.Add(item.corrected);
-			}
-			for (int i = 0; i < current.texts.Count; i++)
-			{
-				List<bool> wrongIfo = new List<bool>();
-				for (int c = 0; c != current.maxChoice; c++)
-				{
-					wrongIfo.Add(false);
-				}
-				StatInfo.choiceInfo.Add(i, wrongIfo);
-			}
-			return StatInfo;
-		}
-
 		private static SessionModel genEx(NoteModel item)
 		{
 			SessionModel current = new SessionModel();
@@ -408,7 +376,18 @@ namespace JustRemember.Models
 					dict[mean].Add(word);
 				}
 			}
-
+			if (App.Config.randomizeQA == randomQA.OnlyQuestion)
+			{
+				dict.Shuffle();
+			}
+			else if (App.Config.randomizeQA == randomQA.All)
+			{
+				dict.Shuffle();
+				foreach (var itm in dict)
+				{
+					itm.Value.Shuffle();
+				}
+			}
 			current.texts = new ObservableCollection<TextList>();
 			current.choices = new ObservableCollection<ChoiceSet>()
 			{
@@ -438,7 +417,6 @@ namespace JustRemember.Models
 					current.texts.Add(new TextList() { text = $"{dict[now][i2]} " });
 				}
 			}
-
 			//Generate choices
 			Random rnd = null;
 			Random chs = null;
@@ -481,6 +459,38 @@ namespace JustRemember.Models
 			//Stat
 			current.StatInfo = refreshStat(current);
 			return current;
+		}
+
+		private static StatModel refreshStat(SessionModel current)
+		{
+			var Config = App.Config;
+			var StatInfo = new StatModel()
+			{
+				beginTime = DateTime.Now,
+				NoteWordCount = current.texts.Count - 1,
+				configChoice = Config.totalChoice,
+				choiceInfo = new Dictionary<int, List<bool>>(),
+				setMode = Config.defaultMode,
+				noteTitle = current.SelectedNote.Title,
+				totalTimespend = TimeSpan.FromMilliseconds(0),
+				isTimeLimited = Config.isLimitTime,
+				totalLimitTime = Config.isLimitTime ? TimeSpan.FromSeconds(Config.limitTime) : TimeSpan.MinValue
+			};
+			StatInfo.correctedChoice = new List<int>();
+			foreach (var item in current.choices)
+			{
+				current.StatInfo.correctedChoice.Add(item.corrected);
+			}
+			for (int i = 0; i < current.texts.Count; i++)
+			{
+				List<bool> wrongIfo = new List<bool>();
+				for (int c = 0; c != current.maxChoice; c++)
+				{
+					wrongIfo.Add(false);
+				}
+				StatInfo.choiceInfo.Add(i, wrongIfo);
+			}
+			return StatInfo;
 		}
 	}
 
@@ -703,6 +713,11 @@ namespace JustRemember.Models
 			if (value < min) { return min; }
 			if (value > max) { return max; }
 			return value;
+		}
+
+		public static void Shuffle<TKey, TValue>(this Dictionary<TKey, TValue> source)
+		{
+			source.OrderBy(x => rng.Next()).ToDictionary(item => item.Key, item => item.Value);
 		}
 
 		public static void Shuffle<T>(this IList<T> list)

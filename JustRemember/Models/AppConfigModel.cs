@@ -175,10 +175,10 @@ namespace JustRemember.Models
 		public bool showDebugging { get => _dbg; set => Set(ref _dbg, value); }
 
 		string _chdr;
-		public string customChoiceHeader { get => _chdr == null ? "ABCDE" : _chdr; set => Set(ref _chdr, value); }
+		public string customChoiceHeader { get => _chdr ?? "ABCDE"; set => Set(ref _chdr, value); }
 
-		double hrs = -1;
-		public double halfResolution { get => hrs; set => Set(ref hrs, value); }
+		int hrs = -1;
+		public int halfResolution { get => hrs; set => Set(ref hrs, value); }
 
 		[JsonIgnore]
 		public int randomizeQAInt
@@ -196,31 +196,33 @@ namespace JustRemember.Models
 
 		public static AppConfigModel GetSettings()
 		{
-			AppConfigModel cfg = new AppConfigModel();
-			cfg.language = get<int>(nameof(language));
-			cfg.isItLightTheme = get<bool>(nameof(isItLightTheme));
-			cfg.isLimitTime = get<bool>(nameof(isLimitTime));
-			cfg.obfuscateWrongText = get<bool>(nameof(obfuscateWrongText));
-			cfg.defaultMode = (matchMode)get<int>(nameof(defaultMode));
-			cfg.limitTime = get<double>(nameof(limitTime));
-			cfg.totalChoice = get<int>(nameof(totalChoice));
-			cfg.displayTextSize = get<int>(nameof(displayTextSize));
-			cfg.useSeed = get<bool>(nameof(useSeed));
-			cfg.defaultSeed = get<int>(nameof(defaultSeed));
-			cfg.autoScrollContent = get<bool>(nameof(autoScrollContent));
-			cfg.AfterFinalChoice = (whenFinalChoice)get<int>(nameof(AfterFinalChoice));
-			cfg.saveStatAfterEnd = get<bool>(nameof(saveStatAfterEnd));
-			cfg.hintAtFirstchoice = get<bool>(nameof(hintAtFirstchoice));
-			cfg.antiSpamChoice = get<bool>(nameof(antiSpamChoice));
-			cfg.randomizeQA = (randomQA)get<int>(nameof(randomizeQA));
-			cfg.reverseDictionary = get<bool>(nameof(reverseDictionary));
-			cfg.AnswerPosition = (answerPosition)get<int>(nameof(AnswerPosition));
-			cfg.questionSeparator = (QuestionSeparator)get<int>(nameof(questionSeparator));
-			cfg.spaceAfterSeparator = (SpaceAfterSeparator)get<int>(nameof(spaceAfterSeparator));
-			cfg.useAd = get<bool>(nameof(useAd));
-			cfg.showDebugging = get<bool>(nameof(showDebugging));
-			cfg.customChoiceHeader = get<string>(nameof(customChoiceHeader));
-			cfg.halfResolution = get<double>(nameof(halfResolution));
+			AppConfigModel cfg = new AppConfigModel()
+			{
+				language = get<int>(nameof(language)),
+				isItLightTheme = get<bool>(nameof(isItLightTheme)),
+				isLimitTime = get<bool>(nameof(isLimitTime)),
+				obfuscateWrongText = get<bool>(nameof(obfuscateWrongText)),
+				defaultMode = (matchMode)get<int>(nameof(defaultMode)),
+				limitTime = get<double>(nameof(limitTime)),
+				totalChoice = get<int>(nameof(totalChoice)),
+				displayTextSize = get<int>(nameof(displayTextSize)),
+				useSeed = get<bool>(nameof(useSeed)),
+				defaultSeed = get<int>(nameof(defaultSeed)),
+				autoScrollContent = get<bool>(nameof(autoScrollContent)),
+				AfterFinalChoice = (whenFinalChoice)get<int>(nameof(AfterFinalChoice)),
+				saveStatAfterEnd = get<bool>(nameof(saveStatAfterEnd)),
+				hintAtFirstchoice = get<bool>(nameof(hintAtFirstchoice)),
+				antiSpamChoice = get<bool>(nameof(antiSpamChoice)),
+				randomizeQA = (randomQA)get<int>(nameof(randomizeQA)),
+				reverseDictionary = get<bool>(nameof(reverseDictionary)),
+				AnswerPosition = (answerPosition)get<int>(nameof(AnswerPosition)),
+				questionSeparator = (QuestionSeparator)get<int>(nameof(questionSeparator)),
+				spaceAfterSeparator = (SpaceAfterSeparator)get<int>(nameof(spaceAfterSeparator)),
+				useAd = get<bool>(nameof(useAd)),
+				showDebugging = get<bool>(nameof(showDebugging)),
+				customChoiceHeader = get<string>(nameof(customChoiceHeader)),
+				halfResolution = get<int>(nameof(halfResolution))
+			};
 			return cfg;
 		}
 
@@ -228,9 +230,41 @@ namespace JustRemember.Models
 		{
 			if (!App._cfg.Values.ContainsKey(key))
 			{
-				App._cfg.Values.Add(key, default(T));
+				AddMissing(key);
 			}
 			return (T)App._cfg.Values[key];
+		}
+
+		static void AddMissing(string key)
+		{
+			switch (key)
+			{
+				case "language": App._cfg.Values.Add(key, 0); return;
+				case "isItLightTheme": App._cfg.Values.Add(key, false); return;
+				case "isLimitTime": App._cfg.Values.Add(key, false); return;
+				case "obfuscateWrongText": App._cfg.Values.Add(key, false); return;
+				case "defaultMode": App._cfg.Values.Add(key, (int)matchMode.Easy); return;
+				case "limitTime": App._cfg.Values.Add(key, TimeSpan.FromMinutes(5).TotalSeconds); return;
+				case "totalChoice": App._cfg.Values.Add(key, 3); return;
+				case "displayTextSize": App._cfg.Values.Add(key, 18); return;
+				case "useSeed": App._cfg.Values.Add(key, false); return;
+				case "defaultSeed": App._cfg.Values.Add(key, -1); return;
+				case "autoScrollContent": App._cfg.Values.Add(key, true); return;
+				case "AfterFinalChoice": App._cfg.Values.Add(key, (int)whenFinalChoice.EndPage); return;
+				case "saveStatAfterEnd": App._cfg.Values.Add(key, true); return;
+				case "hintAtFirstchoice": App._cfg.Values.Add(key, true); return;
+				case "antiSpamChoice": App._cfg.Values.Add(key, true); return;
+				case "randomizeQA": App._cfg.Values.Add(key, (int)randomQA.No); return;
+				case "reverseDictionary": App._cfg.Values.Add(key, false); return;
+				case "AnswerPosition": App._cfg.Values.Add(key, (int)answerPosition.Bottom); return;
+				case "questionSeparator": App._cfg.Values.Add(key, (int)QuestionSeparator.Dot); return;
+				case "spaceAfterSeparator": App._cfg.Values.Add(key, (int)SpaceAfterSeparator.Yes); return;
+				case "useAd": App._cfg.Values.Add(key, true); return;
+				case "showDebugging": App._cfg.Values.Add(key, false); return;
+				case "customChoiceHeader": App._cfg.Values.Add(key, "ABCDE"); return;
+				case "halfResolution": App._cfg.Values.Add(key, -1); return;
+				default: return;
+			}
 		}
 
 		public static void ResetConfig()

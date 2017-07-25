@@ -81,7 +81,7 @@ namespace JustRemember
 		private void DetectResolution()
 		{
 			var viw = ApplicationView.GetForCurrentView();
-			var res = new List<double>() { viw.VisibleBounds.Width, viw.VisibleBounds.Height };
+			var res = new List<int>() { (int)viw.VisibleBounds.Width, (int)viw.VisibleBounds.Height };
 			var max = res.Max() / 2;
 			if (max < res.Min())
 			{
