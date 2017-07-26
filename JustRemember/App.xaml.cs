@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.Storage;
+using System.Threading.Tasks;
 
 namespace JustRemember
 {
@@ -101,7 +102,7 @@ namespace JustRemember
 		{
 			await ActivationService.ActivateAsync(args);
 		}
-
+		
 		private ActivationService CreateActivationService()
 		{
 			return new ActivationService(this, typeof(Views.MainPage));
