@@ -11,7 +11,7 @@ namespace JustRemember.ViewModels
 {
 	public class ExtensionViewModel : Observable
     {
-		AppExtensionCatalog Notecatalog;
+		public AppExtensionCatalog Notecatalog;
 		private CoreDispatcher _dispatcher;
 		ObservableCollection<Extension> _ext;
 		public ObservableCollection<Extension> Extensions
@@ -19,11 +19,7 @@ namespace JustRemember.ViewModels
 			get => _ext;
 			set => Set(ref _ext, value);
 		}
-
-		public void Initialize()
-		{
-		}
-
+		
 		public void InitializeDispatch()
 		{
 
@@ -72,55 +68,11 @@ namespace JustRemember.ViewModels
 			Notecatalog = AppExtensionCatalog.Open("rememberit.notes");
 			//Get all note extension
 			var allext = await Notecatalog.FindAllAsync();
-			Extensions = await ExtensionService.GetExtension(allext, ExtensionType.Notes);
+			if (allext?.Count > 0)
+			{
+				Extensions = await ExtensionService.GetExtension(allext, ExtensionType.Notes);
+			}
 			OnPropertyChanged(nameof(noExt));
-		}
-
-		int _selec = -1;
-		public int extensionListSelection
-		{
-			get => _selec;
-			set
-			{
-				Set(ref _selec, value);
-				OnPropertyChanged(nameof(isSelected));
-				OnPropertyChanged(nameof(SelectedExt));
-			}
-		}
-
-		public Visibility isSelected
-		{
-			get => extensionListSelection == -1 ? Visibility.Collapsed : Visibility.Visible;
-		}
-
-		public Extension SelectedExt
-		{
-			get
-			{
-				if (extensionListSelection != -1)
-				{
-					return Extensions[extensionListSelection];
-				}
-				return new Extension();
-			}
-		}
-
-		public async void RequestUninstallSelected()
-		{
-			if (extensionListSelection > -1)
-			{
-				var packName = SelectedExt.Core.DisplayName;
-				var un = await Notecatalog.RequestRemovePackageAsync(SelectedExt.Core.Package.Id.FullName);
-				if (un)
-				{
-					if (SelectedExt.extensionType == ExtensionType.Notes)
-					{
-						PrenoteService.RequestRemovePrenoteExtension(packName);
-					}
-					extensionListSelection = -1;
-					GetAllExtensions();
-				}
-			}
 		}
 	}
 }

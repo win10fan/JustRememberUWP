@@ -94,9 +94,16 @@ namespace JustRemember.ViewModels
 		{
 			qsName = view.filenameInput.Text;
 			//Check existance
-			foreach (var s in memos)
+			if (memos.Count > 0)
 			{
-				isExistAR = s == qsName ? Visibility.Visible : Visibility.Collapsed;
+				foreach (var s in memos)
+				{
+					isExistAR = s == qsName ? Visibility.Visible : Visibility.Collapsed;
+				}
+			}
+			else
+			{
+				isExistAR = Visibility.Collapsed;
 			}
 			isEmpty = string.IsNullOrEmpty(qsName.Trim()) ? Visibility.Visible : Visibility.Collapsed;
 			isIllegal = !Extend.IsFileValid(qsName) ? Visibility.Collapsed : Visibility.Visible;

@@ -16,6 +16,7 @@ namespace JustRemember.Models
 		public string Description { get; set; }
 		public PropertySet ExtensionInfo { get; set; }
 		public ExtensionType extensionType { get; set; }
+		public string ID { get; set; }
 
 		public Extension(AppExtension _ext, PropertySet _pro, BitmapImage _logo, ExtensionType _type)
 		{
@@ -25,6 +26,7 @@ namespace JustRemember.Models
 			Name = _ext.DisplayName;
 			Description = _ext.Description;
 			extensionType = _type;
+			ID = Core.Package.Id.FullName;
 		}
 
 		public Extension()
@@ -35,6 +37,7 @@ namespace JustRemember.Models
 			ExtensionInfo = null;
 			Name = "unk";
 			Description = "...";
+			ID = "AppID-UNK-33996";
 		}
 	}
 

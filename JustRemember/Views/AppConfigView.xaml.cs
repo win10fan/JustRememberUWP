@@ -29,7 +29,6 @@ namespace JustRemember.Views
 		{
 			await MobileTitlebarService.Refresh(App.language.GetString("Config_general"));
 			config.Initialie();
-			ext.Initialize();
 			base.OnNavigatedTo(e);
 		}
 
@@ -64,9 +63,16 @@ namespace JustRemember.Views
 			config.IselectedStat = -1;
 		}
 
-		private void RemoveExt(object sender, RoutedEventArgs e)
+		private async void RemoveExt(object sender, RoutedEventArgs e)
 		{
-			ext.RequestUninstallSelected();
+			string tag = (sender as Button).Tag.ToString();
+			foreach (var item in ext.Extensions)
+			{
+				if (item.ID == tag)
+				{
+					var un = await ext.Notecatalog.RequestRemovePackageAsync(tag);
+				}
+			}
 		}
 
 		private async void OpenWebA(object sender, RoutedEventArgs e)

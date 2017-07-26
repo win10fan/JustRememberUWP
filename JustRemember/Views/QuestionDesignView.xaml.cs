@@ -63,6 +63,8 @@ namespace JustRemember.Views
 		{
 			string uid = (sender as Button).Tag.ToString();
 			int index = vm.indexAt(uid) - 1;
+			if (index == -1)
+				return;
 			vm.Questions.RemoveAt(index);
 			QuestionDesignHelper.ids.Remove(uid);
 			vm.ReIndex();
