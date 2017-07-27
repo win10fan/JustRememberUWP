@@ -665,27 +665,33 @@ please choose other memo</source>
           <source>Bundled memos</source>
           <target state="translated">Bundled memos</target>
         </trans-unit>
-        <trans-unit id="AfterUpdate_Body.Text" translate="yes" xml:space="preserve">
-          <source>Replace the content of this dialog with whatever content is appropriate to your app.
-You might want to consider lists of bug fixes and new features.
-Don't feel restricted to just text. You can also include images and animations if you wish too.
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
-Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</source>
-          <target state="new">Replace the content of this dialog with whatever content is appropriate to your app.
-You might want to consider lists of bug fixes and new features.
-Don't feel restricted to just text. You can also include images and animations if you wish too.
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
-Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</target>
-        </trans-unit>
         <trans-unit id="AfterUpdate_Title.Text" translate="yes" xml:space="preserve">
           <source>What's new in this version</source>
-          <target state="new">What's new in this version</target>
+          <target state="translated">มีอะไรใหม่ในอัพเดตนี้?</target>
+        </trans-unit>
+        <trans-unit id="AfterUpdate_1_1.Text" translate="yes" xml:space="preserve">
+          <source>Version 1.1
+First release that came with:
+Memorize word by word.
+Question mode.
+Memos editor.
+Question designer.</source>
+          <target state="translated">เวอร์ชั่น 1.1
+เวอร์ชั่นแรก</target>
+        </trans-unit>
+        <trans-unit id="AfterUpdate_1_2.Text" translate="yes" xml:space="preserve">
+          <source>Version 1.2
+Feature:
+Volcabulary mode - Memorize dictionary.
+Sound describe - Put a sound into app and play to certain point in every choice. Making momorize more annoying.
+Landscape mode for mobile (Or wide state for PC)
+..And some bug fix and improvement.</source>
+          <target state="needs-review-translation">เวอร์ชั่น 1.2
+มาใหม่:
+ท่องจำพจนานุกรม
+เพิ่มเสียงในบทท่องจำ
+และแก้บัคอื่นๆ</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
       </group>
     </body>

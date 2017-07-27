@@ -5,24 +5,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="345"
-    d:DesignWidth="550"
-    PrimaryButtonText="Ok">
-    <ContentDialog.TitleTemplate>
-        <DataTemplate>
-            <StackPanel Orientation="Horizontal">
-                <Image Source="ms-appx:///Assets/StoreLogo.png" Width="40" Height="40" Margin="0"/>
-                <TextBlock x:Uid="AfterUpdate_Title" Text="What's new in this version" Margin="10,5,0,0"/>
-            </StackPanel>
-        </DataTemplate>
-    </ContentDialog.TitleTemplate>
-    <ScrollViewer>
-        <StackPanel>
-            <TextBlock x:Uid="AfterUpdate_Body" TextWrapping="WrapWholeWords">
-                <Run>Replace the content of this dialog with whatever content is appropriate to your app.</Run><LineBreak/>
-                <Run>You might want to consider lists of bug fixes and new features.</Run><LineBreak/>
-                <Run>Don't feel restricted to just text. You can also include images and animations if you wish too.</Run><LineBreak/>
-            </TextBlock>
-        </StackPanel>
-    </ScrollViewer>
+    d:DesignHeight="460"
+    d:DesignWidth="480"
+	PrimaryButtonText="OK">
+	<ContentDialog.Title>
+		<StackPanel Orientation="Horizontal">
+			<Image Source="ms-appx:///Assets/Store/StoreLogo.png" Width="40" Height="40" Margin="0"/>
+			<TextBlock Margin="10,5,0,0">
+					<Run Text="What's new in this version" x:Uid="AfterUpdate_Title"/>
+			</TextBlock>
+		</StackPanel>
+	</ContentDialog.Title>
+	<ScrollViewer>
+		<StackPanel Orientation="Vertical">
+			<TextBlock Margin="0,0,0,5" x:Uid="AfterUpdate_1_2" TextWrapping="WrapWholeWords"/>
+			<TextBlock Margin="0,5" x:Uid="AfterUpdate_1_1" TextWrapping="WrapWholeWords"/>
+		</StackPanel>
+	</ScrollViewer>
 </ContentDialog>

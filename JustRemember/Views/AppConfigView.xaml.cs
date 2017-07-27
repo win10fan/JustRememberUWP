@@ -71,6 +71,10 @@ namespace JustRemember.Views
 				if (item.ID == tag)
 				{
 					var un = await ext.Notecatalog.RequestRemovePackageAsync(tag);
+					if (un)
+					{
+						await PrenoteService.RequestRemovePrenoteExtension(item.Core.DisplayName);
+					}
 				}
 			}
 		}

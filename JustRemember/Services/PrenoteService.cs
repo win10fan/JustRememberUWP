@@ -121,7 +121,7 @@ namespace JustRemember.Services
 			}
 		}
 
-		public static async void RequestRemovePrenoteExtension(string extName)
+		public static async Task RequestRemovePrenoteExtension(string extName)
 		{
 			StorageFolder prenote = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Bundled memos");
 			

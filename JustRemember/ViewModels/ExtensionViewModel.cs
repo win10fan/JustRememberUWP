@@ -36,7 +36,16 @@ namespace JustRemember.ViewModels
 
 			Notecatalog = AppExtensionCatalog.Open("rememberit.notes");
 			Notecatalog.PackageInstalled += NewExtensionInstalled;
+			Notecatalog.PackageUninstalling += UpdateExt;
 			GetAllExtensions();
+		}
+
+		private async void UpdateExt(AppExtensionCatalog sender, AppExtensionPackageUninstallingEventArgs args)
+		{
+			await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+			{
+				GetAllExtensions();
+			});
 		}
 
 		private async void NewExtensionInstalled(AppExtensionCatalog sender, AppExtensionPackageInstalledEventArgs args)

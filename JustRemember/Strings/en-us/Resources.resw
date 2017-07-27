@@ -611,17 +611,23 @@ from extension</value>
   <data name="Home_prenoteMenu.Label" xml:space="preserve">
     <value>Bundled memos</value>
   </data>
-  <data name="AfterUpdate_Body.Text" xml:space="preserve">
-    <value>Replace the content of this dialog with whatever content is appropriate to your app.
-You might want to consider lists of bug fixes and new features.
-Don't feel restricted to just text. You can also include images and animations if you wish too.
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
-Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</value>
+  <data name="AfterUpdate_1_1.Text" xml:space="preserve">
+    <value>Version 1.1
+First release that came with:
+Memorize word by word.
+Question mode.
+Memos editor.
+Question designer.</value>
   </data>
   <data name="AfterUpdate_Title.Text" xml:space="preserve">
     <value>What's new in this version</value>
+  </data>
+  <data name="AfterUpdate_1_2.Text" xml:space="preserve">
+    <value>Version 1.2
+Feature:
+Volcabulary mode - Memorize dictionary.
+Sound describe - Put a sound into app and play to certain point in every choice. Making momorize more annoying.
+Landscape mode for mobile (Or wide state for PC)
+..And some bug fix and improvement.</value>
   </data>
 </root>

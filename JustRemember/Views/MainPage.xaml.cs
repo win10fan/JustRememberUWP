@@ -2,6 +2,7 @@ using JustRemember.Models;
 using JustRemember.Services;
 using JustRemember.ViewModels;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,8 +18,19 @@ namespace JustRemember.Views
 		{
 			InitializeComponent();
 			ApplicationView.GetForCurrentView().VisibleBoundsChanged += MainPage_VisibleBoundsChanged;
+			UpdateCheck();
 		}
 
+		internal static async void UpdateCheck()
+		{
+			await WhatsNewDisplayService.ShowIfAppropriateAsync();
+#if DEBUG
+			await WhatsNewDisplayService.ShowAnyway();
+#else
+			await WhatsNewDisplayService.ShowIfAppropriateAsync();
+#endif
+		}
+		
 		private void MainPage_VisibleBoundsChanged(ApplicationView sender, object args)
 		{
 			if (sender.VisibleBounds.Width >= App.Config.halfResolution)

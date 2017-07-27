@@ -507,4 +507,18 @@
   <data name="Home_prenoteMenu2.Text" xml:space="preserve">
     <value>Bundled memos</value>
   </data>
+  <data name="AfterUpdate_Title.Text" xml:space="preserve">
+    <value>มีอะไรใหม่ในอัพเดตนี้?</value>
+  </data>
+  <data name="AfterUpdate_1_1.Text" xml:space="preserve">
+    <value>เวอร์ชั่น 1.1
+เวอร์ชั่นแรก</value>
+  </data>
+  <data name="AfterUpdate_1_2.Text" xml:space="preserve">
+    <value>เวอร์ชั่น 1.2
+มาใหม่:
+ท่องจำพจนานุกรม
+เพิ่มเสียงในบทท่องจำ
+และแก้บัคอื่นๆ</value>
+  </data>
 </root>

@@ -1,3 +1,4 @@
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
 
 namespace JustRemember.Views
@@ -6,8 +7,11 @@ namespace JustRemember.Views
     {
         public WhatsNewDialog()
         {
-            // TODO WTS: Update the contents of this dialog every time you release a new version of the app
             this.InitializeComponent();
+			this.PrimaryButtonText = App.language.GetString("Match_dialog_ok");
         }
-    }
+
+		PackageId app { get => Package.Current.Id; }
+		public string version { get => $"{app.Version.Major}.{app.Version.Minor}.{app.Version.Revision} build {app.Version.Build}"; }
+	}
 }
