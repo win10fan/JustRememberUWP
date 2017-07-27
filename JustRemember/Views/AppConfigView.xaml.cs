@@ -132,5 +132,15 @@ namespace JustRemember.Views
 		{
 			statList.SelectedIndex = -1;
 		}
+
+		private async void MakeExt(object sender, RoutedEventArgs e)
+		{
+			await Windows.System.Launcher.LaunchUriAsync(new Uri("https://github.com/ray1997/BundleMemosExample"));
+		}
+
+		private void AddExt(object sender, RoutedEventArgs e)
+		{
+			//await Windows.System.Launcher.LaunchUriAsync(new Uri("[uriToExtensionList]"));
+		}
 	}
 }
