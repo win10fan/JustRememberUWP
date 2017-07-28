@@ -16,6 +16,8 @@ using Windows.UI.Popups;
 using System.Diagnostics;
 using System.Text;
 using Windows.Storage.Streams;
+using System.IO.Compression;
+using System.Collections.Generic;
 
 namespace JustRemember.ViewModels
 {
@@ -82,6 +84,7 @@ namespace JustRemember.ViewModels
 		public ICommand SendToQuestionDesigner { get; private set; }
 		public ICommand CloseOpenWithDialog { get; private set; }
 		public ICommand SendToAudioSplit { get; private set; }
+		public ICommand ExportFiles { get; private set; }
 
 		public NotesViewModel()
         {
@@ -101,9 +104,34 @@ namespace JustRemember.ViewModels
 			SendToQuestionDesigner = new RelayCommand<RoutedEventArgs>(SENDTOQUESTIONDESIGNER);
 			CloseOpenWithDialog = new RelayCommand<RoutedEventArgs>(CLOSEOPENWITHDIALOG);
 			SendToAudioSplit = new RelayCommand<RoutedEventArgs>(SENDTOAUDIOSPLIT);
+			ExportFiles = new RelayCommand<RoutedEventArgs>(EXPORTFILES);
 			//Dialog
 			notLongEnough = new MessageDialog(App.language.GetString("Dialog_Not_long_enough_main"));
 			notLongEnough.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
+		}
+
+		private async void EXPORTFILES(RoutedEventArgs obj)
+		{
+			if (Notes[selectedIndex].hasDesc)
+			{
+				FileSavePicker savePicker = new FileSavePicker()
+				{
+					SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+				};
+				savePicker.FileTypeChoices.Add("Memo archieve", new List<string>() { ".zip" });
+				savePicker.SuggestedFileName = $"{Notes[selectedIndex].Title}.zip";
+
+				var file = savePicker.PickSaveFileAsync();
+				if (file != null)
+				{
+					var fol = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync(Notes[selectedIndex].Title);
+					var nf = await fol.CreateFileAsync(Notes[selectedIndex].Title);
+					await FileIO.WriteTextAsync(nf, Notes[selectedIndex].Content);
+					//TODO:Finish export function
+					//TODO:Finish import zip function
+					//StorageFolder fol2 = (await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Description") as StorageFolder).GetFileAsync({ Notes[selectedIndex]}.
+				}
+			}
 		}
 
 		private void SENDTOAUDIOSPLIT(RoutedEventArgs obj)

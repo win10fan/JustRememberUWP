@@ -522,4 +522,13 @@
 เพิ่มการรองรับแนวนอน
 และแก้บัคอื่นๆ</value>
   </data>
+  <data name="Home_Audio_Desc.Label" xml:space="preserve">
+    <value>เพิ่มเสียง</value>
+  </data>
+  <data name="Home_Audio_Desc2.Text" xml:space="preserve">
+    <value>เพิ่มเสียง</value>
+  </data>
+  <data name="Match_Mute.Text" xml:space="preserve">
+    <value>ปิดเสียง</value>
+  </data>
 </root>

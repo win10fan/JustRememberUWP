@@ -506,7 +506,7 @@
 							<TextBlock Text="Just remember" Style="{ThemeResource TitleTextBlockStyle}"/>
 							<TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind config.AppVersion}"/>
 						</StackPanel>
-						<ScrollViewer Grid.Row="2" Height="200" Margin="0,10">
+						<ScrollViewer VerticalAlignment="Top" Grid.Row="2" Margin="0,10">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
@@ -517,39 +517,42 @@
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
 								<StackPanel Grid.Row="2" Orientation="Vertical">
-									<TextBlock Margin="0,5" x:Uid="Config_about_made" Text="Develop by:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
+									<TextBlock Margin="0,5" x:Uid="Config_about_made" Text="Developed by: Toon" TextWrapping="Wrap" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
 									<StackPanel Margin="10,0" Orientation="Horizontal">
-										<HyperlinkButton Click="OpenWebA" Grid.Row="4">
+										<TextBlock Text="Contact: " TextWrapping="Wrap" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}" FontSize="16"/>
+										<HyperlinkButton Width="30" Click="OpenMailA" Grid.Row="4" Margin="5,0">
+											<SymbolIcon Symbol="Mail"/>
+										</HyperlinkButton>
+										<HyperlinkButton Width="30" Click="OpenWebA" Grid.Row="4">
 											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>
 										</HyperlinkButton>
-										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="@ToonWK"/>
 									</StackPanel>
 								</StackPanel>
 								<StackPanel Grid.Row="3" Orientation="Vertical">
-									<TextBlock x:Uid="Config_eng_translate" TextWrapping="Wrap" Grid.Row="3" Margin="0,5" Text="English translate by:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
+									<TextBlock x:Uid="Config_eng_translate" TextWrapping="Wrap" Grid.Row="3" Margin="0,5" Text="English translate by: Tony" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
 									<StackPanel Margin="10,0" Orientation="Horizontal">
-										<HyperlinkButton Click="OpenWebB" Grid.Row="4">
+										<TextBlock Text="Contact: " TextWrapping="Wrap" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}" FontSize="16"/>
+										<HyperlinkButton Width="30" Click="OpenWebB" Grid.Row="4" Margin="5,0">
 											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>
 										</HyperlinkButton>
-										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="@win10fan"/>
 									</StackPanel>
 								</StackPanel>
 								<StackPanel Grid.Row="4" Orientation="Vertical">
 									<TextBlock TextWrapping="Wrap" Grid.Row="3" Margin="0,5" x:Uid="Config_beta_tester" Text="Beta testing:" VerticalAlignment="Center" Style="{ThemeResource settingTitleLabel}"/>
 									<StackPanel Margin="10,0" Orientation="Horizontal">
-										<HyperlinkButton Click="OpenWebB" Grid.Row="4">
+										<HyperlinkButton Width="30" Click="OpenWebB" Grid.Row="4">
 											<Image Width="20" Height="20" Source="/Assets/twitter.png"/>
 										</HyperlinkButton>
 										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="@win10fan"/>
 									</StackPanel>
 									<StackPanel Margin="10,0" Orientation="Horizontal">
-										<HyperlinkButton Click="OpenWebC" Grid.Row="4">
+										<HyperlinkButton Width="30" Click="OpenWebC" Grid.Row="4">
 											<Image Width="20" Height="20" Source="/Assets/facebook.png"/>
 										</HyperlinkButton>
 										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="Nukoon"/>
 									</StackPanel>
 									<StackPanel Margin="10,0" Orientation="Horizontal">
-										<HyperlinkButton Click="OpenWebD" Grid.Row="4">
+										<HyperlinkButton Width="30" Click="OpenWebD" Grid.Row="4">
 											<Image Width="20" Height="20" Source="/Assets/facebook.png"/>
 										</HyperlinkButton>
 										<TextBlock VerticalAlignment="Center" Margin="5,0" Text="Wipob"/>
@@ -558,41 +561,64 @@
 							</Grid>
 						</ScrollViewer>
 						<StackPanel Margin="5" Grid.Row="5">
-							<Button Margin="0,5,0,0" Content="Reset setting" x:Uid="Config_reset_a">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind config.ResetConfig}"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</Button>
-							<Button Margin="0,5,0,0" Content="Reset stat" x:Uid="Config_reset_b">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind config.ResetStat}"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</Button>
-							<Button Margin="0,5,0,0" Content="Reset sessions" x:Uid="Config_reset_c">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind config.ResetSessions}"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</Button>
-							<Button Margin="0,5,0,0" Content="Remove all user note" x:Uid="Config_reset_d">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind config.ResetNotes}"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</Button>
-							<Button Margin="0,5,0,0" Content="Reset everything" x:Uid="Config_reset_e">
-								<i:Interaction.Behaviors>
-									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind config.ResetAll}"/>
-									</ic:EventTriggerBehavior>
-								</i:Interaction.Behaviors>
-							</Button>
+							<TextBlock Grid.Row="0" Text="Reset" x:Uid="Config_about_header" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+							<StackPanel Margin="0,5" Orientation="Horizontal">
+								<Button Height="48" Width="52">
+									<SymbolIcon Symbol="Setting"/>
+									<ToolTipService.ToolTip>
+										<ContentPresenter x:Uid="Config_reset_a" Content="Reset setting"/>
+									</ToolTipService.ToolTip>
+									<i:Interaction.Behaviors>
+										<ic:EventTriggerBehavior EventName="Click">
+											<ic:InvokeCommandAction Command="{x:Bind config.ResetConfig}"/>
+										</ic:EventTriggerBehavior>
+									</i:Interaction.Behaviors>
+								</Button>
+								<Button Margin="5,0" Height="48" Width="52">
+									<SymbolIcon Symbol="AllApps"/>
+									<ToolTipService.ToolTip>
+										<ContentPresenter Content="Reset stat" x:Uid="Config_reset_b"/>
+									</ToolTipService.ToolTip>
+									<i:Interaction.Behaviors>
+										<ic:EventTriggerBehavior EventName="Click">
+											<ic:InvokeCommandAction Command="{x:Bind config.ResetStat}"/>
+										</ic:EventTriggerBehavior>
+									</i:Interaction.Behaviors>
+								</Button>
+								<Button Height="48" Width="52">
+									<SymbolIcon Symbol="Clock"/>
+									<ToolTipService.ToolTip>
+										<ContentPresenter Content="Reset sessions" x:Uid="Config_reset_c"/>
+									</ToolTipService.ToolTip>
+									<i:Interaction.Behaviors>
+										<ic:EventTriggerBehavior EventName="Click">
+											<ic:InvokeCommandAction Command="{x:Bind config.ResetSessions}"/>
+										</ic:EventTriggerBehavior>
+									</i:Interaction.Behaviors>
+								</Button>
+								<Button Margin="5,0" Height="48" Width="52">
+									<SymbolIcon Symbol="Page2"/>
+									<ToolTipService.ToolTip>
+										<ContentPresenter Content="Remove all user note" x:Uid="Config_reset_d"/>
+									</ToolTipService.ToolTip>
+									<i:Interaction.Behaviors>
+										<ic:EventTriggerBehavior EventName="Click">
+											<ic:InvokeCommandAction Command="{x:Bind config.ResetNotes}"/>
+										</ic:EventTriggerBehavior>
+									</i:Interaction.Behaviors>
+								</Button>
+								<Button Height="48" Width="52">
+									<SymbolIcon Symbol="Sync"/>
+									<ToolTipService.ToolTip>
+										<ContentPresenter Content="Reset everything" x:Uid="Config_reset_e"/>
+									</ToolTipService.ToolTip>
+									<i:Interaction.Behaviors>
+										<ic:EventTriggerBehavior EventName="Click">
+											<ic:InvokeCommandAction Command="{x:Bind config.ResetAll}"/>
+										</ic:EventTriggerBehavior>
+									</i:Interaction.Behaviors>
+								</Button>
+							</StackPanel>
 						</StackPanel>
 					</Grid>
 				</ScrollViewer>

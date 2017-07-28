@@ -84,6 +84,11 @@ namespace JustRemember.Views
 			await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.twitter.com/ToonWK"));
 		}
 
+		private async void OpenMailA(object sender, RoutedEventArgs e)
+		{
+			await Windows.System.Launcher.LaunchUriAsync(new Uri("mailto:toon_ex@hotmail.com"));
+		}
+
 		private async void OpenWebB(object sender, RoutedEventArgs e)
 		{
 			await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.twitter.com/win10fan"));

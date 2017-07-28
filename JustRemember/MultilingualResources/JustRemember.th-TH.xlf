@@ -55,8 +55,9 @@
           <target state="translated" state-qualifier="tm-suggestion">โหลดใหม่</target>
         </trans-unit>
         <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
-          <source>Develop by:</source>
-          <target state="translated">สร้างโดย</target>
+          <source>Developed by: Toon</source>
+          <target state="needs-review-translation">สร้างโดย</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Config_autoscroll.Text" translate="yes" xml:space="preserve">
           <source>Enable text auto scroll</source>
@@ -695,15 +696,23 @@ Landscape mode for mobile (Or wide state for PC)
         </trans-unit>
         <trans-unit id="Home_Audio_Desc.Label" translate="yes" xml:space="preserve">
           <source>Audio description</source>
-          <target state="new">Audio description</target>
+          <target state="translated">เพิ่มเสียง</target>
         </trans-unit>
         <trans-unit id="Home_Audio_Desc2.Text" translate="yes" xml:space="preserve">
           <source>Audio description</source>
-          <target state="new">Audio description</target>
+          <target state="translated">เพิ่มเสียง</target>
         </trans-unit>
         <trans-unit id="Match_Mute.Text" translate="yes" xml:space="preserve">
           <source>Mute</source>
-          <target state="new">Mute</target>
+          <target state="translated">ปิดเสียง</target>
+        </trans-unit>
+        <trans-unit id="Audio_Copy_Complete" translate="yes" xml:space="preserve">
+          <source>Copy audio file and save description complete</source>
+          <target state="new">Copy audio file and save description complete</target>
+        </trans-unit>
+        <trans-unit id="QA_Unsupport" translate="yes" xml:space="preserve">
+          <source>Memos in question mode is not allowed</source>
+          <target state="new">Memos in question mode is not allowed</target>
         </trans-unit>
       </group>
     </body>

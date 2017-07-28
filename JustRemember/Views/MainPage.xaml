@@ -143,7 +143,7 @@
 										</ic:EventTriggerBehavior>
 									</i:Interaction.Behaviors>
 								</AppBarButton>
-								<AppBarButton x:Uid="Home_Audio_Desc" Icon="Audio" Label="Prenote">
+								<AppBarButton x:Uid="Home_Audio_Desc" Icon="Audio" Label="Audio description">
 									<i:Interaction.Behaviors>
 										<ic:EventTriggerBehavior EventName="Click">
 											<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToAudioSplitter}"/>
@@ -221,6 +221,13 @@
 								</i:Interaction.Behaviors>
 							</AppBarButton>
 							<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="Delete" x:Uid="Home_delete" Label="Delete">
+								<i:Interaction.Behaviors>
+									<ic:EventTriggerBehavior EventName="Click">
+										<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>
+									</ic:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</AppBarButton>
+							<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="ReShare" x:Uid="Home_delete" Label="Export">
 								<i:Interaction.Behaviors>
 									<ic:EventTriggerBehavior EventName="Click">
 										<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>

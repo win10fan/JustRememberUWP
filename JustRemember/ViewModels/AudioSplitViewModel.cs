@@ -88,10 +88,10 @@ namespace JustRemember.ViewModels
 			notLongEnough = new MessageDialog(App.language.GetString("Dialog_Not_long_enough_main"));
 			notLongEnough.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
 
-			noExam = new MessageDialog("Text file with custom mode is not allowed");
+			noExam = new MessageDialog(App.language.GetString("QA_Unsupport"));
 			noExam.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
 
-			saveComplete = new MessageDialog("Copy audio file and save description complete");
+			saveComplete = new MessageDialog(App.language.GetString("Audio_Copy_Complete"));
 			saveComplete.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
 		}
 

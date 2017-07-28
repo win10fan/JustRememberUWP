@@ -136,7 +136,7 @@
     <value>Reload</value>
   </data>
   <data name="Config_about_made.Text" xml:space="preserve">
-    <value>Develop by:</value>
+    <value>Developed by: Toon</value>
   </data>
   <data name="Config_c1a.Text" xml:space="preserve">
     <value>1</value>
@@ -638,5 +638,11 @@ Landscape mode for mobile (Or wide state for PC)
   </data>
   <data name="Match_Mute.Text" xml:space="preserve">
     <value>Mute</value>
+  </data>
+  <data name="Audio_Copy_Complete" xml:space="preserve">
+    <value>Copy audio file and save description complete</value>
+  </data>
+  <data name="QA_Unsupport" xml:space="preserve">
+    <value>Memos in question mode is not allowed</value>
   </data>
 </root>
