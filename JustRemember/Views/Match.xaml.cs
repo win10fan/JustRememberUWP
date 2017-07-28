@@ -1,6 +1,7 @@
 ﻿using JustRemember.Models;
 using JustRemember.Services;
 using JustRemember.ViewModels;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using Windows.UI.ViewManagement;
@@ -33,7 +34,7 @@ namespace JustRemember.Views
 			dhr.Opacity = 1;			
 #endif
 		}
-
+				
 		double scc = 600;
 		public double scSize
 		{
@@ -79,7 +80,6 @@ namespace JustRemember.Views
 			ViewModel.current = (SessionModel)e.Parameter;
 			ViewModel.view = this;
 			ViewModel.RestoreSession();
-			//ViewModel.isPausing = false;
 			if (MobileTitlebarService.isMobile)
 			{
 				await MobileTitlebarService.Refresh(ViewModel.current.StatInfo.noteTitle, Resources["SystemControlPageBackgroundBaseLowBrush"], Resources["SystemControlForegroundBaseLowBrush"]);
@@ -170,6 +170,12 @@ namespace JustRemember.Views
 		public double halfRes
 		{
 			get => App.Config.halfResolution;
+		}
+
+		public MediaElement Player
+		{
+			get => player;
+			set => player = value;
 		}
 	}
 }

@@ -154,6 +154,7 @@
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\AnnoyPlayer.cs" />
+    <Compile Include="Services\DescriptionService.cs" />
     <Compile Include="Services\MobileTitlebarService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\PrenoteService.cs" />
@@ -307,6 +308,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Assets\CustomControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Assets\CustomUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

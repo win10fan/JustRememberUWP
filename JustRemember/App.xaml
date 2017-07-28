@@ -7,6 +7,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/Assets/CustomUI.xaml"/>
+				<ResourceDictionary Source="/Assets/CustomControl.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 			<Style x:Key="HomePivot" TargetType="Pivot">
 				<Setter Property="Margin" Value="0"/>

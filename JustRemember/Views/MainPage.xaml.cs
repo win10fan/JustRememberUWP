@@ -23,7 +23,6 @@ namespace JustRemember.Views
 
 		internal static async void UpdateCheck()
 		{
-			await WhatsNewDisplayService.ShowIfAppropriateAsync();
 #if DEBUG
 			await WhatsNewDisplayService.ShowAnyway();
 #else

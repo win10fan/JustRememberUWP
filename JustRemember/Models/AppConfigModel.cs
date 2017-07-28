@@ -1,4 +1,5 @@
 ﻿using JustRemember.Helpers;
+using JustRemember.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -180,6 +181,9 @@ namespace JustRemember.Models
 		int hrs = -1;
 		public int halfResolution { get => hrs; set => Set(ref hrs, value); }
 
+		bool mute = false;
+		public bool MuteDescription { get => mute; set { Set(ref mute, value); } }
+
 		[JsonIgnore]
 		public int randomizeQAInt
 		{
@@ -221,7 +225,8 @@ namespace JustRemember.Models
 				useAd = get<bool>(nameof(useAd)),
 				showDebugging = get<bool>(nameof(showDebugging)),
 				customChoiceHeader = get<string>(nameof(customChoiceHeader)),
-				halfResolution = get<int>(nameof(halfResolution))
+				halfResolution = get<int>(nameof(halfResolution)),
+				MuteDescription = get<bool>(nameof(MuteDescription))
 			};
 			return cfg;
 		}
@@ -263,6 +268,7 @@ namespace JustRemember.Models
 				case "showDebugging": App._cfg.Values.Add(key, false); return;
 				case "customChoiceHeader": App._cfg.Values.Add(key, "ABCDE"); return;
 				case "halfResolution": App._cfg.Values.Add(key, -1); return;
+				case "MuteDescription": App._cfg.Values.Add(key, false);return;
 				default: return;
 			}
 		}
@@ -300,6 +306,7 @@ namespace JustRemember.Models
 			showDebugging = false;
 			customChoiceHeader = "ABCDE";
 			halfResolution = -1;
+			MuteDescription = false;
 		}
 	}
 

@@ -626,8 +626,17 @@ Question designer.</value>
     <value>Version 1.2
 Feature:
 Volcabulary mode - Memorize dictionary.
-Sound describe - Put a sound into app and play to certain point in every choice. Making momorize more annoying.
+Sound describe - Embed sound to memos. Making momorize more annoying.
 Landscape mode for mobile (Or wide state for PC)
 ..And some bug fix and improvement.</value>
+  </data>
+  <data name="Home_Audio_Desc.Label" xml:space="preserve">
+    <value>Audio description</value>
+  </data>
+  <data name="Home_Audio_Desc2.Text" xml:space="preserve">
+    <value>Audio description</value>
+  </data>
+  <data name="Match_Mute.Text" xml:space="preserve">
+    <value>Mute</value>
   </data>
 </root>

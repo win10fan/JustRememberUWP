@@ -683,15 +683,27 @@ Question designer.</source>
           <source>Version 1.2
 Feature:
 Volcabulary mode - Memorize dictionary.
-Sound describe - Put a sound into app and play to certain point in every choice. Making momorize more annoying.
+Sound describe - Embed sound to memos. Making momorize more annoying.
 Landscape mode for mobile (Or wide state for PC)
 ..And some bug fix and improvement.</source>
-          <target state="needs-review-translation">เวอร์ชั่น 1.2
+          <target state="final">เวอร์ชั่น 1.2
 มาใหม่:
 ท่องจำพจนานุกรม
-เพิ่มเสียงในบทท่องจำ
+เพิ่มเสียงในบทท่องจำ/ชีท
+เพิ่มการรองรับแนวนอน
 และแก้บัคอื่นๆ</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
+        <trans-unit id="Home_Audio_Desc.Label" translate="yes" xml:space="preserve">
+          <source>Audio description</source>
+          <target state="new">Audio description</target>
+        </trans-unit>
+        <trans-unit id="Home_Audio_Desc2.Text" translate="yes" xml:space="preserve">
+          <source>Audio description</source>
+          <target state="new">Audio description</target>
+        </trans-unit>
+        <trans-unit id="Match_Mute.Text" translate="yes" xml:space="preserve">
+          <source>Mute</source>
+          <target state="new">Mute</target>
         </trans-unit>
       </group>
     </body>

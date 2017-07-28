@@ -8,7 +8,28 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
 	xmlns:ad="using:Microsoft.Advertising.WinRT.UI"
     xmlns:local="using:JustRemember.Models"
+	xmlns:md="using:Microsoft.Xaml.Interactions.Media"
     mc:Ignorable="d">
+	<Page.Resources>
+		<Storyboard x:Name="openPopup">
+			<DoubleAnimation BeginTime="0:0:0"
+							 Storyboard.TargetName="popupEDW"
+							 Storyboard.TargetProperty="Opacity"
+							 Duration="0:0:0.5"
+							 EnableDependentAnimation="True"
+							 From="0"
+							 To="1"/>
+		</Storyboard>
+		<Storyboard x:Name="closePopup">
+			<DoubleAnimation BeginTime="0:0:0"
+							 Storyboard.TargetName="popupEDW"
+							 Storyboard.TargetProperty="Opacity"
+							 Duration="0:0:0.25"
+							 EnableDependentAnimation="True"
+							 From="1"
+							 To="0"/>
+		</Storyboard>
+	</Page.Resources>
 	<Grid>
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup x:Name="VisualStateGroup">
@@ -76,8 +97,13 @@
 											<RowDefinition Height="*"/>
 											<RowDefinition Height="*"/>
 										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
 										<TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Grid.Row="0" FontSize="22" Text="{x:Bind Title}"/>
 										<TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Grid.Row="1" FontSize="16" Text="{x:Bind FirstLine}" Foreground="{ThemeResource TextControlForegroundDisabled}"/>
+										<SymbolIcon Visibility="{x:Bind hasDescView}" Symbol="Audio" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center"/>
 									</Grid>
 								</DataTemplate>
 							</ListView.ItemTemplate>
@@ -114,6 +140,13 @@
 									<i:Interaction.Behaviors>
 										<ic:EventTriggerBehavior EventName="Click">
 											<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToBundledMemoes}"/>
+										</ic:EventTriggerBehavior>
+									</i:Interaction.Behaviors>
+								</AppBarButton>
+								<AppBarButton x:Uid="Home_Audio_Desc" Icon="Audio" Label="Prenote">
+									<i:Interaction.Behaviors>
+										<ic:EventTriggerBehavior EventName="Click">
+											<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToAudioSplitter}"/>
 										</ic:EventTriggerBehavior>
 									</i:Interaction.Behaviors>
 								</AppBarButton>
@@ -306,6 +339,13 @@
 										</ic:EventTriggerBehavior>
 									</i:Interaction.Behaviors>
 								</AppBarButton>
+								<AppBarButton x:Uid="Home_Audio_Desc" Icon="Audio" Label="Prenote">
+									<i:Interaction.Behaviors>
+										<ic:EventTriggerBehavior EventName="Click">
+											<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToAudioSplitter}"/>
+										</ic:EventTriggerBehavior>
+									</i:Interaction.Behaviors>
+								</AppBarButton>
 							</CommandBar.SecondaryCommands>
 
 							<AppBarButton Visibility="Visible" Icon="Refresh" Label="Reload">
@@ -380,8 +420,13 @@
 										<RowDefinition Height="*"/>
 										<RowDefinition Height="*"/>
 									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
 									<TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Grid.Row="0" FontSize="22" Text="{x:Bind Title}"/>
 									<TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Grid.Row="1" FontSize="16" Text="{x:Bind FirstLine}" Foreground="{ThemeResource TextControlForegroundDisabled}"/>
+									<SymbolIcon Visibility="{x:Bind hasDescView}" Symbol="Audio" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center"/>
 								</Grid>
 							</DataTemplate>
 						</ListView.ItemTemplate>
@@ -488,6 +533,17 @@
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToBundledMemoes}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button Margin="0,5" HorizontalAlignment="Center">
+							<SymbolIcon Symbol="Audio"/>
+							<ToolTipService.ToolTip>
+								<TextBlock x:Uid="Home_Audio_Desc2" Text="Audio desctiption"/>
+							</ToolTipService.ToolTip>
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel2.GoToAudioSplitter}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</Button>
@@ -607,7 +663,15 @@
 				</Grid>
 			</Grid>
 		</Grid>
-		<Popup IsOpen="{x:Bind ViewModel.EditWithPopup,Mode=TwoWay}" Grid.Row="1" Width="250" Height="180">
+		<Popup IsOpen="{x:Bind ViewModel.EditWithPopup,Mode=TwoWay}" x:Name="popupEDW" Grid.Row="1" Width="250" Height="180">
+			<i:Interaction.Behaviors>
+				<ic:DataTriggerBehavior Binding="{x:Bind ViewModel.EditWithPopup, Mode=OneWay}" ComparisonCondition="Equal" Value="True">
+					<md:ControlStoryboardAction Storyboard="{StaticResource openPopup}"/>
+				</ic:DataTriggerBehavior>
+				<ic:DataTriggerBehavior Binding="{x:Bind ViewModel.EditWithPopup, Mode=OneWay}" ComparisonCondition="Equal" Value="False">
+					<md:ControlStoryboardAction Storyboard="{StaticResource closePopup}"/>
+				</ic:DataTriggerBehavior>
+			</i:Interaction.Behaviors>
 			<Grid Padding="10" Background="{ThemeResource AccentButtonBackgroundPointerOver}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
@@ -627,7 +691,7 @@
 						<TextBlock Margin="5" x:Uid="Home_edit_with_memoedit" VerticalAlignment="Center" Text="Memo editor"/>
 					</StackPanel>
 				</Button>
-				<Button Margin="0,5" Grid.Row="2" HorizontalAlignment="Center">
+				<Button Visibility="{x:Bind ViewModel.isThisQA, Mode=OneWay}" Margin="0,5" Grid.Row="2" HorizontalAlignment="Center">
 					<i:Interaction.Behaviors>
 						<ic:EventTriggerBehavior EventName="Click">
 							<ic:InvokeCommandAction Command="{x:Bind ViewModel.SendToQuestionDesigner}"/>
@@ -636,6 +700,17 @@
 					<StackPanel Orientation="Horizontal">
 						<SymbolIcon Symbol="Help"/>
 						<TextBlock Margin="5" VerticalAlignment="Center" x:Uid="Home_edit_with_questdesi" Text="Question designer"/>
+					</StackPanel>
+				</Button>
+				<Button Visibility="{x:Bind ViewModel.isThisNotQA, Mode=OneWay}" Margin="0,5" Grid.Row="2" HorizontalAlignment="Center">
+					<i:Interaction.Behaviors>
+						<ic:EventTriggerBehavior EventName="Click">
+							<ic:InvokeCommandAction Command="{x:Bind ViewModel.SendToAudioSplit}"/>
+						</ic:EventTriggerBehavior>
+					</i:Interaction.Behaviors>
+					<StackPanel Orientation="Horizontal">
+						<SymbolIcon Symbol="Audio"/>
+						<TextBlock Margin="5" VerticalAlignment="Center" x:Uid="Home_Audio_Desc2" Text="Audio description"/>
 					</StackPanel>
 				</Button>
 				<Button Margin="0,5" Grid.Row="3" HorizontalAlignment="Center">

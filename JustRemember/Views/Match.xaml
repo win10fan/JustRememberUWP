@@ -7,6 +7,7 @@
 	xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
 	xmlns:ad="using:Microsoft.Advertising.WinRT.UI"
+	xmlns:views="using:JustRemember.Views"
 	mc:Ignorable="d">
 	<Page.Resources>
 		<Style x:Key="recTan" TargetType="Grid">
@@ -117,7 +118,9 @@
 						<RowDefinition Height="58"/>
 						<RowDefinition Height="58"/>
 						<RowDefinition Height="58"/>
+						<RowDefinition Height="58"/>
 						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
@@ -181,7 +184,27 @@
 							</i:Interaction.Behaviors>
 						</Button>
 					</Grid>
-					<Grid Grid.Row="5">
+					<Grid Grid.Row="4" Style="{StaticResource recTan}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="48"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE198;"/>
+						<TextBlock Grid.Column="1" Margin="5" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" Text="Mute" x:Uid="Match_Mute" FontSize="24"/>
+						<ToggleButton Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent" IsChecked="{x:Bind ViewModel.isMuted, Mode=TwoWay}" Grid.ColumnSpan="2"/>
+					</Grid>
+					
+					<Grid Grid.Row="6">
+						<MediaElement x:Name="player" Width="300" Height="50" AreTransportControlsEnabled="True" AutoPlay="False" IsMuted="{x:Bind ViewModel.isMuted, Mode=TwoWay}">
+							<MediaElement.TransportControls>
+								<MediaTransportControls IsCompact="True"
+														IsFullWindowButtonVisible="False"
+														IsSeekEnabled="False"
+														IsZoomButtonVisible="False"/>
+							</MediaElement.TransportControls>
+						</MediaElement>
+					</Grid>
+					<Grid Grid.Row="7">
 						<TextBlock Margin="5,2" FontSize="22" Foreground="{ThemeResource AccentButtonForeground}">
                             <Run x:Uid="Match_detail_progress" Text="Progress: "/>
                             <Run Text="{x:Bind ViewModel.currentChoice,Mode=OneWay}"/>
@@ -197,7 +220,7 @@
                             <Run Text="{x:Bind ViewModel.totalLimitTime,Mode=OneTime}"/>
 						</TextBlock>
 					</Grid>
-					<Slider Minimum="8" Maximum="72" Grid.Row="6" Margin="5,10" Value="{x:Bind ViewModel.FontSize, Mode=TwoWay}">
+					<Slider Minimum="8" Maximum="72" Grid.Row="8" Margin="5,10" Value="{x:Bind ViewModel.FontSize, Mode=TwoWay}">
 						<Slider.Header>
 							<TextBlock FontSize="20">
                             <Run x:Uid="Edit_size_a" Text="Display text size ("/>
@@ -281,16 +304,7 @@
 										</i:Interaction.Behaviors>
 									</Button>
 								</Grid>
-								<ad:AdControl
-						Visibility="{x:Bind ViewModel.showAds,Mode=OneWay}"
-						IsAutoRefreshEnabled="True"
-						Grid.Row="1"
-						Grid.Column="2"
-						ApplicationId="9nzklwbqcq31"
-						AdUnitId="11689284"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Stretch"/>
-								<Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="{x:Bind ViewModel.spanableAds, Mode=OneWay}" Style="{StaticResource recTan}">
+								<Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource recTan}">
 									<TextBlock Margin="5,2" Foreground="{ThemeResource AccentButtonForeground}">
                             <Run x:Uid="Match_detail_progress" Text="Progress: "/>
                             <Run Text="{x:Bind ViewModel.currentChoice,Mode=OneWay}"/>
@@ -313,7 +327,13 @@
 										</i:Interaction.Behaviors>
 									</Button>
 								</Grid>
-								<Grid Visibility="{x:Bind ViewModel.detailStat, Mode=OneWay}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3">
+								<Grid Grid.Row="1" Grid.Column="2" Style="{StaticResource recTan}">
+									<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE198;" FontFamily="Segoe MDL2 Assets"/>
+									<TextBlock x:Uid="Match_Mute" Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Mute"/>
+									<ToggleButton VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent" IsChecked="{x:Bind ViewModel.isMuted, Mode=TwoWay}"/>
+								</Grid>
+								<!--Visibility="{x:Bind ViewModel.detailStat, Mode=OneWay}"-->
+								<Grid Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3">
 									<Rectangle Fill="{ThemeResource AccentButtonBackground}"/>
 									<ScrollViewer>
 										<TextBlock FontSize="24" Margin="5">								
@@ -499,18 +519,8 @@
 			</SplitView.Content>
 		</SplitView>
 		<!--Screaming screen-->
-		<Grid Visibility="{x:Bind ViewModel.BlindThePage, Mode=OneWay}" Background="Black" Opacity="0" x:Name="dhr">
+		<Grid Visibility="{x:Bind ViewModel.BlindThePage, Mode=OneWay}" Background="Black"  x:Name="dhr" Opacity="0">
 			<TextBlock x:Uid="Match_calmdown" Text="NO NEED TO HURRY!" FontSize="48" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-			<ad:AdControl
-						Visibility="{x:Bind ViewModel.showAds,Mode=OneWay}"
-						IsAutoRefreshEnabled="True"
-						Grid.Row="1"
-						Grid.Column="2"
-						ApplicationId="9nzklwbqcq31"
-						AdUnitId="11689284"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Bottom"
-						Height="120"/>
 		</Grid>
 	</Grid>
 </Page>

@@ -49,6 +49,7 @@ namespace JustRemember.ViewModels
 		public ICommand OpenSession { get; private set; }
 		public ICommand DeleteSession { get; private set; }
 		public ICommand DeSelectSession { get; private set; }
+		public ICommand GoToAudioSplitter { get; private set; }
 
 		public SavedSessionViewModel()
 		{
@@ -60,8 +61,14 @@ namespace JustRemember.ViewModels
 			OpenSession = new RelayCommand<RoutedEventArgs>(OPENSESSION);
 			DeleteSession = new RelayCommand<RoutedEventArgs>(DELETESESSION);
 			DeSelectSession = new RelayCommand<RoutedEventArgs>(DESELECTSESSION);
+			GoToAudioSplitter = new RelayCommand<RoutedEventArgs>(GOTOAUDIOSPLITTER);
 		}
 
+		private void GOTOAUDIOSPLITTER(RoutedEventArgs obj)
+		{
+			NavigationService.Navigate<AudioDescription>();
+		}
+		
 		private void DESELECTSESSION(RoutedEventArgs obj)
 		{
 			selectedIndex = -1;

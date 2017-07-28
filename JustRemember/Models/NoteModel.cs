@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using JustRemember.Helpers;
+using JustRemember.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -6,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 
 namespace JustRemember.Models
 {
@@ -13,11 +16,20 @@ namespace JustRemember.Models
     {
         public string Title { get; set; }
         public string Content { get; set; }
+		public bool hasDesc { get; set; }
 
 		public NoteModel()
 		{
 			Title = "Untitled";
 			Content = "";
+			hasDesc = false;
+		}
+
+		public NoteModel(string title,string content)
+		{
+			Title = title;
+			Content = content;
+			hasDesc = DescriptionService.hasDescription(title);
 		}
 
 		[JsonIgnore]
@@ -66,6 +78,17 @@ namespace JustRemember.Models
 			}
 		}
 
+		[JsonIgnore]
+		public Visibility hasDescView
+		{
+			get => hasDesc ? Visibility.Visible : Visibility.Collapsed;
+		}
+		
+		public async Task<StorageFile> GetDescription()
+		{
+			return await DescriptionService.GetDescription(Title);
+		}
+
         public static async Task<ObservableCollection<NoteModel>> GetNotesAsync()
         {
             StorageFolder folder = ApplicationData.Current.RoamingFolder;
@@ -89,11 +112,7 @@ namespace JustRemember.Models
 					byte[] fileContent = new byte[reader.UnconsumedBufferLength];
 					reader.ReadBytes(fileContent);
 					string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
-					NoteModel n3 = new NoteModel()
-					{
-						Title = file.DisplayName,
-						Content = content
-					};
+					NoteModel n3 = new NoteModel(file.DisplayName, content);
 					allNote.Add(n3);
                 }
             }
@@ -105,7 +124,17 @@ namespace JustRemember.Models
             StorageFolder folder = ApplicationData.Current.RoamingFolder;
             var noteFolder = await folder.GetFolderAsync("Notes");
             var noteFiles = await noteFolder.GetFileAsync($"{name}.txt");
-            if (noteFiles != null)
+			//Check for description files
+			var descFolder = await folder.TryGetItemAsync("Description") as StorageFolder;
+			if (await descFolder.TryGetItemAsync($"{name}.mde") is StorageFile descFile)
+			{
+				AudioDescriptor ador = await Json.ToObjectAsync<AudioDescriptor>(await FileIO.ReadTextAsync(descFile));
+				var audiF = await ador.GetAudio();
+				await audiF.DeleteAsync();
+				await descFile.DeleteAsync();
+			}
+			//Then delete note
+			if (noteFiles != null)
             {
                 await noteFiles.DeleteAsync();
             }

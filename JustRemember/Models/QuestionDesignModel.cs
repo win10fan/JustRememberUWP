@@ -192,7 +192,13 @@ namespace JustRemember.Models
 		public static HashSet<string> ids { get; set; }
 		const string atoz = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 		static Random rand = null;
+
 		public static string getRandom()
+		{
+			return getRandom(false);
+		}
+
+		public static string getRandom(bool fromOther)
 		{
 			if (rand == null)
 			{
@@ -207,11 +213,14 @@ namespace JustRemember.Models
 			}
 			if (ids == null)
 				ids = new HashSet<string>();
-			if (ids.Contains(word))
+			if (!fromOther)
 			{
-				getRandom();
+				if (ids.Contains(word))
+				{
+					getRandom();
+				}
+				ids.Add(word);
 			}
-			ids.Add(word);
 			return word;
 		}
 

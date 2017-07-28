@@ -81,6 +81,7 @@ namespace JustRemember.ViewModels
 		public ICommand SendToNoteEdior { get; private set; }
 		public ICommand SendToQuestionDesigner { get; private set; }
 		public ICommand CloseOpenWithDialog { get; private set; }
+		public ICommand SendToAudioSplit { get; private set; }
 
 		public NotesViewModel()
         {
@@ -99,11 +100,42 @@ namespace JustRemember.ViewModels
 			SendToNoteEdior = new RelayCommand<RoutedEventArgs>(SENDTONOTEEDITOR);
 			SendToQuestionDesigner = new RelayCommand<RoutedEventArgs>(SENDTOQUESTIONDESIGNER);
 			CloseOpenWithDialog = new RelayCommand<RoutedEventArgs>(CLOSEOPENWITHDIALOG);
+			SendToAudioSplit = new RelayCommand<RoutedEventArgs>(SENDTOAUDIOSPLIT);
 			//Dialog
 			notLongEnough = new MessageDialog(App.language.GetString("Dialog_Not_long_enough_main"));
 			notLongEnough.Commands.Add(new UICommand(App.language.GetString("Match_dialog_ok")));
 		}
-		
+
+		private void SENDTOAUDIOSPLIT(RoutedEventArgs obj)
+		{
+			if (selectedIndex > -1)
+			{
+				NavigationService.Navigate<AudioDescription>(Notes[selectedIndex]);
+				return;
+			}
+			NavigationService.Navigate<AudioDescription>();
+		}
+
+		public bool isItQA
+		{
+			get
+			{
+				if (Notes == null) { return false; }
+				if (Notes?.Count < 1) { return false; }
+				return Notes?[selectedIndex > -1 ? selectedIndex : 0].Mode == noteMode.Question;
+			}
+		}
+
+		public Visibility isThisQA
+		{
+			get => isItQA ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		public Visibility isThisNotQA
+		{
+			get => !isItQA ? Visibility.Visible : Visibility.Collapsed;
+		}
+
 		private void CLOSEOPENWITHDIALOG(RoutedEventArgs obj)
 		{
 			EditWithPopup = false;
@@ -125,19 +157,17 @@ namespace JustRemember.ViewModels
 		public bool EditWithPopup
 		{
 			get => editWithDiag;
-			set => Set(ref editWithDiag, value);
+			set
+			{
+				Set(ref editWithDiag, value);
+				OnPropertyChanged(nameof(isThisQA));
+				OnPropertyChanged(nameof(isThisNotQA));
+			}
 		}
 
 		private void EDITSELECTOR(RoutedEventArgs obj)
 		{
-			if (Notes[selectedIndex].Mode == Models.noteMode.Question)
-			{
-				EditWithPopup = true;
-			}
-			else
-			{
-				EditSelected.Execute(null);
-			}
+			EditWithPopup = true;
 		}
 
 		private void GOTOQUESTIONDESIGNERWITHNOTE(RoutedEventArgs obj)
@@ -211,15 +241,14 @@ namespace JustRemember.ViewModels
 				byte[] fileContent = new byte[reader.UnconsumedBufferLength];
 				reader.ReadBytes(fileContent);
 				string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
-				SessionModel test = SessionModel.generate(new NoteModel { Title = "Test", Content = content });
+				NoteModel datNote = new NoteModel(file.DisplayName, content);
+				SessionModel test = SessionModel.generate(datNote);
 				if (test == null)
 				{
 					await notLongEnough.ShowAsync();
 					return;
 				}
-                StorageFolder folder = ApplicationData.Current.RoamingFolder;
-                var noteFolder = await folder.GetFolderAsync("Notes");
-                await file.CopyAsync(noteFolder);
+				await NoteModel.SaveNote(datNote);
                 Notes = await NoteModel.GetNotesAsync();
             }
         }

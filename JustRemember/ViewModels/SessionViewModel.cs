@@ -12,6 +12,8 @@ using JustRemember.Services;
 using System.Windows.Input;
 using JustRemember.Helpers;
 using System.Globalization;
+using Windows.Storage;
+using Windows.UI.Xaml.Controls;
 
 namespace JustRemember.ViewModels
 {
@@ -70,16 +72,14 @@ namespace JustRemember.ViewModels
 			isPausing = false;
 			UNPAUSEFUNC(null);
 			InitializeCommands();
+			GetDesc();
 			if (current.isNew)
 				UpdateUI(1, 0);
 			else
 				UpdateUI(currentDisplayChoice, currentChoice);
-			if (current.StatInfo.isTimeLimited)
-				timerUI.Start();
 			if (Config.antiSpamChoice)
 			{
 				lastChoose = DateTime.Now;
-				timerUI.Start();
 			}
 			if (current.StatInfo.correctedChoice.Count < 1)
 			{
@@ -89,9 +89,32 @@ namespace JustRemember.ViewModels
 				}
 			}
 		}
+
+		public AudioDescriptor Description;
+		public async void GetDesc()
+		{
+			if (current.SelectedNote.hasDesc)
+			{
+				Description = await Json.ToObjectAsync<AudioDescriptor>(await FileIO.ReadTextAsync(await current.SelectedNote.GetDescription()));
+				StorageFile audi = await (await ApplicationData.Current.RoamingFolder.GetFolderAsync("Description")).GetFileAsync(Description.audioName);
+				Play(audi);
+				InitializeQTM();
+			}
+		}
 		#endregion
 
 		#region Binding Property
+		public bool isMuted
+		{
+			get => Config.MuteDescription;
+			set
+			{
+				Config.MuteDescription = value;
+				player.Volume = value ? 0 : 100;
+				OnPropertyChanged(nameof(isMuted));
+			}
+		}
+
 		public GridLength choice4Avialable
 		{
 			get => Choice3Display == Visibility.Visible ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
@@ -101,18 +124,7 @@ namespace JustRemember.ViewModels
 		{
 			get => Choice4Display == Visibility.Visible ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
 		}
-
-		public int spanableAds
-		{
-			get => App.Config.useAd ? 1 : 2;
-		}
-
-		public Visibility showAds
-		{
-			get => App.Config.useAd ? Visibility.Visible : Visibility.Collapsed;
-		}
-
-
+		
 		public string writeUp
 		{
 			get => "";
@@ -417,7 +429,11 @@ namespace JustRemember.ViewModels
 				App.language.GetString("Match_dialog_reset_title"));
 			resetmatch.Commands.Add(new UICommand()
 			{
-				Invoked = delegate { Restart(); },
+				Invoked = delegate
+				{
+					Restart();
+					ReloadAudio();
+				},
 				Label = App.language.GetString("Match_dialog_yes")
 			});
 			resetmatch.Commands.Add(new UICommand(App.language.GetString("Match_dialog_no")));
@@ -466,6 +482,7 @@ namespace JustRemember.ViewModels
 			if (!isStillNotSaveSession)
 			{
 				Restart();
+				ReloadAudio();
 				return;
 			}
 			else
@@ -549,6 +566,7 @@ namespace JustRemember.ViewModels
 				Interval = TimeSpan.FromSeconds(1)
 			};
 			timerUI.Tick += TimerUI_Tick;
+			timerUI.Start();
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(spendedTime)));
 		}
 
@@ -659,7 +677,7 @@ namespace JustRemember.ViewModels
 							{
 								StatModel.Set(current.StatInfo);
 							}
-						}						
+						}
 						Restart();
 						break;
 					case whenFinalChoice.BackHome:
@@ -673,6 +691,7 @@ namespace JustRemember.ViewModels
 						NavigationService.Navigate<MainPage>();
 						break;
 				}
+				ReloadAudio();
 			}
 			else
 			{
@@ -695,6 +714,12 @@ namespace JustRemember.ViewModels
 			OnPropertyChanged(nameof(Choice2Content));
 			OnPropertyChanged(nameof(Choice3Content));
 			OnPropertyChanged(nameof(Choice4Content));
+		}
+
+		async void ReloadAudio()
+		{
+			StorageFile audi = await (await ApplicationData.Current.RoamingFolder.GetFolderAsync("Description")).GetFileAsync(Description.audioName);
+			Play(audi);
 		}
 
 		void EndMatch()
@@ -843,6 +868,8 @@ namespace JustRemember.ViewModels
 
 		public void Restart()
 		{
+			current.currentChoice = -1;
+			ReloadAudio();
 			current = SessionModel.generate(current.SelectedNote, current);
 			view.displayTXT.Inlines.Clear();
 			isPausing = false;
@@ -853,5 +880,39 @@ namespace JustRemember.ViewModels
 			OnPropertyChanged(nameof(totalWrong));
 		}
 		#endregion
+
+		public MediaElement player { get => view.Player; set => view.Player = value; }
+		public async void Play(StorageFile file)
+		{
+			var stream = await file.OpenAsync(FileAccessMode.Read);
+			player.SetSource(stream, file.ContentType);
+		}
+
+		DispatcherTimer quickerTimer;
+		public void InitializeQTM()
+		{
+			quickerTimer = new DispatcherTimer()
+			{
+				Interval = TimeSpan.FromMilliseconds(1)
+			};
+			quickerTimer.Tick += QuickerTimer;
+			quickerTimer.Start();
+		}
+
+		private void QuickerTimer(object sender, object e)
+		{
+			if (currentChoice - 1 < 0)
+			{
+				player.Pause();
+				return;
+			}
+			if (player.Position.TotalMilliseconds > Description.Splits[currentChoice - 1].Time.TotalMilliseconds)
+			{
+				player.Pause();
+				return;
+			}
+			player.Play();
+		}
+
 	}
 }
