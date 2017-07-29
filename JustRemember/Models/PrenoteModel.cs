@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using JustRemember.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
 namespace JustRemember.Models
@@ -14,6 +16,10 @@ namespace JustRemember.Models
 		public string Fullpath { get; set; } = "";
 		public string Name { get; set; } = "";
 		public bool isFile { get; set; } = false;
+		public bool hasDesc { get; set; } = false;
+		public AudioDescriptor Descriptor;
+		public StorageFile desFile;
+		public StorageFile desAudiFile;
 
 		[JsonIgnore]
 		public SolidColorBrush iconColor
@@ -29,28 +35,47 @@ namespace JustRemember.Models
 		public string Icon { get => isFile ? "" : ""; }
 		[JsonIgnore]
 		public string Icon2 { get => isFile ? "" : ""; }
+		[JsonIgnore]
+		public Visibility hasDescView { get => hasDesc ? Visibility.Visible : Visibility.Collapsed; }
 
 		private PrenoteModel() { }
 
-		public static PrenoteModel GetPrenote(string path)
+		public static async Task<PrenoteModel> GetPrenote(string path,bool isFolder)
 		{
+			StorageFile file = isFolder ? null : await StorageFile.GetFileFromPathAsync(path);
+			AudioDescriptor desor = new AudioDescriptor();
+			StorageFile audi = null;
+			bool foundDesc = false;
+			if (!isFolder)
+			{
+				var pnt = await file.GetParentAsync();
+				if (await pnt.TryGetItemAsync($"{file.DisplayName}.mde") is StorageFile descAtmp)
+				{
+					foundDesc = true;
+					desor = await Json.ToObjectAsync<AudioDescriptor>(await FileIO.ReadTextAsync(descAtmp));
+					audi = await pnt.GetFileAsync(desor.audioName);
+				}
+			}
 			PrenoteModel pn = new PrenoteModel()
 			{
 				Fullpath = path,
 				Name = Path.GetFileNameWithoutExtension(path),
-				isFile = path.EndsWith(".txt")
+				isFile = path.EndsWith(".txt"),
+				hasDesc = foundDesc,
+				Descriptor = foundDesc ? desor : null,
+				desAudiFile = foundDesc ? audi : null
 			};
 			return pn;
 		}
 
-		public static PrenoteModel GetPrenote(StorageFile path)
+		public static async Task<PrenoteModel> GetPrenote(StorageFile path)
 		{
-			return GetPrenote(path.Path);
+			return await GetPrenote(path.Path, false);
 		}
 
-		public static PrenoteModel GetPrenote(StorageFolder path)
+		public static async Task<PrenoteModel> GetPrenote(StorageFolder path)
 		{
-			return GetPrenote(path.Path);
+			return await GetPrenote(path.Path, true);
 		}
 
 		public static async Task<ObservableCollection<PrenoteModel>> GetChild(StorageFolder path)
@@ -60,7 +85,7 @@ namespace JustRemember.Models
 			ObservableCollection<PrenoteModel> notes = new ObservableCollection<PrenoteModel>();
 			foreach (var s in sub)
 			{
-				notes.Add(GetPrenote(s));
+				notes.Add(await GetPrenote(s));
 			}
 			foreach (var s in nts)
 			{
@@ -68,7 +93,7 @@ namespace JustRemember.Models
 				{
 					continue;
 				}
-				notes.Add(GetPrenote(s));
+				notes.Add(await GetPrenote(s));
 			}
 			return notes;
 		}

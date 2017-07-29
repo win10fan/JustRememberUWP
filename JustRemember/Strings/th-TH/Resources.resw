@@ -49,7 +49,7 @@
     <value>โหลดใหม่</value>
   </data>
   <data name="Config_about_made.Text" xml:space="preserve">
-    <value>สร้างโดย</value>
+    <value>มีปัญหาการใช้งาน ติดต่อ:</value>
   </data>
   <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>เลื่อนข้อความอัตโนมัติ</value>
@@ -530,5 +530,14 @@
   </data>
   <data name="Match_Mute.Text" xml:space="preserve">
     <value>ปิดเสียง</value>
+  </data>
+  <data name="Audio_Copy_Complete" xml:space="preserve">
+    <value>บันทึกเรียบร้อย</value>
+  </data>
+  <data name="QA_Unsupport" xml:space="preserve">
+    <value>ไฟล์ที่เป็นโหมดถามตอบ ไม่อนุญาติให้ใส่เสียง</value>
+  </data>
+  <data name="Home_Export.Label" xml:space="preserve">
+    <value>แชร์</value>
   </data>
 </root>

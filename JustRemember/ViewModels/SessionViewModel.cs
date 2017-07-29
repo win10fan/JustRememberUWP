@@ -95,6 +95,13 @@ namespace JustRemember.ViewModels
 		{
 			if (current.SelectedNote.hasDesc)
 			{
+				if (current.SelectedNote.isPrenote)
+				{
+					Description = await Json.ToObjectAsync<AudioDescriptor>(await FileIO.ReadTextAsync(await current.SelectedNote.GetDescription()));
+					Play(current.SelectedNote.descAudi);
+					InitializeQTM();
+					return;
+				}
 				Description = await Json.ToObjectAsync<AudioDescriptor>(await FileIO.ReadTextAsync(await current.SelectedNote.GetDescription()));
 				StorageFile audi = await (await ApplicationData.Current.RoamingFolder.GetFolderAsync("Description")).GetFileAsync(Description.audioName);
 				Play(audi);

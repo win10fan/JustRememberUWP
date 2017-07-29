@@ -16,13 +16,24 @@ namespace JustRemember.Models
     {
         public string Title { get; set; }
         public string Content { get; set; }
-		public bool hasDesc { get; set; }
+		bool hdc;
+		public bool hasDesc
+		{
+			get
+			{
+				if (isPrenote)
+					return descFile != null;
+				return hdc;
+			}
+			set { hdc = value; }
+		}
 
 		public NoteModel()
 		{
 			Title = "Untitled";
 			Content = "";
 			hasDesc = false;
+			isPrenote = false;
 		}
 
 		public NoteModel(string title,string content)
@@ -30,6 +41,26 @@ namespace JustRemember.Models
 			Title = title;
 			Content = content;
 			hasDesc = DescriptionService.hasDescription(title);
+			isPrenote = false;
+		}
+
+		public NoteModel(string title,string content,bool isprenote,StorageFile desc)
+		{
+			Title = title;
+			Content = content;
+			hasDesc = desc != null;
+			isPrenote = isprenote;
+			if (isPrenote)
+				descFile = desc;
+		}
+
+		[JsonIgnore]
+		bool _pn;
+		[JsonIgnore]
+		public bool isPrenote
+		{
+			get => _pn;
+			set => _pn = value;
 		}
 
 		[JsonIgnore]
@@ -83,9 +114,15 @@ namespace JustRemember.Models
 		{
 			get => hasDesc ? Visibility.Visible : Visibility.Collapsed;
 		}
-		
+
+		[JsonIgnore]
+		public StorageFile descFile;
+		[JsonIgnore]
+		public StorageFile descAudi;
 		public async Task<StorageFile> GetDescription()
 		{
+			if (isPrenote)
+				return descFile;
 			return await DescriptionService.GetDescription(Title);
 		}
 
@@ -164,9 +201,9 @@ namespace JustRemember.Models
 			}
 		}
 
-		public static async Task<NoteModel> GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(string path)
+		public static async Task<NoteModel> GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(PrenoteModel thatFile)
 		{
-			StorageFile fol = await StorageFile.GetFileFromPathAsync(path);
+			StorageFile fol = await StorageFile.GetFileFromPathAsync(thatFile.Fullpath);
 			string displayName = fol.DisplayName;
 			if (displayName.EndsWith(".txt"))
 			{
@@ -184,7 +221,11 @@ namespace JustRemember.Models
 			NoteModel datNote = new NoteModel()
 			{
 				Title = displayName,
-				Content = content
+				Content = content,
+				isPrenote = true,
+				hasDesc = thatFile.hasDesc,
+				descFile = thatFile.desFile,
+				descAudi = thatFile.desAudiFile
 			};
 			return datNote;
 		}

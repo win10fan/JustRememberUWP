@@ -49,7 +49,7 @@
     <value>Reload</value>
   </data>
   <data name="Config_about_made.Text" xml:space="preserve">
-    <value>Develop by:</value>
+    <value>Develop by: Toon</value>
   </data>
   <data name="Config_autoscroll.Text" xml:space="preserve">
     <value>Enable text auto scroll</value>

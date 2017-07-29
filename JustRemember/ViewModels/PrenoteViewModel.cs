@@ -164,7 +164,7 @@ namespace JustRemember.ViewModels
 					Navigate(notes[v.FileList.SelectedIndex].Fullpath);
 				else
 				{
-					SessionModel generate = SessionModel.generate(await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath));
+					SessionModel generate = SessionModel.generate(await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex]));
 					if (generate == null)
 					{
 						MessageDialog msg = new MessageDialog(App.language.GetString("PN_CantExt"));
@@ -200,7 +200,7 @@ namespace JustRemember.ViewModels
 
 		public async void Edit()
 		{
-			NoteModel note = await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex].Fullpath);
+			NoteModel note = await NoteModel.GetOneNoteButNotMicrosoftOneNoteButOneOfANoteWithParticularPath(notes[v.FileList.SelectedIndex]);
 			NavigationService.Navigate<NoteEditorView>(note);
 		}
 

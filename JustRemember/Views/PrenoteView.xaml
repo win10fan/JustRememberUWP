@@ -59,17 +59,23 @@
 					</Grid>
 
 					<ListView x:Name="fl" Grid.Row="1" SelectedIndex="{x:Bind vm.selectMon, Mode=TwoWay}" ItemsSource="{x:Bind vm.notes, Mode=OneWay}" DoubleTapped="NavTo" >
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+							</Style>
+						</ListView.ItemContainerStyle>
 						<ListView.ItemTemplate>
 							<DataTemplate x:DataType="mod:PrenoteModel">
 								<Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="30"/>
 										<ColumnDefinition Width="*"/>
-										<ColumnDefinition Width="50"/>
+										<ColumnDefinition Width="Auto"/>
 									</Grid.ColumnDefinitions>
 									<TextBlock Grid.Column="0" Text="{x:Bind Icon2}" Foreground="{x:Bind iconColor}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" FontFamily="Segoe MDL2 Assets"/>
 									<TextBlock Grid.Column="0" Text="{x:Bind Icon}" Foreground="{x:Bind iconColor2}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" FontFamily="Segoe MDL2 Assets"/>
 									<TextBlock Grid.Column="1" Text="{x:Bind Name}" VerticalAlignment="Center" Margin="10,0" FontSize="24"/>
+									<SymbolIcon Symbol="Audio" Grid.Column="2" Visibility="{x:Bind hasDescView}"/>
 								</Grid>
 							</DataTemplate>
 						</ListView.ItemTemplate>
