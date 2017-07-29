@@ -626,7 +626,7 @@ Question designer.</value>
     <value>Version 1.2
 Feature:
 Volcabulary mode - Memorize dictionary.
-Sound describe - Embed sound to memos. Making momorize more annoying.
+Sound describe - Embed sound to memos.
 Landscape mode for mobile (Or wide state for PC)
 ..And some bug fix and improvement.</value>
   </data>
@@ -644,6 +644,9 @@ Landscape mode for mobile (Or wide state for PC)
   </data>
   <data name="QA_Unsupport" xml:space="preserve">
     <value>Memos in question mode is not allowed</value>
+  </data>
+  <data name="Config_reset_header.Text" xml:space="preserve">
+    <value>Reset</value>
   </data>
   <data name="Home_Export.Label" xml:space="preserve">
     <value>Export</value>

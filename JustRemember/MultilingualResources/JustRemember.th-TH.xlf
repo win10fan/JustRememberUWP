@@ -683,15 +683,16 @@ Question designer.</source>
           <source>Version 1.2
 Feature:
 Volcabulary mode - Memorize dictionary.
-Sound describe - Embed sound to memos. Making momorize more annoying.
+Sound describe - Embed sound to memos.
 Landscape mode for mobile (Or wide state for PC)
 ..And some bug fix and improvement.</source>
-          <target state="final">เวอร์ชั่น 1.2
+          <target state="needs-review-translation">เวอร์ชั่น 1.2
 มาใหม่:
 ท่องจำพจนานุกรม
 เพิ่มเสียงในบทท่องจำ/ชีท
 เพิ่มการรองรับแนวนอน
 และแก้บัคอื่นๆ</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="Home_Audio_Desc.Label" translate="yes" xml:space="preserve">
           <source>Audio description</source>
@@ -716,6 +717,10 @@ Landscape mode for mobile (Or wide state for PC)
         <trans-unit id="Home_Export.Label" translate="yes" xml:space="preserve">
           <source>Export</source>
           <target state="translated">แชร์</target>
+        </trans-unit>
+        <trans-unit id="Config_reset_header.Text" translate="yes" xml:space="preserve">
+          <source>Reset</source>
+          <target state="new">Reset</target>
         </trans-unit>
       </group>
     </body>

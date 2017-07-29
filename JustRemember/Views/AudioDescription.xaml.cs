@@ -1,4 +1,5 @@
 ﻿using JustRemember.Models;
+using JustRemember.Services;
 using JustRemember.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace JustRemember.Views
 			mdControl.MediaOpened += MdControl_MediaOpened;
 			customcontrol.Backward100Millisec += Customcontrol_Backward100Millisec;
 			customcontrol.Forward100Millisec += Customcontrol_Forward100Millisec;
+			MobileTitlebarService.Refresh();
 		}
 
 		private void Customcontrol_Forward100Millisec(object sender, EventArgs e)

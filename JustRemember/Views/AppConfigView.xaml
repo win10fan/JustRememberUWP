@@ -562,7 +562,7 @@
 							</Grid>
 						</ScrollViewer>
 						<StackPanel Margin="5" Grid.Row="5">
-							<TextBlock Grid.Row="0" Text="Reset" x:Uid="Config_about_header" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+							<TextBlock Grid.Row="0" Text="Reset" x:Uid="Config_reset_header" Style="{ThemeResource SubheaderTextBlockStyle}"/>
 							<StackPanel Margin="0,5" Orientation="Horizontal">
 								<Button Height="48" Width="52">
 									<SymbolIcon Symbol="Setting"/>

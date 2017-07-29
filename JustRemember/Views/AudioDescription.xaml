@@ -58,7 +58,7 @@
 					  HorizontalAlignment="Center"
 					  Height="50">
 			<MediaElement.TransportControls>
-				<local:CustomAudiControl x:Name="customcontrol"/>
+				<local:CustomAudiControl IsPlaybackRateEnabled="True" IsPlaybackRateButtonVisible="True" x:Name="customcontrol"/>
 			</MediaElement.TransportControls>
 		</MediaElement>
 		<ListView Grid.Row="3" ItemsSource="{x:Bind vm.Splits, Mode=TwoWay}">

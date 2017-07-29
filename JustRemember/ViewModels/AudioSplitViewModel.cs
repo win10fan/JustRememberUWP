@@ -42,11 +42,18 @@ namespace JustRemember.ViewModels
 					AudioDescriptor ador = await Json.ToObjectAsync<AudioDescriptor>(await FileIO.ReadTextAsync(await NoteBase.GetDescription()));
 					Splits = ador.Splits;
 					audio = await (await ApplicationData.Current.RoamingFolder.GetFolderAsync("Description")).GetFileAsync(ador.audioName);
+					var stream = await audio.OpenAsync(FileAccessMode.Read);
+					view.mdControl.SetSource(stream, audio.ContentType);
+				}
+				else
+				{
+					Splits = new ObservableCollection<AudioSplitItem>();
 				}
 			}
 			else
 			{
 				NoteBase = null;
+				Splits = new ObservableCollection<AudioSplitItem>();
 			}
 			if (NoteBase != null && !NoteBase.hasDesc)
 			{

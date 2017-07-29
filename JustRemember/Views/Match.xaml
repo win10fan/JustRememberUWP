@@ -191,7 +191,7 @@
 						</Grid.ColumnDefinitions>
 						<TextBlock Grid.Column="0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE198;"/>
 						<TextBlock Grid.Column="1" Margin="5" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" Text="Mute" x:Uid="Match_Mute" FontSize="24"/>
-						<ToggleButton Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent" IsChecked="{x:Bind ViewModel.isMuted, Mode=TwoWay}" Grid.ColumnSpan="2"/>
+						<ToggleButton Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent" Opacity="0.5" IsChecked="{x:Bind ViewModel.isMuted, Mode=TwoWay}" Grid.ColumnSpan="2"/>
 					</Grid>
 					
 					<Grid Grid.Row="6">
@@ -330,7 +330,7 @@
 								<Grid Grid.Row="1" Grid.Column="2" Style="{StaticResource recTan}">
 									<TextBlock Margin="0,-10,0,0" VerticalAlignment="Center" Foreground="{ThemeResource AccentButtonForeground}" FontSize="40" HorizontalAlignment="Center" Text="&#xE198;" FontFamily="Segoe MDL2 Assets"/>
 									<TextBlock x:Uid="Match_Mute" Margin="5,1" VerticalAlignment="Bottom" Foreground="{ThemeResource AccentButtonForeground}" Text="Mute"/>
-									<ToggleButton VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent" IsChecked="{x:Bind ViewModel.isMuted, Mode=TwoWay}"/>
+									<ToggleButton VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Transparent" Background="Transparent" IsChecked="{x:Bind ViewModel.isMuted, Mode=TwoWay}" Opacity="0.5"/>
 								</Grid>
 								<!--Visibility="{x:Bind ViewModel.detailStat, Mode=OneWay}"-->
 								<Grid Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3">
