@@ -197,7 +197,7 @@
 					<Grid Grid.Row="6">
 						<MediaElement x:Name="player" Width="300" Height="50" AreTransportControlsEnabled="True" AutoPlay="False" IsMuted="{x:Bind ViewModel.isMuted, Mode=TwoWay}">
 							<MediaElement.TransportControls>
-								<MediaTransportControls IsCompact="True"
+								<MediaTransportControls x:Name="subPlay" IsCompact="True"
 														IsFullWindowButtonVisible="False"
 														IsSeekEnabled="False"
 														IsZoomButtonVisible="False"/>

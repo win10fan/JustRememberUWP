@@ -105,6 +105,12 @@ namespace JustRemember.ViewModels
 				Description = await Json.ToObjectAsync<AudioDescriptor>(await FileIO.ReadTextAsync(await current.SelectedNote.GetDescription()));
 				StorageFile audi = await (await ApplicationData.Current.RoamingFolder.GetFolderAsync("Description")).GetFileAsync(Description.audioName);
 				Play(audi);
+				if (!current.isNew)
+				{
+					view.subplay.IsSeekEnabled = true;
+					view.Player.Position = Description.Splits[currentChoice - 2].Time;
+					view.subplay.IsSeekEnabled = false;
+				}
 				InitializeQTM();
 			}
 		}

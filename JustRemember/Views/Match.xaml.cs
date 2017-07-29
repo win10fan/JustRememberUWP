@@ -177,5 +177,11 @@ namespace JustRemember.Views
 			get => player;
 			set => player = value;
 		}
+
+		public MediaTransportControls subplay
+		{
+			get => subPlay;
+			set => subPlay = value;
+		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp genTemplate">
-  <Identity Name="37168ToonWK.JustRemember" Publisher="CN=B8F8EDD3-C154-4702-A782-DDE6ED5AD8CA" Version="1.2.26.0" />
+  <Identity Name="37168ToonWK.JustRemember" Publisher="CN=B8F8EDD3-C154-4702-A782-DDE6ED5AD8CA" Version="1.2.28.0" />
   <mp:PhoneIdentity PhoneProductId="ec6bbad5-ffca-47d8-9279-9e2351618822" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Just Remember</DisplayName>
@@ -31,16 +31,16 @@
         </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="openjustr" DesiredView="default">
-            <uap:DisplayName>Launch app Just Remember from extension app</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
         <uap3:Extension Category="windows.appExtensionHost">
           <uap3:AppExtensionHost>
             <uap3:Name>rememberit.notes</uap3:Name>
           </uap3:AppExtensionHost>
         </uap3:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="openjustr" DesiredView="default">
+            <uap:DisplayName>Launch app Just Remember from extension app</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
