@@ -227,10 +227,10 @@
 									</ic:EventTriggerBehavior>
 								</i:Interaction.Behaviors>
 							</AppBarButton>
-							<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="ReShare" x:Uid="Home_delete" Label="Export">
+							<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="ReShare" x:Uid="Home_Export" Label="Export">
 								<i:Interaction.Behaviors>
 									<ic:EventTriggerBehavior EventName="Click">
-										<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>
+										<ic:InvokeCommandAction Command="{x:Bind ViewModel.ExportFiles}"/>
 									</ic:EventTriggerBehavior>
 								</i:Interaction.Behaviors>
 							</AppBarButton>
@@ -480,6 +480,13 @@
 							<i:Interaction.Behaviors>
 								<ic:EventTriggerBehavior EventName="Click">
 									<ic:InvokeCommandAction Command="{x:Bind ViewModel.DeleteSelected}"/>
+								</ic:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</AppBarButton>
+						<AppBarButton Visibility="{x:Bind ViewModel.IsSelected, Mode=OneWay}" Icon="ReShare" x:Uid="Home_Export" Label="Export">
+							<i:Interaction.Behaviors>
+								<ic:EventTriggerBehavior EventName="Click">
+									<ic:InvokeCommandAction Command="{x:Bind ViewModel.ExportFiles}"/>
 								</ic:EventTriggerBehavior>
 							</i:Interaction.Behaviors>
 						</AppBarButton>

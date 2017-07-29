@@ -717,6 +717,10 @@ Landscape mode for mobile (Or wide state for PC)
           <source>Memos in question mode is not allowed</source>
           <target state="new">Memos in question mode is not allowed</target>
         </trans-unit>
+        <trans-unit id="Home_Export.Label" translate="yes" xml:space="preserve">
+          <source>Export</source>
+          <target state="new">Export</target>
+        </trans-unit>
       </group>
     </body>
   </file>

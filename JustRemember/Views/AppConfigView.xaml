@@ -334,7 +334,7 @@
 								</Border>
 							</StackPanel>
 						</StackPanel>
-						<StackPanel Style="{ThemeResource stackSettingItem}" Grid.Row="7">
+						<StackPanel Visibility="{x:Bind config.showDBG, Mode=OneWay}"  Style="{ThemeResource stackSettingItem}" Grid.Row="7">
 							<TextBlock x:Uid="Config_Reverse_Dictionary" Text="Reverse dictionary translation" Style="{ThemeResource settingTitleLabel}"/>
 							<ToggleSwitch IsOn="{x:Bind config.config.reverseDictionary, Mode=TwoWay}"/>
 							<StackPanel Style="{ThemeResource stackSettingItem}" Orientation="Horizontal">

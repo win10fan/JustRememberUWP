@@ -645,4 +645,7 @@ Landscape mode for mobile (Or wide state for PC)
   <data name="QA_Unsupport" xml:space="preserve">
     <value>Memos in question mode is not allowed</value>
   </data>
+  <data name="Home_Export.Label" xml:space="preserve">
+    <value>Export</value>
+  </data>
 </root>

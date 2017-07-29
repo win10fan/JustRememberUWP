@@ -56,8 +56,7 @@
         </trans-unit>
         <trans-unit id="Config_about_made.Text" translate="yes" xml:space="preserve">
           <source>Developed by: Toon</source>
-          <target state="needs-review-translation">สร้างโดย</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">มีปัญหาการใช้งาน ติดต่อ:</target>
         </trans-unit>
         <trans-unit id="Config_autoscroll.Text" translate="yes" xml:space="preserve">
           <source>Enable text auto scroll</source>
@@ -708,11 +707,15 @@ Landscape mode for mobile (Or wide state for PC)
         </trans-unit>
         <trans-unit id="Audio_Copy_Complete" translate="yes" xml:space="preserve">
           <source>Copy audio file and save description complete</source>
-          <target state="new">Copy audio file and save description complete</target>
+          <target state="translated">บันทึกเรียบร้อย</target>
         </trans-unit>
         <trans-unit id="QA_Unsupport" translate="yes" xml:space="preserve">
           <source>Memos in question mode is not allowed</source>
-          <target state="new">Memos in question mode is not allowed</target>
+          <target state="translated">ไฟล์ที่เป็นโหมดถามตอบ ไม่อนุญาติให้ใส่เสียง</target>
+        </trans-unit>
+        <trans-unit id="Home_Export.Label" translate="yes" xml:space="preserve">
+          <source>Export</source>
+          <target state="translated">แชร์</target>
         </trans-unit>
       </group>
     </body>

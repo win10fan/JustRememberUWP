@@ -18,6 +18,8 @@ using System.Text;
 using Windows.Storage.Streams;
 using System.IO.Compression;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace JustRemember.ViewModels
 {
@@ -112,24 +114,47 @@ namespace JustRemember.ViewModels
 
 		private async void EXPORTFILES(RoutedEventArgs obj)
 		{
-			if (Notes[selectedIndex].hasDesc)
+			FileSavePicker savePicker = new FileSavePicker()
 			{
-				FileSavePicker savePicker = new FileSavePicker()
-				{
-					SuggestedStartLocation = PickerLocationId.DocumentsLibrary
-				};
-				savePicker.FileTypeChoices.Add("Memo archieve", new List<string>() { ".zip" });
+				SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+			};
+			if (Notes[selectedIndex].hasDesc)
+			{				
+				savePicker.FileTypeChoices.Add("Memo archieve", new List<string>() { ".mar" });
 				savePicker.SuggestedFileName = $"{Notes[selectedIndex].Title}.zip";
 
-				var file = savePicker.PickSaveFileAsync();
+				var file = await savePicker.PickSaveFileAsync();
 				if (file != null)
 				{
 					var fol = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync(Notes[selectedIndex].Title);
-					var nf = await fol.CreateFileAsync(Notes[selectedIndex].Title);
+					var nf = await fol.CreateFileAsync($"{Notes[selectedIndex].Title}.txt");
 					await FileIO.WriteTextAsync(nf, Notes[selectedIndex].Content);
-					//TODO:Finish export function
 					//TODO:Finish import zip function
-					//StorageFolder fol2 = (await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Description") as StorageFolder).GetFileAsync({ Notes[selectedIndex]}.
+					var descMain = await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Description") as StorageFolder;
+					var desc = await descMain.GetFileAsync($"{Notes[selectedIndex].Title}.mde");
+					var descor = await Json.ToObjectAsync<AudioDescriptor>(await FileIO.ReadTextAsync(desc));
+					var descAudi = await descMain.GetFileAsync(descor.audioName);
+					await desc.CopyAsync(fol);
+					await descAudi.CopyAsync(fol);
+					await Task.Run(() =>
+					{
+						ZipFile.CreateFromDirectory(fol.Path, $"{ApplicationData.Current.LocalFolder.Path}\\{file.Name}");
+					});
+					await fol.DeleteAsync();
+					var arc = await ApplicationData.Current.LocalFolder.GetFileAsync(file.Name);
+					await arc.CopyAndReplaceAsync(file);
+					await arc.DeleteAsync();
+				}
+			}
+			else
+			{
+				savePicker.FileTypeChoices.Add("Text file", new List<string>() { ".txt" });
+				savePicker.SuggestedFileName = $"{Notes[selectedIndex].Title}.txt";
+				var file = await savePicker.PickSaveFileAsync();
+				if (file != null)
+				{
+					var fol = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync(Notes[selectedIndex].Title);
+					await FileIO.WriteTextAsync(file, Notes[selectedIndex].Content);
 				}
 			}
 		}
@@ -259,25 +284,61 @@ namespace JustRemember.ViewModels
                 ViewMode = PickerViewMode.List,
                 SuggestedStartLocation = PickerLocationId.DocumentsLibrary
             };
-            openPicker.FileTypeFilter.Add(".txt");
+			openPicker.FileTypeFilter.Add(".txt");
+			openPicker.FileTypeFilter.Add(".mar");
 
-            StorageFile file = await openPicker.PickSingleFileAsync();
+			StorageFile file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
-				IBuffer buffer = await FileIO.ReadBufferAsync(file);
-				DataReader reader = DataReader.FromBuffer(buffer);
-				byte[] fileContent = new byte[reader.UnconsumedBufferLength];
-				reader.ReadBytes(fileContent);
-				string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
-				NoteModel datNote = new NoteModel(file.DisplayName, content);
-				SessionModel test = SessionModel.generate(datNote);
-				if (test == null)
+				if (file.Name.EndsWith(".txt"))
 				{
-					await notLongEnough.ShowAsync();
-					return;
+					IBuffer buffer = await FileIO.ReadBufferAsync(file);
+					DataReader reader = DataReader.FromBuffer(buffer);
+					byte[] fileContent = new byte[reader.UnconsumedBufferLength];
+					reader.ReadBytes(fileContent);
+					string content = Encoding.UTF8.GetString(fileContent, 0, fileContent.Length);
+					NoteModel datNote = new NoteModel(file.DisplayName, content);
+					SessionModel test = SessionModel.generate(datNote);
+					if (test == null)
+					{
+						await notLongEnough.ShowAsync();
+						return;
+					}
+					await NoteModel.SaveNote(datNote);
+					Notes = await NoteModel.GetNotesAsync();
 				}
-				await NoteModel.SaveNote(datNote);
-                Notes = await NoteModel.GetNotesAsync();
+				else if (file.Name.EndsWith(".mar"))
+				{
+					//Memo archive
+					StorageFolder target = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync(file.DisplayName);
+					Stream s = await file.OpenStreamForReadAsync();
+					ZipArchive arc = new ZipArchive(s);
+					arc.ExtractToDirectory(target.Path);
+					//Gather files
+					var nfd = await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Notes") as StorageFolder;
+					var dfd = await ApplicationData.Current.RoamingFolder.TryGetItemAsync("Description") as StorageFolder;
+					foreach (var content in await target.GetFilesAsync())
+					{
+						if (content.Name.EndsWith(".txt"))
+						{
+							if (nfd == null)
+							{
+								nfd = await ApplicationData.Current.RoamingFolder.CreateFolderAsync("Notes");
+							}
+							await content.MoveAsync(nfd);
+						}
+						else
+						{
+							if (dfd == null)
+							{
+								dfd = await ApplicationData.Current.RoamingFolder.CreateFolderAsync("Description");
+							}
+							await content.MoveAsync(dfd);
+						}
+					}
+					await target.DeleteAsync();
+					ReloadingListAsync(null);
+				}
             }
         }
 		
