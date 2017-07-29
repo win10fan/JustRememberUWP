@@ -23,11 +23,7 @@ namespace JustRemember.Views
 
 		internal static async void UpdateCheck()
 		{
-#if DEBUG
-			await WhatsNewDisplayService.ShowAnyway();
-#else
 			await WhatsNewDisplayService.ShowIfAppropriateAsync();
-#endif
 		}
 		
 		private void MainPage_VisibleBoundsChanged(ApplicationView sender, object args)

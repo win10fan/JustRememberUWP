@@ -151,5 +151,10 @@ namespace JustRemember.Views
 		{
 			//await Windows.System.Launcher.LaunchUriAsync(new Uri("[uriToExtensionList]"));
 		}
+
+		private async void ShowWhatNew(object sender, RoutedEventArgs e)
+		{
+			await WhatsNewDisplayService.ShowAnyway();
+		}
 	}
 }

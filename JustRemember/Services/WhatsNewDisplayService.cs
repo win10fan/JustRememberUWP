@@ -20,6 +20,7 @@ namespace JustRemember.Services
 			if (lastVersion == null)
 			{
 				await Windows.Storage.ApplicationData.Current.LocalSettings.SaveAsync(nameof(currentVersion), currentVersion);
+				await ShowAnyway();
 			}
 			else
 			{
